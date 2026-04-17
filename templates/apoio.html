@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="/css/apoio.css">
+
+<header class="header">
+
+    <div class="container header-content">
+
+
+
+      <h1 class="logo">SOS<span>Mulher</span></h1>
+
+
+
+      <nav class="nav">
+
+        <a href="index.html">Início</a>
+
+        <a href="/templates/apoio.html">Apoio</a>
+
+        <a href="/templates/denuncia.html">Denúncia</a>
+
+        <a href="/templates/login.html">Login</a>
+
+        <a href="/templates/sos.html" class="btn-sos-nav">SOS</a>
+
+      </nav>
+
+
+
+    </div>
+
+  </header>
+
+
+
+
+<title>Tipos de Violência</title>
+
+<style>
+:root {
+    --rosa: #ffe6ef;
+    --lilas: #f4ecff;
+    --bege: #fff4ec;
+    --roxo: #7c4d8b;
+    --texto: #444;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(180deg, #faf7ff, #fff);
+}
+
+/* HEADER estilo index */
+.header {
+    text-align: center;
+    padding: 40px 20px 10px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 23px;
+    color: var(--roxo);
+}
+
+.header p {
+    color: var(--texto);
+    font-size: 14px;
+}
+
+/* CONTAINER */
+.container {
+    max-width: 750px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
+    background: white;
+    border-radius: 18px;
+    margin-bottom: 14px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border-left: 5px solid transparent;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+/* CORES DIFERENTES */
+.card.fisica { border-left-color: #ff6b8a; }
+.card.psico { border-left-color: #a78bfa; }
+.card.moral { border-left-color: #f59e0b; }
+.card.patrimonial { border-left-color: #60a5fa; }
+.card.sexual { border-left-color: #ec4899; }
+
+/* HEADER DO CARD */
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px;
+}
+
+.icon-box {
+    background: var(--lilas);
+    padding: 10px;
+    border-radius: 12px;
+    color: var(--roxo);
+}
+
+.card-title {
+    font-weight: 600;
+    color: var(--roxo);
+}
+
+/* SETA */
+.arrow {
+    margin-left: auto;
+    transition: 0.3s;
+    opacity: 0.6;
+}
+
+/* CONTEÚDO */
+.card-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    padding: 0 18px;
+    color: var(--texto);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ABERTO */
+.card.active .card-content {
+    max-height: 300px;
+    padding-bottom: 18px;
+}
+
+.card.active .arrow {
+    transform: rotate(180deg);
+    opacity: 1;
+}
+
+/* INFO FINAL */
+.info {
+    max-width: 750px;
+    margin: 30px auto;
+    background: linear-gradient(135deg, #f4ecff, #ffe6ef);
+    padding: 25px;
+    border-radius: 18px;
+    text-align: center;
+    color: var(--roxo);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+/* ========================= */
+/* BOTÃO SAIR RÁPIDO */
+/* ========================= */
+
+.sair-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+
+    background: linear-gradient(135deg, #ff4d6d, #c084c1);
+    color: white;
+
+    border: none;
+    padding: 12px 18px;
+    border-radius: 40px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+    transition: 0.2s ease;
+    z-index: 9999;
+}
+
+.sair-btn:hover {
+    transform: scale(1.05);
+}
+</style>
+
+</head>
+
+<body>
+
+    <!-- SEU CONTEÚDO INTEIRO FICA IGUAL -->
+    <div class="header">
+        <h1>Tipos de Violência</h1>
+        <p>Clique em cada item para entender melhor</p>
+    </div>
+
+    <div class="container">
+
+        <!-- cards continuam iguais -->
+        <div class="card fisica" onclick="toggle(this)">
+            <div class="card-header">
+                <div class="icon-box"><i data-lucide="hand"></i></div>
+                <div class="card-title">Violência Física</div>
+                <i class="arrow" data-lucide="chevron-down"></i>
+            </div>
+            <div class="card-content">
+                Envolve qualquer agressão ao corpo, como tapas, socos, empurrões, chutes ou qualquer ação que cause dor,
+                ferimentos ou risco físico.
+            </div>
+        </div>
+
+        <div class="card psico" onclick="toggle(this)">
+            <div class="card-header">
+                <div class="icon-box"><i data-lucide="brain"></i></div>
+                <div class="card-title">Violência Psicológica</div>
+                <i class="arrow" data-lucide="chevron-down"></i>
+            </div>
+            <div class="card-content">
+                Inclui ameaças, humilhações, manipulação, controle emocional, isolamento social e qualquer comportamento
+                que afete sua autoestima e saúde mental.
+            </div>
+        </div>
+
+        <div class="card moral" onclick="toggle(this)">
+            <div class="card-header">
+                <div class="icon-box"><i data-lucide="message-circle-off"></i></div>
+                <div class="card-title">Violência Moral</div>
+                <i class="arrow" data-lucide="chevron-down"></i>
+            </div>
+            <div class="card-content">
+                Envolve calúnia, difamação, insultos e qualquer ataque à sua reputação, dignidade ou imagem social.
+            </div>
+        </div>
+
+        <div class="card patrimonial" onclick="toggle(this)">
+            <div class="card-header">
+                <div class="icon-box"><i data-lucide="lock"></i></div>
+                <div class="card-title">Violência Patrimonial</div>
+                <i class="arrow" data-lucide="chevron-down"></i>
+            </div>
+            <div class="card-content">
+                Controle, retenção ou destruição de bens, dinheiro, documentos, cartões ou qualquer recurso financeiro
+                da vítima.
+            </div>
+        </div>
+
+        <div class="card sexual" onclick="toggle(this)">
+            <div class="card-header">
+                <div class="icon-box"><i data-lucide="alert-triangle"></i></div>
+                <div class="card-title">Violência Sexual</div>
+                <i class="arrow" data-lucide="chevron-down"></i>
+            </div>
+            <div class="card-content">
+                Qualquer ato sexual sem consentimento, coerção, pressão ou exploração. O consentimento deve ser sempre
+                livre e claro.
+            </div>
+        </div>
+
+    </div>
+
+    <div class="info">
+        <h2>Importante</h2>
+        <p>Se você se identificou com alguma dessas situações, saiba que existe ajuda disponível e você não está sozinha.</p>
+    </div>
+
+    <!-- 🔴 BOTÃO SAIR RÁPIDO -->
+    <button class="sair-btn" onclick="sairRapido()">
+        Sair rápido
+    </button>
+
+<script>
+lucide.createIcons();
+
+function toggle(card) {
+    document.querySelectorAll('.card').forEach(c => {
+        if (c !== card) c.classList.remove('active');
+    });
+
+    card.classList.toggle('active');
+}
+
+/* SAÍDA RÁPIDA */
+function sairRapido() {
+    // apaga visualmente a página
+    document.body.innerHTML = "";
+
+    // substitui no histórico (evita voltar direto)
+    window.location.replace("https://www.google.com");
+}
+</script>
+
+</body>
+</html>
+ 

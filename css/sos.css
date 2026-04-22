@@ -1,90 +1,143 @@
-
 /* FUNDO */
 body {
-    margin: 0;
-    font-family: Arial;
-    height: 100vh;
-  
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  
-    background: linear-gradient(135deg, #c43db8, #4c2fc9);
-  }
-  
-  /* CARD */
-  .card {
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    width: 350px;
-    text-align: center;
-  
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-  }
-  
-  /* TÍTULO */
-  .card h2 {
-    margin-bottom: 20px;
-  }
-  
-  /* BOTÃO SOS */
-  #btnSOS {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    border: none;
-  
-    background: radial-gradient(circle, #ff4d4d, #e63939);
-    color: white;
-    font-size: 22px;
-    font-weight: bold;
-    cursor: pointer;
-  
-    margin: 20px 0;
-    transition: 0.3s;
-  }
-  
-  #btnSOS:hover {
-    transform: scale(1.05);
-  }
-  
-  /* TEXTO */
-  .info {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 20px;
-  }
-  
-  /* BARRA */
-  .progresso {
-    width: 100%;
-    height: 8px;
-    background: #eee;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 15px;
-  }
-  
-  .barra {
-    height: 100%;
-    width: 0%;
-    background: #e649d1;
-    transition: width 0.5s;
-  }
-  
-  /* STATUS */
-  .status {
-    font-size: 14px;
-    min-height: 40px;
-    margin-bottom: 20px;
-  }
-  
-  /* CANCELAR */
-  .cancelar {
-    border: none;
-    background: #ddd;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-  }
+  margin: 0;
+  font-family: Arial;
+  min-height: 100vh;
+
+  background: linear-gradient(135deg, #c43db8, #4c2fc9);
+}
+
+/* CONTAINER PRA CENTRALIZAR SÓ O CARD */
+.sos-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: calc(100vh - 80px);
+}
+
+/* HEADER */
+.header {
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+.logo span {
+  color: #c00da8;
+}
+
+/* NAV */
+.nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #000;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.nav a:hover {
+  color: #e649d1;
+}
+
+/* CARD */
+.card {
+  background: white;
+
+  padding: 60px 40px;
+  border-radius: 30px;
+
+  width: 100%;
+  max-width: 500px;
+
+  text-align: center;
+
+  box-shadow: 0 25px 70px rgba(0,0,0,0.25);
+}
+
+/* TÍTULO */
+.card h2 {
+  margin-bottom: 20px;
+}
+
+/* BOTÃO SOS */
+#btnSOS {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: none;
+
+  background: radial-gradient(circle, #ff4d4d, #e63939);
+  color: white;
+
+  font-size: 24px;
+  font-weight: bold;
+
+  cursor: pointer;
+  margin: 25px 0;
+
+  transition: 0.3s;
+}
+
+#btnSOS:hover {
+  transform: scale(1.08);
+}
+
+/* TEXTO */
+.info {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* BARRA */
+.progresso {
+  width: 100%;
+  height: 10px;
+  background: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.barra {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #e649d1, #6a44dd);
+  transition: width 0.5s;
+}
+
+/* STATUS */
+.status {
+  font-size: 14px;
+  min-height: 40px;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+/* CANCELAR */
+.cancelar {
+  border: none;
+  background: #ddd;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.cancelar:hover {
+  background: #ccc;
+}

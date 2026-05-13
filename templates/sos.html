@@ -24,28 +24,47 @@
         </div>
       </header>
       <div class="sos-container">
-        <div class="card">
+
+        <div class="cards-wrapper" id="cardsWrapper">
       
-          <h2>SOS Mulher</h2>
+          <!-- CARD PRINCIPAL -->
+          <div class="card card-sos">
       
-          <button id="btnSOS">SOS</button>
+            <h2>SOS Mulher</h2>
       
-          <p class="info">
-            Sua localização será enviada<br>
-            Seus dados são protegidos
-          </p>
+            <button id="btnSOS">SOS</button>
       
-          <div class="progresso">
-            <div class="barra" id="barra"></div>
+            <p class="info">
+              Sua localização será enviada<br>
+              Seus dados são protegidos
+            </p>
+      
+            <div class="progresso">
+              <div class="barra" id="barra"></div>
+            </div>
+      
+            <div class="status" id="status">
+              <p>Pressione o botão para pedir ajuda</p>
+            </div>
+      
+            <button class="cancelar">Cancelar</button>
+      
           </div>
       
-          <div class="status" id="status">
-            <p>Pressione o botão para pedir ajuda</p>
-          </div>
+          <!-- CARD STATUS (novo) -->
+          <div class="card card-status" id="cardStatus">
       
-          <button class="cancelar">Cancelar</button>
+            <h2>Status do envio</h2>
+      
+            <p>📍 Localização: <span id="loc">Aguardando</span></p>
+            <p>📞 Contatos: <span id="contatos">Aguardando</span></p>
+            <p>🚨 Ajuda: <span id="ajuda">Aguardando</span></p>
+            <p>📡 Status: <span id="geral">Inativo</span></p>
+      
+          </div>
       
         </div>
+      
       </div>
 
 <script src="/js/sos.js"></script>

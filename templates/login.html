@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - SOS Mulheres</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Open+Sans&display=swap" rel="stylesheet">
+ 
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+ 
+    /* 🎥 Vídeo de fundo */
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+      filter: brightness(0.7);
+    }
+ 
+    /* 🌑 Camada escura */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+    }
+ 
+    .login-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 18px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+ 
+    .login-container h2 {
+      color: #6c3bff;
+      margin-bottom: 25px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+ 
+    .input-group {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+ 
+    .input-group label {
+      display: block;
+      margin-bottom: 6px;
+      color: #555;
+      font-size: 14px;
+      font-weight: 500;
+    }
+ 
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      outline: none;
+      transition: 0.3s;
+      font-size: 14px;
+    }
+ 
+    .input-group input:focus {
+      border-color: #a855f7;
+      box-shadow: 0 0 8px rgba(168, 85, 247, 0.3);
+    }
+ 
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, #a855f7, #6c3bff);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+ 
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(108, 59, 255, 0.4);
+    }
+ 
+    .btn:active {
+      transform: scale(0.98);
+    }
+ 
+    .extra {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #666;
+    }
+ 
+    .extra a {
+      color: #6c3bff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+ 
+    .extra a:hover {
+      text-decoration: underline;
+    }
+ 
+    /* 📱 Responsivo */
+    @media (max-width: 500px) {
+      .login-container {
+        padding: 30px 20px;
+        margin: 10px;
+      }
+    }
+  </style>
+</head>
+ 
+<body>
+ 
+  <!-- 🎥 Vídeo -->
+  <video autoplay muted loop id="bg-video">
+    <source src="Videos.img/6014105-uhd_4096_2160_24fps.mp4" type="video/mp4">
+  </video>
+ 
+  <div class="login-container">
+    <h2>SOS Mulheres</h2>
+    <form>
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Digite seu email" required>
+      </div>
+ 
+      <div class="input-group">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" placeholder="Digite sua senha" required>
+      </div>
+ 
+      <button type="submit" class="btn">Entrar</button>
+    </form>
+ 
+    <div class="extra">
+      <p>Não tem conta? <a href="#">Cadastre-se</a></p>
+      <p><a href="#">Esqueceu a senha?</a></p>
+    </div>
+  </div>
+ 
+</body>
+</html>

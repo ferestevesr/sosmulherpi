@@ -5,27 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Fonte -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Ícones -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="/css/apoio.css">
-
-    <header class="header">
-        <div class="container header-content">
-
-            <h1 class="logo">SOS<span>Mulher</span></h1>
-
-            <nav class="nav">
-                <a href="index.html">Início</a>
-                <a href="/templates/apoio.html">Apoio</a>
-                <a href="/templates/denuncia.html">Denúncia</a>
-                <a href="/templates/login.html">Login</a>
-                <a href="/templates/sos.html" class="btn-sos-nav">SOS</a>
-            </nav>
-
-        </div>
-    </header>
-
-
 
     <title>Tipos de Violência</title>
 
@@ -38,37 +23,117 @@
             --texto: #444;
         }
 
+        /* ========================= */
+        /* BODY */
+        /* ========================= */
+
         body {
             margin: 0;
-            font-family: 'Inter', sans-serif;
+            font-family: Arial, sans-serif;
             background: linear-gradient(180deg, #faf7ff, #fff);
         }
 
-        /* HEADER estilo index */
+        /* ========================= */
+        
+        /* ========================= */
+
         .header {
-            text-align: center;
-            padding: 40px 20px 10px;
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .header h1 {
+        .container-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            max-width: 1100px;
+            margin: auto;
+
+            padding: 20px;
+        }
+
+        /* LOGO */
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1a1a1a;
             margin: 0;
-            font-size: 23px;
+        }
+
+        .logo span {
+            color: #c00da8;
+        }
+
+        /* NAV */
+
+        .nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #000;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .nav a:hover {
+            color: #e649d1;
+        }
+
+        /* BOTÃO SOS */
+
+        .btn-sos-nav {
+            background: #ff4d4d;
+            color: rgb(12, 12, 12) !important;
+
+            padding: 10px 18px;
+            border-radius: 30px;
+
+            font-weight: bold;
+        }
+
+        /* ========================= */
+        /* TÍTULO DA PÁGINA */
+        /* ========================= */
+
+        .titulo-pagina {
+            text-align: center;
+            padding: 60px 20px 20px;
+        }
+
+        .titulo-pagina h1 {
+            margin: 0;
+            font-size: 42px;
             color: var(--roxo);
         }
 
-        .header p {
+        .titulo-pagina p {
             color: var(--texto);
-            font-size: 14px;
+            font-size: 16px;
+            margin-top: 10px;
         }
 
+        /* ========================= */
         /* CONTAINER */
+        /* ========================= */
+
         .container {
             max-width: 750px;
             margin: auto;
             padding: 20px;
         }
 
+        /* ========================= */
         /* CARD */
+        /* ========================= */
+
         .card {
             background: white;
             border-radius: 18px;
@@ -84,28 +149,30 @@
             transform: translateY(-3px);
         }
 
-        /* CORES DIFERENTES */
+        /* CORES */
+
         .card.fisica {
-            border-left-color: #ff6b8a;
+            border-left-color: #ff6bf3b4;
         }
 
         .card.psico {
-            border-left-color: #a78bfa;
+            border-left-color: #c251df;
         }
 
         .card.moral {
-            border-left-color: #f59e0b;
+            border-left-color: #eb24c0;
         }
 
         .card.patrimonial {
-            border-left-color: #60a5fa;
+            border-left-color: #c84dd3;
         }
 
         .card.sexual {
-            border-left-color: #ec4899;
+            border-left-color: #ec2cdc;
         }
 
-        /* HEADER DO CARD */
+        /* HEADER CARD */
+
         .card-header {
             display: flex;
             align-items: center;
@@ -126,6 +193,7 @@
         }
 
         /* SETA */
+
         .arrow {
             margin-left: auto;
             transition: 0.3s;
@@ -133,6 +201,7 @@
         }
 
         /* CONTEÚDO */
+
         .card-content {
             max-height: 0;
             overflow: hidden;
@@ -143,7 +212,8 @@
             line-height: 1.6;
         }
 
-        /* ABERTO */
+        /* CARD ABERTO */
+
         .card.active .card-content {
             max-height: 300px;
             padding-bottom: 18px;
@@ -154,7 +224,10 @@
             opacity: 1;
         }
 
+        /* ========================= */
         /* INFO FINAL */
+        /* ========================= */
+
         .info {
             max-width: 750px;
             margin: 30px auto;
@@ -167,7 +240,7 @@
         }
 
         /* ========================= */
-        /* BOTÃO SAIR RÁPIDO */
+        /* BOTÃO SAIR */
         /* ========================= */
 
         .sair-btn {
@@ -195,112 +268,205 @@
         .sair-btn:hover {
             transform: scale(1.05);
         }
-    </style>
 
+        /* ========================= */
+        /* RESPONSIVO */
+        /* ========================= */
+
+        @media (max-width: 768px) {
+
+            .container-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .titulo-pagina h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- SEU CONTEÚDO INTEIRO FICA IGUAL -->
-    <div class="header">
+    <!-- HEADER -->
+
+    <header class="header">
+        <div class="container-header">
+
+            <h1 class="logo">SOS<span>Mulher</span></h1>
+
+            <nav class="nav">
+                <a href="index.html">Início</a>
+                <a href="/templates/apoio.html">Apoio</a>
+                <a href="/templates/denuncia.html">Denúncia</a>
+                <a href="/templates/login.html">Login</a>
+                <a href="/templates/sos.html" class="btn-sos-nav">SOS</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- TÍTULO -->
+
+    <div class="titulo-pagina">
         <h1>Tipos de Violência</h1>
         <p>Clique em cada item para entender melhor</p>
     </div>
 
+    <!-- CONTAINER -->
+
     <div class="container">
 
-        <!-- cards continuam iguais -->
+        <!-- CARD -->
+
         <div class="card fisica" onclick="toggle(this)">
             <div class="card-header">
-                <div class="icon-box"><i data-lucide="hand"></i></div>
+                <div class="icon-box">
+                    <i data-lucide="hand"></i>
+                </div>
+
                 <div class="card-title">Violência Física</div>
+
                 <i class="arrow" data-lucide="chevron-down"></i>
             </div>
+
             <div class="card-content">
-                Envolve qualquer agressão ao corpo, como tapas, socos, empurrões, chutes ou qualquer ação que cause dor,
+                Envolve qualquer agressão ao corpo, como tapas,
+                socos, empurrões, chutes ou qualquer ação que cause dor,
                 ferimentos ou risco físico.
             </div>
         </div>
 
+        <!-- CARD -->
+
         <div class="card psico" onclick="toggle(this)">
             <div class="card-header">
-                <div class="icon-box"><i data-lucide="brain"></i></div>
+                <div class="icon-box">
+                    <i data-lucide="brain"></i>
+                </div>
+
                 <div class="card-title">Violência Psicológica</div>
+
                 <i class="arrow" data-lucide="chevron-down"></i>
             </div>
+
             <div class="card-content">
-                Inclui ameaças, humilhações, manipulação, controle emocional, isolamento social e qualquer comportamento
+                Inclui ameaças, humilhações, manipulação,
+                controle emocional, isolamento social e qualquer comportamento
                 que afete sua autoestima e saúde mental.
             </div>
         </div>
 
+        <!-- CARD -->
+
         <div class="card moral" onclick="toggle(this)">
             <div class="card-header">
-                <div class="icon-box"><i data-lucide="message-circle-off"></i></div>
+                <div class="icon-box">
+                    <i data-lucide="message-circle-off"></i>
+                </div>
+
                 <div class="card-title">Violência Moral</div>
+
                 <i class="arrow" data-lucide="chevron-down"></i>
             </div>
+
             <div class="card-content">
-                Envolve calúnia, difamação, insultos e qualquer ataque à sua reputação, dignidade ou imagem social.
+                Envolve calúnia, difamação, insultos e qualquer ataque
+                à sua reputação, dignidade ou imagem social.
             </div>
         </div>
 
+        <!-- CARD -->
+
         <div class="card patrimonial" onclick="toggle(this)">
             <div class="card-header">
-                <div class="icon-box"><i data-lucide="lock"></i></div>
+                <div class="icon-box">
+                    <i data-lucide="lock"></i>
+                </div>
+
                 <div class="card-title">Violência Patrimonial</div>
+
                 <i class="arrow" data-lucide="chevron-down"></i>
             </div>
+
             <div class="card-content">
-                Controle, retenção ou destruição de bens, dinheiro, documentos, cartões ou qualquer recurso financeiro
+                Controle, retenção ou destruição de bens,
+                dinheiro, documentos, cartões ou qualquer recurso financeiro
                 da vítima.
             </div>
         </div>
 
+        <!-- CARD -->
+
         <div class="card sexual" onclick="toggle(this)">
             <div class="card-header">
-                <div class="icon-box"><i data-lucide="alert-triangle"></i></div>
+                <div class="icon-box">
+                    <i data-lucide="alert-triangle"></i>
+                </div>
+
                 <div class="card-title">Violência Sexual</div>
+
                 <i class="arrow" data-lucide="chevron-down"></i>
             </div>
+
             <div class="card-content">
-                Qualquer ato sexual sem consentimento, coerção, pressão ou exploração. O consentimento deve ser sempre
-                livre e claro.
+                Qualquer ato sexual sem consentimento,
+                coerção, pressão ou exploração.
+                O consentimento deve ser sempre livre e claro.
             </div>
         </div>
 
     </div>
 
+    <!-- INFO -->
+
     <div class="info">
         <h2>Importante</h2>
-        <p>Se você se identificou com alguma dessas situações, saiba que existe ajuda disponível e você não está
-            sozinha.</p>
+
+        <p>
+            Se você se identificou com alguma dessas situações,
+            saiba que existe ajuda disponível e você não está sozinha.
+        </p>
     </div>
 
-    <!-- 🔴 BOTÃO SAIR RÁPIDO -->
+    <!-- BOTÃO -->
+
     <button class="sair-btn" onclick="sairRapido()">
         Sair rápido
     </button>
 
+    <!-- SCRIPT -->
+
     <script>
+
         lucide.createIcons();
 
         function toggle(card) {
+
             document.querySelectorAll('.card').forEach(c => {
-                if (c !== card) c.classList.remove('active');
+
+                if (c !== card) {
+                    c.classList.remove('active');
+                }
+
             });
 
             card.classList.toggle('active');
         }
 
-        /* SAÍDA RÁPIDA */
         function sairRapido() {
-            // apaga visualmente a página
+
             document.body.innerHTML = "";
 
-            // substitui no histórico (evita voltar direto)
             window.location.replace("https://www.google.com");
         }
+
     </script>
 
 </body>

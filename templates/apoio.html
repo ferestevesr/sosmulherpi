@@ -2,201 +2,200 @@
 <html lang="pt-br">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest"></script>
-<link rel="stylesheet" href="/css/apoio.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/css/apoio.css">
 
-<header class="header">
+    <header class="header">
+        <div class="container header-content">
 
-    <div class="container header-content">
+            <h1 class="logo">SOS<span>Mulher</span></h1>
 
+            <nav class="nav">
+                <a href="index.html">Início</a>
+                <a href="/templates/apoio.html">Apoio</a>
+                <a href="/templates/denuncia.html">Denúncia</a>
+                <a href="/templates/login.html">Login</a>
+                <a href="/templates/sos.html" class="btn-sos-nav">SOS</a>
+            </nav>
 
-
-      <h1 class="logo">SOS<span>Mulher</span></h1>
-
-
-
-      <nav class="nav">
-
-        <a href="index.html">Início</a>
-
-        <a href="/templates/apoio.html">Apoio</a>
-
-        <a href="/templates/denuncia.html">Denúncia</a>
-
-        <a href="/templates/login.html">Login</a>
-
-        <a href="/templates/sos.html" class="btn-sos-nav">SOS</a>
-
-      </nav>
+        </div>
+    </header>
 
 
 
-    </div>
+    <title>Tipos de Violência</title>
 
-  </header>
+    <style>
+        :root {
+            --rosa: #ffe6ef;
+            --lilas: #f4ecff;
+            --bege: #fff4ec;
+            --roxo: #7c4d8b;
+            --texto: #444;
+        }
 
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #faf7ff, #fff);
+        }
 
+        /* HEADER estilo index */
+        .header {
+            text-align: center;
+            padding: 40px 20px 10px;
+        }
 
+        .header h1 {
+            margin: 0;
+            font-size: 23px;
+            color: var(--roxo);
+        }
 
-<title>Tipos de Violência</title>
+        .header p {
+            color: var(--texto);
+            font-size: 14px;
+        }
 
-<style>
-:root {
-    --rosa: #ffe6ef;
-    --lilas: #f4ecff;
-    --bege: #fff4ec;
-    --roxo: #7c4d8b;
-    --texto: #444;
-}
+        /* CONTAINER */
+        .container {
+            max-width: 750px;
+            margin: auto;
+            padding: 20px;
+        }
 
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(180deg, #faf7ff, #fff);
-}
+        /* CARD */
+        .card {
+            background: white;
+            border-radius: 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border-left: 5px solid transparent;
+        }
 
-/* HEADER estilo index */
-.header {
-    text-align: center;
-    padding: 40px 20px 10px;
-}
+        .card:hover {
+            transform: translateY(-3px);
+        }
 
-.header h1 {
-    margin: 0;
-    font-size: 23px;
-    color: var(--roxo);
-}
+        /* CORES DIFERENTES */
+        .card.fisica {
+            border-left-color: #ff6b8a;
+        }
 
-.header p {
-    color: var(--texto);
-    font-size: 14px;
-}
+        .card.psico {
+            border-left-color: #a78bfa;
+        }
 
-/* CONTAINER */
-.container {
-    max-width: 750px;
-    margin: auto;
-    padding: 20px;
-}
+        .card.moral {
+            border-left-color: #f59e0b;
+        }
 
-/* CARD */
-.card {
-    background: white;
-    border-radius: 18px;
-    margin-bottom: 14px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    border-left: 5px solid transparent;
-}
+        .card.patrimonial {
+            border-left-color: #60a5fa;
+        }
 
-.card:hover {
-    transform: translateY(-3px);
-}
+        .card.sexual {
+            border-left-color: #ec4899;
+        }
 
-/* CORES DIFERENTES */
-.card.fisica { border-left-color: #ff6b8a; }
-.card.psico { border-left-color: #a78bfa; }
-.card.moral { border-left-color: #f59e0b; }
-.card.patrimonial { border-left-color: #60a5fa; }
-.card.sexual { border-left-color: #ec4899; }
+        /* HEADER DO CARD */
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px;
+        }
 
-/* HEADER DO CARD */
-.card-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 18px;
-}
+        .icon-box {
+            background: var(--lilas);
+            padding: 10px;
+            border-radius: 12px;
+            color: var(--roxo);
+        }
 
-.icon-box {
-    background: var(--lilas);
-    padding: 10px;
-    border-radius: 12px;
-    color: var(--roxo);
-}
+        .card-title {
+            font-weight: 600;
+            color: var(--roxo);
+        }
 
-.card-title {
-    font-weight: 600;
-    color: var(--roxo);
-}
+        /* SETA */
+        .arrow {
+            margin-left: auto;
+            transition: 0.3s;
+            opacity: 0.6;
+        }
 
-/* SETA */
-.arrow {
-    margin-left: auto;
-    transition: 0.3s;
-    opacity: 0.6;
-}
+        /* CONTEÚDO */
+        .card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 18px;
+            color: var(--texto);
+            font-size: 14px;
+            line-height: 1.6;
+        }
 
-/* CONTEÚDO */
-.card-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.3s ease;
-    padding: 0 18px;
-    color: var(--texto);
-    font-size: 14px;
-    line-height: 1.6;
-}
+        /* ABERTO */
+        .card.active .card-content {
+            max-height: 300px;
+            padding-bottom: 18px;
+        }
 
-/* ABERTO */
-.card.active .card-content {
-    max-height: 300px;
-    padding-bottom: 18px;
-}
+        .card.active .arrow {
+            transform: rotate(180deg);
+            opacity: 1;
+        }
 
-.card.active .arrow {
-    transform: rotate(180deg);
-    opacity: 1;
-}
+        /* INFO FINAL */
+        .info {
+            max-width: 750px;
+            margin: 30px auto;
+            background: linear-gradient(135deg, #f4ecff, #ffe6ef);
+            padding: 25px;
+            border-radius: 18px;
+            text-align: center;
+            color: var(--roxo);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
 
-/* INFO FINAL */
-.info {
-    max-width: 750px;
-    margin: 30px auto;
-    background: linear-gradient(135deg, #f4ecff, #ffe6ef);
-    padding: 25px;
-    border-radius: 18px;
-    text-align: center;
-    color: var(--roxo);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-}
+        /* ========================= */
+        /* BOTÃO SAIR RÁPIDO */
+        /* ========================= */
 
-/* ========================= */
-/* BOTÃO SAIR RÁPIDO */
-/* ========================= */
+        .sair-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
 
-.sair-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+            background: linear-gradient(135deg, #ff4d6d, #c084c1);
+            color: white;
 
-    background: linear-gradient(135deg, #ff4d6d, #c084c1);
-    color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 40px;
 
-    border: none;
-    padding: 12px 18px;
-    border-radius: 40px;
+            font-size: 13px;
+            font-weight: 500;
 
-    font-size: 13px;
-    font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 
-    cursor: pointer;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: 0.2s ease;
+            z-index: 9999;
+        }
 
-    transition: 0.2s ease;
-    z-index: 9999;
-}
-
-.sair-btn:hover {
-    transform: scale(1.05);
-}
-</style>
+        .sair-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
 
 </head>
 
@@ -274,7 +273,8 @@ body {
 
     <div class="info">
         <h2>Importante</h2>
-        <p>Se você se identificou com alguma dessas situações, saiba que existe ajuda disponível e você não está sozinha.</p>
+        <p>Se você se identificou com alguma dessas situações, saiba que existe ajuda disponível e você não está
+            sozinha.</p>
     </div>
 
     <!-- 🔴 BOTÃO SAIR RÁPIDO -->
@@ -282,27 +282,27 @@ body {
         Sair rápido
     </button>
 
-<script>
-lucide.createIcons();
+    <script>
+        lucide.createIcons();
 
-function toggle(card) {
-    document.querySelectorAll('.card').forEach(c => {
-        if (c !== card) c.classList.remove('active');
-    });
+        function toggle(card) {
+            document.querySelectorAll('.card').forEach(c => {
+                if (c !== card) c.classList.remove('active');
+            });
 
-    card.classList.toggle('active');
-}
+            card.classList.toggle('active');
+        }
 
-/* SAÍDA RÁPIDA */
-function sairRapido() {
-    // apaga visualmente a página
-    document.body.innerHTML = "";
+        /* SAÍDA RÁPIDA */
+        function sairRapido() {
+            // apaga visualmente a página
+            document.body.innerHTML = "";
 
-    // substitui no histórico (evita voltar direto)
-    window.location.replace("https://www.google.com");
-}
-</script>
+            // substitui no histórico (evita voltar direto)
+            window.location.replace("https://www.google.com");
+        }
+    </script>
 
 </body>
+
 </html>
- 

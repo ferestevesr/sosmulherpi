@@ -86,14 +86,7 @@ body {
     margin: auto;
 }
 
-.hero-badge {
-    background: var(--lilas);
-    color: var(--roxo);
-    padding: 8px 18px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 600;
-}
+
 
 .hero h1 {
     font-size: 52px;
@@ -371,4 +364,34 @@ body {
     .important-card {
         padding: 35px 25px;
     }
+
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #ffffff;
+    border-top: 1px solid #ddd;
+    color: #777;
+}
+
+/* EFEITO NOS CARDS INFERIORES */
+
+.important-card,
+.important-item,
+.extra-box {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* HOVER */
+
+.important-card:hover,
+.important-item:hover,
+.extra-box:hover {
+  transform: translateY(-8px) scale(1.03);
+
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.15);
 }

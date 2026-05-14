@@ -6,19 +6,11 @@ body {
   background: linear-gradient(135deg, #c43db8, #4c2fc9);
 }
 
-/* CONTAINER */
-.sos-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  min-height: calc(100vh - 80px);
-  padding: 40px;
-}
-
-/* HEADER */
-.header {
+ /* HEADER */
+ .header {
   background: #ffffff;
+  border-bottom: 1px solid #ffffff;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -28,7 +20,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 30px 0;
 }
 
 .logo {
@@ -45,13 +37,42 @@ body {
 .nav a {
   margin-left: 20px;
   text-decoration: none;
-  color: #000;
+  color: #000000;
   font-size: 15px;
   transition: 0.3s;
 }
 
 .nav a:hover {
+  color: #ffffff;
+}
+
+h2 span {
   color: #e649d1;
+}
+/* BOTÃO SOS NAV */
+.btn-sos-nav {
+  background: #ff4d4d;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-weight: bold;
+  margin-left: 25px;
+  transition: 0.3s;
+}
+
+.btn-sos-nav:hover {
+  background: #e63939;
+  transform: scale(1.05);
+}
+
+/* CONTAINER */
+.sos-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: calc(100vh - 80px);
+  padding: 40px;
 }
 
 /* WRAPPER PRINCIPAL */

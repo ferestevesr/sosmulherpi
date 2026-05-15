@@ -2,72 +2,180 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>SOS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOS Mulher</title>
+
   <link rel="stylesheet" href="/css/sos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 </head>
 
 <body>
 
-    <header class="header">
-        <div class="container header-content">
-    
-          <h1 class="logo">SOS<span>Mulher</span></h1>
-    
-          <nav class="nav">
-            <a href="index.html">Início</a>
-            <a href="/templates/apoio.html">Apoio</a>
-            <a href="/templates/denuncia.html">Denúncia</a>
-            <a href="/templates/login.html">Login</a>
-            <a href="/templates/sos.html" class="btn-sos-nav">SOS</a>
-          </nav>
-    
-        </div>
-      </header>
-      <div class="sos-container">
+  <!-- HEADER -->
+  <header class="header">
 
-        <div class="cards-wrapper" id="cardsWrapper">
-      
-          <!-- CARD PRINCIPAL -->
-          <div class="card card-sos">
-      
+    <div class="container header-content">
+
+      <h1 class="logo">
+        SOS<span>Mulher</span>
+      </h1>
+
+      <nav class="nav">
+        <a href="index.html">Início</a>
+        <a href="/templates/apoio.html">Apoio</a>
+        <a href="/templates/denuncia.html">Denúncia</a>
+        <a href="/templates/login.html">Login</a>
+
+        <a href="/templates/sos.html" class="btn-sos-nav">
+          SOS
+        </a>
+      </nav>
+
+    </div>
+
+  </header>
+
+  <!-- CONTAINER -->
+  <main class="sos-container">
+
+    <div class="cards-wrapper" id="cardsWrapper">
+
+      <!-- CARD PRINCIPAL -->
+      <section class="card card-sos">
+
+        <div class="topo-card">
+
+          <div>
             <h2>SOS Mulher</h2>
-      
-            <button id="btnSOS">SOS</button>
-      
-            <p class="info">
-              Sua localização será enviada<br>
-              Seus dados são protegidos
+            <p class="subtitulo">
+              Acione ajuda rapidamente e compartilhe sua localização em segurança.
             </p>
-      
-            <div class="progresso">
-              <div class="barra" id="barra"></div>
-            </div>
-      
-            <div class="status" id="status">
-              <p>Pressione o botão para pedir ajuda</p>
-            </div>
-      
-            <button class="cancelar">Cancelar</button>
-      
           </div>
-      
-          <!-- CARD STATUS (novo) -->
-          <div class="card card-status" id="cardStatus">
-      
-            <h2>Status do envio</h2>
-      
-            <p>📍 Localização: <span id="loc">Aguardando</span></p>
-            <p>📞 Contatos: <span id="contatos">Aguardando</span></p>
-            <p>🚨 Ajuda: <span id="ajuda">Aguardando</span></p>
-            <p>📡 Status: <span id="geral">Inativo</span></p>
-      
-          </div>
-      
-        </div>
-      
-      </div>
 
-<script src="/js/sos.js"></script>
+          <div class="status-online">
+            ● Sistema ativo
+          </div>
+
+        </div>
+
+        <!-- BOTÃO -->
+        <div class="area-botao">
+          <button id="btnSOS">SOS</button>
+        </div>
+
+        <!-- INFO -->
+        <div class="info-box">
+
+          <div class="info-item">
+            📍 Localização protegida
+          </div>
+
+          <div class="info-item">
+            🔒 Dados criptografados
+          </div>
+
+          <div class="info-item">
+            ⚡ Envio imediato
+          </div>
+
+        </div>
+
+        <!-- PROGRESSO -->
+        <div class="progresso">
+          <div class="barra" id="barra"></div>
+        </div>
+
+        <!-- STATUS -->
+        <div class="status" id="status">
+          Pressione o botão para iniciar o pedido de ajuda.
+        </div>
+
+        <!-- AÇÕES -->
+        <div class="acoes">
+
+          <button class="cancelar">
+            Cancelar
+          </button>
+
+        </div>
+
+      </section>
+
+      <!-- CARD STATUS -->
+      <aside class="card card-status" id="cardStatus">
+
+        <div class="status-header">
+
+          <h2>Status do envio</h2>
+
+          <span class="status-badge">
+            Em monitoramento
+          </span>
+
+        </div>
+
+        <div class="status-lista">
+
+          <div class="status-item">
+            <span>
+              <i class="fa-solid fa-location-dot"></i>
+              Localização
+            </span>
+          
+            <strong id="loc">Aguardando</strong>
+          </div>
+          
+          <div class="status-item">
+            <span>
+              <i class="fa-solid fa-phone"></i>
+              Contatos
+            </span>
+          
+            <strong id="contatos">Aguardando</strong>
+          </div>
+          
+          <div class="status-item">
+            <span>
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              Ajuda
+            </span>
+          
+            <strong id="ajuda">Aguardando</strong>
+          </div>
+          
+          <div class="status-item">
+            <span>
+              <i class="fa-solid fa-signal"></i>
+              Sistema
+            </span>
+          
+            <strong id="geral">Inativo</strong>
+          </div>
+
+        </div>
+
+        <!-- MAPA -->
+        <div class="mapa-box">
+
+          <div class="mapa-topo">
+            <h3>Localização em tempo real</h3>
+            <span>GPS ativo</span>
+          </div>
+
+          <iframe
+            src="https://maps.google.com/maps?q=-23.6613,-46.5302&z=15&output=embed"
+            loading="lazy">
+          </iframe>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <script src="/js/sos.js"></script>
 
 </body>
 </html>

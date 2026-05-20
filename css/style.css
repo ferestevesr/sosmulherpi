@@ -413,7 +413,12 @@ section h2 {
         transition: all 0.25s ease;
         text-align: left;
         position: relative;
+        
 
+    }
+a {
+      text-decoration: none;
+     
     }
 
 

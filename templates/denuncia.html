@@ -1,11 +1,17 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Denúncia | SOSMulher</title>
 
   <link rel="stylesheet" href="/css/denuncia.css">
+
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
 </head>
 
 <body>
@@ -13,20 +19,19 @@
   <!-- HEADER -->
   <header class="header">
 
-    <div class="header-content">
+    <div class="container header-content">
 
       <h1 class="logo">
         SOS<span>Mulher</span>
       </h1>
 
       <nav class="nav">
-        <a href="/templates/index.html">Início</a>
+        <a href="index.html">Início</a>
         <a href="/templates/apoio.html">Apoio</a>
         <a href="/templates/denuncia.html">Denúncia</a>
         <a href="/templates/login.html">Login</a>
 
-        <a href="/templates/sos.html"
-        class="btn-sos-nav">
+        <a href="/templates/sos.html" class="btn-sos-nav">
           SOS
         </a>
       </nav>
@@ -35,32 +40,162 @@
 
   </header>
 
-  <!-- CONTEÚDO -->
+  <!-- CONTAINER -->
   <main class="denuncia-container">
 
+    <!-- TOPO -->
     <section class="topo-denuncia">
 
-      <h2>Fazer denúncia</h2>
+      <span class="badge-topo">
+        Plataforma segura
+      </span>
+
+      <h2>Faça uma denúncia com segurança</h2>
 
       <p>
-        Relate uma situação de forma segura,
-        rápida e confidencial.
+        Relate situações de violência de forma rápida,
+        segura e confidencial.
       </p>
 
     </section>
 
+    <!-- ALERTA -->
     <section class="alerta-emergencia">
 
-      ⚠️ Em caso de emergência imediata,
-      utilize o botão SOS.
+      <i class="fa-solid fa-triangle-exclamation"></i>
+
+      <div>
+        <strong>Emergência imediata?</strong>
+        Utilize o botão SOS para solicitar ajuda urgente.
+      </div>
 
     </section>
 
+    <!-- TIPOS -->
+    <section class="tipos-section">
+
+      <h3>Tipo de violência</h3>
+
+      <div class="tipos-grid">
+
+        <div class="tipo-card ativo">
+          <i class="fa-solid fa-hand-fist"></i>
+          <span>Física</span>
+        </div>
+
+        <div class="tipo-card">
+          <i class="fa-solid fa-brain"></i>
+          <span>Psicológica</span>
+        </div>
+
+        <div class="tipo-card">
+          <i class="fa-solid fa-heart-crack"></i>
+          <span>Emocional</span>
+        </div>
+
+        <div class="tipo-card">
+          <i class="fa-solid fa-mobile-screen"></i>
+          <span>Digital</span>
+        </div>
+
+        <div class="tipo-card">
+          <i class="fa-solid fa-money-bill-wave"></i>
+          <span>Patrimonial</span>
+        </div>
+
+        <div class="tipo-card">
+          <i class="fa-solid fa-shield"></i>
+          <span>Outro</span>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FORMULÁRIO -->
     <section class="formulario-card">
+
+      <div class="form-topo">
+        <h3>Detalhes da denúncia</h3>
+        <p>As informações são tratadas com confidencialidade.</p>
+      </div>
+
+      <form class="formulario">
+
+        <div class="input-group">
+          <label>Nome</label>
+          <input type="text" placeholder="Digite seu nome">
+        </div>
+
+        <div class="dupla-input">
+
+          <div class="input-group">
+            <label>Localização</label>
+            <input type="text" placeholder="Cidade ou bairro">
+          </div>
+
+          <div class="input-group">
+            <label>Nível de urgência</label>
+
+            <select>
+              <option>Selecione</option>
+              <option>Baixa</option>
+              <option>Média</option>
+              <option>Alta</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="input-group">
+          <label>Descrição da situação</label>
+
+          <textarea
+          placeholder="Descreva o ocorrido..."></textarea>
+        </div>
+
+        <div class="upload-box">
+
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+
+          <h4>Enviar evidências</h4>
+
+          <p>
+            Fotos, vídeos ou documentos.
+          </p>
+
+          <button type="button">
+            Selecionar arquivo
+          </button>
+
+        </div>
+
+        <div class="seguranca-box">
+
+          <div class="seguranca-item">
+            <i class="fa-solid fa-user-secret"></i>
+            <span>Denúncia anônima disponível</span>
+          </div>
+
+          <div class="seguranca-item">
+            <i class="fa-solid fa-lock"></i>
+            <span>Dados protegidos e criptografados</span>
+          </div>
+
+        </div>
+
+        <button class="btn-enviar" type="submit">
+          Enviar denúncia
+        </button>
+
+      </form>
 
     </section>
 
   </main>
 
+  <script src="/js/denuncia.js"></script>
+
 </body>
 </html>
+```

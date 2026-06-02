@@ -24,6 +24,7 @@ body {
 }
 
 /* HEADER */
+
 .header {
   background: rgba(255,255,255,0.9);
   backdrop-filter: blur(10px);
@@ -40,13 +41,29 @@ body {
   justify-content: space-between;
   align-items: center;
 
-  padding: 28px 60px;
+  padding: 12px 30px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-img {
+  width: 75px;
+  height: 75px;
+  object-fit: contain;
+  display: block;
 }
 
 .logo {
   font-size: 30px;
-  font-weight: 800;
+  font-weight: 700;
   color: #111;
+
+  margin: 0;
+  line-height: 1;
 }
 
 .logo span {
@@ -82,8 +99,13 @@ body {
   font-weight: 700;
 
   box-shadow: 0 10px 25px rgba(255, 77, 77, 0.25);
+
+  transition: .3s;
 }
 
+.btn-sos-nav:hover {
+  transform: translateY(-2px);
+}
 /* CONTAINER */
 .denuncia-container {
   max-width: 1200px;

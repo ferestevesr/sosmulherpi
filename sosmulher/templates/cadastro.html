@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+</head>
+<body>
+
+<form method="POST">
+
+    {{ form.hidden_tag() }}
+
+    {{ form.nome.label }}
+    {{ form.nome() }}
+
+    {{ form.email.label }}
+    {{ form.email() }}
+
+    {{ form.cpf.label }}
+    {{ form.cpf() }}
+
+    {{ form.telefone.label }}
+    {{ form.telefone() }}
+
+    {{ form.senha.label }}
+    {{ form.senha() }}
+
+    {{ form.confirmar_senha.label }}
+    {{ form.confirmar_senha() }}
+
+    {{ form.botao_cadastro() }}
+
+</form>
+</body>
+</html>

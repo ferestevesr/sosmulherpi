@@ -1,21 +1,3 @@
-
-const cards = document.querySelectorAll('.tipo-card');
-
-cards.forEach(card => {
-
-  card.addEventListener('click', () => {
-
-    cards.forEach(c => {
-      c.classList.remove('ativo');
-    });
-
-    card.classList.add('ativo');
-
-  });
-
-});
-
-/* FORM */
 const formulario = document.querySelector('.formulario');
 
 formulario.addEventListener('submit', (e) => {
@@ -30,7 +12,7 @@ formulario.addEventListener('submit', (e) => {
 
   setTimeout(() => {
 
-    botao.innerHTML = 'Denúncia enviada ✓';
+    botao.innerHTML = 'Denúncia enviada com sucesso ✓';
 
     botao.style.background =
       'linear-gradient(135deg, #22c55e, #16a34a)';
@@ -38,4 +20,3 @@ formulario.addEventListener('submit', (e) => {
   }, 2500);
 
 });
-

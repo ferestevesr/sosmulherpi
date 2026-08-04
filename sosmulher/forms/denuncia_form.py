@@ -31,7 +31,8 @@ class DenunciaForm(FlaskForm):
             ("assedio", "Assédio"),
             ("ameaca", "Ameaça"),
             ("outro", "Outro")
-        ]
+        ], 
+        validators=[DataRequired()]
     )
 
     nivel_risco = SelectField(
@@ -41,7 +42,8 @@ class DenunciaForm(FlaskForm):
             ("medio", "Médio"),
             ("alto", "Alto"),
             ("emergencia", "Emergência")
-        ]
+        ],
+        validators=[DataRequired()]
     )
 
     anonimo = BooleanField("Denúncia Anônima")

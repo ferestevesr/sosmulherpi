@@ -1,202 +1,132 @@
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Denúncia | SOSMulher</title>
+{% block titulo %}
+Denúncia | SOSMulher
+{% endblock %}
 
-  <link rel="stylesheet" href="/css/denuncia.css">
+{% block estilos %}
 
-  <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-  />
-</head>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/denuncia.css') }}">
 
-<body>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- HEADER -->
-  <header class="header">
+{% endblock %}
 
-    <div class="container header-content">
+{% block body %}
 
-      <div class="logo-container">
-        <img src="/img/img/logo.png" alt="Logo SOS Mulher" class="logo-img">
-        <h1 class="logo">SOS<span>Mulher</span></h1>
-      </div>
-
-      <nav class="nav">
-        <a href="index.html">Início</a>
-        <a href="/templates/apoio.html">Apoio</a>
-        <a href="/templates/denuncia.html">Denúncia</a>
-        <a href="/templates/login.html">Login</a>
-
-        <a href="/templates/sos.html" class="btn-sos-nav">
-          SOS
-        </a>
-      </nav>
-
-    </div>
-
-  </header>
-
-  <!-- CONTAINER -->
-  <main class="denuncia-container">
+<main class="denuncia-container">
 
     <!-- TOPO -->
     <section class="topo-denuncia">
 
-      <span class="badge-topo">
-        Plataforma segura
-      </span>
+        <span class="badge-topo">
+            Plataforma segura
+        </span>
 
-      <h2>Faça uma denúncia com segurança</h2>
+        <h2>Faça uma denúncia com segurança</h2>
 
-      <p>
-        Relate situações de violência de forma rápida,
-        segura e confidencial.
-      </p>
+        <p>
+            Relate situações de violência de forma rápida,
+            segura e confidencial.
+        </p>
 
     </section>
 
     <!-- ALERTA -->
     <section class="alerta-emergencia">
 
-      <i class="fa-solid fa-triangle-exclamation"></i>
+        <i class="fa-solid fa-triangle-exclamation"></i>
 
-      <div>
-        <strong>Emergência imediata?</strong>
-        Utilize o botão SOS para solicitar ajuda urgente.
-      </div>
-
-    </section>
-
-    <!-- TIPOS -->
-    <section class="tipos-section">
-
-      <h3>Tipo de violência</h3>
-
-      <div class="tipos-grid">
-
-        <div class="tipo-card ativo">
-          <i class="fa-solid fa-hand-fist"></i>
-          <span>Física</span>
+        <div>
+            <strong>Emergência imediata?</strong>
+            Utilize o botão SOS para solicitar ajuda urgente.
         </div>
-
-        <div class="tipo-card">
-          <i class="fa-solid fa-brain"></i>
-          <span>Psicológica</span>
-        </div>
-
-        <div class="tipo-card">
-          <i class="fa-solid fa-heart-crack"></i>
-          <span>Emocional</span>
-        </div>
-
-        <div class="tipo-card">
-          <i class="fa-solid fa-mobile-screen"></i>
-          <span>Digital</span>
-        </div>
-
-        <div class="tipo-card">
-          <i class="fa-solid fa-money-bill-wave"></i>
-          <span>Patrimonial</span>
-        </div>
-
-        <div class="tipo-card">
-          <i class="fa-solid fa-shield"></i>
-          <span>Outro</span>
-        </div>
-
-      </div>
 
     </section>
 
     <!-- FORMULÁRIO -->
     <section class="formulario-card">
 
-      <div class="form-topo">
-        <h3>Detalhes da denúncia</h3>
-        <p>As informações são tratadas com confidencialidade.</p>
-      </div>
-
-      <form class="formulario">
-
-        <div class="input-group">
-          <label>Nome</label>
-          <input type="text" placeholder="Digite seu nome">
+        <div class="form-topo">
+            <h3>Detalhes da denúncia</h3>
+            <p>As informações são tratadas com confidencialidade.</p>
         </div>
 
-        <div class="dupla-input">
+        <form method="POST" enctype="multipart/form-data" class="formulario">
 
-          <div class="input-group">
-            <label>Localização</label>
-            <input type="text" placeholder="Cidade ou bairro">
-          </div>
+            {{ form.hidden_tag() }}
 
-          <div class="input-group">
-            <label>Nível de urgência</label>
+            <div class="input-group">
+                <label>Nome</label>
+                <input type="text" value="{{ current_user.nome }}" disabled>
+            </div>
 
-            <select>
-              <option>Selecione</option>
-              <option>Baixa</option>
-              <option>Média</option>
-              <option>Alta</option>
-            </select>
-          </div>
+            <div class="input-group">
+                {{ form.titulo.label }}
+                {{ form.titulo(class="input", placeholder="Digite um título") }}
+            </div>
 
-        </div>
+            <div class="dupla-input">
 
-        <div class="input-group">
-          <label>Descrição da situação</label>
+                <div class="input-group">
+                    {{ form.nivel_risco.label }}
+                    {{ form.nivel_risco(class="input") }}
+                </div>
 
-          <textarea
-          placeholder="Descreva o ocorrido..."></textarea>
-        </div>
+                <div class="input-group">
+                    {{ form.tipo.label }}
+                    {{ form.tipo(class="input") }}
+                </div>
 
-        <div class="upload-box">
+            </div>
 
-          <i class="fa-solid fa-cloud-arrow-up"></i>
+            <div class="input-group">
+                {{ form.descricao.label }}
+                {{ form.descricao(class="input", placeholder="Descreva o ocorrido...") }}
+            </div>
 
-          <h4>Enviar evidências</h4>
+            <div class="upload-box">
 
-          <p>
-            Fotos, vídeos ou documentos.
-          </p>
+                <i class="fa-solid fa-cloud-arrow-up"></i>
 
-          <button type="button">
-            Selecionar arquivo
-          </button>
+                <h4>Enviar evidências</h4>
 
-        </div>
+                <p>Fotos, vídeos ou documentos.</p>
 
-        <div class="seguranca-box">
+                {{ form.arquivo() }}
 
-          <div class="seguranca-item">
-            <i class="fa-solid fa-user-secret"></i>
-            <span>Denúncia anônima disponível</span>
-          </div>
+            </div>
 
-          <div class="seguranca-item">
-            <i class="fa-solid fa-lock"></i>
-            <span>Dados protegidos e criptografados</span>
-          </div>
+            <div class="input-group">
+                {{ form.anonimo() }}
+                {{ form.anonimo.label }}
+            </div>
 
-        </div>
+            <div class="seguranca-box">
 
-        <button class="btn-enviar" type="submit">
-          Enviar denúncia
-        </button>
+                <div class="seguranca-item">
+                    <i class="fa-solid fa-user-secret"></i>
+                    <span>Denúncia anônima disponível</span>
+                </div>
 
-      </form>
+                <div class="seguranca-item">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>Dados protegidos e criptografados</span>
+                </div>
+
+            </div>
+
+            {{ form.botao_enviar(class="btn-enviar") }}
+
+        </form>
 
     </section>
 
-  </main>
+</main>
 
-  <script src="/js/denuncia.js"></script>
+{% endblock %}
 
-</body>
-</html>
-```
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/denuncia.js') }}"></script>
+{% endblock %}

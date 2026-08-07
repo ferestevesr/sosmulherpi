@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.pyc
+
+# Banco local
+instance/*.db
+instance/*.db-wal
+instance/*.db-shm
+
+# Ambiente virtual
+venv/

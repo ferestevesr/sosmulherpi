@@ -1,32 +1,37 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from sosmulher.forms import DenunciaForm
 from sosmulher.services.denuncia_service import criar_denuncia
 
 denuncia = Blueprint("denuncia", __name__)
 
-
 @denuncia.route("/denuncia", methods=["GET", "POST"])
 @login_required
 def denunciar():
 
+    print("MÉTODO:", request.method)
+
     form = DenunciaForm()
 
-    if form.validate_on_submit():
+    if request.method == "POST":
 
-        print("ENTROU NO ENVIO")
+        print("POST CHEGOU")
 
-        criar_denuncia(form, current_user)
+        if form.validate():
 
-        flash(
-            "Denúncia enviada com sucesso!",
-            "success"
-        )
+            print("FORM VALIDOU")
 
-        return redirect(url_for("home.index"))
+            criar_denuncia(form, current_user)
 
-    else:
-        print(form.errors)
+            flash(
+                "Denúncia enviada com sucesso!",
+                "success"
+            )
+
+            return redirect(url_for("home.index"))
+
+        else:
+            print("ERROS:", form.errors)
 
     return render_template(
         "denuncia.html",

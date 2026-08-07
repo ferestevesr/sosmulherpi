@@ -20,10 +20,6 @@ def anonimo():
     return render_template("anonimo.html")
 
 
-@home.route("/denuncias")
-def denuncias():
-    return render_template("denuncias.html")
-
 @home.route("/sos")
 def sos():
     return render_template("sos.html")

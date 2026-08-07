@@ -34,7 +34,7 @@ def cadastro():
 def login():
 
     if current_user.is_authenticated:
-        return redirect(url_for("home.home"))
+        return redirect(url_for("home.index"))
 
     form = LoginForm()
 
@@ -42,11 +42,11 @@ def login():
 
         usuario=Usuario.query.filter_by(email=form.email.data).first()
 
-    if usuario and autenticar_usuario(usuario, form.senha.data):
+        if usuario and autenticar_usuario(usuario, form.senha.data):
 
-        login_user(usuario)
-        flash(f"Bem-vindo(a), {usuario.nome}!","success")
-        return redirect(url_for("home.home"))
+            login_user(usuario)
+            flash(f"Bem-vindo(a), {usuario.nome}!","success")
+            return redirect(url_for("home.index"))
 
     return render_template("login.html", form=form)
 
@@ -63,4 +63,4 @@ def logout():
         "info"
     )
 
-    return redirect(url_for("home.home"))
+    return redirect(url_for("home.index"))

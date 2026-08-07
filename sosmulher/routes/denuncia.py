@@ -14,6 +14,8 @@ def denunciar():
 
     if form.validate_on_submit():
 
+        print("ENTROU NO ENVIO")
+
         criar_denuncia(form, current_user)
 
         flash(
@@ -21,7 +23,10 @@ def denunciar():
             "success"
         )
 
-        return redirect(url_for("home.home"))
+        return redirect(url_for("home.index"))
+
+    else:
+        print(form.errors)
 
     return render_template(
         "denuncia.html",

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Contatos de Emergência
+{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+
+    <h2>Contatos de Emergência</h2>
+
+    <a href="{{ url_for('contato.adicionar_contato') }}"
+       class="btn btn-primary mb-3">
+
+        Adicionar Contato
+
+    </a>
+
+    {% if contatos %}
+
+        <table class="table table-striped">
+
+            <thead>
+
+                <tr>
+
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Parentesco</th>
+                    <th>Ações</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for contato in contatos %}
+
+                <tr>
+
+                    <td>{{ contato.nome }}</td>
+
+                    <td>{{ contato.telefone }}</td>
+
+                    <td>{{ contato.parentesco }}</td>
+
+                    <td>
+
+                        <a href="{{ url_for('contato.editar_contato',
+                            id=contato.id_contato) }}"
+                           class="btn btn-warning btn-sm">
+
+                            Editar
+
+                        </a>
+
+                        <a href="{{ url_for('contato.excluir',
+                            id=contato.id_contato) }}"
+                           class="btn btn-danger btn-sm">
+
+                            Excluir
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% else %}
+
+        <p>Você ainda não possui contatos cadastrados.</p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

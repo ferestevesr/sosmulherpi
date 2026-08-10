@@ -1,21 +1,201 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Denúncias</h1>
-    <p>Se você tem informações sobre assédio ou violência doméstica, por favor, preencha o formulário abaixo:
-    <form action="/denuncias" method="post">
-        <label for="nome">Nome:</label><br>
-        <input type="text" id="nome" name="nome"><br><br>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email"><br><br>
-        <label for="descricao">Descrição da denúncia:</label><br>
-        <textarea id="descricao" name="descricao" rows="4" cols="50"></textarea><br><br>
-        <input type="submit" value="Enviar Denúncia">
-    </p>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block titulo %}
+Minhas Denúncias
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <h1>Minhas Denúncias</h1>
+
+
+    {% if denuncias %}
+
+
+        {% for denuncia in denuncias %}
+
+        <div class="denuncia-card">
+
+            <h2>
+                {{ denuncia.titulo }}
+            </h2>
+
+
+            <p>
+                <strong>Tipo de violência:</strong>
+
+                {{ denuncia.tipo }}
+            </p>
+
+
+            <p>
+                <strong>Nível de risco:</strong>
+
+                {{ denuncia.nivel_risco }}
+            </p>
+
+
+            <p>
+                <strong>Data:</strong>
+
+                {% if denuncia.data %}
+
+                    {{ denuncia.data.strftime(
+                        "%d/%m/%Y %H:%M"
+                    ) }}
+
+                {% else %}
+
+                    Não informada
+
+                {% endif %}
+
+            </p>
+
+
+            <p>
+                <strong>Status:</strong>
+
+                {{ denuncia.status }}
+            </p>
+
+
+            <p>
+
+                <strong>Descrição:</strong>
+
+                <br>
+
+                {{ denuncia.descricao }}
+
+            </p>
+
+
+            {% if denuncia.arquivos %}
+
+                <h3>
+                    Evidências
+                </h3>
+
+
+                {% for arquivo in denuncia.arquivos %}
+
+
+                    {% if arquivo.tipo == "imagem" %}
+
+                        <div class="evidencia">
+
+                            <p>
+                                <strong>Imagem:</strong>
+
+                                {{ arquivo.nome_arquivo }}
+                            </p>
+
+                            <img
+                                src="{{ url_for(
+                                    'static',
+                                    filename='uploads/' + arquivo.nome_arquivo
+                                ) }}"
+                                alt="Evidência da denúncia"
+                                style="
+                                    max-width: 400px;
+                                    height: auto;
+                                "
+                            >
+
+                        </div>
+
+
+                    {% elif arquivo.tipo == "video" %}
+
+                        <div class="evidencia">
+
+                            <p>
+                                <strong>Vídeo:</strong>
+
+                                {{ arquivo.nome_arquivo }}
+                            </p>
+
+                            <video
+                                controls
+                                style="
+                                    max-width: 500px;
+                                    width: 100%;
+                                "
+                            >
+
+                                <source
+                                    src="{{ url_for(
+                                        'static',
+                                        filename='uploads/' + arquivo.nome_arquivo
+                                    ) }}"
+                                    type="video/mp4"
+                                >
+
+                                Seu navegador não suporta vídeo.
+
+                            </video>
+
+                        </div>
+
+
+                    {% else %}
+
+                        <div class="evidencia">
+
+                            <p>
+                                <strong>Documento:</strong>
+
+                                {{ arquivo.nome_arquivo }}
+                            </p>
+
+                            <a
+                                href="{{ url_for(
+                                    'static',
+                                    filename='uploads/' + arquivo.nome_arquivo
+                                ) }}"
+                                target="_blank"
+                            >
+                                Abrir documento
+                            </a>
+
+                        </div>
+
+                    {% endif %}
+
+
+                {% endfor %}
+
+
+            {% else %}
+
+                <p>
+                    <strong>Evidências:</strong>
+
+                    Nenhuma evidência anexada.
+                </p>
+
+            {% endif %}
+
+
+        </div>
+
+        <hr>
+
+
+        {% endfor %}
+
+
+    {% else %}
+
+        <p>
+            Você ainda não possui nenhuma denúncia.
+        </p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

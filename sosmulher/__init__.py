@@ -32,8 +32,11 @@ def load_user(id_usuario):
 
 from sosmulher.routes.home import home 
 from sosmulher.routes.auth import auth
+from sosmulher.routes.contato import contato
 from sosmulher.routes.denuncia import denuncia
 
 app.register_blueprint(home)
 app.register_blueprint(auth)
+app.register_blueprint(contato)
 app.register_blueprint(denuncia)
+

@@ -5,209 +5,175 @@ Denúncia | SOSMulher
 {% endblock %}
 
 {% block estilos %}
-
 {% endblock %}
 
 {% block body %}
 
-<!-- TOPO -->
-<section class="topo-denuncia">
+<span class="badge-topo">
+    Plataforma segura
+</span>
 
-    <span class="badge-topo">
-        Plataforma segura
-    </span>
+<h2>Faça uma denúncia com segurança</h2>
 
-    <h2>Faça uma denúncia com segurança</h2>
+<p>
+    Relate situações de violência de forma rápida,
+    segura e confidencial.
+</p>
 
-    <p>
-        Relate situações de violência de forma rápida,
-        segura e confidencial.
-    </p>
-
-</section>
-
-
-<!-- ALERTA -->
-<section class="alerta-emergencia">
-
+<div>
     <i class="fa-solid fa-triangle-exclamation"></i>
 
     <div>
         <strong>Emergência imediata?</strong>
+
         Utilize o botão SOS para solicitar ajuda urgente.
     </div>
+</div>
 
-</section>
+<div class="form-topo">
+
+    <h3>Detalhes da denúncia</h3>
+
+    <p>
+        As informações são tratadas com confidencialidade.
+    </p>
+
+</div>
 
 
-<!-- FORMULÁRIO -->
-<section class="formulario-card">
+<form
+    method="POST"
+    action="{{ url_for('denuncia.denunciar') }}"
+    enctype="multipart/form-data"
+    class="formulario"
+>
 
-    <div class="form-topo">
-        <h3>Detalhes da denúncia</h3>
+    {{ form.hidden_tag() }}
 
-        <p>
-            As informações são tratadas com confidencialidade.
-        </p>
+
+    <div class="input-group">
+
+        <label>Nome</label>
+
+        <input
+            type="text"
+            value="{{ current_user.nome }}"
+            disabled
+        >
+
     </div>
 
 
-    <form 
-        method="POST"
-        action="{{ url_for('denuncia.denunciar') }}"
-        enctype="multipart/form-data"
-        class="formulario"
-    >
+    <div class="input-group">
 
-        {{ form.hidden_tag() }}
+        {{ form.titulo.label }}
+
+        {{ form.titulo(
+            class="input",
+            placeholder="Digite um título"
+        ) }}
+
+    </div>
 
 
-        <div class="input-group">
-
-            <label>Nome</label>
-
-            <input 
-                type="text" 
-                value="{{ current_user.nome }}" 
-                disabled
-            >
-
-        </div>
-
+    <div class="dupla-input">
 
         <div class="input-group">
 
-            {{ form.titulo.label }}
+            {{ form.nivel_risco.label }}
 
-            {{ form.titulo(
-                class="input",
-                placeholder="Digite um título"
+            {{ form.nivel_risco(
+                class="input"
             ) }}
 
         </div>
 
 
-
-        <div class="dupla-input">
-
-
-            <div class="input-group">
-
-                {{ form.nivel_risco.label }}
-
-                {{ form.nivel_risco(
-                    class="input"
-                ) }}
-
-            </div>
-
-
-
-            <div class="input-group">
-
-                {{ form.tipo.label }}
-
-                {{ form.tipo(
-                    class="input"
-                ) }}
-
-            </div>
-
-
-        </div>
-
-
-
         <div class="input-group">
 
-            {{ form.descricao.label }}
+            {{ form.tipo.label }}
 
-            {{ form.descricao(
-                class="input",
-                placeholder="Descreva o ocorrido..."
+            {{ form.tipo(
+                class="input"
             ) }}
 
         </div>
 
+    </div>
 
 
+    <div class="input-group">
 
-        <div class="upload-box">
+        {{ form.descricao.label }}
 
-            <i class="fa-solid fa-cloud-arrow-up"></i>
+        {{ form.descricao(
+            class="input",
+            placeholder="Descreva o ocorrido..."
+        ) }}
 
-            <h4>
-                Enviar evidências
-            </h4>
-
-            <p>
-                Fotos, vídeos ou documentos.
-            </p>
+    </div>
 
 
-            {{ form.arquivo() }}
+    <div class="upload-box">
+
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+
+        <h4>
+            Enviar evidências
+        </h4>
+
+        <p>
+            Fotos, vídeos ou documentos.
+        </p>
+
+        {{ form.arquivo() }}
+
+    </div>
 
 
-        </div>
+    <div class="input-group">
+
+        {{ form.anonimo() }}
+
+        {{ form.anonimo.label }}
+
+    </div>
 
 
+    <div class="seguranca-box">
 
+        <div class="seguranca-item">
 
-        <div class="input-group">
+            <i class="fa-solid fa-user-secret"></i>
 
-            {{ form.anonimo() }}
-
-            {{ form.anonimo.label }}
-
-        </div>
-
-
-
-
-        <div class="seguranca-box">
-
-
-            <div class="seguranca-item">
-
-                <i class="fa-solid fa-user-secret"></i>
-
-                <span>
-                    Denúncia anônima disponível
-                </span>
-
-            </div>
-
-
-
-            <div class="seguranca-item">
-
-                <i class="fa-solid fa-lock"></i>
-
-                <span>
-                    Dados protegidos e criptografados
-                </span>
-
-            </div>
-
+            <span>
+                Denúncia anônima disponível
+            </span>
 
         </div>
 
 
+        <div class="seguranca-item">
 
-        <button type="submit" class="botao-enviar">
-            Enviar Denúncia
-        </button>
+            <i class="fa-solid fa-lock"></i>
+
+            <span>
+                Dados protegidos e criptografados
+            </span>
+
+        </div>
+
+    </div>
 
 
-    </form>
+    {{ form.botao_enviar(
+        class="botao-enviar"
+    ) }}
 
-
-</section>
+</form>
 
 {% endblock %}
 
 
-
 {% block scripts %}
-
 {% endblock %}

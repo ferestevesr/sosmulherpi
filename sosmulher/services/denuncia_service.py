@@ -1,8 +1,10 @@
 from sosmulher import db
 from sosmulher.models.denuncia import Denuncia
 
+
 def criar_denuncia(form, usuario):
-    denuncia = Denuncia (
+
+    denuncia = Denuncia(
         id_usuario=usuario.id_usuario,
         titulo=form.titulo.data,
         descricao=form.descricao.data,
@@ -12,6 +14,16 @@ def criar_denuncia(form, usuario):
     )
 
     db.session.add(denuncia)
+
     db.session.commit()
 
     return denuncia
+
+
+def listar_denuncias_usuario(id_usuario):
+
+    return Denuncia.query.filter_by(
+        id_usuario=id_usuario
+    ).order_by(
+        Denuncia.data.desc()
+    ).all()

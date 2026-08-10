@@ -9,3 +9,4 @@ instance/*.db-shm
 
 # Ambiente virtual
 venv/
+

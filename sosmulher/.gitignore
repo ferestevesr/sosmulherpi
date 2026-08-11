@@ -1,9 +1,0 @@
-__pycache__/
-*.pyc
- 
-# Banco local
-instance/*.db
-instance/*.db-wal
-instance/*.db-shm
-
-venv/

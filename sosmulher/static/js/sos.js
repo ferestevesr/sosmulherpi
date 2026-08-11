@@ -10,512 +10,162 @@ const geral = document.getElementById("geral");
 const cancelar = document.querySelector(".cancelar");
 
 let sistemaAtivo = false;
-let localizacaoObtida = false;
-let latitudeAtual = null;
-let longitudeAtual = null;
 
-
-/* ==========================================
-   ESTADO INICIAL
-========================================== */
-
+/* ESTADO INICIAL */
 resetarSistema();
 
-
-/* ==========================================
-   BOTÃO SOS
-========================================== */
-
+/* BOTÃO SOS */
 btnSOS.addEventListener("click", () => {
 
-    console.log("BOTÃO SOS FOI CLICADO!");
+  if (sistemaAtivo) return;
 
-    if (sistemaAtivo) {
-        return;
-    }
+  sistemaAtivo = true;
 
-    sistemaAtivo = true;
+  ativarBotao();
 
-    ativarBotao();
+  statusTexto.innerHTML =
+    "Iniciando protocolo de emergência...";
+
+  geral.innerHTML = "🟢 Ativo";
+
+  /* ETAPA 1 */
+  setTimeout(() => {
+
+    barra.style.width = "20%";
 
     statusTexto.innerHTML =
-        "Solicitando sua localização...";
-
-    geral.innerHTML = "🟡 Localizando";
+      "Solicitando localização da vítima...";
 
     loc.innerHTML = "🟡 Detectando localização";
 
+  }, 1000);
 
-    /* ==========================================
-       VERIFICA SE O NAVEGADOR POSSUI GEOLOCALIZAÇÃO
-    ========================================== */
+  /* ETAPA 2 */
+  setTimeout(() => {
 
-    if (!navigator.geolocation) {
+    barra.style.width = "45%";
 
-        console.error(
-            "Este navegador não suporta geolocalização."
-        );
+    statusTexto.innerHTML =
+      "Conectando sistema de segurança...";
 
-        localizacaoFalhou(
-            "Seu navegador não suporta localização."
-        );
+    loc.innerHTML = "🟢 Localização detectada";
 
-        return;
-    }
+    contatos.innerHTML = "🟡 Notificando contatos";
 
+  }, 2500);
 
-    /* ==========================================
-       SOLICITA A LOCALIZAÇÃO
-    ========================================== */
+  /* ETAPA 3 */
+  setTimeout(() => {
 
-    navigator.geolocation.getCurrentPosition(
+    barra.style.width = "70%";
 
-        (posicao) => {
+    statusTexto.innerHTML =
+      "Contatos de emergência avisados.";
 
-            latitudeAtual = posicao.coords.latitude;
-            longitudeAtual = posicao.coords.longitude;
+    contatos.innerHTML = "🟢 2 contatos avisados";
 
-            localizacaoObtida = true;
+    ajuda.innerHTML = "🟡 Equipe analisando situação";
 
-            console.log("=================================");
-            console.log("LOCALIZAÇÃO OBTIDA COM SUCESSO!");
-            console.log("Latitude:", latitudeAtual);
-            console.log("Longitude:", longitudeAtual);
-            console.log("Precisão:", posicao.coords.accuracy);
-            console.log("=================================");
+  }, 4500);
 
+  /* ETAPA 4 */
+  setTimeout(() => {
 
-            /* Atualiza interface */
+    barra.style.width = "100%";
 
-            barra.style.width = "20%";
+    statusTexto.innerHTML =
+      "Ajuda acionada com sucesso 🚨";
 
-            loc.innerHTML = "🟢 Localização detectada";
+    ajuda.innerHTML = "🟢 Ajuda a caminho";
 
-            statusTexto.innerHTML =
-                "Localização obtida. Registrando emergência...";
+    geral.innerHTML = "🟢 Emergência ativa";
 
-            geral.innerHTML = "🟢 Localização obtida";
+    efeitoFinal();
 
-
-            /* ==========================================
-               ENVIA O SOS PARA O FLASK
-            ========================================== */
-
-            registrarSOS(
-                latitudeAtual,
-                longitudeAtual
-            );
-
-        },
-
-
-        (erro) => {
-
-            console.error("=================================");
-            console.error("ERRO DE GEOLOCALIZAÇÃO");
-            console.error("Código:", erro.code);
-            console.error("Mensagem:", erro.message);
-            console.error("=================================");
-
-
-            if (erro.code === 1) {
-
-                console.error(
-                    "PERMISSÃO NEGADA: o navegador não permitiu acesso à localização."
-                );
-
-                localizacaoFalhou(
-                    "Permissão de localização negada."
-                );
-
-            } else if (erro.code === 2) {
-
-                console.error(
-                    "LOCALIZAÇÃO INDISPONÍVEL: não foi possível determinar sua posição."
-                );
-
-                localizacaoFalhou(
-                    "Não foi possível determinar sua localização."
-                );
-
-            } else if (erro.code === 3) {
-
-                console.error(
-                    "TEMPO ESGOTADO: a localização demorou demais para ser obtida."
-                );
-
-                localizacaoFalhou(
-                    "Não foi possível obter sua localização a tempo."
-                );
-
-            } else {
-
-                localizacaoFalhou(
-                    "Não foi possível obter sua localização."
-                );
-
-            }
-
-        },
-
-
-        {
-            enableHighAccuracy: true,
-            timeout: 30000,
-            maximumAge: 60000
-        }
-
-    );
+  }, 6500);
 
 });
 
-
-/* ==========================================
-   QUANDO A LOCALIZAÇÃO FALHA
-========================================== */
-
-function localizacaoFalhou(mensagem) {
-
-    localizacaoObtida = false;
-
-    latitudeAtual = null;
-    longitudeAtual = null;
-
-    barra.style.width = "0%";
-
-    loc.innerHTML = "🔴 Indisponível";
-
-    contatos.innerHTML = "Aguardando";
-
-    ajuda.innerHTML = "Aguardando";
-
-    geral.innerHTML = "🔴 Erro";
-
-    statusTexto.innerHTML =
-        mensagem +
-        " O pedido SOS não foi enviado.";
-
-    sistemaAtivo = false;
-
-    btnSOS.style.transform = "scale(1)";
-
-    btnSOS.style.boxShadow =
-        "0 25px 60px rgba(255, 77, 109, 0.35)";
-
-    btnSOS.innerHTML = "SOS";
-
-}
-
-
-/* ==========================================
-   REGISTRAR SOS NO SERVIDOR
-========================================== */
-
-async function registrarSOS(latitude, longitude) {
-
-    if (
-        latitude === null ||
-        longitude === null ||
-        latitude === undefined ||
-        longitude === undefined
-    ) {
-
-        console.error(
-            "SOS não enviado: localização inválida."
-        );
-
-        localizacaoFalhou(
-            "Localização inválida."
-        );
-
-        return;
-    }
-
-
-    console.log("Enviando SOS para o servidor...");
-
-    statusTexto.innerHTML =
-        "Registrando pedido de emergência...";
-
-    geral.innerHTML = "🟡 Registrando";
-
-
-    try {
-
-        const resposta = await fetch("/sos/acionar", {
-
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-                latitude: latitude,
-                longitude: longitude
-            })
-
-        });
-
-
-        /* ==========================================
-           TENTA LER A RESPOSTA
-        ========================================== */
-
-        let dados;
-
-        try {
-
-            dados = await resposta.json();
-
-        } catch (erroJSON) {
-
-            console.error(
-                "O servidor não retornou JSON válido."
-            );
-
-            console.error(
-                "Status HTTP:",
-                resposta.status
-            );
-
-            throw new Error(
-                "Resposta inválida do servidor."
-            );
-
-        }
-
-
-        /* ==========================================
-           ERRO RETORNADO PELO FLASK
-        ========================================== */
-
-        if (!resposta.ok || !dados.sucesso) {
-
-            console.error(
-                "Erro retornado pelo servidor:",
-                dados.erro
-            );
-
-            throw new Error(
-                dados.erro ||
-                "Não foi possível registrar o SOS."
-            );
-
-        }
-
-
-        /* ==========================================
-           SOS REGISTRADO COM SUCESSO
-        ========================================== */
-
-        console.log(
-            "SOS registrado com sucesso!"
-        );
-
-        console.log(
-            "ID do SOS:",
-            dados.id_sos
-        );
-
-        console.log(
-            "Contatos:",
-            dados.contatos
-        );
-
-
-        barra.style.width = "45%";
-
-        statusTexto.innerHTML =
-            "Pedido de emergência registrado.";
-
-
-        /* CONTATOS */
-
-        if (dados.contatos > 0) {
-
-            contatos.innerHTML =
-                "🟢 " +
-                dados.contatos +
-                " contatos avisados";
-
-        } else {
-
-            contatos.innerHTML =
-                "🟡 Nenhum contato cadastrado";
-
-        }
-
-
-        /* ==========================================
-           ETAPA DE AJUDA
-        ========================================== */
-
-        setTimeout(() => {
-
-            barra.style.width = "70%";
-
-            statusTexto.innerHTML =
-                "Contatos de emergência processados.";
-
-            ajuda.innerHTML =
-                "🟡 Equipe analisando situação";
-
-        }, 1500);
-
-
-        /* ==========================================
-           FINALIZAÇÃO
-        ========================================== */
-
-        setTimeout(() => {
-
-            barra.style.width = "100%";
-
-            statusTexto.innerHTML =
-                "Ajuda acionada com sucesso 🚨";
-
-            ajuda.innerHTML =
-                "🟢 Ajuda a caminho";
-
-            geral.innerHTML =
-                "🟢 Emergência ativa";
-
-            efeitoFinal();
-
-        }, 3000);
-
-
-    } catch (erro) {
-
-        console.error(
-            "Erro ao registrar SOS:",
-            erro
-        );
-
-        statusTexto.innerHTML =
-            "Erro ao registrar o pedido de emergência.";
-
-        geral.innerHTML =
-            "🔴 Erro";
-
-        ajuda.innerHTML =
-            "🔴 Não registrado";
-
-        sistemaAtivo = false;
-
-        btnSOS.style.transform = "scale(1)";
-
-        btnSOS.style.boxShadow =
-            "0 25px 60px rgba(255, 77, 109, 0.35)";
-
-        btnSOS.innerHTML = "SOS";
-
-    }
-
-}
-
-
-/* ==========================================
-   CANCELAR
-========================================== */
-
+/* CANCELAR */
 cancelar.addEventListener("click", () => {
 
-    console.log("SOS cancelado.");
+  sistemaAtivo = false;
 
-    sistemaAtivo = false;
-
-    localizacaoObtida = false;
-
-    latitudeAtual = null;
-    longitudeAtual = null;
-
-    resetarSistema();
+  resetarSistema();
 
 });
 
-
-/* ==========================================
-   RESET
-========================================== */
-
+/* RESET */
 function resetarSistema() {
 
-    barra.style.width = "0%";
+  barra.style.width = "0%";
 
-    statusTexto.innerHTML =
-        "Pressione o botão para iniciar o pedido de ajuda.";
+  statusTexto.innerHTML =
+    "Pressione o botão para iniciar o pedido de ajuda.";
 
-    loc.innerHTML = "Aguardando";
+  loc.innerHTML = "Aguardando";
+  contatos.innerHTML = "Aguardando";
+  ajuda.innerHTML = "Aguardando";
+  geral.innerHTML = "Inativo";
 
-    contatos.innerHTML = "Aguardando";
+  btnSOS.style.transform = "scale(1)";
+  btnSOS.style.boxShadow =
+    "0 25px 60px rgba(255, 77, 109, 0.35)";
 
-    ajuda.innerHTML = "Aguardando";
-
-    geral.innerHTML = "Inativo";
-
-
-    btnSOS.style.transform =
-        "scale(1)";
-
-    btnSOS.style.boxShadow =
-        "0 25px 60px rgba(255, 77, 109, 0.35)";
-
-    btnSOS.innerHTML =
-        "SOS";
+  btnSOS.innerHTML = "SOS";
 
 }
 
-
-/* ==========================================
-   EFEITO BOTÃO ATIVO
-========================================== */
-
+/* EFEITO BOTÃO */
 function ativarBotao() {
 
-    btnSOS.style.transform =
-        "scale(1.05)";
+  btnSOS.style.transform = "scale(1.05)";
 
-    btnSOS.style.boxShadow =
-        `
-        0 0 25px rgba(255,77,109,0.7),
-        0 0 60px rgba(255,77,109,0.4)
-        `;
+  btnSOS.style.boxShadow =
+    `
+    0 0 25px rgba(255,77,109,0.7),
+    0 0 60px rgba(255,77,109,0.4)
+    `;
 
-    btnSOS.innerHTML =
-        "ATIVO";
+  btnSOS.innerHTML = "ATIVO";
 
 }
 
-
-/* ==========================================
-   EFEITO FINAL
-========================================== */
-
+/* EFEITO FINAL */
 function efeitoFinal() {
 
-    btnSOS.animate(
+  btnSOS.animate(
+    [
+      { transform: "scale(1)" },
+      { transform: "scale(1.05)" },
+      { transform: "scale(1)" }
+    ],
+    {
+      duration: 1200,
+      iterations: Infinity
+    }
+  );
 
-        [
-            {
-                transform: "scale(1)"
-            },
+}
 
-            {
-                transform: "scale(1.05)"
-            },
+/* GEOLOCALIZAÇÃO REAL */
+if (navigator.geolocation) {
 
-            {
-                transform: "scale(1)"
-            }
-        ],
+  navigator.geolocation.getCurrentPosition(
+    (posicao) => {
 
-        {
-            duration: 1200,
-            iterations: Infinity
-        }
+      const latitude = posicao.coords.latitude;
+      const longitude = posicao.coords.longitude;
 
-    );
+      console.log("Latitude:", latitude);
+      console.log("Longitude:", longitude);
+
+    },
+
+    (erro) => {
+      console.log("Localização negada.");
+    }
+
+  );
 
 }

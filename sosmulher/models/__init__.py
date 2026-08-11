@@ -6,3 +6,5 @@ from .contato_emergencia import ContatoEmergencia
 from .arquivo import Arquivo
 from .recuperacao_conta import RecuperacaoConta
 from .historico import Historico
+from .pedido_sos import PedidoSOS
+from .pedido_sos_contato import PedidoSOSContato

@@ -1,0 +1,552 @@
+
+/* ========================================
+   PAINEL ADMINISTRATIVO - SOS MULHER
+======================================== */
+
+
+/* RESET */
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   LAYOUT PRINCIPAL
+======================================== */
+
+.admin-layout {
+    min-height: 100vh;
+    display: flex;
+    background: #f8f5f7;
+}
+
+
+/* ========================================
+   MENU LATERAL
+======================================== */
+
+.admin-sidebar {
+    width: 250px;
+    min-height: 100vh;
+
+    background: #ffffff;
+
+    border-right: 1px solid #f1d8eb;
+
+    padding: 30px 20px;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+
+/* LOGO */
+
+.sidebar-logo {
+    padding: 0 10px 35px;
+}
+
+.sidebar-logo h2 {
+    font-size: 25px;
+    color: #d633b4;
+    margin: 0;
+}
+
+.sidebar-logo span {
+    display: block;
+    margin-top: 5px;
+
+    color: #888;
+
+    font-size: 12px;
+}
+
+
+/* MENU */
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding: 13px 15px;
+
+    border-radius: 14px;
+
+    text-decoration: none;
+
+    color: #555;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: 0.25s;
+}
+
+
+.menu-item:hover {
+    background: #fff0fa;
+    color: #d633b4;
+}
+
+
+.menu-item.active {
+    background: #fff0fa;
+    color: #d633b4;
+}
+
+
+.menu-item span:first-child {
+    width: 25px;
+    text-align: center;
+    font-size: 18px;
+}
+
+
+/* ========================================
+   ÁREA PRINCIPAL
+======================================== */
+
+.admin-main {
+    width: calc(100% - 250px);
+
+    margin-left: 250px;
+
+    padding: 40px 45px;
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 40px;
+}
+
+
+.admin-header h1 {
+    margin: 0;
+
+    font-size: 36px;
+
+    color: #222;
+}
+
+
+.admin-header p {
+    margin-top: 8px;
+
+    color: #666;
+
+    font-size: 15px;
+}
+
+
+/* USUÁRIO NO HEADER */
+
+.admin-user {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+
+.admin-user-name {
+    font-weight: 600;
+    color: #333;
+}
+
+
+.admin-user a {
+    text-decoration: none;
+
+    color: #666;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+
+.admin-user a:hover {
+    color: #d633b4;
+}
+
+
+/* ========================================
+   CARDS
+======================================== */
+
+.admin-cards {
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 40px;
+}
+
+
+.admin-card {
+    background: rgba(255, 255, 255, 0.9);
+
+    border: 1px solid #f1d8eb;
+
+    border-radius: 22px;
+
+    padding: 22px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+
+    transition: 0.3s;
+}
+
+
+.admin-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 15px 35px rgba(214, 51, 180, 0.10);
+}
+
+
+/* ÍCONE */
+
+.card-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: #fff0fa;
+
+    font-size: 22px;
+}
+
+
+/* TEXTO DO CARD */
+
+.card-title {
+    display: block;
+
+    color: #666;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    margin-bottom: 5px;
+}
+
+
+.admin-card strong {
+    display: block;
+
+    font-size: 28px;
+
+    color: #d633b4;
+}
+
+
+/* ========================================
+   SEÇÃO
+======================================== */
+
+.admin-section {
+    background: rgba(255, 255, 255, 0.85);
+
+    border: 1px solid #f1d8eb;
+
+    border-radius: 26px;
+
+    padding: 30px;
+}
+
+
+/* CABEÇALHO DA SEÇÃO */
+
+.section-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+
+.section-header h2 {
+    margin: 0;
+
+    font-size: 24px;
+
+    color: #222;
+}
+
+
+.section-header p {
+    margin-top: 6px;
+
+    color: #666;
+
+    font-size: 14px;
+}
+
+
+.section-link {
+    text-decoration: none;
+
+    color: #d633b4;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+.section-link:hover {
+    text-decoration: underline;
+}
+
+
+/* ========================================
+   DENÚNCIAS RECENTES
+======================================== */
+
+.recent-reports {
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.report-row {
+    display: grid;
+
+    grid-template-columns: 1fr 180px 120px;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 18px 5px;
+
+    border-top: 1px solid #f1d8eb;
+}
+
+
+.report-info strong {
+    display: block;
+
+    font-size: 15px;
+
+    color: #222;
+}
+
+
+.report-info span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #888;
+
+    font-size: 13px;
+}
+
+
+.report-date {
+    color: #777;
+
+    font-size: 13px;
+
+    text-align: right;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.status {
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-transform: capitalize;
+}
+
+
+/* STATUS PENDENTE */
+
+.status.pendente {
+    background: #fff4d6;
+
+    color: #a66a00;
+}
+
+
+/* STATUS EM ANDAMENTO */
+
+.status.em_andamento {
+    background: #e9f3ff;
+
+    color: #2877b8;
+}
+
+
+/* STATUS FINALIZADA */
+
+.status.finalizada {
+    background: #e6f8ed;
+
+    color: #21864a;
+}
+
+
+/* ========================================
+   NENHUMA DENÚNCIA
+======================================== */
+
+.empty-reports {
+    min-height: 150px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    color: #888;
+}
+
+
+.empty-reports span {
+    font-size: 30px;
+}
+
+
+.empty-reports p {
+    margin: 0;
+
+    font-size: 14px;
+}
+
+
+/* ========================================
+   RESPONSIVO
+======================================== */
+
+@media (max-width: 1200px) {
+
+    .admin-cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+
+@media (max-width: 900px) {
+
+    .admin-sidebar {
+        width: 210px;
+    }
+
+    .admin-main {
+        width: calc(100% - 210px);
+
+        margin-left: 210px;
+
+        padding: 30px;
+    }
+
+    .admin-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .report-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .report-date {
+        text-align: left;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .admin-sidebar {
+        position: relative;
+
+        width: 100%;
+
+        min-height: auto;
+    }
+
+    .admin-layout {
+        flex-direction: column;
+    }
+
+    .admin-main {
+        width: 100%;
+
+        margin-left: 0;
+
+        padding: 25px 20px;
+    }
+
+    .admin-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 20px;
+    }
+
+    .admin-user {
+        width: 100%;
+    }
+
+    .admin-cards {
+        grid-template-columns: 1fr;
+    }
+
+}

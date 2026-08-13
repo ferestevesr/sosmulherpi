@@ -1,0 +1,277 @@
+
+{% extends "base.html" %}
+
+{% block titulo %}
+Painel Administrativo | SOSMulher
+{% endblock %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<div class="admin-layout">
+
+    <!-- MENU LATERAL -->
+    <aside class="admin-sidebar">
+
+        <div class="sidebar-logo">
+            <h2>SOSMulher</h2>
+            <span>Administração</span>
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="{{ url_for('admin.dashboard') }}" class="menu-item active">
+                <span>🏠</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="{{ url_for('admin.usuarios') }}" class="menu-item">
+                <span>👥</span>
+                <span>Usuários</span>
+            </a>
+
+            <a href="{{ url_for('admin.chamados') }}" class="menu-item">
+                <span>🚨</span>
+                <span>Chamados</span>
+            </a>
+
+            <a href="{{ url_for('admin.atendimento') }}" class="menu-item">
+                <span>🤝</span>
+                <span>Atendimento</span>
+            </a>
+
+            <a href="{{ url_for('admin.relatorios') }}" class="menu-item">
+                <span>📊</span>
+                <span>Relatórios</span>
+            </a>
+
+            <a href="{{ url_for('admin.configuracoes') }}" class="menu-item">
+                <span>⚙️</span>
+                <span>Configurações</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="admin-main">
+
+        <!-- TOPO -->
+        <header class="admin-header">
+
+            <div>
+                <h1>Painel Administrativo</h1>
+
+                <p>
+                    Bem-vindo, {{ current_user.nome }}
+                </p>
+            </div>
+
+            <div class="admin-user">
+
+                <span class="admin-user-name">
+                    {{ current_user.nome }}
+                </span>
+
+                <a href="#">
+                    Perfil
+                </a>
+
+                <a href="#">
+                    Sair
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <!-- CARDS -->
+        <section class="admin-cards">
+
+            <div class="admin-card">
+
+                <div class="card-icon">
+                    👥
+                </div>
+
+                <div>
+                    <span class="card-title">
+                        Usuários
+                    </span>
+
+                    <strong>
+                        {{ total_usuarios }}
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="admin-card">
+
+                <div class="card-icon">
+                    🚨
+                </div>
+
+                <div>
+                    <span class="card-title">
+                        Denúncias
+                    </span>
+
+                    <strong>
+                        {{ total_denuncias }}
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="admin-card">
+
+                <div class="card-icon">
+                    ⏳
+                </div>
+
+                <div>
+                    <span class="card-title">
+                        Pendentes
+                    </span>
+
+                    <strong>
+                        {{ denuncias_pendentes }}
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="admin-card">
+
+                <div class="card-icon">
+                    🔄
+                </div>
+
+                <div>
+                    <span class="card-title">
+                        Em andamento
+                    </span>
+
+                    <strong>
+                        {{ denuncias_andamento }}
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="admin-card">
+
+                <div class="card-icon">
+                    ✅
+                </div>
+
+                <div>
+                    <span class="card-title">
+                        Finalizadas
+                    </span>
+
+                    <strong>
+                        {{ denuncias_finalizadas }}
+                    </strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- DENÚNCIAS RECENTES -->
+        <section class="admin-section">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Denúncias recentes</h2>
+
+                    <p>
+                        Últimas denúncias registradas no sistema.
+                    </p>
+                </div>
+
+                <a href="{{ url_for('admin.chamados') }}" class="section-link">
+                    Ver todas
+                </a>
+
+            </div>
+
+
+            <div class="recent-reports">
+
+                {% if denuncias_recentes %}
+
+                    {% for denuncia in denuncias_recentes %}
+
+                        <div class="report-row">
+
+                            <div class="report-info">
+
+                                <strong>
+                                    {{ denuncia.titulo }}
+                                </strong>
+
+                                <span>
+                                    {{ denuncia.tipo }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="report-status">
+
+                                <span class="status {{ denuncia.status }}">
+                                    {{ denuncia.status }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="report-date">
+
+                                {{ denuncia.data.strftime('%d/%m/%Y') }}
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="empty-reports">
+
+                        <span>📋</span>
+
+                        <p>
+                            Nenhuma denúncia registrada ainda.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+{% endblock %}
+```

@@ -1,11 +1,18 @@
 # Python
 __pycache__/
 *.pyc
-
-# Banco local
-instance/*.db
-instance/*.db-wal
-instance/*.db-shm
+*.pyo
+*.pyd
 
 # Ambiente virtual
 venv/
+.venv/
+
+# Variáveis de ambiente
+.env
+
+# Banco SQLite
+instance/*.db
+instance/*.db-shm
+instance/*.db-wal
+instance/*.db-journal

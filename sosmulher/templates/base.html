@@ -4,7 +4,11 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>
         {% block titulo %}
@@ -12,103 +16,129 @@
         {% endblock %}
     </title>
 
+
+    <!-- CSS GLOBAL -->
+    <!-- Esse CSS será carregado em TODAS as páginas -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+
+    <!-- CSS ESPECÍFICO DA PÁGINA -->
+
     {% block estilos %}
     {% endblock %}
 
 </head>
 
+
 <body>
 
-<header class="header">
 
-    <div class="container header-content">
+    <!-- ========================= -->
+    <!-- HEADER GLOBAL -->
+    <!-- ========================= -->
 
-        <div class="logo-container">
+    <header class="header">
 
-            <img
-                src="{{ url_for('static', filename='img/img/logo.png') }}"
-                alt="Logo SOSMulher"
-                class="logo-img"
-            >
+        <div class="container header-content">
 
-            <h1 class="logo">
-                SOS<span>Mulher</span>
-            </h1>
+
+            <!-- LOGO -->
+
+            <div class="logo-container">
+
+            <img src="{{ url_for('static', filename='img/img/logo.png') }}"
+                 alt="Logo SOSMulher"
+                 class="logo-img">
+
+                <h1 class="logo">
+                    SOS<span>Mulher</span>
+                </h1>
 
         </div>
 
 
-        <nav class="nav">
+            <!-- MENU -->
+
+            <nav class="nav">
+
 
             <a href="{{ url_for('home.index') }}">
                 Início
             </a>
 
-
             <a href="{{ url_for('home.apoio') }}">
                 Apoio
-            </a>
 
+            <a href="{{ url_for('denuncia.denunciar') }}">
+                Denúncia
+            </a>
 
             {% if current_user.is_authenticated %}
 
-                <a href="{{ url_for('denuncia.denunciar') }}">
-                    Denúncia
-                </a>
-
-
-                <a href="{{ url_for('perfil.perfil_page') }}">
+                <a href="#">
                     Perfil
                 </a>
 
-
-                <a href="{{ url_for('auth.logout') }}">
-                    Sair
-                </a>
-
-            {% else %}
-
-                <a href="{{ url_for('auth.login') }}">
-                    Entrar
-                </a>
-
-            {% endif %}
+                    <a href="{{ url_for('auth.logout') }}">
+                        Sair
+                    </a>
 
 
-            <a
-                href="{{ url_for('home.sos') }}"
-                class="btn-sos-nav"
-            >
+                {% else %}
+
+
+                    <a href="{{ url_for('auth.login') }}">
+                        Entrar
+                    </a>
+
+
+                {% endif %}
+
+
                 SOS
+
             </a>
 
-        </nav>
 
-    </div>
+            </nav>
+
+        </div>
 
 </header>
 
 
-{% with mensagens = get_flashed_messages(with_categories=True) %}
+    <!-- ========================= -->
+    <!-- MENSAGENS FLASH -->
+    <!-- ========================= -->
 
-    {% if mensagens %}
+    {% with mensagens = get_flashed_messages(with_categories=True) %}
 
-        {% for categoria, mensagem in mensagens %}
+        {% if mensagens %}
 
-            <div class="flash {{ categoria }}">
-                {{ mensagem }}
+            <div class="flash-container">
+
+                {% for categoria, mensagem in mensagens %}
+
+                    <div class="flash {{ categoria }}">
+
+                        {{ mensagem }}
+
+                    </div>
+
+                {% endfor %}
+
             </div>
 
-        {% endfor %}
-
-    {% endif %}
+        {% endif %}
 
 {% endwith %}
 
-
 {% block body %}
 {% endblock %}
-
 
 {% block scripts %}
 {% endblock %}

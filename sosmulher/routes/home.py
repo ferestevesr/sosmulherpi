@@ -1,6 +1,8 @@
 from flask import render_template
 from sosmulher import app
 from flask import Blueprint
+from flask_login import login_required
+
 
 home = Blueprint("home", __name__)
 
@@ -21,5 +23,7 @@ def anonimo():
 
 
 @home.route("/sos")
+@login_required
 def sos():
     return render_template("sos.html")
+    

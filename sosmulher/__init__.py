@@ -18,7 +18,6 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 bcrypt = Bcrypt(app)
 
-
 login_manager = LoginManager(app)
 login_manager.login_view = "auth.login"
 
@@ -30,12 +29,15 @@ from sosmulher.models.usuario import Usuario
 def load_user(id_usuario):
     return Usuario.query.get(int(id_usuario))
 
-from sosmulher.routes.home import home 
+
+from sosmulher.routes.home import home
 from sosmulher.routes.auth import auth
 from sosmulher.routes.contato import contato
 from sosmulher.routes.denuncia import denuncia
 from sosmulher.routes.perfil import perfil
 from sosmulher.routes.admin import admin
+from sosmulher.routes.sos import sos
+
 
 
 app.register_blueprint(home)
@@ -44,4 +46,4 @@ app.register_blueprint(contato)
 app.register_blueprint(denuncia)
 app.register_blueprint(perfil)
 app.register_blueprint(admin)
-
+app.register_blueprint(sos)

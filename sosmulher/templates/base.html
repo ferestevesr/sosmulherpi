@@ -25,9 +25,11 @@
 
         <div class="logo-container">
 
-            <img src="{{ url_for('static', filename='img/img/logo.png') }}"
-                 alt="Logo SOSMulher"
-                 class="logo-img">
+            <img
+                src="{{ url_for('static', filename='img/img/logo.png') }}"
+                alt="Logo SOSMulher"
+                class="logo-img"
+            >
 
             <h1 class="logo">
                 SOS<span>Mulher</span>
@@ -35,24 +37,30 @@
 
         </div>
 
+
         <nav class="nav">
 
             <a href="{{ url_for('home.index') }}">
                 Início
             </a>
 
+
             <a href="{{ url_for('home.apoio') }}">
                 Apoio
-
-            <a href="{{ url_for('denuncia.denunciar') }}">
-                Denúncia
             </a>
+
 
             {% if current_user.is_authenticated %}
 
-                <a href="#">
+                <a href="{{ url_for('denuncia.denunciar') }}">
+                    Denúncia
+                </a>
+
+
+                <a href="{{ url_for('perfil.perfil_page') }}">
                     Perfil
                 </a>
+
 
                 <a href="{{ url_for('auth.logout') }}">
                     Sair
@@ -66,11 +74,12 @@
 
             {% endif %}
 
-            <a href="{{ url_for('home.sos') }}"
-               class="btn-sos-nav">
 
+            <a
+                href="{{ url_for('home.sos') }}"
+                class="btn-sos-nav"
+            >
                 SOS
-
             </a>
 
         </nav>
@@ -78,6 +87,7 @@
     </div>
 
 </header>
+
 
 {% with mensagens = get_flashed_messages(with_categories=True) %}
 
@@ -95,11 +105,14 @@
 
 {% endwith %}
 
+
 {% block body %}
 {% endblock %}
 
+
 {% block scripts %}
 {% endblock %}
+
 
 </body>
 

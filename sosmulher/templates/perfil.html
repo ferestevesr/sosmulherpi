@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Meu Perfil | SOSMulher
+{% endblock %}
+
+{% block estilos %}
+
+<style>
+
+    .perfil-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .perfil-card {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .perfil-card h1 {
+        margin-bottom: 30px;
+    }
+
+    .perfil-info {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .perfil-item {
+        padding: 15px;
+        background: #f5f5f5;
+        border-radius: 8px;
+    }
+
+    .perfil-item strong {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .perfil-acoes {
+        margin-top: 30px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .perfil-botao {
+        display: inline-block;
+        padding: 12px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+    }
+
+</style>
+
+{% endblock %}
+
+
+{% block body %}
+
+<div class="perfil-container">
+
+    <div class="perfil-card">
+
+        <h1>
+            Meu Perfil
+        </h1>
+
+
+        <div class="perfil-info">
+
+            <div class="perfil-item">
+
+                <strong>Nome</strong>
+
+                {{ current_user.nome }}
+
+            </div>
+
+
+            <div class="perfil-item">
+
+                <strong>E-mail</strong>
+
+                {{ current_user.email }}
+
+            </div>
+
+
+            <div class="perfil-item">
+
+                <strong>CPF</strong>
+
+                {% if current_user.cpf %}
+
+                    {{ current_user.cpf }}
+
+                {% else %}
+
+                    Não informado
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="perfil-item">
+
+                <strong>Telefone</strong>
+
+                {% if current_user.telefone %}
+
+                    {{ current_user.telefone }}
+
+                {% else %}
+
+                    Não informado
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="perfil-item">
+
+                <strong>Tipo de conta</strong>
+
+                {{ current_user.tipo }}
+
+            </div>
+
+
+            <div class="perfil-item">
+
+                <strong>Status da conta</strong>
+
+                {{ current_user.status_conta }}
+
+            </div>
+
+        </div>
+
+
+        <div class="perfil-acoes">
+
+            <a
+                href="{{ url_for('contato.contatos') }}"
+                class="perfil-botao"
+            >
+                Contatos de Emergência
+            </a>
+
+
+            <a
+                href="{{ url_for('denuncia.denuncias') }}"
+                class="perfil-botao"
+            >
+                Minhas Denúncias
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}

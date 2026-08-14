@@ -26,4 +26,6 @@ def anonimo():
 @login_required
 def sos():
     return render_template("sos.html")
+
+
     

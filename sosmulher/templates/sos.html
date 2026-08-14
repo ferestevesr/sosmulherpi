@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,7 @@
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/sos.css') }}">
 
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
@@ -33,20 +33,33 @@
           Apoio
         </a>
 
-        <a href="{{ url_for('denuncia.denuncias') }}">
+        <a href="{{ url_for('denuncia.denunciar') }}">
           Denúncia
         </a>
 
-        <a href="{{ url_for('auth.login') }}">
-          Login
+        {% if current_user.is_authenticated %}
+
+        <a href="{{ url_for('auth.perfil') }}">
+          Perfil
         </a>
 
-        <a href="{{ url_for('home.sos') }}" class="btn-sos-nav">
+        <a href="{{ url_for('auth.logout') }}">
+          Sair
+        </a>
+
+        {% else %}
+
+        <a href="{{ url_for('auth.login') }}">
+          Entrar
+        </a>
+
+        {% endif %}
+
+        <a href="{{ url_for('home.sos') }}">
           SOS
         </a>
 
       </nav>
-
     </div>
 
   </header>
@@ -228,9 +241,7 @@
           </div>
 
 
-          <iframe
-            src="https://maps.google.com/maps?q=-23.6613,-46.5302&z=15&output=embed"
-            loading="lazy">
+          <iframe src="https://maps.google.com/maps?q=-23.6613,-46.5302&z=15&output=embed" loading="lazy">
           </iframe>
 
         </div>
@@ -246,5 +257,5 @@
   <script src="{{ url_for('static', filename='js/sos.js') }}"></script>
 
 </body>
-</html>
 
+</html>

@@ -43,6 +43,11 @@
 }
 
 
+.icon-sidebar {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
 /* LOGO */
 
 .sidebar-logo {

@@ -64,3 +64,9 @@ def logout():
     )
 
     return redirect(url_for("home.index"))
+
+
+@auth.route("/perfil")
+@login_required
+def perfil():
+    return render_template("perfil.html")

@@ -32,12 +32,16 @@ def dashboard():
     ).count()
 
     denuncias_andamento = Denuncia.query.filter_by(
-        status="em andamento"
+        status="em_andamento"
     ).count()
 
     denuncias_finalizadas = Denuncia.query.filter_by(
-        status="finalizada"
+        status="finalizado"
     ).count()
+
+    denuncias_recentes = Denuncia.query.order_by(
+        Denuncia.data.desc()
+    ).limit(5).all()
 
     return render_template(
         "admin/dashboard.html",
@@ -47,6 +51,9 @@ def dashboard():
         denuncias_andamento=denuncias_andamento,
         denuncias_finalizadas=denuncias_finalizadas
     )
+
+
+
 
 
 # ==========================

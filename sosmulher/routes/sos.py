@@ -98,3 +98,4 @@ def acionar_sos():
             "sucesso": False,
             "erro": "Erro interno ao registrar o pedido de emergência."
         }), 500
+        

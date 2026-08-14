@@ -1,360 +1,503 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block titulo %}
+SOS Mulher | Tipos de Violência
+{% endblock %}
 
-    <!-- Fonte -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="/css/apoio.css">
+{% block estilos %}
 
-    <!-- Ícones -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/apoio.css') }}"
+>
 
-    <title>SOS Mulher | Tipos de Violência</title>
-</head>
+{% endblock %}
 
-<body>
 
-    <!-- HEADER -->
-    <header class="header">
-        <div class="container-header">
+{% block body %}
 
-            <div class="logo-container">
-                <img src="/img/img/logo.png" alt="Logo SOS Mulher" class="logo-img">
-                <h1 class="logo">SOS<span>Mulher</span></h1>
-              </div>
 
-            <nav class="nav">
-                <a href="index.html">Início</a>
-                <a href="/templates/apoio.html">Apoio</a>
-                <a href="/templates/denuncia.html">Denúncia</a>
-                <a href="/templates/login.html">Login</a>
+<!-- HERO -->
 
-                <a href="/templates/sos.html" class="btn-sos-nav">
-                    SOS
-                </a>
-            </nav>
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            Tipos de Violência Contra a Mulher
+        </h1>
+
+        <p>
+            Conhecer os sinais é o primeiro passo para buscar ajuda,
+            proteger vidas e romper ciclos de violência.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- CARDS -->
+
+<main class="container">
+
+
+    <!-- Física -->
+
+    <div class="card fisica" onclick="toggleCard(this)">
+
+        <div class="card-header">
+
+            <div class="icon-box">
+
+                <i data-lucide="hand"></i>
+
+            </div>
+
+            <div class="card-title">
+                Violência Física
+            </div>
+
+            <i
+                class="arrow"
+                data-lucide="chevron-down"
+            ></i>
 
         </div>
-    </header>
 
-    <!-- HERO -->
-    <section class="hero">
 
-        <div class="hero-content">
+        <div class="card-content">
 
-           
+            Envolve agressões ao corpo como tapas, socos,
+            empurrões, queimaduras, estrangulamento e qualquer
+            ação que provoque dor ou risco físico.
 
-            <h1>
-                Tipos de Violência Contra a Mulher
-            </h1>
+        </div>
+
+    </div>
+
+
+    <!-- Psicológica -->
+
+    <div class="card psico" onclick="toggleCard(this)">
+
+        <div class="card-header">
+
+            <div class="icon-box">
+
+                <i data-lucide="brain"></i>
+
+            </div>
+
+            <div class="card-title">
+                Violência Psicológica
+            </div>
+
+            <i
+                class="arrow"
+                data-lucide="chevron-down"
+            ></i>
+
+        </div>
+
+
+        <div class="card-content">
+
+            Inclui manipulação emocional, humilhações,
+            ameaças, chantagens, perseguições e comportamentos
+            que afetam a autoestima e saúde mental.
+
+        </div>
+
+    </div>
+
+
+    <!-- Moral -->
+
+    <div class="card moral" onclick="toggleCard(this)">
+
+        <div class="card-header">
+
+            <div class="icon-box">
+
+                <i data-lucide="message-circle-off"></i>
+
+            </div>
+
+            <div class="card-title">
+                Violência Moral
+            </div>
+
+            <i
+                class="arrow"
+                data-lucide="chevron-down"
+            ></i>
+
+        </div>
+
+
+        <div class="card-content">
+
+            Acontece através de insultos, mentiras,
+            exposição pública, calúnia e ataques à reputação
+            ou dignidade da vítima.
+
+        </div>
+
+    </div>
+
+
+    <!-- Patrimonial -->
+
+    <div class="card patrimonial" onclick="toggleCard(this)">
+
+        <div class="card-header">
+
+            <div class="icon-box">
+
+                <i data-lucide="wallet"></i>
+
+            </div>
+
+            <div class="card-title">
+                Violência Patrimonial
+            </div>
+
+            <i
+                class="arrow"
+                data-lucide="chevron-down"
+            ></i>
+
+        </div>
+
+
+        <div class="card-content">
+
+            Controle ou destruição de dinheiro,
+            documentos, cartões, bens pessoais e recursos
+            financeiros da vítima.
+
+        </div>
+
+    </div>
+
+
+    <!-- Sexual -->
+
+    <div class="card sexual" onclick="toggleCard(this)">
+
+        <div class="card-header">
+
+            <div class="icon-box">
+
+                <i data-lucide="shield-alert"></i>
+
+            </div>
+
+            <div class="card-title">
+                Violência Sexual
+            </div>
+
+            <i
+                class="arrow"
+                data-lucide="chevron-down"
+            ></i>
+
+        </div>
+
+
+        <div class="card-content">
+
+            Qualquer ato sexual sem consentimento,
+            incluindo coerção, pressão psicológica,
+            intimidação ou exploração.
+
+        </div>
+
+    </div>
+
+
+    <!-- Digital -->
+
+    <div class="card digital" onclick="toggleCard(this)">
+
+        <div class="card-header">
+
+            <div class="icon-box">
+
+                <i data-lucide="smartphone"></i>
+
+            </div>
+
+            <div class="card-title">
+                Violência Digital
+            </div>
+
+            <i
+                class="arrow"
+                data-lucide="chevron-down"
+            ></i>
+
+        </div>
+
+
+        <div class="card-content">
+
+            Acontece através de perseguição online,
+            invasão de privacidade, divulgação de fotos íntimas,
+            ameaças e controle pelas redes sociais.
+
+        </div>
+
+    </div>
+
+
+    <!-- Institucional -->
+
+    <div
+        class="card institucional"
+        onclick="toggleCard(this)"
+    >
+
+        <div class="card-header">
+
+            <div class="icon-box">
+
+                <i data-lucide="building-2"></i>
+
+            </div>
+
+            <div class="card-title">
+                Violência Institucional
+            </div>
+
+            <i
+                class="arrow"
+                data-lucide="chevron-down"
+            ></i>
+
+        </div>
+
+
+        <div class="card-content">
+
+            Quando instituições dificultam o acesso
+            aos direitos da mulher através de negligência,
+            discriminação ou atendimento inadequado.
+
+        </div>
+
+    </div>
+
+
+    <!-- Obstétrica -->
+
+    <div
+        class="card obstetrica"
+        onclick="toggleCard(this)"
+    >
+
+        <div class="card-header">
+
+            <div class="icon-box">
+
+                <i data-lucide="heart-pulse"></i>
+
+            </div>
+
+            <div class="card-title">
+                Violência Obstétrica
+            </div>
+
+            <i
+                class="arrow"
+                data-lucide="chevron-down"
+            ></i>
+
+        </div>
+
+
+        <div class="card-content">
+
+            Maus-tratos, humilhações ou procedimentos
+            realizados sem consentimento durante gravidez,
+            parto ou pós-parto.
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+<!-- IMPORTANTE -->
+
+<section class="important-section">
+
+    <div class="important-card">
+
+
+        <div class="important-icon">
+
+            <i data-lucide="shield-check"></i>
+
+        </div>
+
+
+        <h2>
+            Importante
+        </h2>
+
+
+        <p>
+
+            Se você se identificou com alguma dessas situações,
+            saiba que existem redes de apoio prontas para ajudar.
+            Você não está sozinha.
+
+        </p>
+
+
+        <div class="important-grid">
+
+
+            <div class="important-item">
+
+                <h3>
+                    Ligue 180
+                </h3>
+
+                <p>
+                    Central de Atendimento à Mulher.
+                </p>
+
+            </div>
+
+
+            <div class="important-item">
+
+                <h3>
+                    Emergência
+                </h3>
+
+                <p>
+                    Em risco imediato, ligue 190.
+                </p>
+
+            </div>
+
+
+            <div class="important-item">
+
+                <h3>
+                    Procure Apoio
+                </h3>
+
+                <p>
+                    Busque familiares, amigos ou instituições.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONTEÚDO EXTRA -->
+
+<section class="extra-content">
+
+    <div class="extra-container">
+
+
+        <div class="extra-box">
+
+            <h2>
+                Como identificar sinais de abuso?
+            </h2>
 
             <p>
-                Conhecer os sinais é o primeiro passo para buscar ajuda,
-                proteger vidas e romper ciclos de violência.
+
+                Muitas situações de violência começam de forma silenciosa.
+                Controle excessivo, isolamento social, ameaças,
+                humilhações frequentes e medo constante são sinais importantes.
+
             </p>
 
         </div>
 
-    </section>
 
-    <!-- CARDS -->
-    <main class="container">
+        <div class="extra-box">
 
-        <!-- Física -->
-        <div class="card fisica" onclick="toggleCard(this)">
-            <div class="card-header">
-
-                <div class="icon-box">
-                    <i data-lucide="hand"></i>
-                </div>
-
-                <div class="card-title">
-                    Violência Física
-                </div>
-
-                <i class="arrow" data-lucide="chevron-down"></i>
-
-            </div>
-
-            <div class="card-content">
-                Envolve agressões ao corpo como tapas, socos,
-                empurrões, queimaduras, estrangulamento e qualquer
-                ação que provoque dor ou risco físico.
-            </div>
-        </div>
-
-        <!-- Psicológica -->
-        <div class="card psico" onclick="toggleCard(this)">
-            <div class="card-header">
-
-                <div class="icon-box">
-                    <i data-lucide="brain"></i>
-                </div>
-
-                <div class="card-title">
-                    Violência Psicológica
-                </div>
-
-                <i class="arrow" data-lucide="chevron-down"></i>
-
-            </div>
-
-            <div class="card-content">
-                Inclui manipulação emocional, humilhações,
-                ameaças, chantagens, perseguições e comportamentos
-                que afetam a autoestima e saúde mental.
-            </div>
-        </div>
-
-        <!-- Moral -->
-        <div class="card moral" onclick="toggleCard(this)">
-            <div class="card-header">
-
-                <div class="icon-box">
-                    <i data-lucide="message-circle-off"></i>
-                </div>
-
-                <div class="card-title">
-                    Violência Moral
-                </div>
-
-                <i class="arrow" data-lucide="chevron-down"></i>
-
-            </div>
-
-            <div class="card-content">
-                Acontece através de insultos, mentiras,
-                exposição pública, calúnia e ataques à reputação
-                ou dignidade da vítima.
-            </div>
-        </div>
-
-        <!-- Patrimonial -->
-        <div class="card patrimonial" onclick="toggleCard(this)">
-            <div class="card-header">
-
-                <div class="icon-box">
-                    <i data-lucide="wallet"></i>
-                </div>
-
-                <div class="card-title">
-                    Violência Patrimonial
-                </div>
-
-                <i class="arrow" data-lucide="chevron-down"></i>
-
-            </div>
-
-            <div class="card-content">
-                Controle ou destruição de dinheiro,
-                documentos, cartões, bens pessoais e recursos
-                financeiros da vítima.
-            </div>
-        </div>
-
-        <!-- Sexual -->
-        <div class="card sexual" onclick="toggleCard(this)">
-            <div class="card-header">
-
-                <div class="icon-box">
-                    <i data-lucide="shield-alert"></i>
-                </div>
-
-                <div class="card-title">
-                    Violência Sexual
-                </div>
-
-                <i class="arrow" data-lucide="chevron-down"></i>
-
-            </div>
-
-            <div class="card-content">
-                Qualquer ato sexual sem consentimento,
-                incluindo coerção, pressão psicológica,
-                intimidação ou exploração.
-            </div>
-        </div>
-
-        <!-- Digital -->
-        <div class="card digital" onclick="toggleCard(this)">
-            <div class="card-header">
-
-                <div class="icon-box">
-                    <i data-lucide="smartphone"></i>
-                </div>
-
-                <div class="card-title">
-                    Violência Digital
-                </div>
-
-                <i class="arrow" data-lucide="chevron-down"></i>
-
-            </div>
-
-            <div class="card-content">
-                Acontece através de perseguição online,
-                invasão de privacidade, divulgação de fotos íntimas,
-                ameaças e controle pelas redes sociais.
-            </div>
-        </div>
-
-        <!-- Institucional -->
-        <div class="card institucional" onclick="toggleCard(this)">
-            <div class="card-header">
-
-                <div class="icon-box">
-                    <i data-lucide="building-2"></i>
-                </div>
-
-                <div class="card-title">
-                    Violência Institucional
-                </div>
-
-                <i class="arrow" data-lucide="chevron-down"></i>
-
-            </div>
-
-            <div class="card-content">
-                Quando instituições dificultam o acesso
-                aos direitos da mulher através de negligência,
-                discriminação ou atendimento inadequado.
-            </div>
-        </div>
-
-        <!-- Obstétrica -->
-        <div class="card obstetrica" onclick="toggleCard(this)">
-            <div class="card-header">
-
-                <div class="icon-box">
-                    <i data-lucide="heart-pulse"></i>
-                </div>
-
-                <div class="card-title">
-                    Violência Obstétrica
-                </div>
-
-                <i class="arrow" data-lucide="chevron-down"></i>
-
-            </div>
-
-            <div class="card-content">
-                Maus-tratos, humilhações ou procedimentos
-                realizados sem consentimento durante gravidez,
-                parto ou pós-parto.
-            </div>
-        </div>
-
-    </main>
-
-    <!-- IMPORTANTE -->
-    <section class="important-section">
-
-        <div class="important-card">
-
-            <div class="important-icon">
-                <i data-lucide="shield-check"></i>
-            </div>
-
-            <h2>Importante</h2>
+            <h2>
+                Você tem direitos
+            </h2>
 
             <p>
-                Se você se identificou com alguma dessas situações,
-                saiba que existem redes de apoio prontas para ajudar.
-                Você não está sozinha.
+
+                A Lei Maria da Penha protege mulheres em situação de violência
+                doméstica e familiar. Buscar ajuda é um direito e pode salvar vidas.
+
             </p>
 
-            <div class="important-grid">
+        </div>
 
-                <div class="important-item">
-                    <h3> Ligue 180</h3>
-                    <p>
-                        Central de Atendimento à Mulher.
-                    </p>
-                </div>
 
-                <div class="important-item">
-                    <h3> Emergência</h3>
-                    <p>
-                        Em risco imediato, ligue 190.
-                    </p>
-                </div>
+        <div class="extra-box">
 
-                <div class="important-item">
-                    <h3> Procure Apoio</h3>
-                    <p>
-                        Busque familiares, amigos ou instituições.
-                    </p>
-                </div>
+            <h2>
+                Rede de apoio
+            </h2>
 
-            </div>
+            <p>
+
+                Delegacias da mulher, centros de acolhimento,
+                serviços sociais e apoio psicológico fazem parte da rede de proteção.
+
+            </p>
 
         </div>
 
-    </section>
 
-    <!-- CONTEÚDO EXTRA -->
-    <section class="extra-content">
+    </div>
 
-        <div class="extra-container">
+</section>
 
-            <div class="extra-box">
 
-                <h2>Como identificar sinais de abuso?</h2>
+<!-- BOTÃO SAIR RÁPIDO -->
 
-                <p>
-                    Muitas situações de violência começam de forma silenciosa.
-                    Controle excessivo, isolamento social, ameaças,
-                    humilhações frequentes e medo constante são sinais importantes.
-                </p>
+<button
+    class="sair-btn"
+    onclick="sairRapido()"
+>
+    Sair rápido
+</button>
 
-            </div>
 
-            <div class="extra-box">
+<!-- FOOTER -->
 
-                <h2>Você tem direitos</h2>
+<footer>
 
-                <p>
-                    A Lei Maria da Penha protege mulheres em situação de violência
-                    doméstica e familiar. Buscar ajuda é um direito e pode salvar vidas.
-                </p>
+    <p>
+        © 2026 SOSMulher - Todos os direitos reservados
+    </p>
 
-            </div>
+</footer>
 
-            <div class="extra-box">
 
-                <h2>Rede de apoio</h2>
+{% endblock %}
 
-                <p>
-                    Delegacias da mulher, centros de acolhimento,
-                    serviços sociais e apoio psicológico fazem parte da rede de proteção.
-                </p>
 
-            </div>
+{% block scripts %}
 
-        </div>
+<script src="https://unpkg.com/lucide@latest"></script>
 
-    </section>
+<script src="{{ url_for('static', filename='js/apoio.js') }}"></script>
 
-    <!-- BOTÃO SAIR RÁPIDO -->
-    <button class="sair-btn" onclick="sairRapido()">
-        Sair rápido
-    </button>
-
-    <!-- JS -->
-    <script src="/js/apoio.js"></script>
-
-    <!-- FOOTER -->
-    <footer>
-        <p>© 2026 SOSMulher - Todos os direitos reservados</p>
-      </footer>
-   
-
-</body>
-     
-</html>
+{% endblock %}

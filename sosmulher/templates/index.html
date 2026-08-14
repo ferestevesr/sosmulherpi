@@ -13,7 +13,7 @@ Início
   <section class="hero">
     <h2>Você não está <span>sozinha</span></h2>
     <p>Peça ajuda de forma rápida, discreta e segura.</p>
-    <a href="sos.html" class="botao-ajuda">PEDIR AJUDA</a>
+    <a href="{{ url_for('home.sos')}}" class="botao-ajuda">PEDIR AJUDA</a>
   </section>
 
   <section class="como-funciona">
@@ -100,14 +100,14 @@ Início
           <img class="imgrec" src="{{ url_for('static', filename='/image/icons/perigo.png') }}" alt="Denúncia">
           <h3>Denúncias</h3>
           <p>Registre situações de risco.</p>
-          <button class="btn-recurso"> <a href="/templates/denuncia.html">Denunciar</a></button>
+          <button class="btn-recurso"> <a href="{{ url_for('denuncia.denunciar')}}">Denunciar</a></button>
         </div>
 
         <div class="recurso">
           <img class="imgrec" src="{{ url_for('static', filename='/image/icons/coracao.png') }}" alt="Apoio">
           <h3>Apoio</h3>
           <p>Informações e ajuda especializada.</p>
-          <button class="btn-recurso"> <a href="/templates/apoio.html">Ver</a></button>
+          <button class="btn-recurso"> <a href="{{ url_for('home.apoio')}}">Ver</a></button>
         </div>
 
       </div>

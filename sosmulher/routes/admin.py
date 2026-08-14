@@ -10,8 +10,6 @@ admin = Blueprint(
     __name__,
     url_prefix="/admin"
 )
-
-
 @admin.route("/")
 @login_required
 def dashboard():
@@ -22,6 +20,10 @@ def dashboard():
             "danger"
         )
         return redirect(url_for("home.index"))
+
+    # ==========================
+    # ESTATÍSTICAS
+    # ==========================
 
     total_usuarios = Usuario.query.count()
 
@@ -39,19 +41,35 @@ def dashboard():
         status="finalizado"
     ).count()
 
+
+    # ==========================
+    # DENÚNCIAS RECENTES
+    # ==========================
+
     denuncias_recentes = Denuncia.query.order_by(
         Denuncia.data.desc()
     ).limit(5).all()
 
+
+    # ==========================
+    # DASHBOARD
+    # ==========================
+
     return render_template(
         "admin/dashboard.html",
-        total_usuarios=total_usuarios,
-        total_denuncias=total_denuncias,
-        denuncias_pendentes=denuncias_pendentes,
-        denuncias_andamento=denuncias_andamento,
-        denuncias_finalizadas=denuncias_finalizadas
-    )
 
+        total_usuarios=total_usuarios,
+
+        total_denuncias=total_denuncias,
+
+        denuncias_pendentes=denuncias_pendentes,
+
+        denuncias_andamento=denuncias_andamento,
+
+        denuncias_finalizadas=denuncias_finalizadas,
+
+        denuncias_recentes=denuncias_recentes
+    )
 
 
 

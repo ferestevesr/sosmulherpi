@@ -4,82 +4,227 @@
 Contatos de Emergência
 {% endblock %}
 
+
+{% block estilos %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/contatos.css') }}"
+>
+
+{% endblock %}
+
+
 {% block body %}
 
-<div class="container mt-4">
+<div class="contatos-container">
 
-    <h2>Contatos de Emergência</h2>
 
-    <a href="{{ url_for('contato.adicionar_contato') }}"
-       class="btn btn-primary mb-3">
+    <!-- CABEÇALHO -->
 
-        Adicionar Contato
+    <div class="contatos-topo">
 
-    </a>
+        <div class="icone-principal">
 
-    {% if contatos %}
+            <i class="fa-solid fa-address-book"></i>
 
-        <table class="table table-striped">
+        </div>
 
-            <thead>
+        <h1>
+            Contatos de Emergência
+        </h1>
 
-                <tr>
+        <p>
+            Cadastre pessoas de confiança para receber ajuda
+            quando você precisar.
+        </p>
 
-                    <th>Nome</th>
-                    <th>Telefone</th>
-                    <th>Parentesco</th>
-                    <th>Ações</th>
+    </div>
 
-                </tr>
 
-            </thead>
+    <!-- CARD PRINCIPAL -->
 
-            <tbody>
+    <div class="contatos-card">
 
-                {% for contato in contatos %}
 
-                <tr>
+        <div class="lista-topo">
 
-                    <td>{{ contato.nome }}</td>
+            <h2>
+                Pessoas de confiança
+            </h2>
 
-                    <td>{{ contato.telefone }}</td>
 
-                    <td>{{ contato.parentesco }}</td>
+            <a
+                href="{{ url_for('contato.adicionar_contato') }}"
+                class="btn-adicionar-contato"
+            >
 
-                    <td>
+                <i class="fa-solid fa-plus"></i>
 
-                        <a href="{{ url_for('contato.editar_contato',
-                            id=contato.id_contato) }}"
-                           class="btn btn-warning btn-sm">
+                Adicionar Contato
 
-                            Editar
+            </a>
 
-                        </a>
+        </div>
 
-                        <a href="{{ url_for('contato.excluir',
-                            id=contato.id_contato) }}"
-                           class="btn btn-danger btn-sm">
 
-                            Excluir
+        {% if contatos %}
 
-                        </a>
 
-                    </td>
+        <div class="contatos-tabela-wrapper">
 
-                </tr>
+            <table class="contatos-tabela">
 
-                {% endfor %}
 
-            </tbody>
+                <thead>
 
-        </table>
+                    <tr>
 
-    {% else %}
+                        <th>
+                            Nome
+                        </th>
 
-        <p>Você ainda não possui contatos cadastrados.</p>
+                        <th>
+                            Telefone
+                        </th>
 
-    {% endif %}
+                        <th>
+                            Parentesco
+                        </th>
+
+                        <th>
+                            Ações
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    {% for contato in contatos %}
+
+
+                    <tr>
+
+
+                        <td class="contato-nome">
+
+                            {{ contato.nome }}
+
+                        </td>
+
+
+                        <td class="contato-telefone">
+
+                            {{ contato.telefone }}
+
+                        </td>
+
+
+                        <td class="contato-parentesco">
+
+                            {% if contato.parentesco %}
+
+                                {{ contato.parentesco }}
+
+                            {% else %}
+
+                                Não informado
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="acoes-contato">
+
+
+                                <a
+                                    href="{{ url_for(
+                                        'contato.editar_contato',
+                                        id=contato.id_contato
+                                    ) }}"
+                                    class="btn-editar-contato"
+                                >
+
+                                    <i class="fa-solid fa-pen"></i>
+
+                                    Editar
+
+                                </a>
+
+
+                                <a
+                                    href="{{ url_for(
+                                        'contato.excluir',
+                                        id=contato.id_contato
+                                    ) }}"
+                                    class="btn-excluir-contato"
+                                >
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                    Excluir
+
+                                </a>
+
+
+                            </div>
+
+                        </td>
+
+
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+
+        <div class="sem-contatos">
+
+            <div class="icone">
+
+                <i class="fa-solid fa-user-group"></i>
+
+            </div>
+
+            <h3>
+                Nenhum contato cadastrado
+            </h3>
+
+            <p>
+                Adicione uma pessoa de confiança para
+                facilitar o pedido de ajuda em uma emergência.
+            </p>
+
+        </div>
+
+
+        {% endif %}
+
+
+    </div>
 
 </div>
 
+{% endblock %}
+
+
+{% block scripts %}
 {% endblock %}

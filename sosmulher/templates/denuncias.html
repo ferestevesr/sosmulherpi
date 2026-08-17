@@ -1,14 +1,28 @@
 {% extends "base.html" %}
 
+
 {% block titulo %}
 Minhas Denúncias
 {% endblock %}
+
+
+{% block estilos %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/denuncias.css') }}"
+>
+
+{% endblock %}
+
 
 {% block body %}
 
 <div class="container">
 
-    <h1>Minhas Denúncias</h1>
+    <h1>
+        Minhas Denúncias
+    </h1>
 
 
     {% if denuncias %}
@@ -99,10 +113,6 @@ Minhas Denúncias
                                     filename='uploads/' + arquivo.nome_arquivo
                                 ) }}"
                                 alt="Evidência da denúncia"
-                                style="
-                                    max-width: 400px;
-                                    height: auto;
-                                "
                             >
 
                         </div>
@@ -118,13 +128,7 @@ Minhas Denúncias
                                 {{ arquivo.nome_arquivo }}
                             </p>
 
-                            <video
-                                controls
-                                style="
-                                    max-width: 500px;
-                                    width: 100%;
-                                "
-                            >
+                            <video controls>
 
                                 <source
                                     src="{{ url_for(
@@ -181,6 +185,7 @@ Minhas Denúncias
 
 
         </div>
+
 
         <hr>
 

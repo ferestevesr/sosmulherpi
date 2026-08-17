@@ -4,44 +4,144 @@
 Adicionar Contato
 {% endblock %}
 
+{% block estilos %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/adicionar_contato.css') }}"
+>
+
+{% endblock %}
+
 {% block body %}
 
-<div class="container mt-4">
+<div class="adicionar-contato-page">
 
-    <h2>Novo Contato</h2>
+    <div class="adicionar-contato-container">
 
-    <form method="POST">
+        <!-- CABEÇALHO -->
 
-        {{ form.hidden_tag() }}
+        <div class="contato-intro">
 
-        <div class="mb-3">
+            <div class="contato-icone">
+                <i class="fa-solid fa-user-plus"></i>
+            </div>
 
-            {{ form.nome.label }}
+            <div>
+                <span class="contato-badge">
+                    Rede de segurança
+                </span>
 
-            {{ form.nome(class="form-control") }}
+                <h1>
+                    Adicionar contato
+                </h1>
 
-        </div>
-
-        <div class="mb-3">
-
-            {{ form.telefone.label }}
-
-            {{ form.telefone(class="form-control") }}
-
-        </div>
-
-        <div class="mb-3">
-
-            {{ form.parentesco.label }}
-
-            {{ form.parentesco(class="form-control") }}
+                <p>
+                    Cadastre uma pessoa de confiança para receber
+                    seu pedido de ajuda em uma situação de emergência.
+                </p>
+            </div>
 
         </div>
 
-        {{ form.botao_salvar(class="btn btn-success") }}
 
-    </form>
+        <!-- FORMULÁRIO -->
+
+        <div class="contato-form-card">
+
+            <div class="form-header">
+
+                <h2>
+                    Dados do contato
+                </h2>
+
+                <p>
+                    Preencha as informações da pessoa que você deseja
+                    adicionar à sua rede de emergência.
+                </p>
+
+            </div>
+
+
+            <form method="POST" class="contato-form">
+
+                {{ form.hidden_tag() }}
+
+
+                <div class="campo-contato">
+
+                    {{ form.nome.label }}
+
+                    {{ form.nome(
+                        class="campo-input",
+                        placeholder="Nome completo"
+                    ) }}
+
+                </div>
+
+
+                <div class="campo-contato">
+
+                    {{ form.telefone.label }}
+
+                    {{ form.telefone(
+                        class="campo-input",
+                        placeholder="(00) 00000-0000"
+                    ) }}
+
+                </div>
+
+
+                <div class="campo-contato">
+
+                    {{ form.parentesco.label }}
+
+                    {{ form.parentesco(
+                        class="campo-input",
+                        placeholder="Ex.: mãe, irmã, amiga..."
+                    ) }}
+
+                    <span class="campo-ajuda">
+                        Opcional
+                    </span>
+
+                </div>
+
+
+                <div class="aviso-contato">
+
+                    <i class="fa-solid fa-shield-heart"></i>
+
+                    <div>
+
+                        <strong>
+                            Seus dados estão protegidos
+                        </strong>
+
+                        <p>
+                            Este contato será vinculado à sua conta
+                            e poderá ser utilizado pelo sistema SOS
+                            quando você solicitar ajuda.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                {{ form.botao_salvar(
+                    class="btn-salvar-contato"
+                ) }}
+
+            </form>
+
+        </div>
+
+    </div>
 
 </div>
 
+{% endblock %}
+
+{% block scripts %}
 {% endblock %}

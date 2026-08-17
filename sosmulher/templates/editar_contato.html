@@ -4,43 +4,106 @@
 Editar Contato
 {% endblock %}
 
+{% block estilos %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/editar_contato.css') }}"
+>
+
+{% endblock %}
+
 {% block body %}
 
-<div class="container mt-4">
+<div class="editar-container">
 
-    <h2>Editar Contato</h2>
+    <div class="editar-card">
 
-    <form method="POST">
+        <div class="editar-header">
 
-        {{ form.hidden_tag() }}
+            <div class="editar-icon">
+                <span>✎</span>
+            </div>
 
-        <div class="mb-3">
+            <div>
+                <h2>Editar Contato</h2>
 
-            {{ form.nome.label }}
-
-            {{ form.nome(class="form-control") }}
-
-        </div>
-
-        <div class="mb-3">
-
-            {{ form.telefone.label }}
-
-            {{ form.telefone(class="form-control") }}
+                <p>
+                    Atualize os dados do seu contato de emergência.
+                </p>
+            </div>
 
         </div>
 
-        <div class="mb-3">
 
-            {{ form.parentesco.label }}
+        <div class="aviso-contato">
 
-            {{ form.parentesco(class="form-control") }}
+            <span>🛡️</span>
+
+            <p>
+                Mantenha os dados atualizados para garantir
+                que seu contato possa ser acionado quando necessário.
+            </p>
 
         </div>
 
-        {{ form.botao_salvar(class="btn btn-primary") }}
 
-    </form>
+        <form method="POST" class="form-contato">
+
+            {{ form.hidden_tag() }}
+
+
+            <div class="campo">
+
+                {{ form.nome.label }}
+
+                {{ form.nome(
+                    class="campo-input",
+                    placeholder="Nome do contato"
+                ) }}
+
+            </div>
+
+
+            <div class="campo">
+
+                {{ form.telefone.label }}
+
+                {{ form.telefone(
+                    class="campo-input",
+                    placeholder="Telefone do contato"
+                ) }}
+
+            </div>
+
+
+            <div class="campo">
+
+                {{ form.parentesco.label }}
+
+                {{ form.parentesco(
+                    class="campo-input",
+                    placeholder="Ex.: Mãe, irmã, amigo..."
+                ) }}
+
+                <small>
+                    Campo opcional
+                </small>
+
+            </div>
+
+
+            <div class="acoes-contato">
+
+                {{ form.botao_salvar(
+                    class="btn-atualizar"
+                ) }}
+
+            </div>
+
+        </form>
+
+    </div>
 
 </div>
 

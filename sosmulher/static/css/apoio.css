@@ -416,3 +416,11 @@ footer {
         padding: 35px 25px;
     }
 }
+
+
+/* FUNDO EXCLUSIVO DA PÁGINA DE APOIO */
+
+.hero::before {
+    background: url("../image/img/apoiofundo.png") no-repeat center;
+    background-size: cover;
+}

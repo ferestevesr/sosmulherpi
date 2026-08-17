@@ -1,0 +1,327 @@
+/* =========================================
+   EDITAR CONTATO
+========================================= */
+
+.editar-container {
+    min-height: calc(100vh - 100px);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 70px 20px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(214, 51, 180, 0.10),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(139, 92, 246, 0.10),
+            transparent 35%
+        ),
+        #faf8fc;
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.editar-card {
+    width: 100%;
+    max-width: 650px;
+
+    background: #ffffff;
+
+    border-radius: 28px;
+
+    padding: 40px;
+
+    border: 1px solid #eadcf0;
+
+    box-shadow:
+        0 20px 50px rgba(80, 40, 90, 0.10);
+
+    position: relative;
+}
+
+
+/* detalhe colorido superior */
+
+.editar-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 6px;
+
+    border-radius: 28px 28px 0 0;
+
+    background: linear-gradient(
+        90deg,
+        #d633b4,
+        #8b5cf6,
+        #ff7a45
+    );
+}
+
+
+/* =========================================
+   CABEÇALHO
+========================================= */
+
+.editar-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    margin-bottom: 30px;
+}
+
+.editar-icon {
+    width: 58px;
+    height: 58px;
+
+    flex-shrink: 0;
+
+    border-radius: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #f4e5ff,
+        #ffe5f3
+    );
+
+    color: #7c3f8c;
+
+    font-size: 27px;
+
+    box-shadow:
+        0 8px 20px rgba(124, 63, 140, 0.12);
+}
+
+.editar-header h2 {
+    margin: 0;
+
+    font-size: 30px;
+
+    color: #4b2555;
+}
+
+.editar-header p {
+    margin: 6px 0 0;
+
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   AVISO
+========================================= */
+
+.aviso-contato {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 16px 18px;
+
+    margin-bottom: 30px;
+
+    border-radius: 16px;
+
+    background: #fff7f2;
+
+    border: 1px solid #ffd9c7;
+
+    color: #704536;
+}
+
+.aviso-contato span {
+    font-size: 22px;
+}
+
+.aviso-contato p {
+    margin: 0;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   FORMULÁRIO
+========================================= */
+
+.form-contato {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 23px;
+}
+
+.campo {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.campo label {
+    font-weight: 700;
+
+    color: #4b2555;
+
+    font-size: 14px;
+}
+
+.campo-input {
+    width: 100%;
+
+    padding: 15px 17px;
+
+    border-radius: 14px;
+
+    border: 1px solid #ded3e3;
+
+    background: #fcfbfd;
+
+    color: #333;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.campo-input:focus {
+    background: #ffffff;
+
+    border-color: #a855f7;
+
+    box-shadow:
+        0 0 0 4px rgba(168, 85, 247, 0.10);
+}
+
+.campo small {
+    color: #888;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   BOTÃO
+========================================= */
+
+.acoes-contato {
+    margin-top: 8px;
+
+    display: flex;
+
+    justify-content: flex-end;
+}
+
+.btn-atualizar {
+    border: none;
+
+    padding: 14px 28px;
+
+    border-radius: 15px;
+
+    background: linear-gradient(
+        135deg,
+        #8b5cf6,
+        #d633b4
+    );
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 22px rgba(139, 92, 246, 0.20);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.btn-atualizar:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 14px 28px rgba(139, 92, 246, 0.28);
+}
+
+
+/* =========================================
+   RESPONSIVO
+========================================= */
+
+@media (max-width: 600px) {
+
+    .editar-container {
+        padding: 40px 15px;
+    }
+
+    .editar-card {
+        padding: 28px 22px;
+
+        border-radius: 22px;
+    }
+
+    .editar-header h2 {
+        font-size: 25px;
+    }
+
+    .editar-icon {
+        width: 50px;
+        height: 50px;
+
+        font-size: 23px;
+    }
+
+    .acoes-contato {
+        justify-content: stretch;
+    }
+
+    .btn-atualizar {
+        width: 100%;
+    }
+
+}

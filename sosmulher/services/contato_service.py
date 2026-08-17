@@ -45,5 +45,12 @@ def atualizar_contato(contato, form):
 
 def excluir_contato(contato):
 
+    from sosmulher.models import PedidoSOSContato
+    PedidoSOSContato.query.filter_by(
+        id_contato=contato.id_contato
+    ).delete(
+        synchronize_session=False
+    )
     db.session.delete(contato)
+
     db.session.commit()

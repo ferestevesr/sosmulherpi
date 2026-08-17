@@ -1,0 +1,415 @@
+/* =========================================
+   PÁGINA ADICIONAR CONTATO
+========================================= */
+
+.adicionar-contato-page {
+    min-height: calc(100vh - 100px);
+
+    padding: 60px 20px 80px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(168, 85, 247, 0.12),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(255, 159, 67, 0.12),
+            transparent 35%
+        ),
+        #faf8ff;
+}
+
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.adicionar-contato-container {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   INTRO
+========================================= */
+
+.contato-intro {
+    display: flex;
+    align-items: center;
+
+    gap: 22px;
+
+    margin-bottom: 30px;
+}
+
+
+/* ÍCONE */
+
+.contato-icone {
+    min-width: 70px;
+    width: 70px;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background: linear-gradient(
+        135deg,
+        #8b5cf6,
+        #c43db8
+    );
+
+    color: white;
+
+    font-size: 27px;
+
+    box-shadow:
+        0 10px 25px rgba(139, 92, 246, 0.22);
+}
+
+
+/* BADGE */
+
+.contato-badge {
+    display: inline-block;
+
+    padding: 6px 13px;
+
+    border-radius: 20px;
+
+    background: #fff1e6;
+
+    color: #d97706;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+
+/* TÍTULO */
+
+.contato-intro h1 {
+    margin: 0;
+
+    font-size: 38px;
+
+    color: #2d1b35;
+}
+
+
+/* DESCRIÇÃO */
+
+.contato-intro p {
+    margin-top: 8px;
+
+    color: #666;
+
+    font-size: 16px;
+
+    line-height: 1.6;
+
+    max-width: 650px;
+}
+
+
+/* =========================================
+   CARD DO FORMULÁRIO
+========================================= */
+
+.contato-form-card {
+    background: rgba(255, 255, 255, 0.95);
+
+    border: 1px solid #eadcf3;
+
+    border-radius: 28px;
+
+    padding: 40px;
+
+    box-shadow:
+        0 20px 50px rgba(91, 45, 112, 0.08);
+}
+
+
+/* =========================================
+   CABEÇALHO DO FORM
+========================================= */
+
+.form-header {
+    padding-bottom: 25px;
+
+    margin-bottom: 30px;
+
+    border-bottom: 1px solid #eee4f2;
+}
+
+.form-header h2 {
+    margin: 0;
+
+    font-size: 25px;
+
+    color: #45264f;
+}
+
+.form-header p {
+    margin-top: 8px;
+
+    color: #777;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   FORMULÁRIO
+========================================= */
+
+.contato-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 22px;
+}
+
+
+/* =========================================
+   CAMPOS
+========================================= */
+
+.campo-contato {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    position: relative;
+}
+
+.campo-contato label {
+    font-weight: 700;
+
+    color: #3f3045;
+
+    font-size: 14px;
+}
+
+
+.campo-input {
+    width: 100%;
+
+    padding: 15px 17px;
+
+    border: 1px solid #dfd2e5;
+
+    border-radius: 14px;
+
+    background: #fcfaff;
+
+    color: #333;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+
+.campo-input:focus {
+    border-color: #9b5de5;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 4px rgba(155, 93, 229, 0.10);
+}
+
+
+.campo-input::placeholder {
+    color: #aaa;
+}
+
+
+/* TEXTO OPCIONAL */
+
+.campo-ajuda {
+    position: absolute;
+
+    right: 14px;
+    bottom: 15px;
+
+    font-size: 11px;
+
+    color: #9a7aa7;
+
+    background: #f7f0fa;
+
+    padding: 3px 7px;
+
+    border-radius: 10px;
+}
+
+
+/* =========================================
+   AVISO DE SEGURANÇA
+========================================= */
+
+.aviso-contato {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    padding: 18px;
+
+    margin-top: 5px;
+
+    border-radius: 16px;
+
+    background: linear-gradient(
+        135deg,
+        #f7f0ff,
+        #fff5ed
+    );
+
+    border: 1px solid #eadcf3;
+}
+
+
+.aviso-contato > i {
+    font-size: 22px;
+
+    color: #8b5cf6;
+
+    margin-top: 2px;
+}
+
+
+.aviso-contato strong {
+    display: block;
+
+    color: #4b2858;
+
+    margin-bottom: 5px;
+}
+
+
+.aviso-contato p {
+    margin: 0;
+
+    color: #6d6370;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   BOTÃO SALVAR
+========================================= */
+
+.btn-salvar-contato {
+    width: 100%;
+
+    margin-top: 5px;
+
+    padding: 16px 20px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background: linear-gradient(
+        135deg,
+        #8b5cf6,
+        #d633b4
+    );
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(139, 92, 246, 0.20);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.btn-salvar-contato:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 15px 30px rgba(139, 92, 246, 0.28);
+}
+
+
+.btn-salvar-contato:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   RESPONSIVO
+========================================= */
+
+@media (max-width: 700px) {
+
+    .adicionar-contato-page {
+        padding: 35px 15px 60px;
+    }
+
+
+    .contato-intro {
+        align-items: flex-start;
+    }
+
+
+    .contato-icone {
+        min-width: 55px;
+        width: 55px;
+        height: 55px;
+
+        border-radius: 16px;
+
+        font-size: 21px;
+    }
+
+
+    .contato-intro h1 {
+        font-size: 30px;
+    }
+
+
+    .contato-intro p {
+        font-size: 14px;
+    }
+
+
+    .contato-form-card {
+        padding: 25px 20px;
+
+        border-radius: 22px;
+    }
+
+}

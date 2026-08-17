@@ -1,0 +1,434 @@
+/* =========================================================
+   PERFIL - SOSMULHER
+   Identidade visual:
+   Rosa + Roxo + Branco + Vermelho SOS
+========================================================= */
+
+
+/* =========================================================
+   CONTAINER PRINCIPAL
+========================================================= */
+
+.perfil-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 30px;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CABEÇALHO DO PERFIL
+========================================================= */
+
+.perfil-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.perfil-header h1 {
+    margin: 0;
+    font-size: 34px;
+    font-weight: 700;
+    color: #111111;
+}
+
+.perfil-header h1 span {
+    color: #e91ead;
+}
+
+.perfil-header p {
+    margin-top: 10px;
+    color: #666666;
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   CARD PRINCIPAL
+========================================================= */
+
+.perfil-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 40px;
+    border-top: 4px solid #e91ead;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.08);
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   TÍTULO DO CARD
+========================================================= */
+
+.perfil-card h2 {
+    margin-top: 0;
+    margin-bottom: 30px;
+
+    font-size: 24px;
+    font-weight: 700;
+
+    color: #111111;
+}
+
+
+/* =========================================================
+   INFORMAÇÕES DO USUÁRIO
+========================================================= */
+
+.perfil-info {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   ITEM DE INFORMAÇÃO
+========================================================= */
+
+.perfil-item {
+    background: #ffffff;
+
+    border: 1px solid #eeeeee;
+    border-top: 3px solid #e91ead;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.perfil-item:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.perfil-item strong {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 13px;
+
+    color: #666666;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   VALOR
+========================================================= */
+
+.perfil-item span {
+    display: block;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    color: #111111;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   STATUS DA CONTA
+========================================================= */
+
+.perfil-status {
+    margin-top: 25px;
+
+    padding: 18px 20px;
+
+    border-radius: 12px;
+
+    background: #fafafa;
+
+    border-left: 4px solid #e91ead;
+}
+
+.perfil-status strong {
+    color: #111111;
+}
+
+.perfil-status span {
+    margin-left: 5px;
+
+    font-weight: 700;
+
+    color: #e91ead;
+}
+
+
+/* =========================================================
+   ÁREA DE AÇÕES
+========================================================= */
+
+.perfil-acoes {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    margin-top: 35px;
+
+    flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   BOTÕES
+========================================================= */
+
+.perfil-botao {
+    display: inline-block;
+
+    padding: 13px 25px;
+
+    border-radius: 9px;
+
+    background: #e91ead;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    border: none;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.perfil-botao:hover {
+    background: #d4149d;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 15px rgba(233, 30, 173, 0.25);
+}
+
+
+/* =========================================================
+   BOTÃO DE DENÚNCIAS
+========================================================= */
+
+.perfil-botao.denuncias {
+    background: linear-gradient(
+        90deg,
+        #e91ead,
+        #8a3dd9
+    );
+}
+
+.perfil-botao.denuncias:hover {
+    background: linear-gradient(
+        90deg,
+        #d4149d,
+        #7630c4
+    );
+}
+
+
+/* =========================================================
+   BOTÃO CONTATOS DE EMERGÊNCIA
+========================================================= */
+
+.perfil-botao.contatos {
+    background: #ffffff;
+
+    color: #e91ead;
+
+    border: 2px solid #e91ead;
+}
+
+.perfil-botao.contatos:hover {
+    background: #e91ead;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   ÁREA DE SEGURANÇA
+========================================================= */
+
+.perfil-seguranca {
+    margin-top: 35px;
+
+    padding: 22px;
+
+    border-radius: 14px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(233, 30, 173, 0.06),
+        rgba(138, 61, 217, 0.06)
+    );
+
+    border: 1px solid rgba(233, 30, 173, 0.15);
+}
+
+.perfil-seguranca h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+
+    font-size: 17px;
+
+    color: #111111;
+}
+
+.perfil-seguranca p {
+    margin: 8px 0;
+
+    color: #666666;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   DESTAQUE DO NOME
+========================================================= */
+
+.perfil-nome {
+    font-size: 28px;
+
+    font-weight: 700;
+
+    color: #111111;
+
+    margin-bottom: 5px;
+}
+
+.perfil-nome span {
+    color: #e91ead;
+}
+
+
+/* =========================================================
+   LINHA DECORATIVA
+========================================================= */
+
+.perfil-linha {
+    width: 70px;
+
+    height: 4px;
+
+    margin: 12px auto 25px;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        90deg,
+        #e91ead,
+        #8a3dd9
+    );
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .perfil-container {
+        padding: 40px 20px;
+    }
+
+    .perfil-card {
+        padding: 30px 25px;
+    }
+
+    .perfil-info {
+        grid-template-columns: 1fr;
+    }
+
+    .perfil-header h1 {
+        font-size: 29px;
+    }
+
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 500px) {
+
+    .perfil-container {
+        padding: 30px 15px;
+    }
+
+    .perfil-card {
+        padding: 25px 18px;
+        border-radius: 14px;
+    }
+
+    .perfil-header {
+        margin-bottom: 25px;
+    }
+
+    .perfil-header h1 {
+        font-size: 25px;
+    }
+
+    .perfil-header p {
+        font-size: 14px;
+    }
+
+    .perfil-item {
+        padding: 17px;
+    }
+
+    .perfil-item span {
+        font-size: 15px;
+    }
+
+    .perfil-acoes {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .perfil-botao {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+}

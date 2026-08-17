@@ -1,0 +1,352 @@
+/* ==============================
+   CADASTRO - SOSMulher
+================================= */
+
+.cadastro-page {
+    min-height: calc(100vh - 80px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 45px 20px;
+
+    box-sizing: border-box;
+
+    background: #f8f5f2;
+}
+
+
+/* ==============================
+   CARD
+================================= */
+
+.cadastro-card {
+    width: 100%;
+    max-width: 600px;
+
+    background: #ffffff;
+
+    padding: 40px;
+
+    box-sizing: border-box;
+
+    border-radius: 20px;
+
+    border-top: 5px solid #e83cac;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ==============================
+   CABEÇALHO
+================================= */
+
+.cadastro-header {
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+.cadastro-header h1 {
+    margin: 0 0 10px;
+
+    font-size: 30px;
+
+    color: #222;
+
+    font-weight: 700;
+}
+
+.cadastro-header h1 span {
+    color: #e83cac;
+}
+
+.cadastro-header p {
+    margin: 0;
+
+    color: #777;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+}
+
+
+/* ==============================
+   ÍCONE
+================================= */
+
+.cadastro-icone {
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #fce7f5;
+
+    color: #e83cac;
+
+    font-size: 28px;
+
+    overflow: hidden;
+}
+
+
+/* IMAGEM DO ÍCONE */
+
+.cadastro-icone img {
+    width: 36px;
+    height: 36px;
+
+    max-width: 36px;
+    max-height: 36px;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+
+/* CASO USE SVG */
+
+.cadastro-icone svg {
+    width: 32px;
+    height: 32px;
+
+    max-width: 32px;
+    max-height: 32px;
+}
+
+
+/* ==============================
+   FORMULÁRIO
+================================= */
+
+.cadastro-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+/* ==============================
+   CAMPOS
+================================= */
+
+.cadastro-campo {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.cadastro-campo label {
+    color: #333;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+.cadastro-campo input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px 14px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 9px;
+
+    background: #fff;
+
+    color: #333;
+
+    font-size: 15px;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+.cadastro-campo input:focus {
+    outline: none;
+
+    border-color: #e83cac;
+
+    box-shadow:
+        0 0 0 3px rgba(232, 60, 172, 0.12);
+}
+
+
+/* ==============================
+   CAMPOS DUPLOS
+================================= */
+
+.cadastro-dupla {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+}
+
+
+/* ==============================
+   ERROS
+================================= */
+
+.cadastro-erro {
+    color: #d62828;
+
+    font-size: 13px;
+}
+
+
+/* ==============================
+   BOTÃO
+================================= */
+
+.cadastro-botao {
+    width: 100%;
+
+    padding: 14px 20px;
+
+    margin-top: 5px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #e83cac;
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s,
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+
+.cadastro-botao:hover {
+    background: #d8329f;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 16px rgba(232, 60, 172, 0.25);
+}
+
+.cadastro-botao:active {
+    transform: translateY(0);
+}
+
+
+/* ==============================
+   LOGIN
+================================= */
+
+.cadastro-login {
+    margin-top: 25px;
+
+    text-align: center;
+
+    color: #777;
+
+    font-size: 14px;
+}
+
+.cadastro-login a {
+    color: #e83cac;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.cadastro-login a:hover {
+    text-decoration: underline;
+}
+
+
+/* ==============================
+   SEGURANÇA
+================================= */
+
+.cadastro-seguranca {
+    margin-top: 22px;
+
+    padding: 13px 15px;
+
+    border-radius: 9px;
+
+    background: #faf7f9;
+
+    border: 1px solid #f0dce9;
+
+    color: #777;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+
+/* ==============================
+   RESPONSIVO
+================================= */
+
+@media (max-width: 600px) {
+
+    .cadastro-page {
+        padding: 30px 15px;
+    }
+
+    .cadastro-card {
+        padding: 30px 22px;
+
+        border-radius: 16px;
+    }
+
+    .cadastro-header h1 {
+        font-size: 26px;
+    }
+
+    .cadastro-dupla {
+        grid-template-columns: 1fr;
+    }
+
+    .cadastro-icone {
+        width: 60px;
+        height: 60px;
+    }
+
+    .cadastro-icone img {
+        width: 32px;
+        height: 32px;
+
+        max-width: 32px;
+        max-height: 32px;
+    }
+}

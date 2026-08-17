@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Recuperar senha | SOSMulher
+{% endblock %}
+
+
+{% block estilos %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/recuperar.css') }}"
+>
+
+{% endblock %}
+
+
+{% block body %}
+
+<div class="recuperacao-page">
+
+    <div class="recuperacao-card">
+
+
+        <div class="recuperacao-header">
+
+            <div class="recuperacao-icone">
+                <img src="{{ url_for ('static', filename='image/icons/usuario.png') }}" alt="">
+            </div>
+
+            <h1>
+                Recuperar <span>senha</span>
+            </h1>
+
+            <p>
+                Informe o e-mail cadastrado para
+                recuperar o acesso à sua conta.
+            </p>
+
+        </div>
+
+
+        <form
+            method="POST"
+            class="recuperacao-form"
+        >
+
+            {{ form.hidden_tag() }}
+
+
+            <div class="recuperacao-campo">
+
+                {{ form.email.label }}
+
+                {{ form.email(
+                    placeholder="Digite seu e-mail"
+                ) }}
+
+                {% if form.email.errors %}
+
+                    {% for erro in form.email.errors %}
+
+                        <span class="recuperacao-erro">
+                            {{ erro }}
+                        </span>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            </div>
+
+
+            {{ form.submit(
+                class="recuperacao-botao"
+            ) }}
+
+
+        </form>
+
+
+        <a
+            href="{{ url_for('auth.login') }}"
+            class="recuperacao-voltar"
+        >
+            ← Voltar para o login
+        </a>
+
+
+        <div class="recuperacao-seguranca">
+
+            Seus dados são tratados com segurança
+            e confidencialidade.
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}

@@ -1,0 +1,330 @@
+/* ==============================
+   RECUPERAÇÃO DE CONTA
+   SOSMulher
+================================= */
+
+.recuperacao-page {
+    min-height: calc(100vh - 80px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 50px 20px;
+
+    box-sizing: border-box;
+
+    background: #f8f5f2;
+}
+
+
+/* ==============================
+   CARD
+================================= */
+
+.recuperacao-card {
+    width: 100%;
+    max-width: 470px;
+
+    background: #ffffff;
+
+    padding: 42px;
+
+    box-sizing: border-box;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.08);
+
+    border-top: 5px solid #e83cac;
+}
+
+
+/* ==============================
+   CABEÇALHO
+================================= */
+
+.recuperacao-header {
+    text-align: center;
+
+    margin-bottom: 32px;
+}
+
+.recuperacao-header h1 {
+    margin: 0 0 10px;
+
+    font-size: 30px;
+    font-weight: 700;
+
+    color: #222;
+}
+
+.recuperacao-header h1 span {
+    color: #e83cac;
+}
+
+.recuperacao-header p {
+    margin: 0;
+
+    color: #777;
+
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+/* ==============================
+   ÍCONE
+================================= */
+
+.recuperacao-icone {
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #fce7f5;
+
+    color: #e83cac;
+
+    font-size: 27px;
+
+    overflow: hidden;
+}
+
+
+/* IMAGEM DO ÍCONE */
+
+.recuperacao-icone img {
+    width: 36px;
+    height: 36px;
+
+    max-width: 36px;
+    max-height: 36px;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+
+/* CASO O ÍCONE SEJA SVG */
+
+.recuperacao-icone svg {
+    width: 32px;
+    height: 32px;
+
+    max-width: 32px;
+    max-height: 32px;
+}
+
+
+/* ==============================
+   FORMULÁRIO
+================================= */
+
+.recuperacao-form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+
+/* ==============================
+   CAMPO
+================================= */
+
+.recuperacao-campo {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.recuperacao-campo label {
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #333;
+}
+
+.recuperacao-campo input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 14px 15px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 9px;
+
+    background: #fff;
+
+    color: #333;
+
+    font-size: 15px;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+.recuperacao-campo input:focus {
+    outline: none;
+
+    border-color: #e83cac;
+
+    box-shadow:
+        0 0 0 3px rgba(232, 60, 172, 0.12);
+}
+
+
+/* ==============================
+   ERROS
+================================= */
+
+.recuperacao-erro {
+    color: #d62828;
+
+    font-size: 13px;
+}
+
+
+/* ==============================
+   BOTÃO
+================================= */
+
+.recuperacao-botao {
+    width: 100%;
+
+    padding: 14px 20px;
+
+    margin-top: 5px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #e83cac;
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s,
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+
+.recuperacao-botao:hover {
+    background: #d8329f;
+
+    box-shadow:
+        0 6px 16px rgba(232, 60, 172, 0.25);
+
+    transform: translateY(-1px);
+}
+
+.recuperacao-botao:active {
+    transform: translateY(0);
+}
+
+
+/* ==============================
+   VOLTAR
+================================= */
+
+.recuperacao-voltar {
+    display: block;
+
+    margin-top: 25px;
+
+    text-align: center;
+
+    color: #e83cac;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.recuperacao-voltar:hover {
+    text-decoration: underline;
+}
+
+
+/* ==============================
+   AVISO DE SEGURANÇA
+================================= */
+
+.recuperacao-seguranca {
+    margin-top: 28px;
+
+    padding: 13px 15px;
+
+    border-radius: 9px;
+
+    background: #faf7f9;
+
+    border: 1px solid #f0dce9;
+
+    color: #777;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+
+/* ==============================
+   RESPONSIVO
+================================= */
+
+@media (max-width: 600px) {
+
+    .recuperacao-page {
+        padding: 30px 15px;
+    }
+
+    .recuperacao-card {
+        padding: 30px 22px;
+
+        border-radius: 16px;
+    }
+
+    .recuperacao-header h1 {
+        font-size: 26px;
+    }
+
+    .recuperacao-icone {
+        width: 60px;
+        height: 60px;
+    }
+
+    .recuperacao-icone img {
+        width: 32px;
+        height: 32px;
+
+        max-width: 32px;
+        max-height: 32px;
+    }
+}

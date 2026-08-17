@@ -1,36 +1,230 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<form method="POST">
+{% block titulo %}
+Cadastro | SOSMulher
+{% endblock %}
 
-    {{ form.hidden_tag() }}
 
-    {{ form.nome.label }}
-    {{ form.nome() }}
+{% block estilos %}
 
-    {{ form.email.label }}
-    {{ form.email() }}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/cadastro.css') }}"
+>
 
-    {{ form.cpf.label }}
-    {{ form.cpf() }}
+{% endblock %}
 
-    {{ form.telefone.label }}
-    {{ form.telefone() }}
 
-    {{ form.senha.label }}
-    {{ form.senha() }}
+{% block body %}
 
-    {{ form.confirmar_senha.label }}
-    {{ form.confirmar_senha() }}
+<div class="cadastro-page">
 
-    {{ form.botao_cadastro() }}
+    <div class="cadastro-card">
 
-</form>
-</body>
-</html>
+
+        <!-- CABEÇALHO -->
+
+        <div class="cadastro-header">
+
+            <div class="cadastro-icone">
+                <img src="{{ url_for ('static', filename='image/icons/cadeado.png') }}" alt="">
+            </div>
+
+            <h1>
+                Criar sua conta no <span>SOSMulher</span>
+            </h1>
+
+            <p>
+                Cadastre-se para ter acesso aos recursos
+                de segurança da plataforma.
+            </p>
+
+        </div>
+
+
+        <!-- FORMULÁRIO -->
+
+        <form
+            method="POST"
+            class="cadastro-form"
+        >
+
+            {{ form.hidden_tag() }}
+
+
+            <!-- NOME -->
+
+            <div class="cadastro-campo">
+
+                {{ form.nome.label }}
+
+                {{ form.nome(
+                    placeholder="Digite seu nome completo"
+                ) }}
+
+                {% for erro in form.nome.errors %}
+
+                    <span class="cadastro-erro">
+                        {{ erro }}
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- E-MAIL -->
+
+            <div class="cadastro-campo">
+
+                {{ form.email.label }}
+
+                {{ form.email(
+                    placeholder="Digite seu e-mail"
+                ) }}
+
+                {% for erro in form.email.errors %}
+
+                    <span class="cadastro-erro">
+                        {{ erro }}
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- CPF + TELEFONE -->
+
+            <div class="cadastro-dupla">
+
+
+                <div class="cadastro-campo">
+
+                    {{ form.cpf.label }}
+
+                    {{ form.cpf(
+                        placeholder="Digite seu CPF"
+                    ) }}
+
+                    {% for erro in form.cpf.errors %}
+
+                        <span class="cadastro-erro">
+                            {{ erro }}
+                        </span>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="cadastro-campo">
+
+                    {{ form.telefone.label }}
+
+                    {{ form.telefone(
+                        placeholder="Digite seu telefone"
+                    ) }}
+
+                    {% for erro in form.telefone.errors %}
+
+                        <span class="cadastro-erro">
+                            {{ erro }}
+                        </span>
+
+                    {% endfor %}
+
+                </div>
+
+
+            </div>
+
+
+            <!-- SENHA + CONFIRMAÇÃO -->
+
+            <div class="cadastro-dupla">
+
+
+                <div class="cadastro-campo">
+
+                    {{ form.senha.label }}
+
+                    {{ form.senha(
+                        placeholder="Crie uma senha"
+                    ) }}
+
+                    {% for erro in form.senha.errors %}
+
+                        <span class="cadastro-erro">
+                            {{ erro }}
+                        </span>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="cadastro-campo">
+
+                    {{ form.confirmar_senha.label }}
+
+                    {{ form.confirmar_senha(
+                        placeholder="Confirme sua senha"
+                    ) }}
+
+                    {% for erro in form.confirmar_senha.errors %}
+
+                        <span class="cadastro-erro">
+                            {{ erro }}
+                        </span>
+
+                    {% endfor %}
+
+                </div>
+
+
+            </div>
+
+
+            <!-- BOTÃO -->
+
+            {{ form.botao_cadastro(
+                class="cadastro-botao"
+            ) }}
+
+
+        </form>
+
+
+        <!-- LOGIN -->
+
+        <div class="cadastro-login">
+
+            Já possui uma conta?
+
+            <a href="{{ url_for('auth.login') }}">
+                Entrar
+            </a>
+
+        </div>
+
+
+        <!-- SEGURANÇA -->
+
+        <div class="cadastro-seguranca">
+
+            Seus dados são tratados com segurança
+            e confidencialidade.
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}

@@ -13,4 +13,4 @@ class RecuperacaoForm(FlaskForm):
         ]
     )
 
-    botao_enviar = SubmitField("Enviar código")
+    submit = SubmitField("Enviar")

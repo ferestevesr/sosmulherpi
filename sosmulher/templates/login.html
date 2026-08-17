@@ -4,81 +4,140 @@
 Login | SOSMulher
 {% endblock %}
 
+
 {% block estilos %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/login.css') }}"
+>
+
 {% endblock %}
+
 
 {% block body %}
 
-<main class="login-container">
+<div class="login-page">
 
-    <section class="login-card">
+    <div class="login-card">
 
-        <h2>SOS Mulheres</h2>
 
-        <p class="login-subtitulo">
-            Entre na sua conta para continuar.
-        </p>
+        <div class="login-header">
 
-        <form method="POST">
+            <h1>
+                SOS<span>Mulheres</span>
+            </h1>
+
+            <div class="login-linha"></div>
+
+            <p>
+                Entre na sua conta para continuar.
+            </p>
+
+        </div>
+
+
+        <form
+            method="POST"
+            class="login-form"
+        >
 
             {{ form.hidden_tag() }}
 
-            <div class="input-group">
+
+            <!-- E-MAIL -->
+
+            <div class="login-campo">
 
                 {{ form.email.label }}
 
                 {{ form.email(
-                    class="input",
-                    placeholder="Digite seu e-mail",
-                    autocomplete="email"
+                    placeholder="Digite seu e-mail"
                 ) }}
 
-                {% for erro in form.email.errors %}
-                    <small class="erro">{{ erro }}</small>
-                {% endfor %}
+                {% if form.email.errors %}
+
+                    {% for erro in form.email.errors %}
+
+                        <span class="login-erro">
+                            {{ erro }}
+                        </span>
+
+                    {% endfor %}
+
+                {% endif %}
 
             </div>
 
-            <div class="input-group">
+
+            <!-- SENHA -->
+
+            <div class="login-campo">
 
                 {{ form.senha.label }}
 
                 {{ form.senha(
-                    class="input",
-                    placeholder="Digite sua senha",
-                    autocomplete="current-password"
+                    placeholder="Digite sua senha"
                 ) }}
 
-                {% for erro in form.senha.errors %}
-                    <small class="erro">{{ erro }}</small>
-                {% endfor %}
+                {% if form.senha.errors %}
+
+                    {% for erro in form.senha.errors %}
+
+                        <span class="login-erro">
+                            {{ erro }}
+                        </span>
+
+                    {% endfor %}
+
+                {% endif %}
 
             </div>
 
-            {{ form.submit(class="btn") }}
+
+            <!-- BOTÃO -->
+
+            {{ form.submit(
+                class="login-botao"
+            ) }}
+
 
         </form>
 
-        <div class="extra">
+
+        <div class="login-links">
 
             <p>
                 Não possui uma conta?
+
                 <a href="{{ url_for('auth.cadastro') }}">
                     Cadastre-se
                 </a>
             </p>
 
             <p>
-                <a href="#">
+                <a href="{{ url_for('auth.recuperar_conta') }}">
                     Esqueceu sua senha?
                 </a>
             </p>
 
         </div>
 
-    </section>
 
-</main>
+        <div class="login-seguranca">
 
+            Seus dados são tratados com segurança e
+            confidencialidade.
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
 {% endblock %}

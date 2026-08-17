@@ -4,59 +4,13 @@
 Meu Perfil | SOSMulher
 {% endblock %}
 
+
 {% block estilos %}
 
-<style>
-
-    .perfil-container {
-        max-width: 800px;
-        margin: 40px auto;
-        padding: 20px;
-    }
-
-    .perfil-card {
-        background: white;
-        border-radius: 12px;
-        padding: 30px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    .perfil-card h1 {
-        margin-bottom: 30px;
-    }
-
-    .perfil-info {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .perfil-item {
-        padding: 15px;
-        background: #f5f5f5;
-        border-radius: 8px;
-    }
-
-    .perfil-item strong {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    .perfil-acoes {
-        margin-top: 30px;
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-    }
-
-    .perfil-botao {
-        display: inline-block;
-        padding: 12px 20px;
-        border-radius: 8px;
-        text-decoration: none;
-    }
-
-</style>
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/perfil.css') }}"
+>
 
 {% endblock %}
 
@@ -65,92 +19,173 @@ Meu Perfil | SOSMulher
 
 <div class="perfil-container">
 
-    <div class="perfil-card">
+    <div class="perfil-header">
 
         <h1>
-            Meu Perfil
+            Meu <span>Perfil</span>
         </h1>
+
+        <div class="perfil-linha"></div>
+
+        <p>
+            Confira e consulte as informações da sua conta.
+        </p>
+
+    </div>
+
+
+    <div class="perfil-card">
+
+        <h2>
+            Informações da conta
+        </h2>
 
 
         <div class="perfil-info">
 
+
+            <!-- NOME -->
+
             <div class="perfil-item">
 
-                <strong>Nome</strong>
+                <strong>
+                    Nome
+                </strong>
 
-                {{ current_user.nome }}
+                <span>
+                    {{ current_user.nome }}
+                </span>
 
             </div>
 
 
+            <!-- E-MAIL -->
+
             <div class="perfil-item">
 
-                <strong>E-mail</strong>
+                <strong>
+                    E-mail
+                </strong>
 
-                {{ current_user.email }}
+                <span>
+                    {{ current_user.email }}
+                </span>
 
             </div>
 
 
+            <!-- CPF -->
+
             <div class="perfil-item">
 
-                <strong>CPF</strong>
+                <strong>
+                    CPF
+                </strong>
 
-                {% if current_user.cpf %}
+                <span>
 
-                    {{ current_user.cpf }}
+                    {% if current_user.cpf %}
 
-                {% else %}
+                        {{ current_user.cpf }}
 
-                    Não informado
+                    {% else %}
 
-                {% endif %}
+                        Não informado
+
+                    {% endif %}
+
+                </span>
 
             </div>
 
 
+            <!-- TELEFONE -->
+
             <div class="perfil-item">
 
-                <strong>Telefone</strong>
+                <strong>
+                    Telefone
+                </strong>
 
-                {% if current_user.telefone %}
+                <span>
 
-                    {{ current_user.telefone }}
+                    {% if current_user.telefone %}
 
-                {% else %}
+                        {{ current_user.telefone }}
 
-                    Não informado
+                    {% else %}
 
-                {% endif %}
+                        Não informado
+
+                    {% endif %}
+
+                </span>
 
             </div>
 
 
+            <!-- TIPO DE CONTA -->
+
             <div class="perfil-item">
 
-                <strong>Tipo de conta</strong>
+                <strong>
+                    Tipo de conta
+                </strong>
 
-                {{ current_user.tipo }}
+                <span>
+                    {{ current_user.tipo }}
+                </span>
 
             </div>
 
 
+            <!-- STATUS -->
+
             <div class="perfil-item">
 
-                <strong>Status da conta</strong>
+                <strong>
+                    Status da conta
+                </strong>
 
-                {{ current_user.status_conta }}
+                <span>
+                    {{ current_user.status_conta }}
+                </span>
 
             </div>
+
 
         </div>
 
 
+        <!-- SEGURANÇA -->
+
+        <div class="perfil-seguranca">
+
+            <h3>
+                Segurança da conta
+            </h3>
+
+            <p>
+                Seus dados são utilizados apenas para o funcionamento
+                da plataforma SOSMulher.
+            </p>
+
+            <p>
+                Mantenha suas informações atualizadas para facilitar
+                o uso dos recursos de segurança.
+            </p>
+
+        </div>
+
+
+        <!-- AÇÕES -->
+
         <div class="perfil-acoes">
+
 
             <a
                 href="{{ url_for('contato.contatos') }}"
-                class="perfil-botao"
+                class="perfil-botao contatos"
             >
                 Contatos de Emergência
             </a>
@@ -158,12 +193,14 @@ Meu Perfil | SOSMulher
 
             <a
                 href="{{ url_for('denuncia.denuncias') }}"
-                class="perfil-botao"
+                class="perfil-botao denuncias"
             >
                 Minhas Denúncias
             </a>
 
+
         </div>
+
 
     </div>
 
@@ -173,4 +210,5 @@ Meu Perfil | SOSMulher
 
 
 {% block scripts %}
+
 {% endblock %}

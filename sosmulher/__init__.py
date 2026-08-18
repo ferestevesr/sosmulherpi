@@ -33,13 +33,10 @@ def load_user(id_usuario):
     return Usuario.query.get(int(id_usuario))
 
 
-<<<<<<< Updated upstream
-=======
 # ==========================
 # ROTAS / BLUEPRINTS
 # ==========================
 
->>>>>>> Stashed changes
 from sosmulher.routes.home import home
 from sosmulher.routes.auth import auth
 from sosmulher.routes.contato import contato
@@ -47,7 +44,6 @@ from sosmulher.routes.denuncia import denuncia
 from sosmulher.routes.perfil import perfil
 from sosmulher.routes.admin import admin
 from sosmulher.routes.sos import sos
-
 
 
 # ==========================
@@ -59,9 +55,5 @@ app.register_blueprint(auth)
 app.register_blueprint(contato)
 app.register_blueprint(denuncia)
 app.register_blueprint(perfil)
-<<<<<<< Updated upstream
 app.register_blueprint(admin)
 app.register_blueprint(sos)
-=======
-app.register_blueprint(admin)
->>>>>>> Stashed changes

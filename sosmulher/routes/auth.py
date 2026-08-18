@@ -99,7 +99,6 @@ def recuperar_conta():
 
     if form.validate_on_submit():
 
-
         return redirect(
             url_for("auth.login")
         )
@@ -125,16 +124,19 @@ def logout():
         "info"
     )
 
-<<<<<<< Updated upstream
     return redirect(url_for("home.index"))
 
+
+# ==========================
+# PERFIL
+# ==========================
 
 @auth.route("/perfil")
 @login_required
 def perfil():
-    return render_template("perfil.html")
-=======
-    return redirect(
-        url_for("home.index")
+
+    return render_template(
+        "perfil.html"
     )
->>>>>>> Stashed changes
+
+    

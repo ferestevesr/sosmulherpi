@@ -1,0 +1,344 @@
+{% extends "admin/base_admin.html" %}
+
+
+{% block titulo %}
+Usuários | Painel Administrativo
+{% endblock %}
+
+
+{% block admin_titulo %}
+Usuários
+{% endblock %}
+
+
+{% block admin_subtitulo %}
+Gerencie os usuários cadastrados no SOSMulher.
+{% endblock %}
+
+
+{% block admin_body %}
+
+
+<!-- ================================= -->
+<!-- RESUMO -->
+<!-- ================================= -->
+
+<div class="users-summary">
+
+
+    <!-- TOTAL -->
+
+    <div class="summary-card">
+
+        <div class="summary-icon">
+            👥
+        </div>
+
+        <div>
+
+            <span>
+                Total de usuários
+            </span>
+
+            <strong>
+                {{ usuarios|length }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADMINISTRADORES -->
+
+    <div class="summary-card">
+
+        <div class="summary-icon">
+            🛡️
+        </div>
+
+        <div>
+
+            <span>
+                Administradores
+            </span>
+
+            <strong>
+                {{ usuarios
+                    |selectattr('tipo', 'equalto', 'admin')
+                    |list
+                    |length
+                }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- ATIVOS -->
+
+    <div class="summary-card">
+
+        <div class="summary-icon">
+            ✅
+        </div>
+
+        <div>
+
+            <span>
+                Usuários ativos
+            </span>
+
+            <strong>
+                {{ usuarios
+                    |selectattr('status_conta', 'equalto', 'ativa')
+                    |list
+                    |length
+                }}
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================================= -->
+<!-- TABELA DE USUÁRIOS -->
+<!-- ================================= -->
+
+<section class="admin-section users-section">
+
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Usuários cadastrados
+            </h2>
+
+            <p>
+                Lista de contas registradas no sistema.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    {% if usuarios %}
+
+
+        <div class="users-table-container">
+
+            <table class="users-table">
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Usuário
+                        </th>
+
+                        <th>
+                            E-mail
+                        </th>
+
+                        <th>
+                            Tipo
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            ID
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    {% for usuario in usuarios %}
+
+
+                        <tr>
+
+
+                            <!-- USUÁRIO -->
+
+                            <td>
+
+                                <div class="user-info">
+
+                                    <div class="user-avatar">
+
+                                        {{ usuario.nome[0]|upper }}
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <strong>
+                                            {{ usuario.nome }}
+                                        </strong>
+
+                                        <span>
+                                            ID #{{ usuario.id_usuario }}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- EMAIL -->
+
+                            <td>
+
+                                <span class="user-email">
+
+                                    {{ usuario.email }}
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- TIPO -->
+
+                            <td>
+
+                                {% if usuario.tipo == "admin" %}
+
+                                    <span class="user-badge admin">
+
+                                        Administrador
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="user-badge">
+
+                                        Usuário
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- STATUS -->
+
+                            <td>
+
+
+                                {% if usuario.status_conta == "ativa" %}
+
+                                    <span class="status active">
+
+                                        <span class="status-dot"></span>
+
+                                        Ativo
+
+                                    </span>
+
+
+                                {% elif usuario.status_conta == "bloqueada" %}
+
+                                    <span class="status blocked">
+
+                                        <span class="status-dot"></span>
+
+                                        Bloqueado
+
+                                    </span>
+
+
+                                {% else %}
+
+                                    <span class="status inactive">
+
+                                        <span class="status-dot"></span>
+
+                                        Desativado
+
+                                    </span>
+
+                                {% endif %}
+
+
+                            </td>
+
+
+                            <!-- ID -->
+
+                            <td>
+
+                                <span class="user-id">
+
+                                    #{{ usuario.id_usuario }}
+
+                                </span>
+
+                            </td>
+
+
+                        </tr>
+
+
+                    {% endfor %}
+
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+
+    {% else %}
+
+
+        <!-- SEM USUÁRIOS -->
+
+        <div class="empty-users">
+
+            <div class="empty-icon">
+                👥
+            </div>
+
+            <h3>
+                Nenhum usuário cadastrado
+            </h3>
+
+            <p>
+                Ainda não existem usuários registrados no sistema.
+            </p>
+
+        </div>
+
+
+    {% endif %}
+
+
+</section>
+
+
+{% endblock %}

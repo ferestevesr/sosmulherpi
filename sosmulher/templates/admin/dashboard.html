@@ -1,279 +1,289 @@
+{% extends "admin/base_admin.html" %}
 
-{% extends "base.html" %}
 
 {% block titulo %}
-Painel Administrativo | SOSMulher
+Dashboard | SOSMulher
 {% endblock %}
 
-{% block estilos %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+
+{% block admin_titulo %}
+Painel Administrativo
 {% endblock %}
 
-{% block body %}
 
-<div class="admin-layout">
+{% block admin_subtitulo %}
+Bem-vindo, {{ current_user.nome }}
+{% endblock %}
 
-    <!-- MENU LATERAL -->
-    <aside class="admin-sidebar">
 
-        <div class="sidebar-logo">
-            <h2>SOSMulher</h2>
-            <span>Administração</span>
+{% block admin_body %}
+
+
+<!-- ================================= -->
+<!-- CARDS -->
+<!-- ================================= -->
+
+<section class="admin-cards">
+
+
+    <!-- USUÁRIOS -->
+
+    <div class="admin-card">
+
+        <div class="card-icon">
+
+            <img class="icon-sidebar" src="{{ url_for(
+                    'static',
+                    filename='image/icons/user.png'
+                ) }}" alt="">
+
         </div>
 
-        <nav class="sidebar-menu">
 
-            <a href="{{ url_for('admin.dashboard') }}" class="menu-item active">
-                <img class="icon-sidebar" src="{{ url_for ('static', filename='image/icons/painel-de-controle.png') }}" alt="">
-                <span>Dashboard</span>
-            </a>
+        <div>
 
-            <a href="{{ url_for('admin.usuarios') }}" class="menu-item">
-                <img class="icon-sidebar" src="{{ url_for ('static', filename='image/icons/user.png')}}" alt="">
-                <span>Usuários</span>
-            </a>
+            <span class="card-title">
+                Usuários
+            </span>
 
-            <a href="{{ url_for('admin.chamados') }}" class="menu-item">
-                <img class="icon-sidebar" src="{{ url_for ('static', filename='image/icons/chamada-telefonica.png')}}" alt="">
-                <span>Chamados</span>
-            </a>
+            <strong>
+                {{ total_usuarios }}
+            </strong>
 
-            <a href="{{ url_for('admin.atendimento') }}" class="menu-item">
-                <img class="icon-sidebar" src="{{ url_for ('static', filename='image/icons/servico-de-atendimento-ao-consumidor.png')}}" alt="">
-                <span>Atendimento</span>
-            </a>
+        </div>
 
-            <a href="{{ url_for('admin.relatorios') }}" class="menu-item">
-                <img class="icon-sidebar" src="{{ url_for ('static', filename='image/icons/informacao-financeira.png')}}" alt="">
-                <span>Relatórios</span>
-            </a>
-
-            <a href="{{ url_for('admin.configuracoes') }}" class="menu-item">
-                <img class="icon-sidebar" src="{{ url_for ('static', filename='image/icons/configuracoes-cog.png')}}" alt="">
-                <span>Configurações</span>
-            </a>
-
-        </nav>
-
-    </aside>
+    </div>
 
 
-    <!-- ÁREA PRINCIPAL -->
-    <main class="admin-main">
 
-        <!-- TOPO -->
-        <header class="admin-header">
+    <!-- DENÚNCIAS -->
 
-            <div>
-                <h1>Painel Administrativo</h1>
+    <div class="admin-card">
 
+        <div class="card-icon">
+
+            <img class="icon-sidebar" src="{{ url_for(
+                    'static',
+                    filename='image/icons/emergencia.png'
+                ) }}" alt="">
+
+        </div>
+
+
+        <div>
+
+            <span class="card-title">
+                Denúncias
+            </span>
+
+            <strong>
+                {{ total_denuncias }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- PENDENTES -->
+
+    <div class="admin-card">
+
+        <div class="card-icon">
+
+            <img class="icon-sidebar" src="{{ url_for(
+                    'static',
+                    filename='image/icons/ampulheta.png'
+                ) }}" alt="">
+
+        </div>
+
+
+        <div>
+
+            <span class="card-title">
+                Pendentes
+            </span>
+
+            <strong>
+                {{ denuncias_pendentes }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- EM ANDAMENTO -->
+
+    <div class="admin-card">
+
+        <div class="card-icon">
+
+            <img class="icon-sidebar" src="{{ url_for(
+                    'static',
+                    filename='image/icons/em-andamento.png'
+                ) }}" alt="">
+
+        </div>
+
+
+        <div>
+
+            <span class="card-title">
+                Em andamento
+            </span>
+
+            <strong>
+                {{ denuncias_andamento }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- FINALIZADAS -->
+
+    <div class="admin-card">
+
+        <div class="card-icon">
+
+            <img class="icon-sidebar" src="{{ url_for(
+                    'static',
+                    filename='image/icons/verificado.png'
+                ) }}" alt="">
+
+        </div>
+
+
+        <div>
+
+            <span class="card-title">
+                Finalizadas
+            </span>
+
+            <strong>
+                {{ denuncias_finalizadas }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- DENÚNCIAS RECENTES -->
+<!-- ================================= -->
+
+<section class="admin-section">
+
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Denúncias recentes
+            </h2>
+            <div class="section-title">
                 <p>
-                    Bem-vindo, {{ current_user.nome }}
+                    Últimas denúncias registradas no sistema.
                 </p>
             </div>
+        </div>
 
-            <div class="admin-user">
 
-                <span class="admin-user-name">
-                    {{ current_user.nome }}
+        <a href="{{ url_for('admin.chamados') }}" class="section-link">
+            Ver todas
+        </a>
+
+    </div>
+
+
+
+    <div class="recent-reports">
+
+
+        {% if denuncias_recentes %}
+
+
+        {% for denuncia in denuncias_recentes %}
+
+
+        <div class="report-row">
+
+
+            <div class="report-info">
+
+                <strong>
+                    {{ denuncia.titulo }}
+                </strong>
+
+                <span>
+                    {{ denuncia.tipo }}
                 </span>
 
-                <a href="#">
-                    Perfil
-                </a>
-
-                <a href="#">
-                    Sair
-                </a>
-
             </div>
 
-        </header>
 
 
-        <!-- CARDS -->
-        <section class="admin-cards">
+            <div>
 
-            <div class="admin-card">
+                <span class="status {{ denuncia.status }}">
 
-                <div class="card-icon">
-                    <img class="icon-sidebar" src="{{ url_for ('static', filename='image/icons/user.png')}}" alt="">
-                </div>
+                    {{ denuncia.status }}
 
-                <div>
-                    <span class="card-title">
-                        Usuários
-                    </span>
-
-                    <strong>
-                        {{ total_usuarios }}
-                    </strong>
-                </div>
+                </span>
 
             </div>
 
 
-            <div class="admin-card">
 
-                <div class="card-icon">
-                    <img class="icon-sidebar" src="{{ url_for ('static', filename='image/icons/emergencia.png')}}" alt="">
-                </div>
+            <div class="report-date">
 
-                <div>
-                    <span class="card-title">
-                        Denúncias
-                    </span>
-
-                    <strong>
-                        {{ total_denuncias }}
-                    </strong>
-                </div>
+                {{ denuncia.data.strftime('%d/%m/%Y') }}
 
             </div>
 
 
-            <div class="admin-card">
-
-                <div class="card-icon">
-                    <img class="icon-sidebar" src="{{ url_for ('static', filename='image/icons/ampulheta.png')}}" alt="">
-                </div>
-
-                <div>
-                    <span class="card-title">
-                        Pendentes
-                    </span>
-
-                    <strong>
-                        {{ denuncias_pendentes }}
-                    </strong>
-                </div>
-
-            </div>
+        </div>
 
 
-            <div class="admin-card">
-
-                <div class="card-icon">
-                    <img class="icon-sidebar" src="{{ url_for ('static', filename='image/icons/em-andamento.png')}}" alt="">
-                </div>
-
-                <div>
-                    <span class="card-title">
-                        Em andamento
-                    </span>
-
-                    <strong>
-                        {{ denuncias_andamento }}
-                    </strong>
-                </div>
-
-            </div>
+        {% endfor %}
 
 
-            <div class="admin-card">
-
-                <div class="card-icon">
-                    <img class="icon-sidebar" src="{{ url_for ('static', filename='image/icons/verificado.png')}}" alt="">
-                </div>
-
-                <div>
-                    <span class="card-title">
-                        Finalizadas
-                    </span>
-
-                    <strong>
-                        {{ denuncias_finalizadas }}
-                    </strong>
-                </div>
-
-            </div>
-
-        </section>
+        {% else %}
 
 
-        <section class="admin-section">
+        <div class="empty-reports">
 
-            <div class="section-header">
-        
-                <div>
-                    <h2>Denúncias recentes</h2>
-        
-                    <p>
-                        Últimas denúncias registradas no sistema.
-                    </p>
-                </div>
-        
-                <a
-                    href="{{ url_for('admin.chamados') }}"
-                    class="section-link"
-                >
-                    Ver todas
-                </a>
-        
-            </div>
-        
-        
-            <div class="recent-reports">
-        
-                {% if denuncias_recentes %}
-        
-                    {% for denuncia in denuncias_recentes %}
-        
-                        <div class="report-row">
-        
-                            <div class="report-info">
-        
-                                <strong>
-                                    {{ denuncia.titulo }}
-                                </strong>
-        
-                                <span>
-                                    {{ denuncia.tipo }}
-                                </span>
-        
-                            </div>
-        
-        
-                            <div>
-        
-                                <span class="status {{ denuncia.status }}">
-                                    {{ denuncia.status }}
-                                </span>
-        
-                            </div>
-        
-        
-                            <div class="report-date">
-        
-                                {{ denuncia.data.strftime('%d/%m/%Y') }}
-        
-                            </div>
-        
-                        </div>
-        
-                    {% endfor %}
-        
-                {% else %}
-        
-                    <div class="empty-reports">
-        
-                        <img class="icon-sidebar" src="{{ url_for ('static', filename='image/icons/emergencia.png')}}" alt="">
-        
-                        <p>
-                            Nenhuma denúncia registrada ainda.
-                        </p>
-        
-                    </div>
-        
-                {% endif %}
-        
-            </div>
-        
-        </section>
+            <img class="icon-sidebar" src="{{ url_for(
+                        'static',
+                        filename='image/icons/emergencia.png'
+                    ) }}" alt="">
 
-    </main>
+            <p>
+                Nenhuma denúncia registrada ainda.
+            </p>
 
-</div>
+        </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</section>
+
 
 {% endblock %}
-

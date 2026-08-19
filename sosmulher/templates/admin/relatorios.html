@@ -1,0 +1,408 @@
+{% extends "admin/base_admin.html" %}
+
+{% block titulo %}
+Relatórios | SOSMulher
+{% endblock %}
+
+{% block admin_titulo %}
+Relatórios
+{% endblock %}
+
+{% block admin_subtitulo %}
+Consulte um resumo dos chamados, denúncias e atendimentos registrados no sistema.
+{% endblock %}
+
+{% block admin_body %}
+
+<!-- ================================= -->
+
+<!-- RESUMO GERAL -->
+
+<!-- ================================= -->
+
+<section class="admin-cards">
+
+
+<div class="admin-card">
+
+    <div class="card-icon">
+        <img
+            class="icon-sidebar"
+            src="{{ url_for(
+                'static',
+                filename='image/icons/chamada-telefonica.png'
+            ) }}"
+            alt=""
+        >
+    </div>
+
+    <div>
+        <span class="card-title">
+            Total de chamados
+        </span>
+
+        <strong>
+            {{ total_chamados|default(0) }}
+        </strong>
+    </div>
+
+</div>
+
+
+<div class="admin-card">
+
+    <div class="card-icon">
+        <img
+            class="icon-sidebar"
+            src="{{ url_for(
+                'static',
+                filename='image/icons/emergencia.png'
+            ) }}"
+            alt=""
+        >
+    </div>
+
+    <div>
+        <span class="card-title">
+            Total de denúncias
+        </span>
+
+        <strong>
+            {{ total_denuncias|default(0) }}
+        </strong>
+    </div>
+
+</div>
+
+
+<div class="admin-card">
+
+    <div class="card-icon">
+        <img
+            class="icon-sidebar"
+            src="{{ url_for(
+                'static',
+                filename='image/icons/em-andamento.png'
+            ) }}"
+            alt=""
+        >
+    </div>
+
+    <div>
+        <span class="card-title">
+            Em andamento
+        </span>
+
+        <strong>
+            {{ total_andamento|default(0) }}
+        </strong>
+    </div>
+
+</div>
+
+
+<div class="admin-card">
+
+    <div class="card-icon">
+        <img
+            class="icon-sidebar"
+            src="{{ url_for(
+                'static',
+                filename='image/icons/verificado.png'
+            ) }}"
+            alt=""
+        >
+    </div>
+
+    <div>
+        <span class="card-title">
+            Finalizados
+        </span>
+
+        <strong>
+            {{ total_finalizados|default(0) }}
+        </strong>
+    </div>
+
+</div>
+
+
+</section>
+
+<!-- ================================= -->
+
+<!-- RELATÓRIO DE CHAMADOS -->
+
+<!-- ================================= -->
+
+<section class="admin-section">
+
+
+<div class="section-header">
+
+    <div>
+
+        <h2>
+            Relatório de chamados
+        </h2>
+
+        <div class="section-title">
+
+            <p>
+                Resumo dos pedidos de emergência registrados no sistema.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="recent-reports">
+
+    <div class="report-row">
+
+        <div class="report-info">
+
+            <strong>
+                Chamados ativos
+            </strong>
+
+            <span>
+                Pedidos de emergência que ainda precisam de atendimento.
+            </span>
+
+        </div>
+
+        <strong>
+            {{ chamados_ativos|default(0) }}
+        </strong>
+
+    </div>
+
+
+    <div class="report-row">
+
+        <div class="report-info">
+
+            <strong>
+                Chamados em andamento
+            </strong>
+
+            <span>
+                Pedidos que já estão sendo acompanhados pela equipe.
+            </span>
+
+        </div>
+
+        <strong>
+            {{ chamados_andamento|default(0) }}
+        </strong>
+
+    </div>
+
+
+    <div class="report-row">
+
+        <div class="report-info">
+
+            <strong>
+                Chamados finalizados
+            </strong>
+
+            <span>
+                Pedidos que tiveram seu atendimento concluído.
+            </span>
+
+        </div>
+
+        <strong>
+            {{ chamados_finalizados|default(0) }}
+        </strong>
+
+    </div>
+
+</div>
+
+
+</section>
+
+<!-- ================================= -->
+
+<!-- RELATÓRIO DE DENÚNCIAS -->
+
+<!-- ================================= -->
+
+<section class="admin-section">
+
+
+<div class="section-header">
+
+    <div>
+
+        <h2>
+            Relatório de denúncias
+        </h2>
+
+        <div class="section-title">
+
+            <p>
+                Acompanhe a situação das denúncias registradas pelos usuários.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="recent-reports">
+
+    <div class="report-row">
+
+        <div class="report-info">
+
+            <strong>
+                Denúncias pendentes
+            </strong>
+
+            <span>
+                Casos que ainda aguardam análise.
+            </span>
+
+        </div>
+
+        <strong>
+            {{ denuncias_pendentes|default(0) }}
+        </strong>
+
+    </div>
+
+
+    <div class="report-row">
+
+        <div class="report-info">
+
+            <strong>
+                Denúncias em andamento
+            </strong>
+
+            <span>
+                Casos que estão sendo acompanhados pela equipe.
+            </span>
+
+        </div>
+
+        <strong>
+            {{ denuncias_andamento|default(0) }}
+        </strong>
+
+    </div>
+
+
+    <div class="report-row">
+
+        <div class="report-info">
+
+            <strong>
+                Denúncias finalizadas
+            </strong>
+
+            <span>
+                Casos cujo atendimento já foi concluído.
+            </span>
+
+        </div>
+
+        <strong>
+            {{ denuncias_finalizadas|default(0) }}
+        </strong>
+
+    </div>
+
+</div>
+
+
+</section>
+
+<!-- ================================= -->
+
+<!-- RESUMO DO SISTEMA -->
+
+<!-- ================================= -->
+
+<section class="admin-section">
+
+<div class="section-header">
+
+    <div>
+
+        <h2>
+            Resumo do sistema
+        </h2>
+
+        <div class="section-title">
+
+            <p>
+                Visão geral dos principais dados administrativos.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="recent-reports">
+
+    <div class="report-row">
+
+        <div class="report-info">
+
+            <strong>
+                Usuários cadastrados
+            </strong>
+
+            <span>
+                Total de usuários registrados no SOSMulher.
+            </span>
+
+        </div>
+
+        <strong>
+            {{ total_usuarios|default(0) }}
+        </strong>
+
+    </div>
+
+
+    <div class="report-row">
+
+        <div class="report-info">
+
+            <strong>
+                Chamados + denúncias
+            </strong>
+
+            <span>
+                Total de ocorrências registradas no sistema.
+            </span>
+
+        </div>
+
+        <strong>
+            {{ ocorrencias_totais|default(0) }}
+        </strong>
+
+    </div>
+
+</div>
+
+
+</section>
+
+{% endblock %}
+

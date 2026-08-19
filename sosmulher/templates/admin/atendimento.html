@@ -1,0 +1,428 @@
+
+{% extends "admin/base_admin.html" %}
+
+
+{% block titulo %}
+Atendimentos | SOSMulher
+{% endblock %}
+
+
+{% block admin_titulo %}
+Central de Atendimentos
+{% endblock %}
+
+
+{% block admin_subtitulo %}
+Acompanhe os casos que estão sendo atendidos pela equipe.
+{% endblock %}
+
+
+{% block admin_body %}
+
+
+<!-- ================================= -->
+<!-- RESUMO DOS ATENDIMENTOS -->
+<!-- ================================= -->
+
+<section class="admin-cards">
+
+
+    <!-- EM ATENDIMENTO -->
+
+    <div class="admin-card">
+
+        <div class="card-icon">
+
+            <img
+                class="icon-sidebar"
+                src="{{ url_for(
+                    'static',
+                    filename='image/icons/em-andamento.png'
+                ) }}"
+                alt=""
+            >
+
+        </div>
+
+        <div>
+
+            <span class="card-title">
+                Em atendimento
+            </span>
+
+            <strong>
+                {{ atendimentos_andamento }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- AGUARDANDO -->
+
+    <div class="admin-card">
+
+        <div class="card-icon">
+
+            <img
+                class="icon-sidebar"
+                src="{{ url_for(
+                    'static',
+                    filename='image/icons/ampulheta.png'
+                ) }}"
+                alt=""
+            >
+
+        </div>
+
+        <div>
+
+            <span class="card-title">
+                Aguardando
+            </span>
+
+            <strong>
+                {{ atendimentos_pendentes }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- FINALIZADOS -->
+
+    <div class="admin-card">
+
+        <div class="card-icon">
+
+            <img
+                class="icon-sidebar"
+                src="{{ url_for(
+                    'static',
+                    filename='image/icons/verificado.png'
+                ) }}"
+                alt=""
+            >
+
+        </div>
+
+        <div>
+
+            <span class="card-title">
+                Finalizados
+            </span>
+
+            <strong>
+                {{ atendimentos_finalizados }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- TOTAL -->
+
+    <div class="admin-card">
+
+        <div class="card-icon">
+
+            <img
+                class="icon-sidebar"
+                src="{{ url_for(
+                    'static',
+                    filename='image/icons/user.png'
+                ) }}"
+                alt=""
+            >
+
+        </div>
+
+        <div>
+
+            <span class="card-title">
+                Total atendidos
+            </span>
+
+            <strong>
+                {{ total_atendimentos }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- CENTRAL DE ATENDIMENTO -->
+<!-- ================================= -->
+
+<section class="admin-section">
+
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Central de atendimento
+            </h2>
+
+            <div class="section-title">
+
+                <p>
+                    Acompanhe os casos que precisam de atendimento ou já estão sendo acompanhados.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================= -->
+    <!-- ATENDIMENTOS EM ANDAMENTO -->
+    <!-- ================================= -->
+
+    <div class="recent-reports">
+
+
+        {% if atendimentos %}
+
+
+            {% for atendimento in atendimentos %}
+
+
+            <div class="report-row">
+
+
+                <!-- INFORMAÇÕES DO CASO -->
+
+                <div class="report-info">
+
+                    <strong>
+                        {{ atendimento.titulo }}
+                    </strong>
+
+                    <span>
+                        {{ atendimento.tipo }}
+                    </span>
+
+                </div>
+
+
+
+                <!-- NÍVEL DE RISCO -->
+
+                <div class="report-info">
+
+                    <strong>
+                        Nível de risco
+                    </strong>
+
+                    <span>
+                        {{ atendimento.nivel_risco }}
+                    </span>
+
+                </div>
+
+
+
+                <!-- STATUS -->
+
+                <div>
+
+                    <span class="status {{ atendimento.status }}">
+                        {{ atendimento.status }}
+                    </span>
+
+                </div>
+
+
+
+                <!-- DATA -->
+
+                <div class="report-date">
+
+                    {{ atendimento.data.strftime('%d/%m/%Y') }}
+
+                </div>
+
+
+
+                <!-- AÇÃO -->
+
+                <div>
+
+                    <a
+                    href="{{ url_for(
+                        'admin.visualizar_atendimento',
+                        id=atendimento.id_denuncia
+                    ) }}"
+                    class="section-link"
+                >
+                    Acompanhar
+                </a>
+
+                </div>
+
+
+            </div>
+
+
+            {% endfor %}
+
+
+        {% else %}
+
+
+            <!-- ================================= -->
+            <!-- NENHUM ATENDIMENTO -->
+            <!-- ================================= -->
+
+            <div class="empty-reports">
+
+                <img
+                    class="icon-sidebar"
+                    src="{{ url_for(
+                        'static',
+                        filename='image/icons/em-andamento.png'
+                    ) }}"
+                    alt=""
+                >
+
+                <p>
+                    Nenhum atendimento em andamento.
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- ORIENTAÇÃO -->
+<!-- ================================= -->
+
+<section class="admin-section">
+
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Fluxo de atendimento
+            </h2>
+
+            <div class="section-title">
+
+                <p>
+                    O atendimento acompanha o caso desde a análise até a finalização.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="recent-reports">
+
+
+        <div class="report-row">
+
+            <div class="report-info">
+
+                <strong>
+                    1. Recebimento
+                </strong>
+
+                <span>
+                    O chamado é registrado no sistema.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="report-row">
+
+            <div class="report-info">
+
+                <strong>
+                    2. Análise
+                </strong>
+
+                <span>
+                    A equipe verifica as informações e o nível de risco.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="report-row">
+
+            <div class="report-info">
+
+                <strong>
+                    3. Atendimento
+                </strong>
+
+                <span>
+                    O caso passa a ser acompanhado pela equipe responsável.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="report-row">
+
+            <div class="report-info">
+
+                <strong>
+                    4. Finalização
+                </strong>
+
+                <span>
+                    O atendimento é encerrado após a conclusão do caso.
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+{% endblock %}
+

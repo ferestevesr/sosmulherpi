@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Painel Administrativo | SOSMulher
+{% endblock %}
+
+
+{% block estilos %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/admin.css') }}"
+>
+
+{% endblock %}
+
+
+{% block body %}
+
+<div class="admin-layout">
+
+    <!-- ================================= -->
+    <!-- MENU LATERAL -->
+    <!-- ================================= -->
+
+    <aside class="admin-sidebar">
+
+        <div class="sidebar-logo">
+
+            <h2>SOSMulher</h2>
+
+            <span>Administração</span>
+
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+            <a
+                href="{{ url_for('admin.dashboard') }}"
+                class="menu-item {% if request.endpoint == 'admin.dashboard' %}active{% endif %}"
+            >
+
+                <img
+                    class="icon-sidebar"
+                    src="{{ url_for(
+                        'static',
+                        filename='image/icons/painel-de-controle.png'
+                    ) }}"
+                    alt=""
+                >
+
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('admin.usuarios') }}"
+                class="menu-item {% if request.endpoint == 'admin.usuarios' %}active{% endif %}"
+            >
+
+                <img
+                    class="icon-sidebar"
+                    src="{{ url_for(
+                        'static',
+                        filename='image/icons/user.png'
+                    ) }}"
+                    alt=""
+                >
+
+                <span>Usuários</span>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('admin.chamados') }}"
+                class="menu-item {% if request.endpoint == 'admin.chamados' %}active{% endif %}"
+            >
+
+                <img
+                    class="icon-sidebar"
+                    src="{{ url_for(
+                        'static',
+                        filename='image/icons/chamada-telefonica.png'
+                    ) }}"
+                    alt=""
+                >
+
+                <span>Chamados</span>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('admin.atendimento') }}"
+                class="menu-item {% if request.endpoint == 'admin.atendimento' %}active{% endif %}"
+            >
+
+                <img
+                    class="icon-sidebar"
+                    src="{{ url_for(
+                        'static',
+                        filename='image/icons/servico-de-atendimento-ao-consumidor.png'
+                    ) }}"
+                    alt=""
+                >
+
+                <span>Atendimento</span>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('admin.relatorios') }}"
+                class="menu-item {% if request.endpoint == 'admin.relatorios' %}active{% endif %}"
+            >
+
+                <img
+                    class="icon-sidebar"
+                    src="{{ url_for(
+                        'static',
+                        filename='image/icons/informacao-financeira.png'
+                    ) }}"
+                    alt=""
+                >
+
+                <span>Relatórios</span>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('admin.configuracoes') }}"
+                class="menu-item {% if request.endpoint == 'admin.configuracoes' %}active{% endif %}"
+            >
+
+                <img
+                    class="icon-sidebar"
+                    src="{{ url_for(
+                        'static',
+                        filename='image/icons/configuracoes-cog.png'
+                    ) }}"
+                    alt=""
+                >
+
+                <span>Configurações</span>
+
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- ================================= -->
+    <!-- ÁREA PRINCIPAL -->
+    <!-- ================================= -->
+
+    <main class="admin-main">
+
+
+        <!-- ================================= -->
+        <!-- CABEÇALHO DO ADMIN -->
+        <!-- ================================= -->
+
+        <header class="admin-header">
+
+            <div>
+
+                <h1>
+                    {% block admin_titulo %}
+                        Painel Administrativo
+                    {% endblock %}
+                </h1>
+
+                <p>
+                    {% block admin_subtitulo %}
+                        Bem-vindo, {{ current_user.nome }}
+                    {% endblock %}
+                </p>
+
+            </div>
+
+
+            <div class="admin-user">
+
+                <span class="admin-user-name">
+                    {{ current_user.nome }}
+                </span>
+
+
+                <a href="{{ url_for('auth.perfil') }}">
+                    Perfil
+                </a>
+
+
+                <a href="{{ url_for('auth.logout') }}">
+                    Sair
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================================= -->
+        <!-- CONTEÚDO ESPECÍFICO DA PÁGINA -->
+        <!-- ================================= -->
+
+        {% block admin_body %}
+
+        {% endblock %}
+
+
+    </main>
+
+</div>
+
+{% endblock %}

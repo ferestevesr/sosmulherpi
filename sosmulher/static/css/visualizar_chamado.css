@@ -1,0 +1,832 @@
+
+/* =========================================
+   VISUALIZAR CHAMADO SOS
+   ========================================= */
+
+.chamado-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    padding: 28px 30px;
+    margin-bottom: 24px;
+
+    background: #ffffff;
+    border: 1px solid #eee5f3;
+    border-radius: 18px;
+
+    box-shadow: 0 8px 25px rgba(88, 44, 108, 0.07);
+}
+
+
+.chamado-header-info {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+
+.chamado-icon {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background: linear-gradient(
+        135deg,
+        #f8d7e5,
+        #ead7ff
+    );
+
+    font-size: 27px;
+}
+
+
+.chamado-label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #9a6cad;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+}
+
+
+.chamado-header h2 {
+    margin: 0;
+
+    color: #34203e;
+
+    font-size: 25px;
+    font-weight: 750;
+}
+
+
+.chamado-header p {
+    margin: 5px 0 0;
+
+    color: #817589;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   STATUS
+   ========================================= */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 9px 15px;
+
+    border-radius: 999px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    background: #f1edf3;
+    color: #67596d;
+}
+
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+}
+
+
+.status-badge.ativo {
+    color: #16834b;
+    background: #e8f8ef;
+}
+
+
+.status-badge.andamento {
+    color: #9a6b00;
+    background: #fff5d8;
+}
+
+
+.status-badge.finalizado {
+    color: #4e6390;
+    background: #edf2ff;
+}
+
+
+.status-badge.cancelado {
+    color: #b33e4d;
+    background: #ffedf0;
+}
+
+
+/* =========================================
+   ALERTA
+   ========================================= */
+
+.emergency-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+
+    padding: 18px 21px;
+    margin-bottom: 24px;
+
+    border: 1px solid #f0d9df;
+    border-left: 4px solid #d95c75;
+
+    border-radius: 14px;
+
+    background: #fff8fa;
+}
+
+
+.alert-icon {
+    font-size: 22px;
+}
+
+
+.emergency-alert strong {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #713044;
+
+    font-size: 14px;
+}
+
+
+.emergency-alert p {
+    margin: 0;
+
+    color: #856b75;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   GRID
+   ========================================= */
+
+.chamado-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 22px;
+
+    margin-bottom: 22px;
+}
+
+
+/* =========================================
+   CARDS
+   ========================================= */
+
+.chamado-card {
+    padding: 26px;
+
+    margin-bottom: 22px;
+
+    background: #ffffff;
+
+    border: 1px solid #eee5f3;
+
+    border-radius: 18px;
+
+    box-shadow: 0 7px 24px rgba(88, 44, 108, 0.055);
+}
+
+
+.chamado-grid .chamado-card {
+    margin-bottom: 0;
+}
+
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding-bottom: 19px;
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid #f1ebf4;
+}
+
+
+.card-header-icon {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #f7effb;
+
+    font-size: 19px;
+}
+
+
+.card-header h3 {
+    margin: 0;
+
+    color: #392541;
+
+    font-size: 17px;
+    font-weight: 750;
+}
+
+
+.card-header p {
+    margin: 3px 0 0;
+
+    color: #897b8e;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   PERFIL DO USUÁRIO
+   ========================================= */
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 15px;
+
+    margin-bottom: 18px;
+
+    border-radius: 13px;
+
+    background: #faf7fc;
+}
+
+
+.user-avatar {
+    width: 47px;
+    height: 47px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #a855f7,
+        #d946ef
+    );
+
+    color: white;
+
+    font-size: 18px;
+    font-weight: 750;
+}
+
+
+.user-profile strong {
+    display: block;
+
+    color: #392541;
+
+    font-size: 14px;
+}
+
+
+.user-profile span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #8a7c8e;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   INFORMAÇÕES
+   ========================================= */
+
+.info-list {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.info-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid #f3eef5;
+}
+
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+
+.info-label {
+    color: #887a8c;
+
+    font-size: 12px;
+}
+
+
+.info-item strong {
+    max-width: 60%;
+
+    color: #433448;
+
+    font-size: 13px;
+    text-align: right;
+
+    word-break: break-word;
+}
+
+
+.account-status.ativa {
+    color: #16834b;
+}
+
+
+.account-status.bloqueada {
+    color: #b46c00;
+}
+
+
+.account-status.desativada {
+    color: #b33e4d;
+}
+
+
+/* =========================================
+   LOCALIZAÇÃO
+   ========================================= */
+
+.location-content {
+    display: grid;
+
+    grid-template-columns: 0.8fr 1.2fr;
+
+    gap: 22px;
+}
+
+
+.coordinates {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+.coordinate-box {
+    padding: 18px;
+
+    border-radius: 13px;
+
+    background: #faf7fc;
+
+    border: 1px solid #eee6f2;
+}
+
+
+.coordinate-box span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #897b8e;
+
+    font-size: 11px;
+    font-weight: 650;
+}
+
+
+.coordinate-box strong {
+    color: #432b4d;
+
+    font-size: 15px;
+    letter-spacing: 0.2px;
+}
+
+
+.map-container {
+    min-height: 220px;
+
+    overflow: hidden;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f7f1fa,
+            #eee7f4
+        );
+}
+
+
+.map-placeholder {
+    width: 100%;
+    min-height: 220px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    text-align: center;
+}
+
+
+.map-icon {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 10px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow: 0 5px 15px rgba(70, 35, 85, 0.08);
+
+    font-size: 22px;
+}
+
+
+.map-placeholder strong {
+    color: #443249;
+
+    font-size: 14px;
+}
+
+
+.map-placeholder > span {
+    margin: 6px 0 15px;
+
+    color: #897b8e;
+
+    font-size: 12px;
+}
+
+
+.map-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 16px;
+
+    border-radius: 9px;
+
+    background: #7c3aed;
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+
+.map-button:hover {
+    transform: translateY(-2px);
+
+    background: #6d28d9;
+
+    box-shadow: 0 6px 15px rgba(124, 58, 237, 0.2);
+}
+
+
+/* =========================================
+   CONTATOS
+   ========================================= */
+
+.contacts-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 14px;
+}
+
+
+.contact-card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding: 15px;
+
+    border: 1px solid #eee6f2;
+
+    border-radius: 13px;
+
+    background: #fcfafd;
+
+    transition: 0.2s ease;
+}
+
+
+.contact-card:hover {
+    transform: translateY(-2px);
+
+    border-color: #dcc5e7;
+
+    box-shadow: 0 7px 18px rgba(88, 44, 108, 0.07);
+}
+
+
+.contact-avatar {
+    width: 43px;
+    height: 43px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f0e4f7;
+
+    color: #75468b;
+
+    font-size: 16px;
+    font-weight: 750;
+}
+
+
+.contact-info {
+    min-width: 0;
+}
+
+
+.contact-info strong {
+    display: block;
+
+    color: #433348;
+
+    font-size: 13px;
+}
+
+
+.contact-info span {
+    display: block;
+
+    margin: 3px 0;
+
+    color: #8a7c8e;
+
+    font-size: 11px;
+}
+
+
+.contact-info a {
+    color: #7c3aed;
+
+    font-size: 12px;
+    font-weight: 650;
+
+    text-decoration: none;
+}
+
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   ESTADO VAZIO
+   ========================================= */
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 35px 20px;
+
+    text-align: center;
+
+    border-radius: 13px;
+
+    background: #faf7fc;
+}
+
+
+.empty-state > div {
+    margin-bottom: 10px;
+
+    font-size: 30px;
+}
+
+
+.empty-state strong {
+    color: #4a3850;
+
+    font-size: 14px;
+}
+
+
+.empty-state p {
+    margin: 5px 0 0;
+
+    color: #8a7c8e;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   RESUMO OPERACIONAL
+   ========================================= */
+
+.operational-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 13px;
+}
+
+
+.operational-item {
+    padding: 17px;
+
+    border-radius: 12px;
+
+    background: #faf7fc;
+
+    border: 1px solid #eee7f2;
+}
+
+
+.operational-item span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #8b7d90;
+
+    font-size: 11px;
+}
+
+
+.operational-item strong {
+    color: #49354f;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   AÇÕES
+   ========================================= */
+
+.chamado-actions {
+    display: flex;
+    justify-content: flex-start;
+
+    margin: 5px 0 30px;
+}
+
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 11px 17px;
+
+    border: 1px solid #e3d8e8;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #60446b;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+
+.back-button:hover {
+    transform: translateY(-2px);
+
+    border-color: #cbb1d6;
+
+    background: #faf7fc;
+
+    box-shadow: 0 5px 14px rgba(88, 44, 108, 0.07);
+}
+
+
+/* =========================================
+   RESPONSIVIDADE
+   ========================================= */
+
+@media (max-width: 1000px) {
+
+    .chamado-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .location-content {
+        grid-template-columns: 1fr;
+    }
+
+
+    .operational-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .chamado-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+
+    .contacts-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .operational-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .chamado-card {
+        padding: 20px;
+    }
+
+
+    .info-item {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+
+    .info-item strong {
+        max-width: 100%;
+
+        text-align: left;
+    }
+
+}

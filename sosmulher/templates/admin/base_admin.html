@@ -4,7 +4,6 @@
 Painel Administrativo | SOSMulher
 {% endblock %}
 
-
 {% block estilos %}
 
 <link
@@ -12,8 +11,10 @@ Painel Administrativo | SOSMulher
     href="{{ url_for('static', filename='css/admin.css') }}"
 >
 
+{% block admin_estilos %}
 {% endblock %}
 
+{% endblock %}
 
 {% block body %}
 

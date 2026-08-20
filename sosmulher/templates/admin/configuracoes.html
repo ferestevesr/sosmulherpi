@@ -1,0 +1,367 @@
+{% extends "admin/base_admin.html" %}
+
+
+{% block titulo %}
+Configurações | Painel Administrativo
+{% endblock %}
+
+{% block estilos %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/configuracoes.css') }}"
+>
+
+{% endblock %}
+
+
+{% block admin_titulo %}
+Configurações
+{% endblock %}
+
+
+{% block admin_subtitulo %}
+Gerencie as configurações do painel administrativo.
+{% endblock %}
+
+
+{% block admin_body %}
+
+
+<!-- ================================= -->
+<!-- CONTA DO ADMINISTRADOR -->
+<!-- ================================= -->
+
+<section class="admin-section settings-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Conta do administrador
+            </h2>
+
+            <p>
+                Informações da conta que está acessando o painel.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="settings-grid">
+
+
+        <div class="setting-item">
+
+            <span class="setting-label">
+                Nome
+            </span>
+
+            <strong>
+                {{ current_user.nome }}
+            </strong>
+
+        </div>
+
+
+        <div class="setting-item">
+
+            <span class="setting-label">
+                E-mail
+            </span>
+
+            <strong>
+                {{ current_user.email }}
+            </strong>
+
+        </div>
+
+
+        <div class="setting-item">
+
+            <span class="setting-label">
+                Tipo de conta
+            </span>
+
+            <span class="user-badge admin">
+                Administrador
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="settings-actions">
+
+        <a
+            href="{{ url_for('auth.perfil') }}"
+            class="admin-button"
+        >
+            Editar perfil
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- CHAMADOS -->
+<!-- ================================= -->
+
+<section class="admin-section settings-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Configurações dos chamados
+            </h2>
+
+            <p>
+                Informações utilizadas no gerenciamento das denúncias.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="settings-options">
+
+
+        <div class="setting-option">
+
+            <div class="setting-option-icon">
+                🚨
+            </div>
+
+            <div>
+
+                <strong>
+                    Tipos de denúncia
+                </strong>
+
+                <span>
+                    Violência física, psicológica, sexual,
+                    assédio, ameaça e outros.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="setting-option">
+
+            <div class="setting-option-icon">
+                ⚠️
+            </div>
+
+            <div>
+
+                <strong>
+                    Níveis de risco
+                </strong>
+
+                <span>
+                    Baixo, médio, alto e emergência.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="setting-option">
+
+            <div class="setting-option-icon">
+                🔄
+            </div>
+
+            <div>
+
+                <strong>
+                    Status dos chamados
+                </strong>
+
+                <span>
+                    Pendente, em andamento, finalizado e cancelado.
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- SEGURANÇA -->
+<!-- ================================= -->
+
+<section class="admin-section settings-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Segurança
+            </h2>
+
+            <p>
+                Recursos relacionados à segurança do sistema.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="settings-options">
+
+
+        <div class="setting-option">
+
+            <div class="setting-option-icon">
+                🔐
+            </div>
+
+            <div>
+
+                <strong>
+                    Controle de acesso
+                </strong>
+
+                <span>
+                    Apenas usuários com permissão de administrador
+                    podem acessar este painel.
+                </span>
+
+            </div>
+
+            <span class="status active">
+                <span class="status-dot"></span>
+                Ativo
+            </span>
+
+        </div>
+
+
+        <div class="setting-option">
+
+            <div class="setting-option-icon">
+                🛡️
+            </div>
+
+            <div>
+
+                <strong>
+                    Proteção das contas
+                </strong>
+
+                <span>
+                    Contas podem ser bloqueadas ou desativadas
+                    pelo administrador.
+                </span>
+
+            </div>
+
+            <span class="status active">
+                <span class="status-dot"></span>
+                Ativo
+            </span>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- INFORMAÇÕES DO SISTEMA -->
+<!-- ================================= -->
+
+<section class="admin-section settings-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>
+                Sistema
+            </h2>
+
+            <p>
+                Informações gerais do SOSMulher.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="system-info">
+
+
+        <div class="setting-item">
+
+            <span class="setting-label">
+                Sistema
+            </span>
+
+            <strong>
+                SOSMulher
+            </strong>
+
+        </div>
+
+
+        <div class="setting-item">
+
+            <span class="setting-label">
+                Painel
+            </span>
+
+            <strong>
+                Administrativo
+            </strong>
+
+        </div>
+
+
+        <div class="setting-item">
+
+            <span class="setting-label">
+                Status
+            </span>
+
+            <span class="status active">
+                <span class="status-dot"></span>
+                Sistema ativo
+            </span>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+{% endblock %}

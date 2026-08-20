@@ -6,6 +6,17 @@
 Atendimentos | SOSMulher
 {% endblock %}
 
+{% block estilos %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/atendimento.css') }}"
+>
+{% block admin_estilos%}
+{% endblock %}
+
+{% endblock %}
+
 
 {% block admin_titulo %}
 Central de Atendimentos

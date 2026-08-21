@@ -1,278 +1,310 @@
-{% extends "admin/base_admin.html" %}
+    {% extends "admin/base_admin.html" %}
 
-{% block titulo %}
-Chamados | SOSMulher
-{% endblock %}
-
-{% block admin_titulo %}
-Chamados
-{% endblock %}
-
-{% block admin_subtitulo %}
-Gerencie e acompanhe os chamados de emergência registrados no sistema.
-{% endblock %}
-
-{% block admin_body %}
-
-<!-- ================================= -->
-<!-- CARDS DE RESUMO -->
-<!-- ================================= -->
-
-<section class="admin-cards">
-
-    <!-- TOTAL -->
-
-    <div class="admin-card">
-
-        <div class="card-icon">
-            <img class="icon-sidebar" src="{{ url_for(
-                    'static',
-                    filename='image/icons/chamada-telefonica.png'
-                ) }}" alt="">
-        </div>
-
-        <div>
-            <span class="card-title">
-                Total de chamados
-            </span>
-
-            <strong>
-                {{ total_chamados }}
-            </strong>
-        </div>
-
-    </div>
+    {% block titulo %}
+    Chamados | SOSMulher
+    {% endblock %}
 
 
-    <!-- ATIVOS -->
+    {% block estilos %}
 
-    <div class="admin-card">
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/admin.css') }}"
+    >
 
-        <div class="card-icon">
-            <img class="icon-sidebar" src="{{ url_for(
-                    'static',
-                    filename='image/icons/ampulheta.png'
-                ) }}" alt="">
-        </div>
+    {% block admin_estilos %}
 
-        <div>
-            <span class="card-title">
-                Ativos
-            </span>
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/chamados.css') }}"
+    >
 
-            <strong>
-                {{ chamados_pendentes }}
-            </strong>
-        </div>
+    {% endblock %}
 
-    </div>
+    {% endblock %}
 
+    {% block admin_titulo %}
+    Chamados
+    {% endblock %}
 
-    <!-- EM ANDAMENTO -->
+    {% block admin_subtitulo %}
+    Gerencie e acompanhe os chamados de emergência registrados no sistema.
+    {% endblock %}
 
-    <div class="admin-card">
-
-        <div class="card-icon">
-            <img class="icon-sidebar" src="{{ url_for(
-                    'static',
-                    filename='image/icons/em-andamento.png'
-                ) }}" alt="">
-        </div>
-
-        <div>
-            <span class="card-title">
-                Em andamento
-            </span>
-
-            <strong>
-                {{ chamados_andamento }}
-            </strong>
-        </div>
-
-    </div>
-
-
-    <!-- FINALIZADOS -->
-
-    <div class="admin-card">
-
-        <div class="card-icon">
-            <img class="icon-sidebar" src="{{ url_for(
-                    'static',
-                    filename='image/icons/verificado.png'
-                ) }}" alt="">
-        </div>
-
-        <div>
-            <span class="card-title">
-                Finalizados
-            </span>
-
-            <strong>
-                {{ chamados_finalizados }}
-            </strong>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================================= -->
-<!-- LISTA DE CHAMADOS -->
-<!-- ================================= -->
-
-<section class="admin-section">
-
-    <div class="section-header">
-
-        <div>
-
-            <h2>
-                Chamados de emergência
-            </h2>
-
-            <div class="section-title">
-
-                <p>
-                    Acompanhe os pedidos de emergência realizados pelos usuários.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
+    {% block admin_body %}
 
     <!-- ================================= -->
-    <!-- LISTA -->
+    <!-- CARDS DE RESUMO -->
     <!-- ================================= -->
 
-    <div class="recent-reports">
+    <section class="admin-cards">
 
-        {% if chamados %}
+        <!-- TOTAL -->
 
-        {% for chamado in chamados %}
+        <div class="admin-card">
 
-        <div class="report-row">
-
-            <!-- INFORMAÇÕES -->
-
-            <div class="report-info">
-
-                <strong>
-                    Chamado SOS #{{ chamado.id_sos }}
-                </strong>
-
-                <span>
-                    Usuário:
-                    {{ chamado.usuario.nome }}
-                </span>
-
+            <div class="card-icon">
+                <img class="icon-sidebar" src="{{ url_for(
+                        'static',
+                        filename='image/icons/chamada-telefonica.png'
+                    ) }}" alt="">
             </div>
-
-
-            <!-- STATUS -->
 
             <div>
-
-                {% if chamado.status == "ativo" %}
-
-                <span class="status active">
-                    Ativo
+                <span class="card-title">
+                    Total de chamados
                 </span>
 
-                {% elif chamado.status == "em_andamento" %}
+                <strong>
+                    {{ total_chamados }}
+                </strong>
+            </div>
 
-                <span class="status andamento">
+        </div>
+
+
+        <!-- ATIVOS -->
+
+        <div class="admin-card">
+
+            <div class="card-icon">
+                <img class="icon-sidebar" src="{{ url_for(
+                        'static',
+                        filename='image/icons/ampulheta.png'
+                    ) }}" alt="">
+            </div>
+
+            <div>
+                <span class="card-title">
+                    Ativos
+                </span>
+
+                <strong>
+                    {{ chamados_pendentes }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <!-- EM ANDAMENTO -->
+
+        <div class="admin-card">
+
+            <div class="card-icon">
+                <img class="icon-sidebar" src="{{ url_for(
+                        'static',
+                        filename='image/icons/em-andamento.png'
+                    ) }}" alt="">
+            </div>
+
+            <div>
+                <span class="card-title">
                     Em andamento
                 </span>
 
-                {% elif chamado.status == "finalizado" %}
-
-                <span class="status finalizado">
-                    Finalizado
-                </span>
-
-                {% elif chamado.status == "cancelado" %}
-
-                <span class="status cancelado">
-                    Cancelado
-                </span>
-
-                {% else %}
-
-                <span class="status">
-                    {{ chamado.status }}
-                </span>
-
-                {% endif %}
-
-            </div>
-
-
-            <!-- DATA -->
-
-            <div class="report-date">
-
-                {{ chamado.data_hora.strftime('%d/%m/%Y %H:%M') }}
-
-            </div>
-
-
-            <!-- LOCALIZAÇÃO -->
-
-            <div>
-
-                <span>
-                    📍
-                    {{ "%.5f"|format(chamado.latitude) }},
-                    {{ "%.5f"|format(chamado.longitude) }}
-                </span>
-
-            </div>
-
-
-            <!-- AÇÃO -->
-
-            <div>
-
-                <a href="{{ url_for(
-                        'admin.visualizar_chamado',
-                        id=chamado.id_sos
-                    ) }}" class="section-link">
-                    Visualizar
-                </a>
+                <strong>
+                    {{ chamados_andamento }}
+                </strong>
             </div>
 
         </div>
 
-        {% endfor %}
 
-        {% else %}
+        <!-- FINALIZADOS -->
 
-        <!-- ================================= -->
-        <!-- SEM CHAMADOS -->
-        <!-- ================================= -->
+        <div class="admin-card">
 
-        <div class="empty-reports">
-
-            <img class="icon-sidebar" src="{{ url_for(
+            <div class="card-icon">
+                <img class="icon-sidebar" src="{{ url_for(
                         'static',
-                        filename='image/icons/emergencia.png'
+                        filename='image/icons/verificado.png'
                     ) }}" alt="">
+            </div>
 
-            <p>
-                Nenhum chamado de emergência registrado ainda.
-            </p>
+            <div>
+                <span class="card-title">
+                    Finalizados
+                </span>
+
+                <strong>
+                    {{ chamados_finalizados }}
+                </strong>
+            </div>
 
         </div>
 
-        {% endif %}
+    </section>
 
-    </div>
 
-</section>
+    <!-- ================================= -->
+    <!-- LISTA DE CHAMADOS -->
+    <!-- ================================= -->
 
-{% endblock %}
+    <section class="admin-section">
+
+        <div class="section-header">
+
+            <div>
+
+                <h2>
+                    Chamados de emergência
+                </h2>
+
+                <div class="section-title">
+
+                    <p>
+                        Acompanhe os pedidos de emergência realizados pelos usuários.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================= -->
+        <!-- LISTA -->
+        <!-- ================================= -->
+
+        <div class="chamados-list">
+
+            {% if chamados %}
+        
+                {% for chamado in chamados %}
+        
+                <div class="chamado-row">
+        
+                    <!-- CHAMADO / USUÁRIO -->
+                    <div class="chamado-info">
+        
+                        <strong>
+                            Chamado SOS #{{ chamado.id_sos }}
+                        </strong>
+        
+                        <span>
+                            Usuário: {{ chamado.usuario.nome }}
+                        </span>
+        
+                    </div>
+        
+        
+                    <!-- LOCALIZAÇÃO -->
+                    <div class="chamado-location">
+        
+                        <span>
+                            📍
+                            {{ "%.5f"|format(chamado.latitude) }},
+                            {{ "%.5f"|format(chamado.longitude) }}
+                        </span>
+        
+                    </div>
+        
+        
+                    <!-- NÍVEL DE RISCO -->
+                    <div class="chamado-risco">
+        
+                        <span class="chamado-label">
+                            Risco
+                        </span>
+        
+                        <span class="risco-badge">
+                            {{ chamado.nivel_risco }}
+                        </span>
+        
+                    </div>
+        
+        
+                    <!-- STATUS -->
+                    <div class="chamado-status">
+        
+                        {% if chamado.status == "ativo" %}
+        
+                            <span class="chamado-status-badge active">
+                                Ativo
+                            </span>
+        
+                        {% elif chamado.status == "em_andamento" %}
+        
+                            <span class="chamado-status-badge andamento">
+                                Em andamento
+                            </span>
+        
+                        {% elif chamado.status == "finalizado" %}
+        
+                            <span class="chamado-status-badge finalizado">
+                                Finalizado
+                            </span>
+        
+                        {% elif chamado.status == "cancelado" %}
+        
+                            <span class="chamado-status-badge cancelado">
+                                Cancelado
+                            </span>
+        
+                        {% else %}
+        
+                            <span class="chamado-status-badge">
+                                {{ chamado.status }}
+                            </span>
+        
+                        {% endif %}
+        
+                    </div>
+        
+        
+                    <!-- DATA -->
+                    <div class="chamado-date">
+        
+                        {{ chamado.data_hora.strftime('%d/%m/%Y %H:%M') }}
+        
+                    </div>
+        
+        
+                    <!-- AÇÃO -->
+                    <div class="chamado-action">
+        
+                        <a
+                            href="{{ url_for(
+                                'admin.visualizar_chamado',
+                                id=chamado.id_sos
+                            ) }}"
+                            class="chamado-button"
+                        >
+                            Visualizar
+                        </a>
+        
+                    </div>
+        
+                </div>
+        
+                {% endfor %}
+        
+            {% else %}
+        
+                <div class="chamados-empty">
+        
+                    <img
+                        src="{{ url_for(
+                            'static',
+                            filename='image/icons/emergencia.png'
+                        ) }}"
+                        alt=""
+                    >
+        
+                    <h3>Nenhum chamado encontrado</h3>
+        
+                    <p>
+                        Nenhum chamado de emergência foi registrado ainda.
+                    </p>
+        
+                </div>
+        
+            {% endif %}
+        
+        </div>
+
+    </section>
+
+    {% endblock %}

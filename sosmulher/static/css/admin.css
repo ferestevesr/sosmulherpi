@@ -1,13 +1,21 @@
-
 /* ========================================
    PAINEL ADMINISTRATIVO - SOS MULHER
 ======================================== */
 
 
-/* RESET */
+/* ========================================
+   RESET
+======================================== */
 
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
+}
+
+body {
+    background: #f8f5f8;
+    color: #222;
 }
 
 
@@ -16,52 +24,55 @@
 ======================================== */
 
 .admin-layout {
-    min-height: 100vh;
     display: flex;
-    background: #f8f5f7;
+    min-height: 100vh;
+    background: #f8f5f8;
 }
 
 
 /* ========================================
-   MENU LATERAL
+   SIDEBAR
 ======================================== */
 
 .admin-sidebar {
-    width: 250px;
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    width: 230px;
     min-height: 100vh;
 
     background: #ffffff;
 
     border-right: 1px solid #f1d8eb;
 
-    padding: 30px 20px;
+    padding: 30px 18px;
 
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
+    z-index: 100;
 }
 
 
-.icon-sidebar {
-    width: 22px;
-    height: 22px;
-    object-fit: contain;
-}
-/* LOGO */
+/* ========================================
+   LOGO
+======================================== */
 
 .sidebar-logo {
     padding: 0 10px 35px;
 }
 
 .sidebar-logo h2 {
-    font-size: 25px;
-    color: #d633b4;
     margin: 0;
+
+    font-size: 25px;
+
+    color: #d633b4;
 }
 
 .sidebar-logo span {
     display: block;
+
     margin-top: 5px;
 
     color: #888;
@@ -70,494 +81,24 @@
 }
 
 
-/* MENU */
-
-.sidebar-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-
-.menu-item {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-
-    padding: 13px 15px;
-
-    border-radius: 14px;
-
-    text-decoration: none;
-
-    color: #555;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    transition: 0.25s;
-}
-
-
-.menu-item:hover {
-    background: #fff0fa;
-    color: #d633b4;
-}
-
-
-.menu-item.active {
-    background: #fff0fa;
-    color: #d633b4;
-}
-
-
-.menu-item span:first-child {
-    width: 25px;
-    text-align: center;
-    font-size: 18px;
-}
-
-
 /* ========================================
-   ÁREA PRINCIPAL
+   MENU
 ======================================== */
 
-.admin-main {
-    width: calc(100% - 250px);
-
-    margin-left: 250px;
-
-    padding: 40px 45px;
-}
-
-
-/* ========================================
-   HEADER
-======================================== */
-
-.admin-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: 40px;
-}
-
-
-.admin-header h1 {
-    margin: 0;
-
-    font-size: 36px;
-
-    color: #222;
-}
-
-
-.admin-header p {
-    margin-top: 8px;
-
-    color: #666;
-
-    font-size: 15px;
-}
-
-
-/* USUÁRIO NO HEADER */
-
-.admin-user {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-
-.admin-user-name {
-    font-weight: 600;
-    color: #333;
-}
-
-
-.admin-user a {
-    text-decoration: none;
-
-    color: #666;
-
-    font-size: 14px;
-
-    transition: 0.2s;
-}
-
-
-.admin-user a:hover {
-    color: #d633b4;
-}
-
-
-/* ========================================
-   CARDS
-======================================== */
-
-.admin-cards {
-    display: grid;
-
-    grid-template-columns: repeat(5, 1fr);
-
-    gap: 18px;
-
-    margin-bottom: 40px;
-}
-
-
-.admin-card {
-    background: rgba(255, 255, 255, 0.9);
-
-    border: 1px solid #f1d8eb;
-
-    border-radius: 22px;
-
-    padding: 22px;
-
-    display: flex;
-    align-items: center;
-
-    gap: 15px;
-
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-
-    transition: 0.3s;
-}
-
-
-.admin-card:hover {
-    transform: translateY(-4px);
-
-    box-shadow: 0 15px 35px rgba(214, 51, 180, 0.10);
-}
-
-
-/* ÍCONE */
-
-.card-icon {
-    width: 48px;
-    height: 48px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 14px;
-
-    background: #fff0fa;
-
-    font-size: 22px;
-}
-
-
-/* TEXTO DO CARD */
-
-.card-title {
-    display: block;
-
-    color: #666;
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-    margin-bottom: 5px;
-}
-
-
-.admin-card strong {
-    display: block;
-
-    font-size: 28px;
-
-    color: #d633b4;
-}
-
-
-/* ========================================
-   SEÇÃO
-======================================== */
-
-.admin-section {
-    background: rgba(255, 255, 255, 0.85);
-
-    border: 1px solid #f1d8eb;
-
-    border-radius: 26px;
-
-    padding: 30px;
-}
-
-
-/* CABEÇALHO DA SEÇÃO */
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 25px;
-}
-
-
-.section-link {
-    color: #d633b4;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 14px;
-}
-
-.section-link:hover {
-    text-decoration: underline;
-}
-
-.recent-reports {
-    display: flex;
-    flex-direction: column;
-}
-
-.report-row {
-    display: grid;
-    grid-template-columns: 1fr 180px 120px;
-    align-items: center;
-    gap: 20px;
-
-    padding: 18px 5px;
-
-    border-top: 1px solid #f1d8eb;
-}
-
-.report-info {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.report-info strong {
-    font-size: 15px;
-}
-
-.report-info span {
-    color: #777;
-    font-size: 13px;
-}
-
-.report-date {
-    color: #777;
-    font-size: 13px;
-    text-align: right;
-}
-
-.status {
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.status.pendente {
-    background: #fff4d6;
-    color: #a66b00;
-}
-
-.status.em_andamento {
-    background: #e6f0ff;
-    color: #3478d4;
-}
-
-.status.finalizado {
-    background: #e6f8ed;
-    color: #21864a;
-}
-
-.status.cancelado {
-    background: #f1f1f1;
-    color: #777;
-}
-
-.empty-reports {
-    text-align: center;
-    padding: 50px 20px;
-    color: #777;
-}
-
-.empty-reports span {
-    display: block;
-    font-size: 30px;
-    margin-bottom: 10px;
-}
-
-/* ========================================
-   DENÚNCIAS RECENTES
-======================================== */
-
-.recent-reports {
-    display: flex;
-
-    flex-direction: column;
-}
-
-
-.report-row {
-    display: grid;
-
-    grid-template-columns: 1fr 180px 120px;
-
-    align-items: center;
-
-    gap: 20px;
-
-    padding: 18px 5px;
-
-    border-top: 1px solid #f1d8eb;
-}
-
-
-.report-info strong {
-    display: block;
-
-    font-size: 15px;
-
-    color: #222;
-}
-
-
-.report-info span {
-    display: block;
-
-    margin-top: 5px;
-
-    color: #888;
-
-    font-size: 13px;
-}
-
-
-.report-date {
-    color: #777;
-
-    font-size: 13px;
-
-    text-align: right;
-}
-
-
-/* ========================================
-   STATUS
-======================================== */
-
-.status {
-    display: inline-block;
-
-    padding: 6px 12px;
-
-    border-radius: 20px;
-
-    font-size: 12px;
-
-    font-weight: 600;
-
-    text-transform: capitalize;
-}
-
-
-/* STATUS PENDENTE */
-
-.status.pendente {
-    background: #fff4d6;
-
-    color: #a66a00;
-}
-
-
-/* STATUS EM ANDAMENTO */
-
-.status.em_andamento {
-    background: #e9f3ff;
-
-    color: #2877b8;
-}
-
-
-/* STATUS FINALIZADA */
-
-.status.finalizada {
-    background: #e6f8ed;
-
-    color: #21864a;
-}
-
-
-/* ========================================
-   NENHUMA DENÚNCIA
-======================================== */
-
-.empty-reports {
-    min-height: 150px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 10px;
-
-    color: #888;
-}
-
-
-.empty-reports span {
-    font-size: 30px;
-}
-
-
-.empty-reports p {
-    margin: 0;
-
-    font-size: 14px;
-}
-
-/* ==================================================
-   LAYOUT ADMINISTRATIVO
-================================================== */
-
-.admin-layout {
-    display: flex;
-    min-height: calc(100vh - 80px);
-    background: #f8f5f8;
-}
-
-
-/* ==================================================
-   SIDEBAR
-================================================== */
-
-.admin-sidebar {
-    width: 215px;
-    flex-shrink: 0;
-
-    background: #ffffff;
-
-    border-right: 1px solid #f1d8eb;
-
-    padding: 25px 15px;
-}
-
+.sidebar-menu,
 .admin-menu {
     display: flex;
+
     flex-direction: column;
+
     gap: 8px;
 }
 
 .menu-item {
     display: flex;
+
     align-items: center;
+
     gap: 12px;
 
     padding: 13px 15px;
@@ -571,41 +112,93 @@
     font-size: 14px;
     font-weight: 600;
 
-    transition: 0.25s;
+    transition: 0.25s ease;
 }
 
 .menu-item:hover {
-    background: #fff4fb;
+    background: #fff0fa;
+
     color: #d633b4;
 }
 
 .menu-item.active {
     background: #fff0fa;
+
     color: #d633b4;
 }
+
+
+/* ========================================
+   ÍCONES DO MENU
+======================================== */
 
 .menu-icon {
     width: 25px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
     font-size: 18px;
 }
 
+.icon-sidebar {
+    width: 22px;
+    height: 22px;
 
-/* ==================================================
-   CONTEÚDO
-================================================== */
+    object-fit: contain;
+}
+
+
+/* ========================================
+   ÁREA PRINCIPAL
+======================================== */
 
 .admin-main {
     flex: 1;
 
-    padding: 45px 50px;
-
     min-width: 0;
+
+    margin-left: 230px;
+
+    padding: 40px 45px;
 }
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+.admin-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 40px;
+}
+
+.admin-header h1 {
+    margin: 0;
+
+    font-size: 36px;
+
+    color: #222;
+}
+
+.admin-header p {
+    margin-top: 8px;
+
+    color: #666;
+
+    font-size: 15px;
+}
+
+
+/* ========================================
+   HEADER DA PÁGINA
+======================================== */
 
 .admin-page-header {
     margin-bottom: 35px;
@@ -628,9 +221,133 @@
 }
 
 
-/* ==================================================
+/* ========================================
+   USUÁRIO DO HEADER
+======================================== */
+
+.admin-user {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+}
+
+.admin-user-name {
+    font-weight: 600;
+
+    color: #333;
+}
+
+.admin-user a {
+    text-decoration: none;
+
+    color: #666;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.admin-user a:hover {
+    color: #d633b4;
+}
+
+
+/* ========================================
+   CARDS PRINCIPAIS
+======================================== */
+
+.admin-cards {
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 40px;
+}
+
+.admin-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 22px;
+
+    background: #ffffff;
+
+    border: 2px solid #000;
+
+    border-radius: 18px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.admin-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 15px 35px rgba(214, 51, 180, 0.10);
+}
+
+
+/* ========================================
+   ÍCONE DOS CARDS
+======================================== */
+
+.card-icon {
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: #fff0fa;
+
+    font-size: 22px;
+}
+
+
+/* ========================================
+   TEXTO DOS CARDS
+======================================== */
+
+.card-title {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #666;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.admin-card strong {
+    display: block;
+
+    font-size: 28px;
+
+    color: #d633b4;
+}
+
+
+/* ========================================
    RESUMO DOS USUÁRIOS
-================================================== */
+======================================== */
 
 .users-summary {
     display: grid;
@@ -644,6 +361,7 @@
 
 .summary-card {
     display: flex;
+
     align-items: center;
 
     gap: 16px;
@@ -652,18 +370,37 @@
 
     background: #ffffff;
 
-    border: 1px solid #f1d8eb;
+    border: 2px solid #000;
 
-    border-radius: 20px;
+    border-radius: 18px;
 
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
 }
+
+.summary-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 15px 35px rgba(214, 51, 180, 0.10);
+}
+
+
+/* ========================================
+   ÍCONE DO RESUMO
+======================================== */
 
 .summary-icon {
     width: 48px;
     height: 48px;
 
+    flex-shrink: 0;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -677,11 +414,11 @@
 .summary-card span {
     display: block;
 
+    margin-bottom: 5px;
+
     color: #777;
 
     font-size: 13px;
-
-    margin-bottom: 5px;
 }
 
 .summary-card strong {
@@ -691,39 +428,213 @@
 }
 
 
-/* ==================================================
-   SEÇÃO USUÁRIOS
-================================================== */
+/* ========================================
+   SEÇÕES
+======================================== */
 
+.admin-section,
 .users-section {
     background: #ffffff;
 
-    border: 1px solid #f1d8eb;
+    border: 2px solid #000;
 
-    border-radius: 25px;
+    border-radius: 20px;
 
     padding: 30px;
 
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.03);
+}
+
+
+/* ========================================
+   CABEÇALHO DAS SEÇÕES
+======================================== */
+
+.section-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin-bottom: 25px;
 }
 
 .section-header h2 {
+    margin: 0;
+
     font-size: 23px;
+
     color: #181818;
-    margin: 0; /* Remove a margem padrão (principalmente a de baixo) */
 }
 
 .section-header p {
-    margin-top: 4px; /* Reduza para 0px, 2px ou 4px para colar o texto */
+    margin-top: 4px;
     margin-bottom: 0;
+
     color: #777;
+
     font-size: 14px;
 }
 
+.section-link {
+    color: #d633b4;
 
-/* ==================================================
-   TABELA
-================================================== */
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.section-link:hover {
+    text-decoration: underline;
+}
+
+
+/* ========================================
+   DENÚNCIAS RECENTES
+======================================== */
+
+.recent-reports {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.report-row {
+    display: grid;
+
+    grid-template-columns: 1fr 180px 120px;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 18px 5px;
+
+    border-top: 1px solid #f1d8eb;
+}
+
+.report-info {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.report-info strong {
+    display: block;
+
+    color: #222;
+
+    font-size: 15px;
+}
+
+.report-info span {
+    display: block;
+
+    color: #888;
+
+    font-size: 13px;
+}
+
+.report-date {
+    color: #777;
+
+    font-size: 13px;
+
+    text-align: right;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.status {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 11px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    text-transform: capitalize;
+}
+
+.status.pendente {
+    background: #fff4d6;
+
+    color: #a66a00;
+}
+
+.status.em_andamento {
+    background: #e9f3ff;
+
+    color: #2877b8;
+}
+
+.status.finalizada,
+.status.finalizado {
+    background: #e6f8ed;
+
+    color: #21864a;
+}
+
+.status.cancelado {
+    background: #f1f1f1;
+
+    color: #777;
+}
+
+
+/* ========================================
+   BOLINHA DO STATUS
+======================================== */
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+}
+
+
+/* ========================================
+   STATUS DE USUÁRIO
+======================================== */
+
+.status.active {
+    background: #e8f8ee;
+
+    color: #21864a;
+}
+
+.status.blocked {
+    background: #fff0f0;
+
+    color: #c0392b;
+}
+
+.status.inactive {
+    background: #f1f1f1;
+
+    color: #777;
+}
+
+
+/* ========================================
+   TABELA DE USUÁRIOS
+======================================== */
 
 .users-table-container {
     width: 100%;
@@ -745,7 +656,6 @@
     color: #888;
 
     font-size: 12px;
-
     font-weight: 700;
 
     text-transform: uppercase;
@@ -776,9 +686,9 @@
 }
 
 
-/* ==================================================
+/* ========================================
    INFORMAÇÕES DO USUÁRIO
-================================================== */
+======================================== */
 
 .user-info {
     display: flex;
@@ -795,6 +705,7 @@
     flex-shrink: 0;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -805,7 +716,6 @@
     color: #d633b4;
 
     font-size: 15px;
-
     font-weight: 800;
 }
 
@@ -833,10 +743,16 @@
     font-size: 13px;
 }
 
+.user-id {
+    color: #999;
 
-/* ==================================================
+    font-size: 12px;
+}
+
+
+/* ========================================
    BADGES
-================================================== */
+======================================== */
 
 .user-badge {
     display: inline-flex;
@@ -852,7 +768,6 @@
     color: #6842a5;
 
     font-size: 11px;
-
     font-weight: 700;
 }
 
@@ -863,96 +778,41 @@
 }
 
 
-/* ==================================================
-   STATUS
-================================================== */
+/* ========================================
+   ESTADOS VAZIOS
+======================================== */
 
-.status {
-    display: inline-flex;
+.empty-reports {
+    min-height: 150px;
+
+    display: flex;
+
+    flex-direction: column;
 
     align-items: center;
+    justify-content: center;
 
-    gap: 6px;
+    gap: 10px;
 
-    padding: 6px 11px;
+    color: #888;
 
-    border-radius: 20px;
-
-    font-size: 11px;
-
-    font-weight: 700;
+    text-align: center;
 }
 
-.status-dot {
-    width: 6px;
-    height: 6px;
-
-    border-radius: 50%;
-
-    background: currentColor;
+.empty-reports span {
+    font-size: 30px;
 }
 
-.status.active {
-    background: #e8f8ee;
+.empty-reports p {
+    margin: 0;
 
-    color: #21864a;
+    font-size: 14px;
 }
-
-.status.blocked {
-    background: #fff0f0;
-
-    color: #c0392b;
-}
-
-.status.inactive {
-    background: #f1f1f1;
-
-    color: #777;
-}
-
-.user-id {
-    color: #999;
-
-    font-size: 12px;
-}
-
-/* CARDS DE ESTATÍSTICAS */
-.admin-card, .summary-card {
-    border: 2px solid #000;
-    border-radius: 18px;
-    
-}
-/* Estado inicial do card */
-.summary-card {
-    /* Controla a velocidade: 0.4 segundos com início e fim suaves */
-    transition: transform 0.4s ease, box-shadow 0.4s ease; 
-  }
-  
-  /* Estado quando o mouse passa por cima */
-  .summary-card:hover { 
-    /* Move o card 8 pixels para a cima  */
-    transform: translateY(-8px); 
-    
-    box-shadow: 0 15px 35px rgba(214, 51, 180, 0.10); 
-  }
-  
-
-
-/* SECTIONS DO DASHBOARD */
-.admin-section {
-    border: 2px solid #000;
-    border-radius: 20px;
-}
-
-
-/* ==================================================
-   ESTADO VAZIO
-================================================== */
 
 .empty-users {
-    text-align: center;
-
     padding: 70px 20px;
+
+    text-align: center;
 }
 
 .empty-icon {
@@ -962,6 +822,7 @@
     margin: 0 auto 15px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -973,9 +834,9 @@
 }
 
 .empty-users h3 {
-    font-size: 18px;
-
     margin-bottom: 7px;
+
+    font-size: 18px;
 }
 
 .empty-users p {
@@ -985,23 +846,59 @@
 }
 
 
+/* ========================================
+   RESPONSIVO - TABLET
+======================================== */
+
+@media (max-width: 1200px) {
+
+    .admin-cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
 
 
-/* ==================================================
-   RESPONSIVO
-================================================== */
+/* ========================================
+   RESPONSIVO - TABLET MENOR
+======================================== */
 
-@media (max-width: 1000px) {
+@media (max-width: 900px) {
+
+    .admin-sidebar {
+        width: 210px;
+    }
 
     .admin-main {
-        padding: 35px 25px;
+        margin-left: 210px;
+
+        padding: 30px;
+    }
+
+    .admin-cards {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .users-summary {
         grid-template-columns: 1fr;
     }
 
+    .report-row {
+        grid-template-columns: 1fr;
+
+        gap: 8px;
+    }
+
+    .report-date {
+        text-align: left;
+    }
+
 }
+
+
+/* ========================================
+   RESPONSIVO - CELULAR
+======================================== */
 
 @media (max-width: 700px) {
 
@@ -1009,6 +906,20 @@
         width: 70px;
 
         padding: 20px 10px;
+    }
+
+    .sidebar-logo {
+        padding: 0 0 25px;
+
+        text-align: center;
+    }
+
+    .sidebar-logo h2 {
+        font-size: 18px;
+    }
+
+    .sidebar-logo span {
+        display: none;
     }
 
     .menu-item {
@@ -1021,83 +932,18 @@
         display: none;
     }
 
+    .menu-icon {
+        width: auto;
+    }
+
     .admin-main {
+        margin-left: 70px;
+
         padding: 25px 15px;
     }
 
     .admin-page-header h1 {
         font-size: 30px;
-    }
-
-    .users-section {
-        padding: 20px 15px;
-    }
-
-}
-
-/* ========================================
-   RESPONSIVO
-======================================== */
-
-@media (max-width: 1200px) {
-
-    .admin-cards {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-}
-
-
-@media (max-width: 900px) {
-
-    .admin-sidebar {
-        width: 210px;
-    }
-
-    .admin-main {
-        width: calc(100% - 210px);
-
-        margin-left: 210px;
-
-        padding: 30px;
-    }
-
-    .admin-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .report-row {
-        grid-template-columns: 1fr;
-        gap: 8px;
-    }
-
-    .report-date {
-        text-align: left;
-    }
-
-}
-
-
-@media (max-width: 650px) {
-
-    .admin-sidebar {
-        position: relative;
-
-        width: 100%;
-
-        min-height: auto;
-    }
-
-    .admin-layout {
-        flex-direction: column;
-    }
-
-    .admin-main {
-        width: 100%;
-
-        margin-left: 0;
-
-        padding: 25px 20px;
     }
 
     .admin-header {
@@ -1114,6 +960,44 @@
 
     .admin-cards {
         grid-template-columns: 1fr;
+    }
+
+    .users-section,
+    .admin-section {
+        padding: 20px 15px;
+    }
+
+}
+
+
+/* ========================================
+   RESPONSIVO - CELULAR PEQUENO
+======================================== */
+
+@media (max-width: 450px) {
+
+    .admin-sidebar {
+        width: 60px;
+
+        padding: 15px 8px;
+    }
+
+    .admin-main {
+        margin-left: 60px;
+
+        padding: 20px 12px;
+    }
+
+    .admin-page-header h1 {
+        font-size: 26px;
+    }
+
+    .admin-card {
+        padding: 18px;
+    }
+
+    .summary-card {
+        padding: 18px;
     }
 
 }

@@ -9,9 +9,16 @@ Configurações | Painel Administrativo
 
 <link
     rel="stylesheet"
-    href="{{ url_for('static', filename='css/configuracoes.css') }}"
+    href="{{ url_for('static', filename='css/admin.css') }}"
 >
 
+{% block admin_estilos %}
+
+<link 
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/configuracoes.css') }}"
+>	
+{% endblock %}
 {% endblock %}
 
 
@@ -140,7 +147,8 @@ Gerencie as configurações do painel administrativo.
         <div class="setting-option">
 
             <div class="setting-option-icon">
-                🚨
+            <img src="{{ url_for('static',filename='image/icons/chamada-telefonica.png') }}"alt="usuario">
+                
             </div>
 
             <div>
@@ -162,7 +170,7 @@ Gerencie as configurações do painel administrativo.
         <div class="setting-option">
 
             <div class="setting-option-icon">
-                ⚠️
+                <img src="{{ url_for('static',filename='image/icons/warning.png') }}"alt="usuario">
             </div>
 
             <div>
@@ -183,7 +191,7 @@ Gerencie as configurações do painel administrativo.
         <div class="setting-option">
 
             <div class="setting-option-icon">
-                🔄
+                <img src="{{ url_for('static',filename='image/icons/em-andamento.png') }}"alt="usuario">
             </div>
 
             <div>
@@ -236,7 +244,7 @@ Gerencie as configurações do painel administrativo.
         <div class="setting-option">
 
             <div class="setting-option-icon">
-                🔐
+                <img src="{{ url_for('static',filename='image/icons/cadeado.png') }}"alt="usuario">
             </div>
 
             <div>
@@ -263,7 +271,7 @@ Gerencie as configurações do painel administrativo.
         <div class="setting-option">
 
             <div class="setting-option-icon">
-                🛡️
+                <img src="{{ url_for('static',filename='image/icons/security.png') }}"alt="usuario">
             </div>
 
             <div>

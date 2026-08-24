@@ -4,7 +4,15 @@
 Relatórios | SOSMulher
 {% endblock %}
 
+
 {% block estilos %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/admin.css') }}"
+>
+
+{% block admin_estilos %}
 
 <link
     rel="stylesheet"
@@ -13,6 +21,7 @@ Relatórios | SOSMulher
 
 {% endblock %}
 
+{% endblock %}
 {% block admin_titulo %}
 Relatórios
 {% endblock %}

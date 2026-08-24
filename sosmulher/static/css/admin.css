@@ -166,6 +166,64 @@ body {
 }
 
 
+
+/* ICONS USUARIOS ADMIN */
+
+.summary-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: #ffffff;
+    padding: 16px 20px;
+    border-radius: 14px;
+    border: 1.5px solid #000000;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Container quadrado para o ícone */
+.summary-card .card-icon {
+    width: 44px;
+    height: 44px;
+    background-color: #fce8f3; /* Rosa claro de fundo do ícone */
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Ajuste da imagem dentro do quadrado */
+.summary-card .card-icon img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+/* Container do texto e número */
+.summary-card div:not(.card-icon) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Título (ex: Administradores) */
+.summary-card span {
+    font-size: 0.8rem;
+    color: #6b7280;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+/* Número destacado */
+.summary-card strong {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #c026d3; /* Tom magenta/rosa escuro do número */
+    line-height: 1.1;
+}
+
+
 /* ========================================
    HEADER
 ======================================== */

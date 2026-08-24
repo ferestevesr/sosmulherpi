@@ -1,126 +1,448 @@
 {% extends "base.html" %}
 
 {% block titulo %}
-Início
+Início | SOSMulher
 {% endblock %}
 
+
 {% block estilos %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 {% endblock %}
+
 
 {% block body %}
 
-  <section class="hero">
-    <h2>Você não está <span>sozinha</span></h2>
-    <p>Peça ajuda de forma rápida, discreta e segura.</p>
-    <a href="{{ url_for('home.sos')}}" class="botao-ajuda">PEDIR AJUDA</a>
-  </section>
 
-  <section class="como-funciona">
-    <h2>Como funciona</h2>
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <h2>
+        Você não está <span>sozinha</span>
+    </h2>
+
+    <p>
+        Peça ajuda de forma rápida, discreta e segura.
+    </p>
+
+    <a
+        href="{{ url_for('home.sos') }}"
+        class="botao-ajuda"
+    >
+        PEDIR AJUDA
+    </a>
+
+</section>
+
+
+
+<!-- =====================================================
+     COMO FUNCIONA
+===================================================== -->
+
+<section class="como-funciona">
+
+    <h2>
+        Como funciona
+    </h2>
 
     <div class="cards">
-      <div class="card">
-        <img src="{{ url_for ('static', filename='/image/icons/alerta.png') }}" alt="">
-        <h3>1. Clique no SOS</h3>
-        <p>Com um toque você inicia o pedido de ajuda.</p>
-      </div>
 
-      <div class="card">
-        <img src="{{ url_for ('static', filename='/image/icons/pin.png') }}" alt="">
-        <h3>2. Envio automático</h3>
-        <p>Seus dados e localização são enviados.</p>
-      </div>
 
-      <div class="card">
-        <img src="{{ url_for ('static', filename='/image/icons/agente-de-call-center.png') }}" alt="">
-        <h3>3. Ajuda a caminho</h3>
-        <p>Autoridades ou contatos são acionados.</p>
-      </div>
+        <!-- ETAPA 1 -->
+
+        <div class="card">
+
+            <img
+                src="{{ url_for('static', filename='image/icons/alerta.png') }}"
+                alt="Alerta"
+            >
+
+            <h3>
+                1. Clique no SOS
+            </h3>
+
+            <p>
+                Com um toque você inicia o pedido de ajuda.
+            </p>
+
+        </div>
+
+
+        <!-- ETAPA 2 -->
+
+        <div class="card">
+
+            <img
+                src="{{ url_for('static', filename='image/icons/pin.png') }}"
+                alt="Localização"
+            >
+
+            <h3>
+                2. Envio automático
+            </h3>
+
+            <p>
+                Seus dados e localização são enviados.
+            </p>
+
+        </div>
+
+
+        <!-- ETAPA 3 -->
+
+        <div class="card">
+
+            <img
+                src="{{ url_for('static', filename='image/icons/agente-de-call-center.png') }}"
+                alt="Atendimento"
+            >
+
+            <h3>
+                3. Ajuda a caminho
+            </h3>
+
+            <p>
+                Seus contatos ou serviços de apoio podem ser acionados.
+            </p>
+
+        </div>
+
+
     </div>
 
-    <section class="impacto-confianca">
+</section>
 
-      <div class="impacto-card">
-        <h2>Silêncio também é violência.</h2>
-        <p>Peça ajuda de forma segura, rápida e anônima.</p>
-      </div>
-    
-      <div class="confianca-card">
-    
-        <div class="item">
-          <img src="{{ url_for('static', filename='/image/icons/cadeado.png') }}">
-          <span>100% confidencial</span>
-        </div>
-    
-        <div class="item">
-          <img src="{{ url_for('static', filename='/image/icons/mulher-anonima.png') }}">
-          <span>Uso anônimo</span>
-        </div>
-    
-        <div class="item">
-          <img src="{{ url_for('static', filename='/image/icons/raio.png') }}">
-          <span>Resposta rápida</span>
-        </div>
-    
-      </div>
 
-      <div class="confianca-card">
-          
+
+<!-- =====================================================
+     IMPACTO E CONFIANÇA
+===================================================== -->
+
+<section class="impacto-confianca">
+
+
+    <!-- MENSAGEM -->
+
+    <div class="impacto-card">
+
+        <h2>
+            Silêncio também é violência.
+        </h2>
+
+        <p>
+            Peça ajuda de forma segura, rápida e confidencial.
+        </p>
+
+    </div>
+
+
+    <!-- CONFIANÇA -->
+
+    <div class="confianca-card">
+
+        <div class="item">
+
+            <img
+                src="{{ url_for('static', filename='image/icons/cadeado.png') }}"
+                alt="Confidencialidade"
+            >
+
+            <span>
+                100% confidencial
+            </span>
+
+        </div>
+
+
+        <div class="item">
+
+            <img
+                src="{{ url_for('static', filename='image/icons/mulher-anonima.png') }}"
+                alt="Anonimato"
+            >
+
+            <span>
+                Uso anônimo
+            </span>
+
+        </div>
+
+
+        <div class="item">
+
+            <img
+                src="{{ url_for('static', filename='image/icons/raio.png') }}"
+                alt="Rapidez"
+            >
+
+            <span>
+                Resposta rápida
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- IMPACTO REAL -->
+
+    <div class="confianca-card">
+
         <div class="impacto-real-card">
 
-          <h3>Impacto real</h3>
-        
-          <div class="numero">
-            1.000+
-          </div>
-        
-          <p>
-            Pedidos de ajuda atendidos
-          </p>
-        
-        </div>
-      </div>
-    
-    </section>
-    <!-- RECURSOS -->
-    <section class="recursos">
-      <h2>Recursos</h2>
+            <h3>
+                Impacto real
+            </h3>
 
-      <div class="recursos-container">
+            <div class="numero">
+                1.000+
+            </div>
+
+            <p>
+                Pedidos de ajuda atendidos
+            </p>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     RECURSOS
+===================================================== -->
+
+<section class="recursos">
+
+    <h2>
+        Recursos
+    </h2>
+
+    <p class="recursos-subtitulo">
+        Informação, apoio e ferramentas de segurança
+        reunidas em um único lugar.
+    </p>
+
+
+    <div class="recursos-container">
+
+
+        <!-- =================================================
+             PRIMEIRA LINHA - PÚBLICO
+        ================================================== -->
+
+
+        <!-- AJUDA -->
 
         <div class="recurso">
-          <img class="imgrec" src="{{ url_for('static', filename='image/icons/anonimo.png') }}" alt="anônimo">
-          <h3>Modo anônimo</h3>
-          <p>Use o sistema sem se identificar.</p>
-          <button class="btn-recurso"><a href="/templates/anonimo.html">Usar</a></button>
+
+            <img
+                class="imgrec"
+                src="{{ url_for('static', filename='image/icons/agente-de-call-center.png') }}"
+                alt="Ajuda"
+            >
+
+            <h3>
+                Ajuda
+            </h3>
+
+            <p>
+                Encontre respostas para dúvidas e orientações
+                sobre os recursos disponíveis na plataforma.
+            </p>
+
+            <a
+                href="{{ url_for('home.ajuda') }}"
+                class="btn-recurso"
+            >
+                Acessar ajuda
+            </a>
+
         </div>
+
+
+
+        <!-- SOBRE -->
 
         <div class="recurso">
-          <img class="imgrec" src="{{ url_for('static', filename='/image/icons/perigo.png') }}" alt="Denúncia">
-          <h3>Denúncias</h3>
-          <p>Registre situações de risco.</p>
-          <button class="btn-recurso"> <a href="{{ url_for('denuncia.denunciar')}}">Denunciar</a></button>
+
+            <img
+                class="imgrec"
+                src="{{ url_for('static', filename='image/icons/cadeado.png') }}"
+                alt="Sobre o SOSMulher"
+            >
+
+            <h3>
+                Sobre
+            </h3>
+
+            <p>
+                Conheça o propósito do SOSMulher,
+                seus recursos e diretrizes de segurança.
+            </p>
+
+            <a
+                href="{{ url_for('home.sobre') }}"
+                class="btn-recurso"
+            >
+                Conhecer projeto
+            </a>
+
         </div>
+
+
+
+        <!-- APOIO -->
 
         <div class="recurso">
-          <img class="imgrec" src="{{ url_for('static', filename='/image/icons/coracao.png') }}" alt="Apoio">
-          <h3>Apoio</h3>
-          <p>Informações e ajuda especializada.</p>
-          <button class="btn-recurso"> <a href="{{ url_for('home.apoio')}}">Ver</a></button>
+
+            <img
+                class="imgrec"
+                src="{{ url_for('static', filename='image/icons/coracao.png') }}"
+                alt="Apoio"
+            >
+
+            <h3>
+                Apoio
+            </h3>
+
+            <p>
+                Conheça formas de violência, sinais de alerta
+                e informações sobre redes de assistência.
+            </p>
+
+            <a
+                href="{{ url_for('home.apoio') }}"
+                class="btn-recurso"
+            >
+                Ver apoio
+            </a>
+
         </div>
 
-      </div>
-    </section>
+
+
+        <!-- =================================================
+             SEGUNDA LINHA - USUÁRIO LOGADO
+        ================================================== -->
+
+        {% if current_user.is_authenticated %}
+
+
+            <!-- LISTA DE CONTATOS -->
+
+            <div class="recurso">
+
+                <img
+                    class="imgrec"
+                    src="{{ url_for('static', filename='image/icons/mulher-anonima.png') }}"
+                    alt="Contatos de emergência"
+                >
+
+                <h3>
+                    Lista de Contatos
+                </h3>
+
+                <p>
+                    Cadastre e gerencie familiares, amigos
+                    e outras pessoas da sua rede de apoio.
+                </p>
+
+                <a
+                    href="{{ url_for('contato.contatos') }}"
+                    class="btn-recurso"
+                >
+                    Meus contatos
+                </a>
+
+            </div>
 
 
 
-    <!-- FOOTER -->
-    <footer>
-      <p>© 2026 SOSMulher - Todos os direitos reservados</p>
-    </footer>
+            <!-- DENÚNCIAS -->
 
-</body>
+            <div class="recurso">
 
-</html>
+                <img
+                    class="imgrec"
+                    src="{{ url_for('static', filename='image/icons/perigo.png') }}"
+                    alt="Denúncias"
+                >
+
+                <h3>
+                    Denúncias
+                </h3>
+
+                <p>
+                    Registre uma situação de violência
+                    de forma segura e confidencial.
+                </p>
+
+                <a
+                    href="{{ url_for('denuncia.denunciar') }}"
+                    class="btn-recurso"
+                >
+                    Fazer denúncia
+                </a>
+
+            </div>
+
+
+
+            <!-- ALERTA RÁPIDO -->
+
+            <div class="recurso recurso-sos">
+
+                <img
+                    class="imgrec"
+                    src="{{ url_for('static', filename='image/icons/alerta.png') }}"
+                    alt="Alerta rápido"
+                >
+
+                <h3>
+                    Alerta Rápido
+                </h3>
+
+                <p>
+                    Acesse rapidamente o recurso SOS
+                    para situações de emergência.
+                </p>
+
+                <a
+                    href="{{ url_for('home.sos') }}"
+                    class="btn-recurso btn-recurso-sos"
+                >
+                    Acionar SOS
+                </a>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <p>
+        © 2026 SOSMulher - Todos os direitos reservados
+    </p>
+
+</footer>
+
+
 {% endblock %}

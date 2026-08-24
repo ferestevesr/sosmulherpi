@@ -1,754 +1,724 @@
-const btnSOS = document.getElementById("btnSOS");
-const barra = document.getElementById("barra");
-const statusTexto = document.getElementById("status");
+document.addEventListener("DOMContentLoaded", function () {
 
-const loc = document.getElementById("loc");
-const contatos = document.getElementById("contatos");
-const ajuda = document.getElementById("ajuda");
-const geral = document.getElementById("geral");
+    /* =========================================================
+       CONFIGURAÇÃO VINDO DO SOS.HTML
+    ========================================================= */
 
-const cancelar = document.querySelector(".cancelar");
+    const sosConfigElemento = document.getElementById("sosConfig");
 
-let sistemaAtivo = false;
-let localizacaoObtida = false;
-let latitudeAtual = null;
-let longitudeAtual = null;
-let idSOS = null;
+    const SOS_CONFIG = {
+        autenticado:
+            sosConfigElemento &&
+            sosConfigElemento.dataset.autenticado === "1",
 
+        criarUrl:
+            sosConfigElemento
+                ? sosConfigElemento.dataset.criarUrl
+                : "",
 
-/* ==========================================
-   ESTADO INICIAL
-========================================== */
-
-resetarSistema();
-
-
-/* ==========================================
-   BOTÃO SOS
-========================================== */
-
-btnSOS.addEventListener("click", () => {
-
-    console.log("BOTÃO SOS FOI CLICADO!");
-
-    if (sistemaAtivo) {
-        return;
-    }
-
-    sistemaAtivo = true;
-
-    ativarBotao();
-
-    statusTexto.innerHTML =
-        "Solicitando sua localização...";
-
-    geral.innerHTML =
-        "🟡 Localizando";
-
-    loc.innerHTML =
-        "🟡 Detectando localização";
+        cancelarUrl:
+            sosConfigElemento
+                ? sosConfigElemento.dataset.cancelarUrl
+                : ""
+    };
 
 
-    /* ==========================================
-       VERIFICA GEOLOCALIZAÇÃO
-    ========================================== */
+    /* =========================================================
+       ELEMENTOS
+    ========================================================= */
 
-    if (!navigator.geolocation) {
+    const btnSOS = document.getElementById("btnSOS");
+    const btnCancelar = document.getElementById("btnCancelar");
 
-        console.error(
-            "Este navegador não suporta geolocalização."
-        );
+    const barra = document.getElementById("barra");
+    const status = document.getElementById("status");
 
-        localizacaoFalhou(
-            "Seu navegador não suporta localização."
-        );
+    const statusBadge = document.getElementById("statusBadge");
 
-        return;
-    }
+    const loc = document.getElementById("loc");
+    const contatos = document.getElementById("contatos");
+    const ajuda = document.getElementById("ajuda");
+    const geral = document.getElementById("geral");
 
+    const gpsStatus = document.getElementById("gpsStatus");
 
-    /* ==========================================
-       OBTÉM LOCALIZAÇÃO
-    ========================================== */
+    const mapa = document.getElementById("mapa");
+    const mapaPlaceholder = document.getElementById("mapaPlaceholder");
 
-    navigator.geolocation.getCurrentPosition(
+    const coordenadas = document.getElementById("coordenadas");
 
-        (posicao) => {
-
-            latitudeAtual = posicao.coords.latitude;
-            longitudeAtual = posicao.coords.longitude;
-
-            localizacaoObtida = true;
-
-            console.log("=================================");
-            console.log("LOCALIZAÇÃO OBTIDA COM SUCESSO!");
-            console.log("Latitude:", latitudeAtual);
-            console.log("Longitude:", longitudeAtual);
-            console.log("Precisão:", posicao.coords.accuracy);
-            console.log("=================================");
+    const latitudeTexto = document.getElementById("latitude");
+    const longitudeTexto = document.getElementById("longitude");
 
 
-            barra.style.width = "20%";
+    /* =========================================================
+       VARIÁVEIS
+    ========================================================= */
 
-            loc.innerHTML =
-                "🟢 Localização detectada";
+    let alertaAtivo = false;
 
-            statusTexto.innerHTML =
-                "Localização obtida. Enviando pedido de emergência...";
+    let watchId = null;
 
-            geral.innerHTML =
-                "🟡 Enviando";
+    let pedidoSosId = null;
 
-
-            /* ==========================================
-               REGISTRA O SOS NO BANCO
-            ========================================== */
-
-            registrarSOS(
-                latitudeAtual,
-                longitudeAtual
-            );
-
-        },
+    let pedidoRegistrado = false;
 
 
-        (erro) => {
+    /* =========================================================
+       EVENTO BOTÃO SOS
+    ========================================================= */
 
-            console.error("=================================");
-            console.error("ERRO DE GEOLOCALIZAÇÃO");
-            console.error("Código:", erro.code);
-            console.error("Mensagem:", erro.message);
-            console.error("=================================");
+    btnSOS.addEventListener("click", function () {
 
-
-            if (erro.code === 1) {
-
-                localizacaoFalhou(
-                    "Permissão de localização negada."
-                );
-
-            } else if (erro.code === 2) {
-
-                localizacaoFalhou(
-                    "Não foi possível determinar sua localização."
-                );
-
-            } else if (erro.code === 3) {
-
-                localizacaoFalhou(
-                    "Não foi possível obter sua localização a tempo."
-                );
-
-            } else {
-
-                localizacaoFalhou(
-                    "Não foi possível obter sua localização."
-                );
-
-            }
-
-        },
-
-
-        {
-            enableHighAccuracy: true,
-            timeout: 30000,
-            maximumAge: 60000
+        if (alertaAtivo) {
+            return;
         }
 
-    );
+        iniciarAlerta();
 
-});
-
-
-/* ==========================================
-   LOCALIZAÇÃO FALHOU
-========================================== */
-
-function localizacaoFalhou(mensagem) {
-
-    localizacaoObtida = false;
-
-    latitudeAtual = null;
-    longitudeAtual = null;
-
-    barra.style.width = "0%";
-
-    loc.innerHTML =
-        "🔴 Indisponível";
-
-    contatos.innerHTML =
-        "Aguardando";
-
-    ajuda.innerHTML =
-        "Aguardando";
-
-    geral.innerHTML =
-        "🔴 Erro";
-
-    statusTexto.innerHTML =
-        mensagem +
-        " O pedido SOS não foi enviado.";
-
-    sistemaAtivo = false;
-
-    btnSOS.style.transform =
-        "scale(1)";
-
-    btnSOS.style.boxShadow =
-        "0 25px 60px rgba(255, 77, 109, 0.35)";
-
-    btnSOS.innerHTML =
-        "SOS";
-}
+    });
 
 
-/* ==========================================
-   REGISTRAR SOS NO SERVIDOR
-========================================== */
+    /* =========================================================
+       EVENTO CANCELAR
+    ========================================================= */
 
-async function registrarSOS(latitude, longitude) {
+    btnCancelar.addEventListener("click", function () {
 
-    if (
-        latitude === null ||
-        longitude === null ||
-        latitude === undefined ||
-        longitude === undefined
-    ) {
+        cancelarAlerta();
 
-        console.error(
-            "SOS não enviado: localização inválida."
+    });
+
+
+    /* =========================================================
+       INICIAR ALERTA
+    ========================================================= */
+
+    function iniciarAlerta() {
+
+        alertaAtivo = true;
+
+        pedidoRegistrado = false;
+
+        pedidoSosId = null;
+
+
+        /* BOTÃO */
+
+        btnSOS.disabled = true;
+
+        btnSOS.style.opacity = "0.85";
+
+        btnSOS.querySelector("span").textContent =
+            "LOCALIZANDO";
+
+
+        /* BARRA */
+
+        barra.style.width = "20%";
+
+
+        /* STATUS */
+
+        status.textContent =
+            "Solicitando acesso à sua localização...";
+
+        statusBadge.textContent =
+            "Iniciando";
+
+        loc.textContent =
+            "Solicitando";
+
+        ajuda.textContent =
+            "Iniciando";
+
+        geral.textContent =
+            "Ativo";
+
+        gpsStatus.textContent =
+            "Solicitando acesso";
+
+
+        /* VERIFICA GEOLOCALIZAÇÃO */
+
+        if (!navigator.geolocation) {
+
+            erroGeolocalizacao(
+                "Seu navegador não oferece suporte à localização."
+            );
+
+            return;
+
+        }
+
+
+        /* ACOMPANHA LOCALIZAÇÃO */
+
+        watchId = navigator.geolocation.watchPosition(
+
+            localizacaoObtida,
+
+            localizacaoErro,
+
+            {
+                enableHighAccuracy: true,
+                timeout: 15000,
+                maximumAge: 5000
+            }
+
         );
 
-        localizacaoFalhou(
-            "Localização inválida."
-        );
-
-        return;
     }
 
 
-    console.log(
-        "Enviando SOS para o servidor..."
-    );
+    /* =========================================================
+       LOCALIZAÇÃO OBTIDA
+    ========================================================= */
+
+    async function localizacaoObtida(position) {
+
+        if (!alertaAtivo) {
+            return;
+        }
 
 
-    statusTexto.innerHTML =
-        "Registrando pedido de emergência...";
+        const latitude =
+            position.coords.latitude;
 
-    geral.innerHTML =
-        "🟡 Registrando";
+        const longitude =
+            position.coords.longitude;
 
 
-    try {
+        /* COORDENADAS */
 
-        const resposta = await fetch(
-            "/sos/acionar",
-            {
-                method: "POST",
+        latitudeTexto.textContent =
+            latitude.toFixed(6);
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
+        longitudeTexto.textContent =
+            longitude.toFixed(6);
 
-                body: JSON.stringify({
-                    latitude: latitude,
-                    longitude: longitude
-                })
-            }
+        coordenadas.hidden = false;
+
+
+        /* STATUS GPS */
+
+        loc.textContent =
+            "Obtida";
+
+        gpsStatus.textContent =
+            "GPS ativo";
+
+        geral.textContent =
+            "Ativo";
+
+
+        /* MAPA */
+
+        atualizarMapa(
+            latitude,
+            longitude
         );
 
 
-        /* ==========================================
-           LÊ RESPOSTA
-        ========================================== */
+        /*
+           watchPosition pode chamar essa função várias vezes.
+           O pedido SOS só deve ser criado uma vez.
+        */
 
-        let dados;
+        if (!pedidoRegistrado) {
+
+            pedidoRegistrado = true;
+
+            await registrarPedidoSOS(
+                latitude,
+                longitude
+            );
+
+        }
+
+    }
+
+
+    /* =========================================================
+       REGISTRAR SOS NO FLASK
+    ========================================================= */
+
+    async function registrarPedidoSOS(latitude, longitude) {
+
+        barra.style.width = "55%";
+
+
+        /* USUÁRIO NÃO LOGADO */
+
+        if (!SOS_CONFIG.autenticado) {
+
+            status.textContent =
+                "Localização obtida. Entre na sua conta para registrar o alerta.";
+
+            statusBadge.textContent =
+                "Login necessário";
+
+            ajuda.textContent =
+                "Não registrado";
+
+            geral.textContent =
+                "Localização ativa";
+
+            barra.style.width =
+                "100%";
+
+            btnSOS.querySelector("span").textContent =
+                "LOCALIZAÇÃO ATIVA";
+
+            return;
+
+        }
+
+
+        /* USUÁRIO LOGADO */
+
+        status.textContent =
+            "Localização obtida. Registrando alerta...";
+
+        statusBadge.textContent =
+            "Registrando";
+
 
         try {
 
-            dados = await resposta.json();
+            const resposta = await fetch(
+                SOS_CONFIG.criarUrl,
+                {
+                    method: "POST",
 
-        } catch (erroJSON) {
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        latitude: latitude,
+                        longitude: longitude
+                    })
+                }
+            );
+
+
+            const dados =
+                await resposta.json();
+
+
+            if (!resposta.ok || !dados.sucesso) {
+
+                throw new Error(
+                    dados.mensagem ||
+                    "Não foi possível registrar o alerta."
+                );
+
+            }
+
+
+            /* SALVA ID DO PEDIDO */
+
+            pedidoSosId =
+                dados.id_sos;
+
+
+            /* INTERFACE */
+
+            barra.style.width =
+                "100%";
+
+            status.textContent =
+                "Alerta registrado com sucesso.";
+
+            statusBadge.textContent =
+                "Ativo";
+
+            ajuda.textContent =
+                "Registrado";
+
+            geral.textContent =
+                "Ativo";
+
+
+            /* QUANTIDADE DE CONTATOS */
+
+            if (contatos) {
+
+                if (dados.contatos === 1) {
+
+                    contatos.textContent =
+                        "1 vinculado";
+
+                } else {
+
+                    contatos.textContent =
+                        dados.contatos + " vinculados";
+
+                }
+
+            }
+
+
+            btnSOS.querySelector("span").textContent =
+                "ALERTA ATIVO";
+
+
+        } catch (erro) {
 
             console.error(
-                "O servidor não retornou JSON válido."
+                "Erro ao registrar SOS:",
+                erro
             );
 
-            console.error(
-                "Status HTTP:",
-                resposta.status
-            );
 
-            throw new Error(
-                "Resposta inválida do servidor."
-            );
-        }
+            status.textContent =
+                "Localização obtida, mas o alerta não pôde ser registrado.";
 
+            statusBadge.textContent =
+                "Erro no registro";
 
-        /* ==========================================
-           VERIFICA ERRO
-        ========================================== */
+            ajuda.textContent =
+                "Não registrado";
 
-        if (!resposta.ok || !dados.sucesso) {
-
-            console.error(
-                "Erro retornado pelo servidor:",
-                dados.erro
-            );
-
-            throw new Error(
-                dados.erro ||
-                "Não foi possível registrar o SOS."
-            );
-        }
+            geral.textContent =
+                "Disponível";
 
 
-        /* ==========================================
-           SOS REGISTRADO
-        ========================================== */
+            btnSOS.disabled =
+                false;
 
-        idSOS = dados.id_sos;
+            btnSOS.style.opacity =
+                "1";
 
-        console.log(
-            "SOS registrado com sucesso!"
-        );
-
-        console.log(
-            "ID do SOS:",
-            idSOS
-        );
-
-        console.log(
-            "Status:",
-            dados.status
-        );
-
-        console.log(
-            "Contatos vinculados:",
-            dados.contatos
-        );
+            btnSOS.querySelector("span").textContent =
+                "TENTAR NOVAMENTE";
 
 
-        barra.style.width =
-            "45%";
+            pedidoRegistrado =
+                false;
+
+            alertaAtivo =
+                false;
 
 
-        statusTexto.innerHTML =
-            "Pedido de emergência enviado. Aguardando acionamento dos contatos.";
-
-
-        /* ==========================================
-           LOCALIZAÇÃO
-        ========================================== */
-
-        loc.innerHTML =
-            "🟢 Localização enviada";
-
-
-        /* ==========================================
-           CONTATOS
-           IMPORTANTE:
-           ainda NÃO foram avisados.
-        ========================================== */
-
-        if (dados.contatos > 0) {
-
-            contatos.innerHTML =
-                "🟡 Aguardando acionamento";
-
-        } else {
-
-            contatos.innerHTML =
-                "🟡 Nenhum contato cadastrado";
+            pararLocalizacao();
 
         }
 
-
-        /* ==========================================
-           AJUDA
-        ========================================== */
-
-        ajuda.innerHTML =
-            "🟡 Aguardando";
-
-
-        /* ==========================================
-           SISTEMA
-        ========================================== */
-
-        geral.innerHTML =
-            "🟢 Chamado enviado";
-
-
-        barra.style.width =
-            "60%";
-
-
-        /*
-         * A partir daqui NÃO finalizamos
-         * automaticamente o chamado.
-         *
-         * O status só mudará quando o
-         * administrador acionar os contatos.
-         */
-
-
-        console.log(
-            "Chamado aguardando ação do administrador."
-        );
-
-
-        /*
-         * Começa a consultar o status do chamado.
-         */
-
-        iniciarMonitoramentoStatus();
-
-
-    } catch (erro) {
-
-        console.error(
-            "Erro ao registrar SOS:",
-            erro
-        );
-
-        statusTexto.innerHTML =
-            "Erro ao registrar o pedido de emergência.";
-
-        geral.innerHTML =
-            "🔴 Erro";
-
-        ajuda.innerHTML =
-            "🔴 Não registrado";
-
-        contatos.innerHTML =
-            "🔴 Não registrado";
-
-        sistemaAtivo = false;
-
-        btnSOS.style.transform =
-            "scale(1)";
-
-        btnSOS.style.boxShadow =
-            "0 25px 60px rgba(255, 77, 109, 0.35)";
-
-        btnSOS.innerHTML =
-            "SOS";
     }
 
-}
+
+    /* =========================================================
+       ATUALIZAR MAPA
+    ========================================================= */
+
+    function atualizarMapa(latitude, longitude) {
+
+        const url =
+            "https://www.google.com/maps?q=" +
+            latitude +
+            "," +
+            longitude +
+            "&z=16&output=embed";
 
 
-/* ==========================================
-   MONITORAMENTO DO STATUS
-========================================== */
+        mapa.src =
+            url;
 
-function iniciarMonitoramentoStatus() {
+        mapa.hidden =
+            false;
 
-    if (!idSOS) {
-        return;
+        mapaPlaceholder.hidden =
+            true;
+
     }
 
-    console.log(
-        "Iniciando monitoramento do SOS:",
-        idSOS
-    );
+
+    /* =========================================================
+       ERRO DE LOCALIZAÇÃO
+    ========================================================= */
+
+    function localizacaoErro(error) {
+
+        let mensagem;
 
 
-    /*
-     * Consulta o servidor a cada 5 segundos.
-     *
-     * Enquanto estiver em andamento:
-     * - contatos aguardando
-     * - ajuda aguardando
-     *
-     * Quando o admin acionar:
-     * - chamado finalizado
-     * - contatos acionados
-     * - ajuda a caminho
-     */
+        switch (error.code) {
 
-    const intervalo = setInterval(
-        async () => {
+            case error.PERMISSION_DENIED:
+
+                mensagem =
+                    "A permissão de localização foi negada.";
+
+                break;
+
+
+            case error.POSITION_UNAVAILABLE:
+
+                mensagem =
+                    "Não foi possível identificar sua localização.";
+
+                break;
+
+
+            case error.TIMEOUT:
+
+                mensagem =
+                    "A localização demorou mais que o esperado.";
+
+                break;
+
+
+            default:
+
+                mensagem =
+                    "Não foi possível acessar sua localização.";
+
+        }
+
+
+        erroGeolocalizacao(
+            mensagem
+        );
+
+    }
+
+
+    /* =========================================================
+       TRATAR ERRO DE GEOLOCALIZAÇÃO
+    ========================================================= */
+
+    function erroGeolocalizacao(mensagem) {
+
+        barra.style.width =
+            "0%";
+
+        status.textContent =
+            mensagem;
+
+        statusBadge.textContent =
+            "Sem localização";
+
+        loc.textContent =
+            "Indisponível";
+
+        gpsStatus.textContent =
+            "GPS indisponível";
+
+        ajuda.textContent =
+            "Não iniciado";
+
+        geral.textContent =
+            "Disponível";
+
+
+        btnSOS.disabled =
+            false;
+
+        btnSOS.style.opacity =
+            "1";
+
+        btnSOS.querySelector("span").textContent =
+            "TENTAR NOVAMENTE";
+
+
+        pararLocalizacao();
+
+        alertaAtivo =
+            false;
+
+    }
+
+
+    /* =========================================================
+       CANCELAR ALERTA
+    ========================================================= */
+
+    async function cancelarAlerta() {
+
+        /*
+           Se existe um PedidoSOS registrado no banco,
+           atualiza o status para cancelado.
+        */
+
+        if (
+            pedidoSosId !== null &&
+            SOS_CONFIG.autenticado &&
+            SOS_CONFIG.cancelarUrl
+        ) {
+
+            status.textContent =
+                "Cancelando alerta...";
+
+            statusBadge.textContent =
+                "Cancelando";
+
 
             try {
 
                 const resposta = await fetch(
-                    `/sos/status/${idSOS}`
+                    SOS_CONFIG.cancelarUrl,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            id_sos: pedidoSosId
+                        })
+                    }
                 );
-
-
-                if (!resposta.ok) {
-                    return;
-                }
 
 
                 const dados =
                     await resposta.json();
 
 
-                if (!dados.sucesso) {
-                    return;
-                }
+                if (!resposta.ok || !dados.sucesso) {
 
+                    console.error(
+                        "Erro ao cancelar pedido:",
+                        dados
+                    );
 
-                console.log(
-                    "Status atual do SOS:",
-                    dados.status
-                );
-
-
-                atualizarStatusInterface(
-                    dados
-                );
-
-
-                /*
-                 * Quando finalizar, não precisa
-                 * continuar consultando.
-                 */
-
-                if (
-                    dados.status === "finalizado" ||
-                    dados.status === "cancelado"
-                ) {
-
-                    clearInterval(intervalo);
                 }
 
 
             } catch (erro) {
 
                 console.error(
-                    "Erro ao consultar status do SOS:",
+                    "Erro ao cancelar SOS:",
                     erro
                 );
 
             }
 
-        },
-        5000
-    );
-}
+        }
 
 
-/* ==========================================
-   ATUALIZA INTERFACE CONFORME BANCO
-========================================== */
+        resetarInterface();
 
-function atualizarStatusInterface(dados) {
-
-    /* ==========================================
-       EM ANDAMENTO
-    ========================================== */
-
-    if (dados.status === "em_andamento") {
-
-        barra.style.width =
-            "60%";
-
-        statusTexto.innerHTML =
-            "Pedido registrado. Aguardando acionamento dos contatos de emergência.";
-
-        contatos.innerHTML =
-            dados.contatos > 0
-                ? "🟡 Aguardando acionamento"
-                : "🟡 Nenhum contato cadastrado";
-
-        ajuda.innerHTML =
-            "🟡 Aguardando";
-
-        geral.innerHTML =
-            "🟢 Chamado em andamento";
-
-        return;
     }
 
 
-    /* ==========================================
-       FINALIZADO
-    ========================================== */
+    /* =========================================================
+       RESETAR INTERFACE
+    ========================================================= */
 
-    if (dados.status === "finalizado") {
+    function resetarInterface() {
 
-        barra.style.width =
-            "100%";
-
-        statusTexto.innerHTML =
-            "Ajuda acionada e a caminho 🚨";
-
-        contatos.innerHTML =
-            dados.contatos > 0
-                ? "🟢 Contatos acionados"
-                : "🟡 Nenhum contato cadastrado";
-
-        ajuda.innerHTML =
-            "🟢 Ajuda acionada e a caminho";
-
-        geral.innerHTML =
-            "🟢 Emergência acionada";
-
-        efeitoFinal();
-
-        return;
-    }
+        pararLocalizacao();
 
 
-    /* ==========================================
-       CANCELADO
-    ========================================== */
+        alertaAtivo =
+            false;
 
-    if (dados.status === "cancelado") {
+        pedidoRegistrado =
+            false;
+
+        pedidoSosId =
+            null;
+
+
+        /* BOTÃO */
+
+        btnSOS.disabled =
+            false;
+
+        btnSOS.style.opacity =
+            "1";
+
+        btnSOS.querySelector("span").textContent =
+            "ACIONAR ALERTA";
+
+
+        /* BARRA */
 
         barra.style.width =
             "0%";
 
-        statusTexto.innerHTML =
-            "O pedido de emergência foi cancelado.";
 
-        contatos.innerHTML =
-            "Cancelado";
+        /* STATUS */
 
-        ajuda.innerHTML =
-            "Cancelada";
+        status.textContent =
+            "Pressione SOS para iniciar.";
 
-        geral.innerHTML =
-            "Cancelado";
+        statusBadge.textContent =
+            "Aguardando";
 
-    }
+        loc.textContent =
+            "Aguardando";
 
-}
+        ajuda.textContent =
+            "Não iniciado";
+
+        geral.textContent =
+            "Disponível";
+
+        gpsStatus.textContent =
+            "Não iniciado";
 
 
-/* ==========================================
-   CANCELAR
-========================================== */
+        /* MAPA */
 
-cancelar.addEventListener(
-    "click",
-    () => {
+        mapa.src =
+            "";
 
-        console.log(
-            "SOS cancelado."
-        );
+        mapa.hidden =
+            true;
 
-        /*
-         * Neste momento apenas limpamos
-         * a interface.
-         *
-         * O cancelamento no banco será
-         * implementado separadamente para
-         * não misturar as duas funções.
-         */
+        mapaPlaceholder.hidden =
+            false;
 
-        sistemaAtivo = false;
 
-        localizacaoObtida = false;
+        /* COORDENADAS */
 
-        latitudeAtual = null;
-        longitudeAtual = null;
+        coordenadas.hidden =
+            true;
 
-        idSOS = null;
+        latitudeTexto.textContent =
+            "-";
 
-        resetarSistema();
+        longitudeTexto.textContent =
+            "-";
 
     }
-);
 
 
-/* ==========================================
-   RESET
-========================================== */
+    /* =========================================================
+       PARAR GPS
+    ========================================================= */
 
-function resetarSistema() {
+    function pararLocalizacao() {
 
-    barra.style.width =
-        "0%";
+        if (watchId !== null) {
 
+            navigator.geolocation.clearWatch(
+                watchId
+            );
 
-    statusTexto.innerHTML =
-        "Pressione o botão para iniciar o pedido de ajuda.";
+            watchId =
+                null;
 
-
-    loc.innerHTML =
-        "Aguardando";
-
-
-    contatos.innerHTML =
-        "Aguardando";
-
-
-    ajuda.innerHTML =
-        "Aguardando";
-
-
-    geral.innerHTML =
-        "Inativo";
-
-
-    btnSOS.style.transform =
-        "scale(1)";
-
-
-    btnSOS.style.boxShadow =
-        "0 25px 60px rgba(255, 77, 109, 0.35)";
-
-
-    btnSOS.innerHTML =
-        "SOS";
-}
-
-
-/* ==========================================
-   EFEITO BOTÃO ATIVO
-========================================== */
-
-function ativarBotao() {
-
-    btnSOS.style.transform =
-        "scale(1.05)";
-
-
-    btnSOS.style.boxShadow =
-        `
-        0 0 25px rgba(255,77,109,0.7),
-        0 0 60px rgba(255,77,109,0.4)
-        `;
-
-
-    btnSOS.innerHTML =
-        "ATIVO";
-}
-
-
-/* ==========================================
-   EFEITO FINAL
-========================================== */
-
-function efeitoFinal() {
-
-    btnSOS.animate(
-
-        [
-            {
-                transform: "scale(1)"
-            },
-
-            {
-                transform: "scale(1.05)"
-            },
-
-            {
-                transform: "scale(1)"
-            }
-        ],
-
-        {
-            duration: 1200,
-            iterations: Infinity
         }
 
+    }
+
+
+    /* =========================================================
+       ENCERRAR GPS AO SAIR DA PÁGINA
+    ========================================================= */
+
+    window.addEventListener(
+        "beforeunload",
+        function () {
+
+            pararLocalizacao();
+
+        }
     );
 
-}
+});

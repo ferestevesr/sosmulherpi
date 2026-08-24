@@ -1,56 +1,106 @@
-    /* RESET */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
-    }
+/* =========================================================
+   RESET
+========================================================= */
 
-    body {
-        background: #f5f1e9;
-        color: #1a1a1a;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
 
-    /* HEADER */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f5f1e9;
+  color: #1a1a1a;
+}
+
+
+/* =========================================================
+ LINKS
+========================================================= */
+
+a {
+  text-decoration: none;
+}
+
+
+/* =========================================================
+ CONTAINER
+========================================================= */
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+ HEADER
+========================================================= */
 
 .header {
-  background: rgba(255,255,255,0.9);
+  width: 100%;
+
+  background: rgba(255, 255, 255, 0.95);
+
   backdrop-filter: blur(10px);
 
   border-bottom: 1px solid #f1d8eb;
 
   position: sticky;
   top: 0;
+
   z-index: 1000;
+
+  box-shadow:
+      0 3px 15px rgba(0, 0, 0, 0.05);
 }
 
 .header-content {
   display: flex;
+
   justify-content: space-between;
   align-items: center;
 
-  padding: 12px 30px;
+  min-height: 85px;
+
+  padding: 10px 30px;
 }
+
+
+/* =========================================================
+ LOGO
+========================================================= */
 
 .logo-container {
   display: flex;
   align-items: center;
+
   gap: 12px;
 }
 
 .logo-img {
-  width: 75px;
-  height: 75px;
+  width: 65px;
+  height: 65px;
+
   object-fit: contain;
+
   display: block;
 }
 
 .logo {
   font-size: 30px;
   font-weight: 700;
-  color: #111;
+
+  color: #111111;
 
   margin: 0;
+
   line-height: 1;
 }
 
@@ -58,260 +108,344 @@
   color: #d633b4;
 }
 
-/* NAV */
+
+/* =========================================================
+ NAVEGAÇÃO
+========================================================= */
 
 .nav {
   display: flex;
   align-items: center;
-  gap: 25px;
+
+  gap: 22px;
 }
 
 .nav a {
   text-decoration: none;
-  color: #222;
-  font-size: 15px;
-  font-weight: 500;
 
-  transition: 0.3s;
+  color: #222222;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  transition: 0.3s ease;
 }
 
 .nav a:hover {
   color: #d633b4;
 }
 
-h2 span {
-  color: #d633b4;
-}
 
-/* BOTÃO SOS NAV */
+/* =========================================================
+ BOTÃO SOS NAV
+========================================================= */
 
-.btn-sos-nav {
-  background: linear-gradient(135deg, #ff4d4d, #ff2f6d);
-  color: white !important;
+.nav .btn-sos-nav {
+  background:
+      linear-gradient(
+          135deg,
+          #ff4d4d,
+          #ff2f6d
+      );
+
+  color: #ffffff !important;
 
   padding: 10px 22px;
+
   border-radius: 30px;
 
   font-weight: 700;
 
-  box-shadow: 0 10px 25px rgba(255, 77, 77, 0.25);
+  box-shadow:
+      0 10px 25px rgba(255, 77, 77, 0.25);
 
-  transition: .3s;
+  transition: 0.3s ease;
 }
 
-.btn-sos-nav:hover {
+.nav .btn-sos-nav:hover {
+  color: #ffffff !important;
+
   transform: translateY(-2px);
-}
 
-    /* CONTAINER */
-    .container {
-        max-width: 1100px;
-        margin: 0 auto;
-    }
-
-    /* HERO */
-.hero {
-    position: relative;
-    min-height: 90vh; /* ocupa a tela */
-    padding: 120px 20px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* centraliza vertical */
-
-    text-align: center;
-    overflow: hidden;
-
-    color: white;
-}
-
-/* FUNDO */
-.hero::before {
-    content: "";
-    position: absolute;
-
-    width: 100%;
-    height: 100%;
-
-    background: url("../image/img/imgfundo.png")  no-repeat center;
-    background-size: cover;
-
-    top: 0;
-    left: 0;
-
-    filter: blur(8px) brightness(0.6); /* AQUI O SEGREDO */
-
-    transform: scale(1.1); /* evita bordas cortadas do blur */
-
-    z-index: 0;
+  box-shadow:
+      0 12px 30px rgba(255, 77, 77, 0.35);
 }
 
 
-/* CONTEÚDO NA FRENTE */
-.hero > * {
-    position: relative;
-    z-index: 1;
+/* =========================================================
+ BOTÃO SAIR
+========================================================= */
+
+.nav .btn-sair {
+  color: #d62828;
+
+  font-weight: 700;
 }
 
-/* TEXTOS */
-.hero h2 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+.nav .btn-sair:hover {
+  color: #b71c1c;
 }
 
-.hero p {
-    color: #ddd; /* melhor contraste */
-    margin-bottom: 30px;
+
+/* =========================================================
+ BOTÃO VOLTAR
+========================================================= */
+
+.voltar-container {
+  width: 100%;
+  max-width: 1100px;
+
+  margin: 25px auto 0;
+
+  padding: 0 30px;
 }
 
-    /* BOTÃO SOS */
-    .botao-ajuda {
-        width: 220px;
-        height: 220px;
-        background: radial-gradient(circle, #ff4d4d, #e63939);
-        color: white;
-        border-radius: 50%;
-        font-size: 22px;
-        font-weight: bold;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 20px auto;
-        text-decoration: none;
-        transition: 0.3s;
-    }
+.btn-voltar {
+  display: inline-flex;
 
-    .botao-ajuda:hover {
-        transform: scale(1.08);
-    }
+  align-items: center;
+  justify-content: center;
 
-   /* SEÇÕES */
-section {
-    padding: 120px 20px; /* mais respiro */
-}
+  padding: 11px 20px;
 
-section h2 {
-    margin-bottom: 70px;
-    text-align: center;
-    font-size: 2rem;
-}
-
-/* COMO FUNCIONA */
-.como-funciona {
-    background: linear-gradient(to bottom, #ffffff, #f8f6f2);
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-}
-
-/* CARDS */
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 40px; /* mais espaço */
-}
-
-/* CARD */
-.card {
-    background: #ffffff;
-    padding: 35px 25px;
-    border-radius: 20px;
-
-    border: 1px solid #eee;
-
-    text-align: center;
-    position: relative;
-
-    transition: all 0.3s ease;
-}
-
-.card {
-    box-shadow: 
-        100px 50px 100px rgba(0,0,0,0.08),
-        inset 0 10px 0 rgba(255,255,255,0.6);
-}
-/* LINHA ROXA TOP (detalhe premium) */
-.card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 4px;
-
-    background: #e649d1;
-    border-radius: 20px 20px 0 0;
-}
-/* hover */
-.card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15),
-                0 5px 20px rgba(0, 0, 0, 0.08);
-}
-
-/* TÍTULO */
-.card h3 {
-    margin-bottom: 10px;
-    font-size: 18px;
-}
-
-/* TEXTO */
-.card p {
-    color: #666;
-    font-size: 14px;
-}
-
-/* IMAGENS */
-.card img {
-    width: 55px;
-    margin-bottom: 15px;
-    opacity: 0.8;
-}
-    
-
-/* LAYOUT */
-.impacto-confianca {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  
-    gap: 40px;
-  
-    width: 100%;
-    max-width: 1400px;
-  
-    margin: 0 auto;
-    padding: 100px 20px;
-  
-    align-items: stretch;
-  }
-  
- /* BASE DOS CARDS */
-.impacto-card,
-.confianca-card {
   background: #ffffff;
-  padding: 50px;
-  border-radius: 16px;
+
+  color: #d633b4;
+
+  border: 1px solid #ead5e5;
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+      0 5px 15px rgba(0, 0, 0, 0.06);
+
+  transition:
+      background 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease,
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+}
+
+.btn-voltar:hover {
+  background: #d633b4;
+
+  color: #ffffff;
+
+  border-color: #d633b4;
+
+  transform: translateX(-4px);
+
+  box-shadow:
+      0 8px 20px rgba(214, 51, 180, 0.2);
+}
+
+.btn-voltar:active {
+  transform: translateX(-2px);
+}
+
+
+/* =========================================================
+ HERO
+========================================================= */
+
+.hero {
+  position: relative;
+
+  min-height: 90vh;
+
+  padding: 120px 20px;
 
   display: flex;
   flex-direction: column;
+
+  align-items: center;
   justify-content: center;
 
-  height: 100%;
-  min-height: 260px;
+  text-align: center;
 
-  box-shadow: 0 20px 30px rgba(0,0,0,0.18);
-  border: none;
-  position: relative;
-  transition: all 0.3s ease;
+  overflow: hidden;
+
+  color: #ffffff;
 }
 
-/* LINHA ROSA EM CIMA DOS CARDS */
-.impacto-card::before,
-.confianca-card::before {
+.hero::before {
   content: "";
+
   position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  background:
+      url("../image/img/imgfundo.png")
+      no-repeat center;
+
+  background-size: cover;
+
+  top: 0;
+  left: 0;
+
+  filter: blur(8px) brightness(0.6);
+
+  transform: scale(1.1);
+
+  z-index: 0;
+}
+
+.hero > * {
+  position: relative;
+
+  z-index: 1;
+}
+
+.hero h2 {
+  font-size: 2.8rem;
+
+  margin-bottom: 15px;
+}
+
+.hero h2 span {
+  color: #ff6ccf;
+}
+
+.hero p {
+  color: #eeeeee;
+
+  margin-bottom: 30px;
+
+  font-size: 17px;
+}
+
+
+/* =========================================================
+ BOTÃO PEDIR AJUDA
+========================================================= */
+
+.botao-ajuda {
+  width: 220px;
+  height: 220px;
+
+  background:
+      radial-gradient(
+          circle,
+          #ff4d4d,
+          #e63939
+      );
+
+  color: #ffffff;
+
+  border-radius: 50%;
+
+  font-size: 22px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin: 20px auto;
+
+  text-decoration: none;
+
+  box-shadow:
+      0 15px 35px rgba(255, 0, 0, 0.3);
+
+  transition: 0.3s ease;
+}
+
+.botao-ajuda:hover {
+  transform: scale(1.08);
+
+  box-shadow:
+      0 20px 45px rgba(255, 0, 0, 0.45);
+}
+
+
+/* =========================================================
+ SEÇÕES GERAIS
+========================================================= */
+
+section {
+  padding: 100px 20px;
+}
+
+section h2 {
+  margin-bottom: 60px;
+
+  text-align: center;
+
+  font-size: 2rem;
+}
+
+
+/* =========================================================
+ COMO FUNCIONA
+========================================================= */
+
+.como-funciona {
+  background:
+      linear-gradient(
+          to bottom,
+          #ffffff,
+          #f8f6f2
+      );
+
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.cards {
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+      repeat(auto-fit, minmax(260px, 1fr));
+
+  gap: 35px;
+}
+
+
+/* =========================================================
+ CARDS
+========================================================= */
+
+.card {
+  background: #ffffff;
+
+  padding: 35px 25px;
+
+  border-radius: 20px;
+
+  border: 1px solid #eeeeee;
+
+  text-align: center;
+
+  position: relative;
+
+  box-shadow:
+      0 12px 30px rgba(0, 0, 0, 0.08);
+
+  transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+}
+
+.card::before {
+  content: "";
+
+  position: absolute;
+
   top: 0;
   left: 0;
 
@@ -319,217 +453,733 @@ section h2 {
   height: 4px;
 
   background: #e649d1;
+
+  border-radius: 20px 20px 0 0;
+}
+
+.card:hover {
+  transform: translateY(-12px);
+
+  box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.15),
+      0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+
+  font-size: 18px;
+}
+
+.card p {
+  color: #666666;
+
+  font-size: 14px;
+}
+
+.card img {
+  width: 55px;
+
+  margin-bottom: 15px;
+
+  opacity: 0.9;
+}
+
+
+/* =========================================================
+ IMPACTO E CONFIANÇA
+========================================================= */
+
+.impacto-confianca {
+  display: grid;
+
+  grid-template-columns:
+      repeat(3, 1fr);
+
+  gap: 30px;
+
+  width: 100%;
+  max-width: 1300px;
+
+  margin: 0 auto;
+
+  padding: 100px 20px;
+
+  align-items: stretch;
+}
+
+.impacto-card,
+.confianca-card {
+  background: #ffffff;
+
+  padding: 45px;
+
+  border-radius: 16px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  min-height: 260px;
+
+  box-shadow:
+      0 20px 40px rgba(0, 0, 0, 0.1);
+
+  position: relative;
+
+  transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+}
+
+.impacto-card::before,
+.confianca-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4px;
+
+  background: #e649d1;
+
   border-radius: 16px 16px 0 0;
 }
 
-/* CARD DIREITA (CONFIANÇA) */
+.impacto-card:hover,
+.confianca-card:hover {
+  transform: translateY(-10px);
+
+  box-shadow:
+      0 35px 70px rgba(0, 0, 0, 0.18);
+}
+
+.impacto-card h2 {
+  font-size: 2rem;
+
+  margin-bottom: 12px;
+}
+
+.impacto-card p {
+  color: #666666;
+
+  max-width: 400px;
+
+  text-align: center;
+}
+
 .confianca-card {
   align-items: flex-start;
+
   text-align: left;
+
+  gap: 20px;
+}
+
+
+/* =========================================================
+ ITENS DE CONFIANÇA
+========================================================= */
+
+.item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  width: 100%;
+}
+
+.item img {
+  width: 40px;
+  height: 40px;
+}
+
+.item span {
+  font-size: 18px;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+ IMPACTO REAL
+========================================================= */
+
+.impacto-real-card {
+  background: #ffffff;
+
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+}
+
+.impacto-real-card h3 {
+  font-size: 26px;
+
+  margin-bottom: 20px;
+}
+
+.numero {
+  font-size: 60px;
+
+  font-weight: bold;
+
+  background:
+      linear-gradient(
+          135deg,
+          #e649d1,
+          #6a44dd
+      );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+
+  margin-bottom: 15px;
+}
+
+.impacto-real-card p {
+  color: #666666;
+
+  font-size: 16px;
+}
+
+
+/* =========================================================
+ RECURSOS
+========================================================= */
+
+.recursos {
+  background:
+      linear-gradient(
+          135deg,
+          #e649d1,
+          #6a44dd
+      );
+
+  padding: 80px 20px;
+}
+
+.recursos h2 {
+  text-align: center;
+
+  margin-bottom: 15px;
+
+  color: #ffffff;
+}
+
+.recursos-subtitulo {
+  max-width: 600px;
+
+  margin: 0 auto 45px;
+
+  text-align: center;
+
+  color: rgba(255, 255, 255, 0.9);
+
+  font-size: 15px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+ CONTAINER DOS RECURSOS
+========================================================= */
+
+.recursos-container {
+  width: 100%;
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+      repeat(3, 1fr);
+
   gap: 25px;
 }
 
 
-  
-  /* HOVER */
-  .impacto-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 50px 90px rgba(0,0,0,0.20);
-    
+/* =========================================================
+ CARD DE RECURSO
+========================================================= */
+
+.recurso {
+  background: #ffffff;
+
+  padding: 30px;
+
+  min-height: 320px;
+
+  border-radius: 25px;
+
+  border: 2px solid #fff3f3;
+
+  transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+
+  text-align: center;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+}
+
+.recurso:hover {
+  transform: translateY(-8px);
+
+  box-shadow:
+      0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.imgrec {
+  width: 65px;
+  height: 65px;
+
+  object-fit: contain;
+
+  padding: 10px;
+
+  margin-bottom: 15px;
+
+  background: #fce7f5;
+
+  border-radius: 50%;
+}
+
+.recurso h3 {
+  margin-bottom: 10px;
+
+  font-size: 20px;
+
+  color: #222222;
+}
+
+.recurso p {
+  color: #777777;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+
+  margin-bottom: 20px;
+}
+
+
+/* =========================================================
+ BOTÃO RECURSO
+========================================================= */
+
+.btn-recurso {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: #c00da8;
+
+  color: #ffffff;
+
+  border: none;
+
+  padding: 12px 22px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  margin-top: auto;
+
+  font-weight: 700;
+
+  text-decoration: none;
+
+  transition:
+      background 0.3s ease,
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+}
+
+.btn-recurso:hover {
+  background: #f007c9;
+
+  color: #ffffff;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+      0 8px 18px rgba(192, 13, 168, 0.25);
+}
+
+
+/* =========================================================
+ ALERTA RÁPIDO / SOS
+========================================================= */
+
+.recurso-sos {
+  border: 2px solid #ffd6dc;
+
+  background:
+      linear-gradient(
+          180deg,
+          #ffffff,
+          #fff5f6
+      );
+}
+
+.recurso-sos .imgrec {
+  background: #ffe3e7;
+}
+
+.recurso-sos:hover {
+  transform: translateY(-8px);
+
+  box-shadow:
+      0 18px 40px rgba(255, 47, 109, 0.22);
+}
+
+.btn-recurso-sos {
+  background:
+      linear-gradient(
+          135deg,
+          #ff4d4d,
+          #ff2f6d
+      );
+
+  color: #ffffff;
+
+  box-shadow:
+      0 8px 20px rgba(255, 47, 109, 0.25);
+}
+
+.btn-recurso-sos:hover {
+  background:
+      linear-gradient(
+          135deg,
+          #e63946,
+          #e61e5c
+      );
+
+  color: #ffffff;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+      0 12px 25px rgba(255, 47, 109, 0.35);
+}
+
+
+/* =========================================================
+ FOOTER
+========================================================= */
+
+footer {
+  text-align: center;
+
+  padding: 25px 20px;
+
+  background: #ffffff;
+
+  border-top: 1px solid #dddddd;
+
+  color: #777777;
+}
+
+
+/* =========================================================
+ TOAST
+========================================================= */
+
+.toast-container {
+  position: fixed;
+
+  top: 100px;
+  right: 25px;
+
+  z-index: 9999;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+  width: 100%;
+  max-width: 380px;
+}
+
+.toast {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 16px 18px;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  color: #333333;
+
+  border-left: 5px solid #e83cac;
+
+  box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.15);
+
+  animation:
+      toast-entrar 0.4s ease forwards;
+}
+
+.toast.success {
+  border-left-color: #38a169;
+}
+
+.toast.info {
+  border-left-color: #e83cac;
+}
+
+.toast.warning {
+  border-left-color: #ed8936;
+}
+
+.toast.danger,
+.toast.error {
+  border-left-color: #d62828;
+}
+
+.toast-mensagem {
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+.toast-fechar {
+  border: none;
+
+  background: transparent;
+
+  color: #777777;
+
+  font-size: 22px;
+
+  cursor: pointer;
+}
+
+.toast-fechar:hover {
+  color: #222222;
+}
+
+
+/* =========================================================
+ ANIMAÇÃO TOAST
+========================================================= */
+
+@keyframes toast-entrar {
+
+  from {
+      opacity: 0;
+      transform: translateX(40px);
   }
-  
-  .confianca-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 50px 90px rgba(0,0,0,0.20);
-  }
-  /* TEXTO ESQUERDA */
-  .impacto-card h2 {
-    font-size: 2rem;
-    margin-bottom: 12px;
-  }
-  
-  .impacto-card p {
-    color: #666;
-    max-width: 400px; /* evita ficar muito espalhado */
-    text-align: center;
-  }
-  
-  /* ITENS */
-  .item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 30px;
-    justify-content: center; /* centraliza conteúdo interno */
-  }
-  
-  /* ÍCONES */
-  .item img {
-    width: 40px;
-    height: 40px;
-  }
-  
-  /* TEXTO */
-  .item span {
-    font-size: 20px;
-    font-weight: 600;
-    text-align: center;
+
+  to {
+      opacity: 1;
+      transform: translateX(0);
   }
 
-  .impacto-real-card {
-    background: white;
-  
-    padding: 50px;
-    border-radius: 20px;
-  
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  
-    text-align: center;
-  
-    box-shadow: 0 20px 50px rgba(0,0,0,0.10);
-  
-    transition: 0.3s;
+}
+
+.toast-saindo {
+  animation:
+      toast-sair 0.5s ease forwards;
+}
+
+@keyframes toast-sair {
+
+  from {
+      opacity: 1;
+      transform: translateX(0);
   }
-  
-  .impacto-real-card:hover {
-    transform: translateY(-10px);
+
+  to {
+      opacity: 0;
+      transform: translateX(40px);
   }
-  
-  .impacto-real-card h3 {
-    font-size: 28px;
-    margin-bottom: 20px;
-  }
-  
-  .numero {
-    font-size: 60px;
-    font-weight: bold;
-  
-    background: linear-gradient(135deg, #e649d1, #6a44dd);
-  
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  
-    margin-bottom: 15px;
-  }
-  
-  .impacto-real-card p {
-    color: #666;
-    font-size: 16px;
-  }
-    /* SEÇÃO RECURSOS */
-    .recursos {
-        background: linear-gradient(135deg, #e649d1, #6a44dd);
-        padding: 80px 100px;
-    }
 
-    .recursos h2 {
-        text-align: center;
-        margin-bottom: 40px;
-        color: white;
-    }
-
-    /* CONTAINER DOS RECURSOS */
-    .recursos-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 25px;
-    }
-
-    /* CARD DE RECURSO */
-    .recurso {
-        background: #ffffff;
-        padding: 30px;
-        border-radius: 35px;
-        border: 2px solid #fff3f3;
-        transition: all 0.25s ease;
-        text-align: left;
-        position: relative;
-        
-
-    }
-a {
-      text-decoration: none;
-     
-    }
+}
 
 
-    /* HOVER */
-    .recurso:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    }
-    /*Img ICONE */
-    .imgrec {
-        width: 50px;
-        margin-bottom: 15px;
-        opacity: 0.8;
+/* =========================================================
+ RESPONSIVO - 900PX
+========================================================= */
 
-    }
+@media (max-width: 900px) {
 
-    /* TÍTULO */
-    .recurso h3 {
-        margin-bottom: 10px;
-        font-size: 18px;
-    }
-
-    /* TEXTO */
-    .recurso p {
-        color: #777;
-        font-size: 14px;
-        margin-bottom: 15px;
-    }
-
-    /* BOTÃO */
-    .recurso button {
-        background:#c00da8;
-        color: white;
-        border: none;
-        padding: 10px 18px;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-
-    .recurso button:hover {
-        background: #f007c9;
-    }
-
-    /* FOOTER */
-    footer {
-        text-align: center;
-        padding: 20px;
-        background: #ffffff;
-        border-top: 1px solid #ddd;
-        color: #777;
-    }
-
-    /* RESPONSIVO */
-    @media (max-width: 900px) {
-        .hero h2 {
-            font-size: 2rem;
-        }
-    }
-
-      /* RESPONSIVO PAGINA IMPACTO-CONFIANÇA*/
-  @media (max-width: 768px) {
-    .impacto-confianca {
+  .header-content {
       flex-direction: column;
-      text-align: center;
-      gap: 40px;
-    }
-  
-    .frase h2 {
-      font-size: 1.8rem;
-    }
-  
-    .confianca {
-      width: 100%;
-    }
-  
-    .confianca li {
-      justify-content: center;
-    }
+
+      padding-top: 15px;
+      padding-bottom: 15px;
+
+      gap: 15px;
   }
+
+  .nav {
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+      gap: 12px 18px;
+  }
+
+  .impacto-confianca {
+      grid-template-columns:
+          repeat(2, 1fr);
+  }
+
+  .recursos-container {
+      grid-template-columns:
+          repeat(2, 1fr);
+  }
+
+}
+
+
+/* =========================================================
+ RESPONSIVO - 768PX
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .hero {
+      min-height: 80vh;
+  }
+
+  .hero h2 {
+      font-size: 2.1rem;
+  }
+
+  .botao-ajuda {
+      width: 180px;
+      height: 180px;
+
+      font-size: 18px;
+  }
+
+  .impacto-confianca {
+      grid-template-columns: 1fr;
+
+      padding: 70px 20px;
+  }
+
+  .impacto-card,
+  .confianca-card {
+      min-height: auto;
+  }
+
+}
+
+
+/* =========================================================
+ RESPONSIVO - 600PX
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .header-content {
+      padding-left: 15px;
+      padding-right: 15px;
+  }
+
+  .logo-img {
+      width: 55px;
+      height: 55px;
+  }
+
+  .logo {
+      font-size: 25px;
+  }
+
+  .nav {
+      gap: 10px 15px;
+  }
+
+  .nav a {
+      font-size: 13px;
+  }
+
+
+  /* BOTÃO VOLTAR */
+
+  .voltar-container {
+      margin-top: 15px;
+
+      padding: 0 15px;
+  }
+
+  .btn-voltar {
+      padding: 10px 17px;
+
+      font-size: 13px;
+  }
+
+
+  /* SEÇÕES */
+
+  section {
+      padding: 70px 15px;
+  }
+
+  section h2 {
+      font-size: 1.7rem;
+
+      margin-bottom: 40px;
+  }
+
+
+  /* RECURSOS */
+
+  .recursos {
+      padding: 70px 15px;
+  }
+
+  .recursos-container {
+      grid-template-columns: 1fr;
+  }
+
+
+  /* TOAST */
+
+  .toast-container {
+      top: 15px;
+      right: 15px;
+
+      width: calc(100% - 30px);
+
+      max-width: none;
+  }
+
+}

@@ -1,584 +1,583 @@
 /* =========================================================
-   RESET
+   SOS MULHER
 ========================================================= */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root {
+  --sos-rosa: #e649d1;
+  --sos-roxo: #6a44dd;
+
+  --sos-vermelho: #ff3f5f;
+  --sos-vermelho-escuro: #e52b49;
+
+  --sos-fundo: #fff7fb;
+  --sos-card: #ffffff;
+
+  --sos-texto: #252525;
+  --sos-cinza: #717171;
+
+  --sos-borda: #f2dce9;
+
+  --sos-sombra:
+      0 18px 50px rgba(49, 25, 43, 0.09);
 }
 
 
 /* =========================================================
-   BODY
-========================================================= */
-
-body {
-  font-family: 'Inter', sans-serif;
-
-  min-height: 100vh;
-
-  overflow-x: hidden;
-
-  background: linear-gradient(
-    180deg,
-    #ffffff 0%,
-    #fff4fb 40%,
-    #ffd9f3 100%
-  );
-
-  color: #111;
-}
-
-
-/* =========================================================
-   CONTAINER DO HEADER
-========================================================= */
-
-.container {
-  width: 100%;
-  max-width: 1200px;
-
-  margin: 0 auto;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.header {
-  width: 100%;
-
-  background: rgba(255, 255, 255, 0.95);
-
-  backdrop-filter: blur(10px);
-
-  border-bottom: 1px solid #f1d8eb;
-
-  position: sticky;
-
-  top: 0;
-
-  z-index: 1000;
-}
-
-
-/* CONTEÚDO DO HEADER */
-
-.header-content {
-  min-height: 88px;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  padding: 8px 20px;
-}
-
-
-/* =========================================================
-   LOGO
-========================================================= */
-
-.logo-container {
-  display: flex;
-
-  align-items: center;
-
-  gap: 12px;
-}
-
-
-.logo-img {
-  width: 65px;
-
-  height: 65px;
-
-  object-fit: contain;
-
-  display: block;
-}
-
-
-.logo {
-  font-size: 30px;
-
-  font-weight: 700;
-
-  color: #111;
-
-  margin: 0;
-
-  line-height: 1;
-}
-
-
-.logo span {
-  color: #d633b4;
-}
-
-
-/* =========================================================
-   MENU
-========================================================= */
-
-.nav {
-  display: flex;
-
-  align-items: center;
-
-  gap: 25px;
-}
-
-
-.nav a {
-  text-decoration: none;
-
-  color: #222;
-
-  font-size: 15px;
-
-  font-weight: 500;
-
-  transition: 0.3s ease;
-}
-
-
-.nav a:hover {
-  color: #d633b4;
-}
-
-
-/* =========================================================
-   BOTÃO SOS DO MENU
-========================================================= */
-
-.btn-sos-nav {
-  background: linear-gradient(
-    135deg,
-    #ff4d4d,
-    #ff2f6d
-  );
-
-  color: white !important;
-
-  padding: 10px 22px;
-
-  border-radius: 30px;
-
-  font-weight: 700;
-
-  box-shadow:
-    0 10px 25px rgba(255, 77, 77, 0.25);
-
-  transition: 0.3s ease;
-}
-
-
-.btn-sos-nav:hover {
-  transform: translateY(-2px);
-}
-
-
-/* =========================================================
-   CONTAINER PRINCIPAL DA PÁGINA SOS
+ PÁGINA
 ========================================================= */
 
 .sos-container {
   width: 100%;
 
-  max-width: 1400px;
+  min-height: 100vh;
 
-  min-height: calc(100vh - 88px);
+  padding: 35px 20px 90px;
 
-  margin: 0 auto;
-
-  padding: 55px 20px 70px;
-
-  display: flex;
-
-  align-items: flex-start;
-
-  justify-content: center;
+  background:
+      radial-gradient(
+          circle at 15% 15%,
+          rgba(230, 73, 209, 0.09),
+          transparent 30%
+      ),
+      radial-gradient(
+          circle at 90% 30%,
+          rgba(106, 68, 221, 0.08),
+          transparent 30%
+      ),
+      linear-gradient(
+          180deg,
+          #fffafd,
+          #fff3f9
+      );
 }
 
 
 /* =========================================================
-   WRAPPER DOS CARDS
+ GRID PRINCIPAL
 ========================================================= */
 
 .cards-wrapper {
   width: 100%;
-
-  max-width: 1100px;
+  max-width: 1180px;
 
   margin: 0 auto;
 
   display: grid;
 
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns:
+      minmax(0, 1.15fr)
+      minmax(360px, 0.85fr);
 
-  gap: 36px;
+  gap: 28px;
 
-  align-items: start;
+  align-items: stretch;
 }
 
 
 /* =========================================================
-   CARDS
-========================================================= */
-
-.card {
-  width: 100%;
-
-  background: rgba(255, 255, 255, 0.88);
-
-  border: 1px solid rgba(255, 255, 255, 0.9);
-
-  backdrop-filter: blur(14px);
-
-  border-radius: 35px;
-
-  box-shadow:
-    0 20px 60px rgba(214, 51, 180, 0.08),
-    0 5px 20px rgba(0, 0, 0, 0.04);
-}
-
-
-/* =========================================================
-   CARD PRINCIPAL
+ CARD SOS
 ========================================================= */
 
 .card-sos {
-  padding: 42px;
+  padding: 38px !important;
+
+  background:
+      linear-gradient(
+          160deg,
+          #ffffff,
+          #fff9fc
+      );
+
+  border: 1px solid var(--sos-borda);
+
+  border-radius: 28px;
+
+  box-shadow: var(--sos-sombra);
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+
+/* detalhe superior */
+
+.card-sos::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 5px;
+
+  background:
+      linear-gradient(
+          90deg,
+          var(--sos-vermelho),
+          var(--sos-rosa),
+          var(--sos-roxo)
+      );
 }
 
 
 /* =========================================================
-   TOPO DO CARD
+ TOPO DO CARD
 ========================================================= */
 
 .topo-card {
   display: flex;
 
   justify-content: space-between;
-
   align-items: flex-start;
 
-  gap: 20px;
+  gap: 30px;
 
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
+.sos-tag {
+  display: inline-flex;
 
-.topo-card h2 {
-  font-size: 34px;
+  padding: 7px 14px;
 
-  margin-bottom: 8px;
+  border-radius: 30px;
 
-  color: #111;
+  background: #fce7f5;
+
+  color: #c00da8;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.6px;
 }
 
+.card-sos h2 {
+  margin: 10px 0 10px !important;
+
+  padding: 0 !important;
+
+  text-align: left !important;
+
+  color: var(--sos-texto);
+
+  font-size: 42px !important;
+
+  line-height: 1.05;
+}
 
 .subtitulo {
-  color: #666;
+  max-width: 520px;
 
-  line-height: 1.6;
-
-  max-width: 400px;
+  color: var(--sos-cinza);
 
   font-size: 15px;
+
+  line-height: 1.7;
 }
 
 
 /* =========================================================
-   STATUS ONLINE
+ STATUS ONLINE
 ========================================================= */
 
 .status-online {
   flex-shrink: 0;
 
-  background: #ebfff2;
+  display: flex;
 
-  color: #16a34a;
+  align-items: center;
+
+  gap: 8px;
 
   padding: 9px 14px;
 
-  border-radius: 20px;
+  background: #e8fff1;
 
-  font-size: 13px;
+  color: #16884a;
 
-  font-weight: 600;
+  border: 1px solid #c9f1d9;
+
+  border-radius: 30px;
+
+  font-size: 12px;
+
+  font-weight: 800;
+}
+
+.status-ponto {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #21b760;
+
+  box-shadow:
+      0 0 0 4px rgba(33, 183, 96, 0.12);
 }
 
 
 /* =========================================================
-   BOTÃO SOS
+ BOTÃO SOS PRINCIPAL
 ========================================================= */
 
 .area-botao {
   display: flex;
 
   justify-content: center;
-
   align-items: center;
 
-  margin-bottom: 35px;
+  padding: 35px 0 28px;
 }
 
+.btn-sos-principal {
+  width: 230px;
+  height: 230px;
 
-#btnSOS {
-  width: 210px;
-
-  height: 210px;
+  border: 8px solid #ffffff;
 
   border-radius: 50%;
 
-  border: none;
+  background:
+      radial-gradient(
+          circle at 35% 30%,
+          #ff667d,
+          #ff3f5f 55%,
+          #e52b49
+      );
 
-  background: linear-gradient(
-    180deg,
-    #ff5a5a,
-    #ff2f6d
-  );
-
-  color: white;
-
-  font-size: 40px;
-
-  font-weight: 800;
+  color: #ffffff;
 
   cursor: pointer;
 
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  font-size: 48px;
+
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
   box-shadow:
-    0 25px 60px rgba(255, 77, 109, 0.35);
+      0 0 0 12px rgba(255, 63, 95, 0.08),
+      0 18px 45px rgba(255, 63, 95, 0.35);
 
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
 }
 
+.btn-sos-principal span {
+  font-size: 10px;
 
-#btnSOS:hover {
-  transform: scale(1.05);
+  font-weight: 800;
+
+  letter-spacing: 1.2px;
+
+  opacity: 0.9;
+}
+
+.btn-sos-principal:hover {
+  transform: scale(1.045);
 
   box-shadow:
-    0 30px 70px rgba(255, 77, 109, 0.42);
+      0 0 0 16px rgba(255, 63, 95, 0.1),
+      0 22px 55px rgba(255, 63, 95, 0.42);
 }
 
-
-#btnSOS:active {
-  transform: scale(0.98);
+.btn-sos-principal:active {
+  transform: scale(0.97);
 }
 
 
 /* =========================================================
-   INFORMAÇÕES
+ AVISO
 ========================================================= */
 
-.info-box {
-  width: 100%;
+.sos-aviso {
+  max-width: 520px;
 
-  display: grid;
+  margin: 0 auto 25px;
 
-  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
 
-  gap: 12px;
+  color: #777777;
 
-  margin-bottom: 30px;
+  font-size: 13px;
+
+  line-height: 1.6;
 }
 
 
+/* =========================================================
+ INFORMAÇÕES
+========================================================= */
+
+.info-box {
+  display: grid;
+
+  grid-template-columns:
+      repeat(3, 1fr);
+
+  gap: 12px;
+
+  margin-top: 15px;
+}
+
 .info-item {
-  min-height: 58px;
+  min-height: 100px;
 
-  background: rgba(255, 255, 255, 0.8);
+  padding: 18px 14px;
 
-  border-radius: 17px;
+  background: #ffffff;
 
-  padding: 13px 10px;
+  border: 1px solid #f0e5ec;
+
+  border-radius: 16px;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 12px;
+}
+
+.info-item > i {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
 
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
-  text-align: center;
+  background: #fce7f5;
 
-  font-size: 13px;
+  color: var(--sos-rosa);
 
-  font-weight: 500;
-
-  color: #444;
-}
-
-
-.info-item i {
-  margin-right: 6px;
-}
-
-
-/* =========================================================
-   BARRA DE PROGRESSO
-========================================================= */
-
-.progresso {
-  width: 100%;
-
-  height: 12px;
-
-  background: #ececec;
-
-  border-radius: 20px;
-
-  overflow: hidden;
-
-  margin-bottom: 18px;
-}
-
-
-.barra {
-  width: 0%;
-
-  height: 100%;
-
-  background: linear-gradient(
-    90deg,
-    #ff4fd8,
-    #8b5cf6
-  );
-
-  border-radius: 20px;
-
-  transition: width 0.4s ease;
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.status {
-  text-align: center;
-
-  color: #555;
-
-  margin-bottom: 25px;
-
-  font-size: 14px;
-
-  line-height: 1.5;
-
-  min-height: 21px;
-}
-
-
-/* =========================================================
-   ÍCONES DOS STATUS
-========================================================= */
-
-.status-item i {
-  color: #d633b4;
-
-  margin-right: 10px;
+  border-radius: 11px;
 
   font-size: 15px;
 }
 
+.info-item div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.info-item strong {
+  color: #303030;
+
+  font-size: 13px;
+}
+
+.info-item span {
+  color: #808080;
+
+  font-size: 11px;
+
+  line-height: 1.45;
+}
+
 
 /* =========================================================
-   BOTÃO CANCELAR
+ PROGRESSO
+========================================================= */
+
+.progresso {
+  width: 100%;
+  height: 6px;
+
+  margin: 28px 0 18px;
+
+  background: #f0e5ec;
+
+  border-radius: 30px;
+
+  overflow: hidden;
+}
+
+.barra {
+  width: 0;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+      linear-gradient(
+          90deg,
+          var(--sos-vermelho),
+          var(--sos-rosa)
+      );
+
+  transition: width 0.5s ease;
+}
+
+
+/* =========================================================
+ STATUS PRINCIPAL
+========================================================= */
+
+.status {
+  min-height: 50px;
+
+  padding: 14px 18px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: #faf7f9;
+
+  border: 1px solid #eee1e9;
+
+  border-radius: 13px;
+
+  color: #656565;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+ CANCELAR
 ========================================================= */
 
 .acoes {
   display: flex;
 
   justify-content: center;
+
+  margin-top: 18px;
 }
 
-
 .cancelar {
-  border: none;
+  padding: 11px 20px;
 
-  background: #f1f1f1;
+  border: 1px solid #eadde5;
 
-  padding: 13px 27px;
+  border-radius: 10px;
 
-  border-radius: 14px;
+  background: #ffffff;
+
+  color: #555555;
+
+  font-size: 12px;
+  font-weight: 700;
 
   cursor: pointer;
 
-  font-weight: 600;
-
-  color: #222;
-
-  transition: 0.3s ease;
+  transition: 0.25s ease;
 }
 
-
 .cancelar:hover {
-  background: #e7e7e7;
+  background: #fff1f3;
 
-  transform: translateY(-2px);
+  border-color: #ffc8d1;
+
+  color: var(--sos-vermelho);
 }
 
 
 /* =========================================================
-   CARD DE STATUS
+ CARD STATUS
 ========================================================= */
 
 .card-status {
-  padding: 38px;
+  padding: 32px;
+
+  background:
+      linear-gradient(
+          180deg,
+          #ffffff,
+          #fffafd
+      );
+
+  border: 1px solid var(--sos-borda);
+
+  border-radius: 28px;
+
+  box-shadow: var(--sos-sombra);
 }
-
-
-/* =========================================================
-   HEADER DO STATUS
-========================================================= */
 
 .status-header {
   display: flex;
 
+  align-items: flex-start;
   justify-content: space-between;
 
-  align-items: center;
+  gap: 20px;
 
-  gap: 15px;
-
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
+.status-mini,
+.mapa-mini {
+  display: block;
 
-.status-header h2 {
-  font-size: 30px;
+  color: #c00da8;
 
-  color: #111;
+  font-size: 11px;
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.6px;
+
+  margin-bottom: 5px;
 }
 
+.card-status h2 {
+  margin: 0 !important;
+
+  text-align: left !important;
+
+  color: #242424;
+
+  font-size: 27px !important;
+}
 
 .status-badge {
-  flex-shrink: 0;
+  padding: 8px 12px;
 
-  background: #fff4fb;
+  background: #fff0f9;
 
-  color: #d633b4;
+  color: #d22aa8;
 
-  padding: 9px 15px;
+  border-radius: 30px;
 
-  border-radius: 20px;
+  font-size: 11px;
 
-  font-size: 13px;
-
-  font-weight: 700;
+  font-weight: 800;
 }
 
 
 /* =========================================================
-   LISTA DE STATUS
+ LISTA DE STATUS
 ========================================================= */
 
 .status-lista {
@@ -586,319 +585,667 @@ body {
 
   flex-direction: column;
 
-  gap: 13px;
-
-  margin-bottom: 30px;
+  gap: 11px;
 }
-
 
 .status-item {
   min-height: 54px;
 
-  background: rgba(255, 255, 255, 0.72);
-
-  padding: 15px 18px;
-
-  border-radius: 17px;
-
   display: flex;
-
-  justify-content: space-between;
 
   align-items: center;
 
-  gap: 15px;
-}
+  justify-content: space-between;
 
+  gap: 15px;
+
+  padding: 14px 16px;
+
+  background: #faf8fa;
+
+  border: 1px solid #f0e8ed;
+
+  border-radius: 14px;
+}
 
 .status-item span {
-  color: #666;
+  display: flex;
 
-  font-size: 14px;
+  align-items: center;
+
+  gap: 10px;
+
+  color: #666666;
+
+  font-size: 12px;
 }
 
+.status-item i {
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: #fce7f5;
+
+  color: var(--sos-rosa);
+
+  border-radius: 8px;
+}
 
 .status-item strong {
-  color: #111;
+  color: #303030;
 
-  font-size: 14px;
+  font-size: 12px;
+
+  text-align: right;
 }
 
 
 /* =========================================================
-   MAPA
+ MAPA
 ========================================================= */
 
 .mapa-box {
-  width: 100%;
-
-  background: rgba(255, 255, 255, 0.72);
-
-  border-radius: 27px;
+  margin-top: 22px;
 
   padding: 18px;
-}
 
+  background: #faf8fa;
+
+  border: 1px solid #f0e6ec;
+
+  border-radius: 18px;
+}
 
 .mapa-topo {
   display: flex;
 
-  justify-content: space-between;
-
   align-items: center;
+  justify-content: space-between;
 
   gap: 15px;
 
   margin-bottom: 15px;
 }
 
-
 .mapa-topo h3 {
+  color: #292929;
+
   font-size: 17px;
-
-  color: #111;
 }
 
+.mapa-topo > span {
+  padding: 6px 10px;
 
-.mapa-topo span {
-  color: #16a34a;
+  background: #e8fff1;
 
-  font-size: 13px;
+  color: #16884a;
 
-  font-weight: 600;
+  border-radius: 20px;
 
-  white-space: nowrap;
+  font-size: 10px;
+
+  font-weight: 800;
 }
 
+.mapa-placeholder {
+  min-height: 235px;
 
-.mapa-box iframe {
-  display: block;
+  display: flex;
 
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  padding: 25px;
+
+  background:
+      linear-gradient(
+          135deg,
+          #fff5fb,
+          #f5efff
+      );
+
+  border: 1px dashed #e4c9da;
+
+  border-radius: 15px;
+
+  text-align: center;
+}
+
+.mapa-placeholder i {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  color: var(--sos-rosa);
+
+  font-size: 20px;
+
+  box-shadow:
+      0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+.mapa-placeholder p {
+  max-width: 260px;
+
+  color: #727272;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+#mapa {
   width: 100%;
-
-  height: 250px;
+  height: 235px;
 
   border: none;
 
-  border-radius: 18px;
+  border-radius: 15px;
 }
 
 
 /* =========================================================
-   RESPONSIVO - TABLET
+ COORDENADAS
 ========================================================= */
 
-@media (max-width: 1100px) {
+.coordenadas {
+  display: grid;
+
+  grid-template-columns:
+      repeat(2, 1fr);
+
+  gap: 10px;
+
+  margin-top: 12px;
+}
+
+.coordenadas div {
+  padding: 12px;
+
+  background: #ffffff;
+
+  border: 1px solid #eee4ea;
+
+  border-radius: 12px;
+}
+
+.coordenadas span {
+  display: block;
+
+  color: #8a8a8a;
+
+  font-size: 10px;
+
+  margin-bottom: 4px;
+}
+
+.coordenadas strong {
+  color: #333333;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+ CONTATOS DE EMERGÊNCIA
+========================================================= */
+
+.sos-contatos {
+  width: 100%;
+  max-width: 1180px;
+
+  margin: 30px auto 0;
+
+  padding: 38px !important;
+
+  background: #ffffff;
+
+  border: 1px solid var(--sos-borda);
+
+  border-radius: 28px;
+
+  box-shadow: var(--sos-sombra);
+}
+
+.sos-contatos-topo {
+  display: flex;
+
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  margin-bottom: 30px;
+}
+
+.sos-contatos-tag {
+  display: inline-block;
+
+  color: #c00da8;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.7px;
+
+  margin-bottom: 7px;
+}
+
+.sos-contatos h2 {
+  margin: 0 0 8px !important;
+
+  text-align: left !important;
+
+  color: #252525;
+
+  font-size: 29px !important;
+}
+
+.sos-contatos-topo p {
+  color: #777777;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+ GERENCIAR CONTATOS
+========================================================= */
+
+.btn-gerenciar-contatos {
+  flex-shrink: 0;
+
+  padding: 12px 18px;
+
+  background: #fce7f5;
+
+  color: #c00da8;
+
+  border: 1px solid #f1cce6;
+
+  border-radius: 11px;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  transition: 0.25s ease;
+}
+
+.btn-gerenciar-contatos:hover {
+  background: #c00da8;
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+ GRID CONTATOS
+========================================================= */
+
+.contatos-grid {
+  display: grid;
+
+  grid-template-columns:
+      repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+.contato-sos-card {
+  padding: 22px;
+
+  background:
+      linear-gradient(
+          180deg,
+          #ffffff,
+          #fffafd
+      );
+
+  border: 1px solid #eee1e9;
+
+  border-radius: 18px;
+
+  transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+}
+
+.contato-sos-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+      0 15px 30px rgba(0, 0, 0, 0.08);
+}
+
+.contato-sos-info {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  margin-bottom: 15px;
+}
+
+.contato-sos-icone {
+  width: 45px;
+  height: 45px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: #fce7f5;
+
+  color: var(--sos-rosa);
+
+  border-radius: 13px;
+}
+
+.contato-sos-card h3 {
+  color: #292929;
+
+  font-size: 16px;
+
+  margin-bottom: 4px;
+}
+
+.contato-sos-info span {
+  color: #888888;
+
+  font-size: 11px;
+}
+
+.contato-sos-card > p {
+  color: #666666;
+
+  font-size: 13px;
+
+  margin-bottom: 15px;
+}
+
+.btn-ligar {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 10px;
+
+  background: #f4efff;
+
+  color: var(--sos-roxo);
+
+  border-radius: 9px;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  transition: 0.25s ease;
+}
+
+.btn-ligar:hover {
+  background: var(--sos-roxo);
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+ SEM CONTATOS
+========================================================= */
+
+.sem-contatos {
+  min-height: 260px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 40px;
+
+  border: 1px dashed #dfcbd7;
+
+  border-radius: 18px;
+
+  background:
+      linear-gradient(
+          135deg,
+          #fffafd,
+          #f9f4ff
+      );
+}
+
+.sem-contatos > i {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 15px;
+
+  background: #fce7f5;
+
+  color: var(--sos-rosa);
+
+  border-radius: 50%;
+
+  font-size: 20px;
+}
+
+.sem-contatos h3 {
+  color: #292929;
+
+  font-size: 19px;
+
+  margin-bottom: 8px;
+}
+
+.sem-contatos p {
+  max-width: 440px;
+
+  color: #787878;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  margin-bottom: 20px;
+}
+
+.btn-adicionar-contato {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 11px 20px;
+
+  background:
+      linear-gradient(
+          135deg,
+          var(--sos-rosa),
+          var(--sos-roxo)
+      );
+
+  color: #ffffff;
+
+  border-radius: 10px;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  transition: 0.25s ease;
+}
+
+.btn-adicionar-contato:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+      0 8px 20px rgba(106, 68, 221, 0.22);
+}
+
+
+/* =========================================================
+ RESPONSIVO
+========================================================= */
+
+@media (max-width: 1000px) {
 
   .cards-wrapper {
-    max-width: 800px;
+      grid-template-columns: 1fr;
+  }
 
-    grid-template-columns: 1fr;
+  .card-status {
+      min-height: auto;
+  }
 
-    gap: 25px;
+  .contatos-grid {
+      grid-template-columns:
+          repeat(2, 1fr);
   }
 
 }
 
 
-/* =========================================================
-   RESPONSIVO - CELULAR
-========================================================= */
-
-@media (max-width: 768px) {
-
-  .header-content {
-    min-height: auto;
-
-    padding: 12px 20px;
-
-    flex-direction: column;
-
-    gap: 12px;
-  }
-
-
-  .logo-img {
-    width: 60px;
-
-    height: 60px;
-  }
-
-
-  .logo {
-    font-size: 27px;
-  }
-
-
-  .nav {
-    flex-wrap: wrap;
-
-    justify-content: center;
-
-    gap: 15px;
-  }
-
-
-  .nav a {
-    font-size: 14px;
-  }
-
+@media (max-width: 750px) {
 
   .sos-container {
-    min-height: auto;
-
-    padding: 30px 15px 50px;
+      padding:
+          20px 15px
+          70px;
   }
-
-
-  .cards-wrapper {
-    width: 100%;
-
-    gap: 20px;
-  }
-
 
   .card-sos,
-  .card-status {
-    padding: 28px 22px;
-  }
+  .card-status,
+  .sos-contatos {
+      padding: 25px !important;
 
+      border-radius: 22px;
+  }
 
   .topo-card {
-    flex-direction: column;
+      flex-direction: column;
 
-    gap: 15px;
-
-    margin-bottom: 25px;
+      gap: 15px;
   }
 
-
-  .topo-card h2 {
-    font-size: 30px;
+  .card-sos h2 {
+      font-size: 34px !important;
   }
 
+  .btn-sos-principal {
+      width: 190px;
+      height: 190px;
 
-  .status-online {
-    align-self: flex-start;
+      font-size: 40px;
   }
-
-
-  #btnSOS {
-    width: 180px;
-
-    height: 180px;
-
-    font-size: 34px;
-  }
-
 
   .info-box {
-    grid-template-columns: 1fr;
-
-    gap: 10px;
+      grid-template-columns: 1fr;
   }
-
 
   .info-item {
-    min-height: 50px;
+      min-height: auto;
   }
 
+  .sos-contatos-topo {
+      flex-direction: column;
 
-  .status-header {
-    flex-direction: column;
-
-    align-items: flex-start;
+      align-items: flex-start;
   }
 
-
-  .status-header h2 {
-    font-size: 27px;
-  }
-
-
-  .status-item {
-    padding: 14px 15px;
-  }
-
-
-  .mapa-box {
-    padding: 15px;
-  }
-
-
-  .mapa-topo {
-    align-items: flex-start;
-
-    flex-direction: column;
-
-    gap: 7px;
-  }
-
-
-  .mapa-box iframe {
-    height: 230px;
+  .contatos-grid {
+      grid-template-columns: 1fr;
   }
 
 }
 
 
-/* =========================================================
-   CELULARES PEQUENOS
-========================================================= */
-
-@media (max-width: 480px) {
-
-  .logo-container {
-    gap: 8px;
-  }
-
-
-  .logo-img {
-    width: 55px;
-
-    height: 55px;
-  }
-
-
-  .logo {
-    font-size: 24px;
-  }
-
-
-  .nav {
-    gap: 10px;
-  }
-
-
-  .nav a {
-    font-size: 13px;
-  }
-
+@media (max-width: 500px) {
 
   .card-sos,
-  .card-status {
-    padding: 23px 17px;
+  .card-status,
+  .sos-contatos {
+      padding: 20px !important;
   }
 
-
-  #btnSOS {
-    width: 165px;
-
-    height: 165px;
-
-    font-size: 31px;
+  .card-sos h2 {
+      font-size: 30px !important;
   }
 
+  .card-status h2,
+  .sos-contatos h2 {
+      font-size: 23px !important;
+  }
+
+  .btn-sos-principal {
+      width: 165px;
+      height: 165px;
+
+      border-width: 6px;
+
+      font-size: 35px;
+  }
+
+  .btn-sos-principal span {
+      font-size: 8px;
+  }
+
+  .status-header {
+      flex-direction: column;
+  }
 
   .status-item {
-    flex-direction: column;
-
-    align-items: flex-start;
+      align-items: flex-start;
   }
 
-
   .status-item strong {
-    align-self: flex-end;
+      max-width: 120px;
+  }
+
+  .coordenadas {
+      grid-template-columns: 1fr;
   }
 
 }

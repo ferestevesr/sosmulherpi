@@ -328,3 +328,232 @@
         max-height: 32px;
     }
 }
+
+/* =========================================================
+   CAMPOS DA RECUPERAÇÃO
+========================================================= */
+
+.campo {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin-bottom: 20px;
+}
+
+.campo label {
+    color: #333333;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+.campo input {
+    width: 100%;
+
+    padding: 14px 15px;
+
+    background: #ffffff;
+
+    border: 1px solid #e7d9e3;
+
+    border-radius: 11px;
+
+    color: #222222;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.campo input:focus {
+    border-color: #e83cac;
+
+    box-shadow:
+        0 0 0 3px rgba(232, 60, 172, 0.1);
+}
+
+
+/* =========================================================
+   CÓDIGO
+========================================================= */
+
+.codigo-input {
+    text-align: center;
+
+    font-size: 28px !important;
+
+    font-weight: 800;
+
+    letter-spacing: 10px;
+}
+
+
+/* =========================================================
+   ERROS
+========================================================= */
+
+.campo-erros {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.campo-erros span {
+    color: #d62828;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   SENHA
+========================================================= */
+
+.senha-container {
+    position: relative;
+}
+
+.senha-container input {
+    padding-right: 80px;
+}
+
+.mostrar-senha {
+    position: absolute;
+
+    top: 50%;
+    right: 12px;
+
+    transform: translateY(-50%);
+
+    padding: 5px;
+
+    background: transparent;
+
+    border: none;
+
+    color: #c00da8;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.mostrar-senha:hover {
+    color: #e649d1;
+}
+
+
+/* =========================================================
+   REQUISITOS
+========================================================= */
+
+.senha-requisitos {
+    padding: 12px 14px;
+
+    margin:
+        -5px 0
+        20px;
+
+    background: #fff7fc;
+
+    border: 1px solid #f0dbe9;
+
+    border-radius: 10px;
+}
+
+.senha-requisitos span {
+    color: #777777;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   BOTÃO
+========================================================= */
+
+.btn-recuperacao {
+    width: 100%;
+
+    padding: 13px 20px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e649d1,
+            #6a44dd
+        );
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.btn-recuperacao:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(106, 68, 221, 0.2);
+}
+
+
+/* =========================================================
+   RODAPÉ
+========================================================= */
+
+.recuperacao-footer {
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #eee3ea;
+
+    text-align: center;
+}
+
+.recuperacao-footer p {
+    color: #777777;
+
+    font-size: 12px;
+
+    margin-bottom: 6px;
+}
+
+.recuperacao-footer a {
+    color: #c00da8;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+.recuperacao-footer a:hover {
+    color: #e649d1;
+}

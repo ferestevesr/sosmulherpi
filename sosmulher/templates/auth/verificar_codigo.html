@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Verificar código | SOSMulher
+{% endblock %}
+
+
+{% block estilos %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/recuperar.css') }}"
+>
+
+{% endblock %}
+
+
+{% block body %}
+
+<main class="recuperacao-page">
+
+    <section class="recuperacao-card">
+
+        <div class="recuperacao-icone">
+            <span>6</span>
+        </div>
+
+
+        <div class="recuperacao-header">
+
+            <span class="recuperacao-tag">
+                Recuperação de conta
+            </span>
+
+            <h1>
+                Verifique seu código
+            </h1>
+
+            <p>
+                Digite o código de 6 números enviado para o
+                e-mail informado.
+            </p>
+
+        </div>
+
+
+        <form
+            method="POST"
+            class="recuperacao-form"
+        >
+
+            {{ form.hidden_tag() }}
+
+
+            <div class="campo">
+
+                {{ form.codigo.label }}
+
+                {{ form.codigo(
+                    class="codigo-input",
+                    placeholder="000000",
+                    maxlength="6",
+                    autocomplete="one-time-code",
+                    inputmode="numeric"
+                ) }}
+
+
+                {% if form.codigo.errors %}
+
+                    <div class="campo-erros">
+
+                        {% for erro in form.codigo.errors %}
+
+                            <span>
+                                {{ erro }}
+                            </span>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            {{ form.submit(
+                class="btn-recuperacao"
+            ) }}
+
+        </form>
+
+
+        <div class="recuperacao-footer">
+
+            <p>
+                Não recebeu ou o código expirou?
+            </p>
+
+            <a href="{{ url_for('auth.recuperar_conta') }}">
+                Solicitar novo código
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+{% endblock %}

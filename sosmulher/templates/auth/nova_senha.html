@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Nova senha | SOSMulher
+{% endblock %}
+
+
+{% block estilos %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/recuperar.css') }}"
+>
+
+{% endblock %}
+
+
+{% block body %}
+
+<main class="recuperacao-page">
+
+    <section class="recuperacao-card">
+
+        <div class="recuperacao-icone">
+            <span>••</span>
+        </div>
+
+
+        <div class="recuperacao-header">
+
+            <span class="recuperacao-tag">
+                Recuperação de conta
+            </span>
+
+            <h1>
+                Crie uma nova senha
+            </h1>
+
+            <p>
+                Escolha uma nova senha para acessar sua conta
+                no SOSMulher.
+            </p>
+
+        </div>
+
+
+        <form
+            method="POST"
+            class="recuperacao-form"
+        >
+
+            {{ form.hidden_tag() }}
+
+
+            <div class="campo">
+
+                {{ form.senha.label }}
+
+                <div class="senha-container">
+
+                    {{ form.senha(
+                        class="senha-input",
+                        placeholder="Digite sua nova senha",
+                        autocomplete="new-password",
+                        id="novaSenha"
+                    ) }}
+
+                    <button
+                        type="button"
+                        class="mostrar-senha"
+                        data-target="novaSenha"
+                    >
+                        Mostrar
+                    </button>
+
+                </div>
+
+
+                {% if form.senha.errors %}
+
+                    <div class="campo-erros">
+
+                        {% for erro in form.senha.errors %}
+
+                            <span>
+                                {{ erro }}
+                            </span>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="campo">
+
+                {{ form.confirmar_senha.label }}
+
+                <div class="senha-container">
+
+                    {{ form.confirmar_senha(
+                        class="senha-input",
+                        placeholder="Digite novamente",
+                        autocomplete="new-password",
+                        id="confirmarNovaSenha"
+                    ) }}
+
+                    <button
+                        type="button"
+                        class="mostrar-senha"
+                        data-target="confirmarNovaSenha"
+                    >
+                        Mostrar
+                    </button>
+
+                </div>
+
+
+                {% if form.confirmar_senha.errors %}
+
+                    <div class="campo-erros">
+
+                        {% for erro in form.confirmar_senha.errors %}
+
+                            <span>
+                                {{ erro }}
+                            </span>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="senha-requisitos">
+
+                <span>
+                    A senha deve possuir pelo menos 6 caracteres.
+                </span>
+
+            </div>
+
+
+            {{ form.submit(
+                class="btn-recuperacao"
+            ) }}
+
+        </form>
+
+    </section>
+
+</main>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const botoes =
+                document.querySelectorAll(".mostrar-senha");
+
+
+            botoes.forEach(function (botao) {
+
+                botao.addEventListener(
+                    "click",
+                    function () {
+
+                        const targetId =
+                            botao.dataset.target;
+
+                        const input =
+                            document.getElementById(targetId);
+
+
+                        if (input.type === "password") {
+
+                            input.type = "text";
+
+                            botao.textContent =
+                                "Ocultar";
+
+                        } else {
+
+                            input.type = "password";
+
+                            botao.textContent =
+                                "Mostrar";
+
+                        }
+
+                    }
+                );
+
+            });
+
+        }
+    );
+
+</script>
+
+{% endblock %}

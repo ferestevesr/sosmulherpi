@@ -4,18 +4,32 @@
 Meu Perfil | SOSMulher
 {% endblock %}
 
+
 {% block estilos %}
+
 <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/perfil.css') }}"
 >
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+>
+
 {% endblock %}
+
 
 {% block body %}
 
 <div class="perfil-page">
 
     <div class="perfil-container">
+
+
+        <!-- =====================================================
+             CABEÇALHO DO PERFIL
+        ====================================================== -->
 
         <div class="perfil-header">
 
@@ -30,6 +44,10 @@ Meu Perfil | SOSMulher
         </div>
 
 
+        <!-- =====================================================
+             INFORMAÇÕES DA CONTA
+        ====================================================== -->
+
         <div class="perfil-card">
 
             <div class="perfil-card-header">
@@ -43,9 +61,12 @@ Meu Perfil | SOSMulher
 
             <div class="perfil-info">
 
+
                 <div class="perfil-item">
 
-                    <strong>Nome</strong>
+                    <strong>
+                        Nome
+                    </strong>
 
                     <span>
                         {{ current_user.nome }}
@@ -56,7 +77,9 @@ Meu Perfil | SOSMulher
 
                 <div class="perfil-item">
 
-                    <strong>E-mail</strong>
+                    <strong>
+                        E-mail
+                    </strong>
 
                     <span>
                         {{ current_user.email }}
@@ -67,14 +90,22 @@ Meu Perfil | SOSMulher
 
                 <div class="perfil-item">
 
-                    <strong>CPF</strong>
+                    <strong>
+                        CPF
+                    </strong>
 
                     <span>
+
                         {% if current_user.cpf %}
+
                             {{ current_user.cpf }}
+
                         {% else %}
+
                             Não informado
+
                         {% endif %}
+
                     </span>
 
                 </div>
@@ -82,14 +113,22 @@ Meu Perfil | SOSMulher
 
                 <div class="perfil-item">
 
-                    <strong>Telefone</strong>
+                    <strong>
+                        Telefone
+                    </strong>
 
                     <span>
+
                         {% if current_user.telefone %}
+
                             {{ current_user.telefone }}
+
                         {% else %}
+
                             Não informado
+
                         {% endif %}
+
                     </span>
 
                 </div>
@@ -97,7 +136,9 @@ Meu Perfil | SOSMulher
 
                 <div class="perfil-item">
 
-                    <strong>Tipo de conta</strong>
+                    <strong>
+                        Tipo de conta
+                    </strong>
 
                     <span>
                         {{ current_user.tipo }}
@@ -108,7 +149,9 @@ Meu Perfil | SOSMulher
 
                 <div class="perfil-item">
 
-                    <strong>Status da conta</strong>
+                    <strong>
+                        Status da conta
+                    </strong>
 
                     <span>
                         {{ current_user.status_conta }}
@@ -116,8 +159,13 @@ Meu Perfil | SOSMulher
 
                 </div>
 
+
             </div>
 
+
+            <!-- =================================================
+                 SEGURANÇA
+            ================================================== -->
 
             <div class="perfil-seguranca">
 
@@ -130,6 +178,7 @@ Meu Perfil | SOSMulher
                     </h3>
 
                 </div>
+
 
                 <p>
                     Seus dados são utilizados apenas para o funcionamento
@@ -144,33 +193,328 @@ Meu Perfil | SOSMulher
             </div>
 
 
+            <!-- =================================================
+                 AÇÕES
+            ================================================== -->
+
             <div class="perfil-acoes">
 
                 <a
                     href="{{ url_for('contato.contatos') }}"
                     class="perfil-botao"
                 >
+
                     <i class="fa-solid fa-address-book"></i>
+
                     Contatos de Emergência
+
                 </a>
+
 
                 <a
                     href="{{ url_for('denuncia.denuncias') }}"
                     class="perfil-botao"
                 >
+
                     <i class="fa-solid fa-file-circle-exclamation"></i>
+
                     Minhas Denúncias
+
                 </a>
 
             </div>
 
         </div>
 
+
+
+        <!-- =====================================================
+             HISTÓRICO DE SOS
+        ====================================================== -->
+
+        <section class="historico-sos">
+
+
+            <div class="historico-sos-topo">
+
+                <div>
+
+                    <span class="historico-sos-tag">
+                        Segurança
+                    </span>
+
+                    <h2>
+                        Histórico de SOS
+                    </h2>
+
+                    <p>
+                        Consulte os alertas registrados anteriormente
+                        pela sua conta.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="{{ url_for('home.sos') }}"
+                    class="btn-novo-sos"
+                >
+                    Acessar SOS
+                </a>
+
+            </div>
+
+
+            {% if pedidos_sos %}
+
+
+                <div class="historico-sos-lista">
+
+
+                    {% for pedido in pedidos_sos %}
+
+
+                        <article class="historico-sos-card">
+
+
+                            <!-- =================================
+                                 CABEÇALHO DO ALERTA
+                            ================================== -->
+
+                            <div class="historico-sos-card-topo">
+
+                                <div>
+
+                                    <span class="sos-id">
+                                        SOS #{{ pedido.id_sos }}
+                                    </span>
+
+                                    <h3>
+                                        Alerta registrado
+                                    </h3>
+
+                                </div>
+
+
+                                {% if pedido.status == "ativo" %}
+
+                                    <span class="sos-status sos-status-ativo">
+                                        Ativo
+                                    </span>
+
+                                {% elif pedido.status == "cancelado" %}
+
+                                    <span class="sos-status sos-status-cancelado">
+                                        Cancelado
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="sos-status">
+                                        {{ pedido.status|capitalize }}
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- =================================
+                                 INFORMAÇÕES
+                            ================================== -->
+
+                            <div class="historico-sos-dados">
+
+
+                                <div class="sos-dado">
+
+                                    <span>
+                                        Data
+                                    </span>
+
+                                    <strong>
+                                        {{ pedido.data_hora.strftime('%d/%m/%Y') }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="sos-dado">
+
+                                    <span>
+                                        Horário
+                                    </span>
+
+                                    <strong>
+                                        {{ pedido.data_hora.strftime('%H:%M') }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="sos-dado">
+
+                                    <span>
+                                        Contatos vinculados
+                                    </span>
+
+                                    <strong>
+                                        {{ pedido.contatos|length }}
+                                    </strong>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <!-- =================================
+                                 LOCALIZAÇÃO
+                            ================================== -->
+
+                            <div class="historico-sos-localizacao">
+
+
+                                <div>
+
+                                    <span>
+                                        Latitude
+                                    </span>
+
+                                    <strong>
+                                        {{ "%.6f"|format(pedido.latitude) }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div>
+
+                                    <span>
+                                        Longitude
+                                    </span>
+
+                                    <strong>
+                                        {{ "%.6f"|format(pedido.longitude) }}
+                                    </strong>
+
+                                </div>
+
+
+                                <a
+                                    href="https://www.google.com/maps?q={{ pedido.latitude }},{{ pedido.longitude }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="btn-ver-mapa"
+                                >
+
+                                    <i class="fa-solid fa-location-dot"></i>
+
+                                    Ver localização
+
+                                </a>
+
+
+                            </div>
+
+
+                            <!-- =================================
+                                 CONTATOS VINCULADOS
+                            ================================== -->
+
+                            {% if pedido.contatos %}
+
+
+                                <div class="historico-sos-contatos">
+
+                                    <span class="historico-contatos-titulo">
+                                        Contatos vinculados ao alerta
+                                    </span>
+
+
+                                    <div class="historico-contatos-lista">
+
+
+                                        {% for vinculo in pedido.contatos %}
+
+
+                                            <div class="historico-contato">
+
+                                                <i class="fa-solid fa-user"></i>
+
+                                                <strong>
+                                                    {{ vinculo.contato.nome }}
+                                                </strong>
+
+                                                <span>
+                                                    {{ vinculo.contato.telefone }}
+                                                </span>
+
+                                            </div>
+
+
+                                        {% endfor %}
+
+
+                                    </div>
+
+                                </div>
+
+
+                            {% endif %}
+
+
+                        </article>
+
+
+                    {% endfor %}
+
+
+                </div>
+
+
+            {% else %}
+
+
+                <!-- =================================================
+                     SEM HISTÓRICO
+                ================================================== -->
+
+                <div class="historico-sos-vazio">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <h3>
+                        Nenhum alerta registrado
+                    </h3>
+
+                    <p>
+                        Quando um alerta SOS for registrado,
+                        ele aparecerá aqui.
+                    </p>
+
+                    <a
+                        href="{{ url_for('home.sos') }}"
+                        class="btn-primeiro-sos"
+                    >
+                        Ir para SOS
+                    </a>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
     </div>
 
 </div>
 
 {% endblock %}
+
 
 {% block scripts %}
 {% endblock %}

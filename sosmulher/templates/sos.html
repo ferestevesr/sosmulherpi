@@ -1,261 +1,642 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+{% extends "base.html" %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SOS Mulher</title>
-
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/sos.css') }}">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
-
-<body>
-
-  <!-- HEADER -->
-  <header class="header">
-
-    <div class="container header-content">
-
-      <div class="logo-container">
-        <img src="{{ url_for('static' , filename = 'image/img/logo.png') }}" alt="Logo SOS Mulher" class="logo-img">
-        <h1 class="logo">SOS<span>Mulher</span></h1>
-      </div>
-
-      <nav class="nav">
-
-        <a href="{{ url_for('home.index') }}">
-          Início
-        </a>
-
-        <a href="{{ url_for('home.apoio') }}">
-          Apoio
-        </a>
-
-        <a href="{{ url_for('denuncia.denunciar') }}">
-          Denúncia
-        </a>
-
-        {% if current_user.is_authenticated %}
-
-        <a href="{{ url_for('auth.perfil') }}">
-          Perfil
-        </a>
-
-        <a href="{{ url_for('auth.logout') }}">
-          Sair
-        </a>
-
-        {% else %}
-
-        <a href="{{ url_for('auth.login') }}">
-          Entrar
-        </a>
-
-        {% endif %}
-
-        <a href="{{ url_for('home.sos') }}">
-          SOS
-        </a>
-
-      </nav>
-    </div>
-
-  </header>
+{% block titulo %}
+SOS | SOSMulher
+{% endblock %}
 
 
-  <!-- CONTAINER -->
-  <main class="sos-container">
+{% block estilos %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/sos.css') }}"
+>
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+>
+
+{% endblock %}
+
+
+{% block body %}
+
+<main class="sos-container">
 
     <div class="cards-wrapper" id="cardsWrapper">
 
-      <!-- CARD PRINCIPAL -->
-      <section class="card card-sos">
 
-        <div class="topo-card">
+        <!-- =================================================
+             CARD PRINCIPAL
+        ================================================== -->
 
-          <div>
-            <h2>SOS Mulher</h2>
+        <section class="card-sos">
 
-            <p class="subtitulo">
-              Acione ajuda rapidamente e compartilhe sua localização em segurança.
+
+            <!-- TOPO -->
+
+            <div class="topo-card">
+
+                <div>
+
+                    <span class="sos-tag">
+                        Alerta rápido
+                    </span>
+
+                    <h2>
+                        SOS Mulher
+                    </h2>
+
+                    <p class="subtitulo">
+                        Use esta área para acessar rapidamente sua
+                        localização e seus contatos de emergência.
+                    </p>
+
+                </div>
+
+
+                <div class="status-online">
+
+                    <span class="status-ponto"></span>
+
+                    Sistema disponível
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 BOTÃO SOS
+            ================================================== -->
+
+            <div class="area-botao">
+
+                <button
+                    id="btnSOS"
+                    class="btn-sos-principal"
+                    type="button"
+                >
+                    SOS
+
+                    <span>
+                        ACIONAR ALERTA
+                    </span>
+                </button>
+
+            </div>
+
+
+            <p class="sos-aviso">
+                Ao acionar o alerta, o navegador solicitará acesso
+                à sua localização.
             </p>
-          </div>
-
-          <div class="status-online">
-            ● Sistema ativo
-          </div>
-
-        </div>
 
 
-        <!-- BOTÃO SOS -->
-        <div class="area-botao">
+            <!-- =================================================
+                 INFORMAÇÕES
+            ================================================== -->
 
-          <button id="btnSOS" type="button">
-            SOS
-          </button>
-
-        </div>
+            <div class="info-box">
 
 
-        <!-- INFO -->
-        <div class="info-box">
+                <div class="info-item">
 
-          <div class="info-item">
-            <i class="fa-solid fa-location-dot"></i>
-            <span>Localização protegida</span>
-          </div>
+                    <i class="fa-solid fa-location-dot"></i>
 
-          <div class="info-item">
-            <i class="fa-solid fa-shield-halved"></i>
-            <span>Dados criptografados</span>
-          </div>
+                    <div>
 
-          <div class="info-item">
-            <i class="fa-solid fa-bolt"></i>
-            <span>Envio imediato</span>
-          </div>
+                        <strong>
+                            Localização
+                        </strong>
 
-        </div>
+                        <span>
+                            Obtida somente com sua autorização
+                        </span>
+
+                    </div>
+
+                </div>
 
 
-        <!-- PROGRESSO -->
-        <div class="progresso">
+                <div class="info-item">
 
-          <div class="barra" id="barra"></div>
+                    <i class="fa-solid fa-user-group"></i>
 
-        </div>
+                    <div>
 
+                        <strong>
+                            Contatos
+                        </strong>
 
-        <!-- STATUS -->
-        <div class="status" id="status">
-          Pressione o botão para iniciar o pedido de ajuda.
-        </div>
+                        <span>
+                            Acesso rápido à sua rede de apoio
+                        </span>
 
+                    </div>
 
-        <!-- AÇÕES -->
-        <div class="acoes">
-
-          <button class="cancelar" type="button">
-            Cancelar
-          </button>
-
-        </div>
-
-      </section>
+                </div>
 
 
-      <!-- CARD STATUS -->
-      <aside class="card card-status" id="cardStatus">
+                <div class="info-item">
 
-        <div class="status-header">
+                    <i class="fa-solid fa-bolt"></i>
 
-          <h2>Status do envio</h2>
+                    <div>
 
-          <span class="status-badge">
-            Em monitoramento
-          </span>
+                        <strong>
+                            Acesso rápido
+                        </strong>
 
-        </div>
+                        <span>
+                            Recursos reunidos em uma única tela
+                        </span>
 
+                    </div>
 
-        <div class="status-lista">
-
-          <!-- LOCALIZAÇÃO -->
-          <div class="status-item">
-
-            <span>
-              <i class="fa-solid fa-location-dot"></i>
-              Localização
-            </span>
-
-            <strong id="loc">
-              Aguardando
-            </strong>
-
-          </div>
+                </div>
 
 
-          <!-- CONTATOS -->
-          <div class="status-item">
-
-            <span>
-              <i class="fa-solid fa-phone"></i>
-              Contatos
-            </span>
-
-            <strong id="contatos">
-              Aguardando
-            </strong>
-
-          </div>
+            </div>
 
 
-          <!-- AJUDA -->
-          <div class="status-item">
+            <!-- =================================================
+                 PROGRESSO
+            ================================================== -->
 
-            <span>
-              <i class="fa-solid fa-triangle-exclamation"></i>
-              Ajuda
-            </span>
+            <div class="progresso">
 
-            <strong id="ajuda">
-              Aguardando
-            </strong>
+                <div
+                    class="barra"
+                    id="barra"
+                ></div>
 
-          </div>
-
-
-          <!-- SISTEMA -->
-          <div class="status-item">
-
-            <span>
-              <i class="fa-solid fa-signal"></i>
-              Sistema
-            </span>
-
-            <strong id="geral">
-              Inativo
-            </strong>
-
-          </div>
-
-        </div>
+            </div>
 
 
-        <!-- MAPA -->
-        <div class="mapa-box">
+            <!-- =================================================
+                 STATUS PRINCIPAL
+            ================================================== -->
 
-          <div class="mapa-topo">
-
-            <h3>
-              Localização em tempo real
-            </h3>
-
-            <span>
-              GPS ativo
-            </span>
-
-          </div>
+            <div
+                class="status"
+                id="status"
+            >
+                Pressione SOS para iniciar.
+            </div>
 
 
-          <iframe src="https://maps.google.com/maps?q=-23.6613,-46.5302&z=15&output=embed" loading="lazy">
-          </iframe>
+            <!-- =================================================
+                 AÇÕES
+            ================================================== -->
 
-        </div>
+            <div class="acoes">
 
-      </aside>
+                <button
+                    class="cancelar"
+                    id="btnCancelar"
+                    type="button"
+                >
+                    Cancelar alerta
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             STATUS DO ALERTA
+        ================================================== -->
+
+        <aside
+            class="card-status"
+            id="cardStatus"
+        >
+
+
+            <div class="status-header">
+
+                <div>
+
+                    <span class="status-mini">
+                        Informações
+                    </span>
+
+                    <h2>
+                        Status do alerta
+                    </h2>
+
+                </div>
+
+
+                <span
+                    class="status-badge"
+                    id="statusBadge"
+                >
+                    Aguardando
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 LISTA DE STATUS
+            ================================================== -->
+
+            <div class="status-lista">
+
+
+                <!-- LOCALIZAÇÃO -->
+
+                <div class="status-item">
+
+                    <span>
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        Localização
+
+                    </span>
+
+                    <strong id="loc">
+                        Aguardando
+                    </strong>
+
+                </div>
+
+
+                <!-- CONTATOS -->
+
+                <div class="status-item">
+
+                    <span>
+
+                        <i class="fa-solid fa-phone"></i>
+
+                        Contatos
+
+                    </span>
+
+                    <strong id="contatos">
+
+                        {% if current_user.is_authenticated %}
+
+                            {% if current_user.contato_emergencia %}
+
+                                {{ current_user.contato_emergencia|length }}
+                                cadastrado(s)
+
+                            {% else %}
+
+                                Nenhum cadastrado
+
+                            {% endif %}
+
+                        {% else %}
+
+                            Faça login
+
+                        {% endif %}
+
+                    </strong>
+
+                </div>
+
+
+                <!-- ALERTA -->
+
+                <div class="status-item">
+
+                    <span>
+
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        Alerta
+
+                    </span>
+
+                    <strong id="ajuda">
+                        Não iniciado
+                    </strong>
+
+                </div>
+
+
+                <!-- SISTEMA -->
+
+                <div class="status-item">
+
+                    <span>
+
+                        <i class="fa-solid fa-signal"></i>
+
+                        Sistema
+
+                    </span>
+
+                    <strong id="geral">
+                        Disponível
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 LOCALIZAÇÃO
+            ================================================== -->
+
+            <div class="mapa-box">
+
+
+                <div class="mapa-topo">
+
+                    <div>
+
+                        <span class="mapa-mini">
+                            GPS
+                        </span>
+
+                        <h3>
+                            Sua localização
+                        </h3>
+
+                    </div>
+
+
+                    <span id="gpsStatus">
+                        Não iniciado
+                    </span>
+
+                </div>
+
+
+                <!-- MAPA INICIAL -->
+
+                <div
+                    class="mapa-placeholder"
+                    id="mapaPlaceholder"
+                >
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <p>
+                        Sua localização aparecerá aqui após
+                        você autorizar o acesso.
+                    </p>
+
+                </div>
+
+
+                <iframe
+                    id="mapa"
+                    title="Mapa da localização"
+                    loading="lazy"
+                    hidden
+                >
+                </iframe>
+
+
+                <!-- COORDENADAS -->
+
+                <div
+                    class="coordenadas"
+                    id="coordenadas"
+                    hidden
+                >
+
+                    <div>
+
+                        <span>
+                            Latitude
+                        </span>
+
+                        <strong id="latitude">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Longitude
+                        </span>
+
+                        <strong id="longitude">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </aside>
+
 
     </div>
 
-  </main>
 
 
-  <!-- JAVASCRIPT DO SOS -->
-  <script src="{{ url_for('static', filename='js/sos.js') }}"></script>
+    <!-- =====================================================
+         CONTATOS DE EMERGÊNCIA
+    ====================================================== -->
 
-</body>
+    <section class="sos-contatos">
 
-</html>
+
+        <div class="sos-contatos-topo">
+
+            <div>
+
+                <span class="sos-contatos-tag">
+                    Rede de apoio
+                </span>
+
+                <h2>
+                    Contatos de emergência
+                </h2>
+
+                <p>
+                    Pessoas cadastradas para acesso rápido
+                    em situações de necessidade.
+                </p>
+
+            </div>
+
+
+            {% if current_user.is_authenticated %}
+
+                <a
+                    href="{{ url_for('contato.contatos') }}"
+                    class="btn-gerenciar-contatos"
+                >
+                    Gerenciar contatos
+                </a>
+
+            {% endif %}
+
+        </div>
+
+
+
+        {% if current_user.is_authenticated %}
+
+
+            {% if current_user.contato_emergencia %}
+
+
+                <div class="contatos-grid">
+
+
+                    {% for contato in current_user.contato_emergencia %}
+
+                        <div class="contato-sos-card">
+
+
+                            <div class="contato-sos-info">
+
+                                <div class="contato-sos-icone">
+
+                                    <i class="fa-solid fa-user"></i>
+
+                                </div>
+
+
+                                <div>
+
+                                    <h3>
+                                        {{ contato.nome }}
+                                    </h3>
+
+                                    {% if contato.parentesco %}
+
+                                        <span>
+                                            {{ contato.parentesco }}
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+
+                            <p>
+                                {{ contato.telefone }}
+                            </p>
+
+
+                            <a
+                                href="tel:{{ contato.telefone }}"
+                                class="btn-ligar"
+                            >
+
+                                <i class="fa-solid fa-phone"></i>
+
+                                Ligar
+
+                            </a>
+
+
+                        </div>
+
+                    {% endfor %}
+
+
+                </div>
+
+
+            {% else %}
+
+
+                <div class="sem-contatos">
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                    <h3>
+                        Nenhum contato cadastrado
+                    </h3>
+
+                    <p>
+                        Adicione pessoas da sua rede de apoio para
+                        encontrá-las rapidamente nesta página.
+                    </p>
+
+                    <a
+                        href="{{ url_for('contato.contatos') }}"
+                        class="btn-adicionar-contato"
+                    >
+                        Adicionar contato
+                    </a>
+
+                </div>
+
+
+            {% endif %}
+
+
+        {% else %}
+
+
+            <div class="sem-contatos">
+
+                <i class="fa-solid fa-user-lock"></i>
+
+                <h3>
+                    Entre na sua conta
+                </h3>
+
+                <p>
+                    Para visualizar seus contatos cadastrados,
+                    primeiro faça login.
+                </p>
+
+                <a
+                    href="{{ url_for('auth.login') }}"
+                    class="btn-adicionar-contato"
+                >
+                    Entrar
+                </a>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </section>
+
+
+</main>
+
+{% endblock %}
+
+
+
+{% block scripts %}
+
+<div
+    id="sosConfig"
+    data-autenticado="{{ '1' if current_user.is_authenticated else '0' }}"
+    data-criar-url="{{ url_for('home.criar_sos_api') }}"
+    data-cancelar-url="{{ url_for('home.cancelar_sos_api') }}"
+    hidden
+></div>
+
+<script src="{{ url_for('static', filename='js/sos.js') }}"></script>
+
+{% endblock %}

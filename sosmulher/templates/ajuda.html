@@ -1,0 +1,338 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Ajuda | SOSMulher
+{% endblock %}
+
+
+{% block estilos %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/ajuda.css') }}"
+>
+{% endblock %}
+
+
+{% block body %}
+
+<main class="ajuda-pagina">
+
+    <!-- HERO -->
+    <section class="ajuda-hero">
+
+        <div class="ajuda-hero-conteudo">
+
+            <span class="ajuda-tag">
+                Central de ajuda
+            </span>
+
+            <h1>
+                Como podemos
+                <span>ajudar?</span>
+            </h1>
+
+            <p>
+                Encontre informações sobre o funcionamento da plataforma,
+                segurança, denúncias e recursos disponíveis no SOSMulher.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTEÚDO -->
+    <section class="ajuda-conteudo">
+
+        <div class="ajuda-container">
+
+            <div class="ajuda-titulo">
+
+                <h2>
+                    Perguntas frequentes
+                </h2>
+
+                <p>
+                    Selecione uma pergunta para visualizar a resposta.
+                </p>
+
+            </div>
+
+
+            <div class="faq-lista">
+
+
+                <!-- FAQ 1 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+
+                    <div class="faq-pergunta">
+
+                        <h3>
+                            Como faço uma denúncia?
+                        </h3>
+
+                        <span class="faq-seta">
+                            +
+                        </span>
+
+                    </div>
+
+                    <div class="faq-resposta">
+
+                        <p>
+                            Acesse a opção Denúncia no menu principal,
+                            preencha as informações solicitadas e envie
+                            o formulário.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FAQ 2 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+
+                    <div class="faq-pergunta">
+
+                        <h3>
+                            Preciso estar cadastrada para usar o sistema?
+                        </h3>
+
+                        <span class="faq-seta">
+                            +
+                        </span>
+
+                    </div>
+
+                    <div class="faq-resposta">
+
+                        <p>
+                            Algumas informações podem ser acessadas sem login.
+                            Recursos pessoais, como contatos e histórico,
+                            dependem de uma conta autenticada.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FAQ 3 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+
+                    <div class="faq-pergunta">
+
+                        <h3>
+                            Onde vejo minhas denúncias?
+                        </h3>
+
+                        <span class="faq-seta">
+                            +
+                        </span>
+
+                    </div>
+
+                    <div class="faq-resposta">
+
+                        <p>
+                            Após entrar na sua conta, você pode acessar
+                            suas denúncias através da área de perfil
+                            e consultar o histórico disponível.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FAQ 4 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+
+                    <div class="faq-pergunta">
+
+                        <h3>
+                            Para que serve a Lista de Contatos?
+                        </h3>
+
+                        <span class="faq-seta">
+                            +
+                        </span>
+
+                    </div>
+
+                    <div class="faq-resposta">
+
+                        <p>
+                            A Lista de Contatos permite cadastrar pessoas
+                            da sua rede de apoio, como familiares e amigos,
+                            para facilitar o acesso às informações de contato.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FAQ 5 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+
+                    <div class="faq-pergunta">
+
+                        <h3>
+                            Para que serve o botão SOS?
+                        </h3>
+
+                        <span class="faq-seta">
+                            +
+                        </span>
+
+                    </div>
+
+                    <div class="faq-resposta">
+
+                        <p>
+                            O botão SOS direciona para o recurso de alerta
+                            rápido da plataforma, desenvolvido para facilitar
+                            o acesso aos recursos de segurança.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FAQ 6 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+
+                    <div class="faq-pergunta">
+
+                        <h3>
+                            Minhas informações ficam protegidas?
+                        </h3>
+
+                        <span class="faq-seta">
+                            +
+                        </span>
+
+                    </div>
+
+                    <div class="faq-resposta">
+
+                        <p>
+                            O SOSMulher foi desenvolvido com foco em
+                            privacidade e segurança das informações
+                            armazenadas na plataforma.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACESSOS RÁPIDOS -->
+    <section class="ajuda-acessos">
+
+        <div class="ajuda-container">
+
+            <h2>
+                Acessos rápidos
+            </h2>
+
+            <div class="ajuda-cards">
+
+
+                <a
+                    href="{{ url_for('home.apoio') }}"
+                    class="ajuda-card"
+                >
+
+                    <h3>
+                        Apoio
+                    </h3>
+
+                    <p>
+                        Consulte informações e orientações sobre
+                        situações de violência.
+                    </p>
+
+                    <span>
+                        Acessar
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('denuncia.denunciar') }}"
+                    class="ajuda-card"
+                >
+
+                    <h3>
+                        Denúncia
+                    </h3>
+
+                    <p>
+                        Registre uma situação através do formulário
+                        disponível na plataforma.
+                    </p>
+
+                    <span>
+                        Acessar
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('home.sos') }}"
+                    class="ajuda-card ajuda-card-sos"
+                >
+
+                    <h3>
+                        SOS
+                    </h3>
+
+                    <p>
+                        Acesse rapidamente os recursos de segurança
+                        disponíveis no sistema.
+                    </p>
+
+                    <span>
+                        Acessar
+                    </span>
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+    function toggleFaq(elemento) {
+
+        elemento.classList.toggle("ativo");
+
+    }
+
+</script>
+
+{% endblock %}

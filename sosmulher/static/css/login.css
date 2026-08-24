@@ -85,18 +85,18 @@
 
 .login-linha {
   width: 65px;
-
   height: 4px;
 
   margin: 15px auto;
 
   border-radius: 10px;
 
-  background: linear-gradient(
-      90deg,
-      #e91ead,
-      #8a3dd9
-  );
+  background:
+      linear-gradient(
+          90deg,
+          #e91ead,
+          #8a3dd9
+      );
 }
 
 
@@ -166,6 +166,67 @@
 
 
 /* =========================================================
+ CAMPO DE SENHA
+========================================================= */
+
+.login-senha-container {
+  width: 100%;
+
+  position: relative;
+}
+
+.login-senha-container input {
+  width: 100%;
+
+  padding-right: 82px;
+}
+
+
+/* =========================================================
+ MOSTRAR / OCULTAR SENHA
+========================================================= */
+
+.login-mostrar-senha {
+  position: absolute;
+
+  top: 50%;
+  right: 12px;
+
+  transform: translateY(-50%);
+
+  border: none;
+
+  background: transparent;
+
+  color: #e91ead;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  padding: 5px;
+
+  border-radius: 6px;
+
+  transition:
+      color 0.2s ease,
+      background 0.2s ease;
+}
+
+.login-mostrar-senha:hover {
+  color: #8a3dd9;
+
+  background: rgba(233, 30, 173, 0.06);
+}
+
+.login-mostrar-senha:focus {
+  outline: none;
+}
+
+
+/* =========================================================
  ERROS
 ========================================================= */
 
@@ -201,11 +262,12 @@
 
   font-weight: 700;
 
-  background: linear-gradient(
-      90deg,
-      #e91ead,
-      #8a3dd9
-  );
+  background:
+      linear-gradient(
+          90deg,
+          #e91ead,
+          #8a3dd9
+      );
 
   transition:
       transform 0.2s ease,
@@ -268,13 +330,15 @@
 
   border-radius: 10px;
 
-  background: linear-gradient(
-      135deg,
-      rgba(233, 30, 173, 0.05),
-      rgba(138, 61, 217, 0.05)
-  );
+  background:
+      linear-gradient(
+          135deg,
+          rgba(233, 30, 173, 0.05),
+          rgba(138, 61, 217, 0.05)
+      );
 
-  border: 1px solid rgba(233, 30, 173, 0.12);
+  border:
+      1px solid rgba(233, 30, 173, 0.12);
 
   text-align: center;
 
@@ -302,6 +366,16 @@
 
   .login-header h1 {
       font-size: 27px;
+  }
+
+  .login-mostrar-senha {
+      right: 8px;
+
+      font-size: 10px;
+  }
+
+  .login-senha-container input {
+      padding-right: 72px;
   }
 
 }

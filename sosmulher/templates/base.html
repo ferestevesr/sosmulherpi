@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
@@ -16,117 +17,125 @@
         {% endblock %}
     </title>
 
-
     <!-- CSS GLOBAL -->
-    <!-- Esse CSS será carregado em TODAS as páginas -->
-
     <link
         rel="stylesheet"
         href="{{ url_for('static', filename='css/style.css') }}"
     >
 
-
     <!-- CSS ESPECÍFICO DA PÁGINA -->
-
     {% block estilos %}
     {% endblock %}
 
 </head>
 
-
 <body>
 
-
-    <!-- ========================= -->
-    <!-- HEADER GLOBAL -->
-    <!-- ========================= -->
-
+    <!-- =========================
+         HEADER GLOBAL
+    ========================== -->
     <header class="header">
 
         <div class="container header-content">
 
-
             <!-- LOGO -->
-
             <div class="logo-container">
 
-            <img src="{{ url_for('static', filename='image/img/logo.png') }}"
-                 alt="Logo SOSMulher"
-                 class="logo-img">
+                <img
+                    src="{{ url_for('static', filename='image/img/logo.png') }}"
+                    alt="Logo SOSMulher"
+                    class="logo-img"
+                >
 
                 <h1 class="logo">
                     SOS<span>Mulher</span>
                 </h1>
 
-        </div>
+            </div>
 
 
             <!-- MENU -->
-
             <nav class="nav">
 
-
-            <a href="{{ url_for('home.index') }}">
-                Início
-            </a>
-
-            <a href="{{ url_for('home.apoio') }}">
-                Apoio
-            </a>
-
-            <a href="{{ url_for('denuncia.denunciar') }}">
-                Denúncia
-            </a>
-
-            {% if current_user.is_authenticated %}
-
-                <a href="{{ url_for('auth.perfil') }}">
-                    Perfil
+                <a href="{{ url_for('home.index') }}">
+                    Início
                 </a>
 
-                    <a href="{{ url_for('auth.logout') }}">
-                        Sair
-                    </a>
+                <a href="{{ url_for('home.apoio') }}">
+                    Apoio
+                </a>
 
+                <a href="{{ url_for('denuncia.denunciar') }}">
+                    Denúncia
+                </a>
+
+                {% if current_user.is_authenticated %}
+
+                    <a href="{{ url_for('perfil.perfil_page') }}">
+                        Perfil
+                     </a>
 
                 {% else %}
-
 
                     <a href="{{ url_for('auth.login') }}">
                         Entrar
                     </a>
 
-
                 {% endif %}
 
-            <a href="{{ url_for('home.sos') }}">
-                SOS
 
-            </a>
+                <!-- BOTÃO SOS -->
+                <a
+                    href="{{ url_for('home.sos') }}"
+                    class="btn-sos-nav"
+                >
+                    SOS
+                </a>
 
+
+                {% if current_user.is_authenticated %}
+
+                    <!-- SAIR -->
+                    <a
+                        href="{{ url_for('auth.logout') }}"
+                        class="btn-sair"
+                    >
+                        Sair
+                    </a>
+
+                {% endif %}
 
             </nav>
 
         </div>
 
-</header>
+    </header>
 
 
-    <!-- ========================= -->
-    <!-- MENSAGENS FLASH -->
-    <!-- ========================= -->
-
+    <!-- =========================
+         NOTIFICAÇÕES / FLASH
+    ========================== -->
     {% with mensagens = get_flashed_messages(with_categories=True) %}
 
         {% if mensagens %}
 
-            <div class="flash-container">
+            <div class="toast-container">
 
                 {% for categoria, mensagem in mensagens %}
 
-                    <div class="flash {{ categoria }}">
+                    <div class="toast {{ categoria }}">
 
-                        {{ mensagem }}
+                        <span class="toast-mensagem">
+                            {{ mensagem }}
+                        </span>
+
+                        <button
+                            type="button"
+                            class="toast-fechar"
+                            onclick="this.parentElement.remove()"
+                        >
+                            ×
+                        </button>
 
                     </div>
 
@@ -136,14 +145,69 @@
 
         {% endif %}
 
-{% endwith %}
+    {% endwith %}
 
-{% block body %}
-{% endblock %}
 
-{% block scripts %}
-{% endblock %}
+    <!-- =========================
+         BOTÃO VOLTAR
+         NÃO APARECE NA INDEX
+    ========================== -->
+    {% if request.endpoint != 'home.index' %}
 
+        <div class="voltar-container">
+
+            <button
+                type="button"
+                class="btn-voltar"
+                onclick="window.history.back()"
+            >
+                ← Voltar
+            </button>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- =========================
+         CONTEÚDO DAS PÁGINAS
+    ========================== -->
+    {% block body %}
+    {% endblock %}
+
+
+    <!-- =========================
+         SCRIPTS
+    ========================== -->
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const toasts = document.querySelectorAll(".toast");
+
+            toasts.forEach(function (toast) {
+
+                setTimeout(function () {
+
+                    toast.classList.add("toast-saindo");
+
+                    setTimeout(function () {
+
+                        toast.remove();
+
+                    }, 500);
+
+                }, 3500);
+
+            });
+
+        });
+
+    </script>
+
+
+    {% block scripts %}
+    {% endblock %}
 
 </body>
 

@@ -76,9 +76,23 @@ Login | SOSMulher
 
                 {{ form.senha.label }}
 
-                {{ form.senha(
-                    placeholder="Digite sua senha"
-                ) }}
+                <div class="login-senha-container">
+
+                    {{ form.senha(
+                        placeholder="Digite sua senha",
+                        id="senhaLogin",
+                        autocomplete="current-password"
+                    ) }}
+
+                    <button
+                        type="button"
+                        class="login-mostrar-senha"
+                        id="btnMostrarSenha"
+                    >
+                        Mostrar
+                    </button>
+
+                </div>
 
                 {% if form.senha.errors %}
 
@@ -101,24 +115,27 @@ Login | SOSMulher
                 class="login-botao"
             ) }}
 
-
         </form>
 
 
         <div class="login-links">
 
             <p>
+
                 Não possui uma conta?
 
                 <a href="{{ url_for('auth.cadastro') }}">
                     Cadastre-se
                 </a>
+
             </p>
 
             <p>
+
                 <a href="{{ url_for('auth.recuperar_conta') }}">
                     Esqueceu sua senha?
                 </a>
+
             </p>
 
         </div>
@@ -139,5 +156,47 @@ Login | SOSMulher
 {% endblock %}
 
 
+
 {% block scripts %}
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const campoSenha =
+            document.getElementById("senhaLogin");
+
+        const botaoMostrar =
+            document.getElementById("btnMostrarSenha");
+
+
+        if (!campoSenha || !botaoMostrar) {
+            return;
+        }
+
+
+        botaoMostrar.addEventListener("click", function () {
+
+            if (campoSenha.type === "password") {
+
+                campoSenha.type = "text";
+
+                botaoMostrar.textContent =
+                    "Ocultar";
+
+            } else {
+
+                campoSenha.type = "password";
+
+                botaoMostrar.textContent =
+                    "Mostrar";
+
+            }
+
+        });
+
+    });
+
+</script>
+
 {% endblock %}

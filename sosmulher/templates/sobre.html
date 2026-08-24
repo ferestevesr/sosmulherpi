@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Sobre | SOSMulher
+{% endblock %}
+
+
+{% block estilos %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/sobre.css') }}"
+>
+{% endblock %}
+
+
+{% block body %}
+
+<main class="sobre-pagina">
+
+
+    <!-- HERO -->
+    <section class="sobre-hero">
+
+        <div class="sobre-hero-conteudo">
+
+            <span class="sobre-tag">
+                Conheça o projeto
+            </span>
+
+            <h1>
+                Sobre o
+                <span>SOSMulher</span>
+            </h1>
+
+            <p>
+                Uma plataforma desenvolvida para reunir informação,
+                apoio e recursos de segurança em um único ambiente.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- SOBRE O PROJETO -->
+    <section class="sobre-conteudo">
+
+        <div class="sobre-container">
+
+            <div class="sobre-texto">
+
+                <span class="sobre-mini-titulo">
+                    Nosso propósito
+                </span>
+
+                <h2>
+                    Informação e tecnologia como ferramentas de apoio
+                </h2>
+
+                <p>
+                    O SOSMulher é um sistema desenvolvido com o objetivo
+                    de facilitar o acesso a informações, recursos de apoio
+                    e ferramentas relacionadas à segurança da mulher.
+                </p>
+
+                <p>
+                    A plataforma reúne funcionalidades como registro de
+                    denúncias, contatos de emergência, informações sobre
+                    tipos de violência e acesso rápido ao recurso SOS.
+                </p>
+
+            </div>
+
+
+            <div class="sobre-destaque">
+
+                <h3>
+                    SOSMulher
+                </h3>
+
+                <p>
+                    Um espaço digital pensado para oferecer acesso
+                    simples, organizado e seguro às principais
+                    funcionalidades da plataforma.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRINCÍPIOS -->
+    <section class="sobre-principios">
+
+        <div class="sobre-container">
+
+            <div class="sobre-titulo">
+
+                <span class="sobre-mini-titulo">
+                    Nossos princípios
+                </span>
+
+                <h2>
+                    O que orienta o projeto
+                </h2>
+
+            </div>
+
+
+            <div class="principios-grid">
+
+
+                <div class="principio-card">
+
+                    <div class="principio-numero">
+                        01
+                    </div>
+
+                    <h3>
+                        Segurança
+                    </h3>
+
+                    <p>
+                        Criar uma experiência voltada à proteção
+                        das informações e ao uso responsável da plataforma.
+                    </p>
+
+                </div>
+
+
+                <div class="principio-card">
+
+                    <div class="principio-numero">
+                        02
+                    </div>
+
+                    <h3>
+                        Privacidade
+                    </h3>
+
+                    <p>
+                        Valorizar a confidencialidade e o cuidado
+                        com os dados utilizados no sistema.
+                    </p>
+
+                </div>
+
+
+                <div class="principio-card">
+
+                    <div class="principio-numero">
+                        03
+                    </div>
+
+                    <h3>
+                        Acessibilidade
+                    </h3>
+
+                    <p>
+                        Manter os recursos organizados de maneira
+                        simples e fácil de compreender.
+                    </p>
+
+                </div>
+
+
+                <div class="principio-card">
+
+                    <div class="principio-numero">
+                        04
+                    </div>
+
+                    <h3>
+                        Informação
+                    </h3>
+
+                    <p>
+                        Disponibilizar conteúdos que auxiliem
+                        na identificação de situações de violência
+                        e na busca por apoio.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FUNCIONALIDADES -->
+    <section class="sobre-funcionalidades">
+
+        <div class="sobre-container">
+
+            <div class="sobre-titulo">
+
+                <span class="sobre-mini-titulo">
+                    Plataforma
+                </span>
+
+                <h2>
+                    Principais recursos
+                </h2>
+
+            </div>
+
+
+            <div class="funcionalidades-grid">
+
+
+                <div class="funcionalidade">
+
+                    <h3>
+                        Denúncias
+                    </h3>
+
+                    <p>
+                        Registro e acompanhamento das informações
+                        enviadas pela usuária.
+                    </p>
+
+                </div>
+
+
+                <div class="funcionalidade">
+
+                    <h3>
+                        Contatos
+                    </h3>
+
+                    <p>
+                        Cadastro e gerenciamento de pessoas
+                        pertencentes à rede de apoio.
+                    </p>
+
+                </div>
+
+
+                <div class="funcionalidade">
+
+                    <h3>
+                        Apoio
+                    </h3>
+
+                    <p>
+                        Informações sobre diferentes formas
+                        de violência e sinais de alerta.
+                    </p>
+
+                </div>
+
+
+                <div class="funcionalidade">
+
+                    <h3>
+                        SOS
+                    </h3>
+
+                    <p>
+                        Acesso rápido aos recursos de segurança
+                        disponíveis na plataforma.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+    <section class="sobre-cta">
+
+        <div class="sobre-cta-conteudo">
+
+            <h2>
+                Conheça os recursos do SOSMulher
+            </h2>
+
+            <p>
+                Explore as funcionalidades disponíveis
+                e encontre a opção que você precisa.
+            </p>
+
+            <div class="sobre-cta-botoes">
+
+                <a
+                    href="{{ url_for('home.apoio') }}"
+                    class="sobre-btn"
+                >
+                    Ver apoio
+                </a>
+
+                <a
+                    href="{{ url_for('denuncia.denunciar') }}"
+                    class="sobre-btn sobre-btn-secundario"
+                >
+                    Fazer denúncia
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+{% endblock %}

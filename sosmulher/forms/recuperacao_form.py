@@ -1,6 +1,18 @@
 from flask_wtf import FlaskForm
-from wtforms import EmailField, SubmitField
-from wtforms.validators import DataRequired, Email
+
+from wtforms import (
+    EmailField,
+    StringField,
+    PasswordField,
+    SubmitField
+)
+
+from wtforms.validators import (
+    DataRequired,
+    Email,
+    EqualTo,
+    Length
+)
 
 
 class RecuperacaoForm(FlaskForm):
@@ -13,4 +25,54 @@ class RecuperacaoForm(FlaskForm):
         ]
     )
 
-    submit = SubmitField("Enviar")
+    submit = SubmitField(
+        "Enviar código"
+    )
+
+
+class CodigoRecuperacaoForm(FlaskForm):
+
+    codigo = StringField(
+        "Código de verificação",
+        validators=[
+            DataRequired(),
+            Length(
+                min=6,
+                max=6,
+                message="O código deve possuir 6 números."
+            )
+        ]
+    )
+
+    submit = SubmitField(
+        "Verificar código"
+    )
+
+
+class NovaSenhaForm(FlaskForm):
+
+    senha = PasswordField(
+        "Nova senha",
+        validators=[
+            DataRequired(),
+            Length(
+                min=6,
+                message="A senha deve possuir pelo menos 6 caracteres."
+            )
+        ]
+    )
+
+    confirmar_senha = PasswordField(
+        "Confirmar nova senha",
+        validators=[
+            DataRequired(),
+            EqualTo(
+                "senha",
+                message="As senhas precisam ser iguais."
+            )
+        ]
+    )
+
+    submit = SubmitField(
+        "Alterar senha"
+    )

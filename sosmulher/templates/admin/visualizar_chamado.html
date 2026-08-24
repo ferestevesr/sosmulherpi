@@ -1,24 +1,8 @@
-```html
 {% extends "admin/base_admin.html" %}
 
 
 {% block titulo %}
-Chamado SOS #{{ chamado.id_sos }} | SOSMulher
-{% endblock %}
-
-
-{% block estilos %}
-
-<link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='css/admin.css') }}"
->
-
-<link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='css/visualizar_chamado.css') }}"
->
-
+Visualizar Chamado #{{ chamado.id_sos }} | SOSMulher
 {% endblock %}
 
 
@@ -28,267 +12,39 @@ Chamado SOS #{{ chamado.id_sos }}
 
 
 {% block admin_subtitulo %}
-Visualização completa do pedido de emergência registrado no sistema.
+Visualização detalhada do pedido de emergência.
 {% endblock %}
 
 
 {% block admin_body %}
 
+<div class="chamado-page">
 
-<!-- ================================= -->
-<!-- CABEÇALHO DO CHAMADO -->
-<!-- ================================= -->
+    <!-- ================================================== -->
+    <!-- CABEÇALHO -->
+    <!-- ================================================== -->
 
-<section class="chamado-header">
+    <section class="chamado-hero">
 
-    <div class="chamado-header-info">
+        <div class="chamado-hero-info">
 
-        <div class="chamado-icon">
-            🚨
-        </div>
-
-        <div>
-
-            <span class="chamado-label">
-                CHAMADO DE EMERGÊNCIA
-            </span>
-
-            <h2>
-                Chamado SOS #{{ chamado.id_sos }}
-            </h2>
-
-            <p>
-                Registrado em
-                {{ chamado.data_hora.strftime('%d/%m/%Y às %H:%M') }}
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <!-- STATUS -->
-
-    <div class="chamado-status">
-
-        {% if chamado.status == "ativo" %}
-
-            <span class="status-badge ativo">
-                <span class="status-dot"></span>
-                Ativo
-            </span>
-
-        {% elif chamado.status == "em_andamento" %}
-
-            <span class="status-badge andamento">
-                <span class="status-dot"></span>
-                Em andamento
-            </span>
-
-        {% elif chamado.status == "finalizado" %}
-
-            <span class="status-badge finalizado">
-                <span class="status-dot"></span>
-                Finalizado
-            </span>
-
-        {% elif chamado.status == "cancelado" %}
-
-            <span class="status-badge cancelado">
-                <span class="status-dot"></span>
-                Cancelado
-            </span>
-
-        {% else %}
-
-            <span class="status-badge">
-                <span class="status-dot"></span>
-                {{ chamado.status }}
-            </span>
-
-        {% endif %}
-
-    </div>
-
-</section>
-
-
-<!-- ================================= -->
-<!-- ALERTA -->
-<!-- ================================= -->
-
-<div class="emergency-alert">
-
-    <div class="alert-icon">
-        ⚠️
-    </div>
-
-    <div>
-
-        <strong>
-            Pedido de emergência
-        </strong>
-
-        <p>
-            Este chamado foi acionado pelo sistema SOSMulher.
-            Verifique as informações abaixo para realizar o acompanhamento adequado.
-        </p>
-
-    </div>
-
-</div>
-
-
-<!-- ================================= -->
-<!-- GRID PRINCIPAL -->
-<!-- ================================= -->
-
-<div class="chamado-grid">
-
-
-    <!-- ================================= -->
-    <!-- INFORMAÇÕES DO USUÁRIO -->
-    <!-- ================================= -->
-
-    <section class="chamado-card">
-
-        <div class="card-header">
-
-            <div class="card-header-icon">
-                👤
-            </div>
-
-            <div>
-
-                <h3>
-                    Usuário
-                </h3>
-
-                <p>
-                    Dados da pessoa que acionou o SOS.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="user-profile">
-
-            <div class="user-avatar">
-
-                {{ chamado.usuario.nome[0]|upper }}
-
-            </div>
-
-
-            <div>
-
-                <strong>
-                    {{ chamado.usuario.nome }}
-                </strong>
-
-                <span>
-                    Usuário #{{ chamado.usuario.id_usuario }}
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <div class="info-list">
-
-            <div class="info-item">
-
-                <span class="info-label">
-                    ID do usuário
-                </span>
-
-                <strong>
-                    #{{ chamado.usuario.id_usuario }}
-                </strong>
-
-            </div>
-
-
-            <div class="info-item">
-
-                <span class="info-label">
-                    E-mail
-                </span>
-
-                <strong>
-                    {{ chamado.usuario.email }}
-                </strong>
-
-            </div>
-
-
-            <div class="info-item">
-
-                <span class="info-label">
-                    Telefone
-                </span>
-
-                <strong>
-                    {{ chamado.usuario.telefone or "Não informado" }}
-                </strong>
-
-            </div>
-
-
-            <div class="info-item">
-
-                <span class="info-label">
-                    CPF
-                </span>
-
-                <strong>
-                    {{ chamado.usuario.cpf or "Não informado" }}
-                </strong>
-
-            </div>
-
-
-            <div class="info-item">
-
-                <span class="info-label">
-                    Status da conta
-                </span>
-
-                <strong class="account-status {{ chamado.usuario.status_conta }}">
-                    {{ chamado.usuario.status_conta }}
-                </strong>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================================= -->
-    <!-- INFORMAÇÕES DO CHAMADO -->
-    <!-- ================================= -->
-
-    <section class="chamado-card">
-
-        <div class="card-header">
-
-            <div class="card-header-icon">
+            <div class="chamado-icon">
                 🚨
             </div>
 
             <div>
 
-                <h3>
-                    Informações do chamado
-                </h3>
+                <span class="chamado-label">
+                    PEDIDO DE EMERGÊNCIA
+                </span>
+
+                <h2>
+                    Chamado #{{ chamado.id_sos }}
+                </h2>
 
                 <p>
-                    Dados registrados no momento do acionamento.
+                    Registrado em
+                    {{ chamado.data_hora.strftime('%d/%m/%Y às %H:%M') }}
                 </p>
 
             </div>
@@ -296,355 +52,688 @@ Visualização completa do pedido de emergência registrado no sistema.
         </div>
 
 
-        <div class="info-list">
+        <!-- STATUS -->
 
-            <div class="info-item">
+        <div class="chamado-status-area">
 
-                <span class="info-label">
-                    ID do chamado
+            {% if chamado.status == "em_andamento" %}
+
+                <span class="chamado-status andamento">
+                    <span class="status-dot"></span>
+                    Em andamento
                 </span>
 
-                <strong>
-                    #{{ chamado.id_sos }}
-                </strong>
+            {% elif chamado.status == "finalizado" %}
 
-            </div>
-
-
-            <div class="info-item">
-
-                <span class="info-label">
-                    Data
+                <span class="chamado-status finalizado">
+                    <span class="status-dot"></span>
+                    Finalizado
                 </span>
 
-                <strong>
-                    {{ chamado.data_hora.strftime('%d/%m/%Y') }}
-                </strong>
+            {% elif chamado.status == "ativo" %}
 
-            </div>
-
-
-            <div class="info-item">
-
-                <span class="info-label">
-                    Horário
+                <span class="chamado-status ativo">
+                    <span class="status-dot"></span>
+                    Ativo
                 </span>
 
-                <strong>
-                    {{ chamado.data_hora.strftime('%H:%M:%S') }}
-                </strong>
+            {% elif chamado.status == "cancelado" %}
 
-            </div>
-
-
-            <div class="info-item">
-
-                <span class="info-label">
-                    Status
+                <span class="chamado-status cancelado">
+                    <span class="status-dot"></span>
+                    Cancelado
                 </span>
 
-                <strong>
+            {% else %}
+
+                <span class="chamado-status">
+                    <span class="status-dot"></span>
                     {{ chamado.status }}
-                </strong>
+                </span>
 
-            </div>
+            {% endif %}
 
         </div>
 
     </section>
 
 
-</div>
+    <!-- ================================================== -->
+    <!-- ALERTA DE FLUXO -->
+    <!-- ================================================== -->
 
+    {% if chamado.status == "em_andamento" %}
 
-<!-- ================================= -->
-<!-- LOCALIZAÇÃO -->
-<!-- ================================= -->
+    <section class="chamado-alerta andamento-alerta">
 
-<section class="chamado-card location-card">
-
-    <div class="card-header">
-
-        <div class="card-header-icon">
-            📍
+        <div class="alerta-icon">
+            ⚠️
         </div>
 
         <div>
 
-            <h3>
-                Localização do chamado
-            </h3>
+            <strong>
+                Chamado aguardando acionamento
+            </strong>
 
             <p>
-                Coordenadas registradas no momento do acionamento.
+                Este chamado está em andamento e aguarda o acionamento
+                dos contatos de emergência cadastrados pela usuária.
             </p>
 
         </div>
 
-    </div>
+    </section>
 
 
-    <div class="location-content">
+    {% elif chamado.status == "finalizado" %}
 
+    <section class="chamado-alerta finalizado-alerta">
 
-        <!-- COORDENADAS -->
+        <div class="alerta-icon">
+            ✓
+        </div>
 
-        <div class="coordinates">
+        <div>
 
-            <div class="coordinate-box">
+            <strong>
+                Ajuda acionada
+            </strong>
 
-                <span>
-                    Latitude
-                </span>
-
-                <strong>
-                    {{ "%.6f"|format(chamado.latitude) }}
-                </strong>
-
-            </div>
-
-
-            <div class="coordinate-box">
-
-                <span>
-                    Longitude
-                </span>
-
-                <strong>
-                    {{ "%.6f"|format(chamado.longitude) }}
-                </strong>
-
-            </div>
+            <p>
+                Os contatos de emergência foram acionados para este chamado.
+            </p>
 
         </div>
 
+    </section>
 
-        <!-- MAPA -->
+    {% endif %}
 
-        <div class="map-container">
 
-            <div class="map-placeholder">
+    <!-- ================================================== -->
+    <!-- GRID PRINCIPAL -->
+    <!-- ================================================== -->
 
-                <div class="map-icon">
+    <div class="chamado-grid">
+
+
+        <!-- ================================================== -->
+        <!-- DADOS DA USUÁRIA -->
+        <!-- ================================================== -->
+
+        <section class="chamado-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <span class="card-kicker">
+                        USUÁRIA
+                    </span>
+
+                    <h3>
+                        Dados da solicitante
+                    </h3>
+
+                </div>
+
+                <div class="card-header-icon">
+                    👤
+                </div>
+
+            </div>
+
+
+            <div class="dados-lista">
+
+                <div class="dado-item">
+
+                    <span class="dado-label">
+                        Nome
+                    </span>
+
+                    <strong>
+                        {{ chamado.usuario.nome }}
+                    </strong>
+
+                </div>
+
+
+                <div class="dado-item">
+
+                    <span class="dado-label">
+                        ID do usuário
+                    </span>
+
+                    <strong>
+                        #{{ chamado.usuario.id_usuario }}
+                    </strong>
+
+                </div>
+
+
+                <div class="dado-item">
+
+                    <span class="dado-label">
+                        E-mail
+                    </span>
+
+                    <strong>
+                        {{ chamado.usuario.email }}
+                    </strong>
+
+                </div>
+
+
+                <div class="dado-item">
+
+                    <span class="dado-label">
+                        Telefone
+                    </span>
+
+                    <strong>
+                        {{ chamado.usuario.telefone or "Não informado" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="dado-item">
+
+                    <span class="dado-label">
+                        CPF
+                    </span>
+
+                    <strong>
+                        {{ chamado.usuario.cpf or "Não informado" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="dado-item">
+
+                    <span class="dado-label">
+                        Status da conta
+                    </span>
+
+                    <strong>
+
+                        {% if chamado.usuario.status_conta == "ativa" %}
+
+                            <span class="mini-status ativo">
+                                Ativa
+                            </span>
+
+                        {% elif chamado.usuario.status_conta == "bloqueada" %}
+
+                            <span class="mini-status bloqueado">
+                                Bloqueada
+                            </span>
+
+                        {% else %}
+
+                            <span class="mini-status desativado">
+                                Desativada
+                            </span>
+
+                        {% endif %}
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================== -->
+        <!-- INFORMAÇÕES DO CHAMADO -->
+        <!-- ================================================== -->
+
+        <section class="chamado-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <span class="card-kicker">
+                        CHAMADO
+                    </span>
+
+                    <h3>
+                        Informações da solicitação
+                    </h3>
+
+                </div>
+
+                <div class="card-header-icon">
+                    📋
+                </div>
+
+            </div>
+
+
+            <div class="dados-lista">
+
+                <div class="dado-item">
+
+                    <span class="dado-label">
+                        ID do chamado
+                    </span>
+
+                    <strong>
+                        #{{ chamado.id_sos }}
+                    </strong>
+
+                </div>
+
+
+                <div class="dado-item">
+
+                    <span class="dado-label">
+                        Data
+                    </span>
+
+                    <strong>
+                        {{ chamado.data_hora.strftime('%d/%m/%Y') }}
+                    </strong>
+
+                </div>
+
+
+                <div class="dado-item">
+
+                    <span class="dado-label">
+                        Horário
+                    </span>
+
+                    <strong>
+                        {{ chamado.data_hora.strftime('%H:%M:%S') }}
+                    </strong>
+
+                </div>
+
+
+                <div class="dado-item">
+
+                    <span class="dado-label">
+                        Status
+                    </span>
+
+                    <strong>
+
+                        {% if chamado.status == "em_andamento" %}
+
+                            <span class="mini-status andamento">
+                                Em andamento
+                            </span>
+
+                        {% elif chamado.status == "finalizado" %}
+
+                            <span class="mini-status finalizado">
+                                Finalizado
+                            </span>
+
+                        {% elif chamado.status == "cancelado" %}
+
+                            <span class="mini-status cancelado">
+                                Cancelado
+                            </span>
+
+                        {% else %}
+
+                            <span class="mini-status ativo">
+                                {{ chamado.status }}
+                            </span>
+
+                        {% endif %}
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================== -->
+        <!-- LOCALIZAÇÃO -->
+        <!-- ================================================== -->
+
+        <section class="chamado-card localizacao-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <span class="card-kicker">
+                        LOCALIZAÇÃO
+                    </span>
+
+                    <h3>
+                        Localização do chamado
+                    </h3>
+
+                </div>
+
+                <div class="card-header-icon">
                     📍
                 </div>
 
-                <strong>
-                    Localização registrada
-                </strong>
+            </div>
 
-                <span>
-                    {{ "%.6f"|format(chamado.latitude) }},
-                    {{ "%.6f"|format(chamado.longitude) }}
-                </span>
+
+            <div class="localizacao-info">
+
+                <div class="coordenadas">
+
+                    <div class="coordenada">
+
+                        <span>
+                            Latitude
+                        </span>
+
+                        <strong>
+                            {{ "%.6f"|format(chamado.latitude) }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="coordenada">
+
+                        <span>
+                            Longitude
+                        </span>
+
+                        <strong>
+                            {{ "%.6f"|format(chamado.longitude) }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
 
                 <a
                     href="https://www.google.com/maps/search/?api=1&query={{ chamado.latitude }},{{ chamado.longitude }}"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="map-button"
+                    class="mapa-link"
                 >
-                    Abrir no Google Maps
+                    📍 Abrir localização no Google Maps
                 </a>
 
             </div>
 
-        </div>
-
-    </div>
-
-</section>
+        </section>
 
 
-<!-- ================================= -->
-<!-- CONTATOS DE EMERGÊNCIA -->
-<!-- ================================= -->
+        <!-- ================================================== -->
+        <!-- CONTATOS DE EMERGÊNCIA -->
+        <!-- ================================================== -->
 
-<section class="chamado-card">
+        <section class="chamado-card contatos-card">
 
-    <div class="card-header">
+            <div class="card-header">
 
-        <div class="card-header-icon">
-            👥
-        </div>
+                <div>
 
-        <div>
+                    <span class="card-kicker">
+                        CONTATOS
+                    </span>
 
-            <h3>
-                Contatos de emergência
-            </h3>
-
-            <p>
-                Pessoas vinculadas ao usuário que foram associadas ao chamado SOS.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    {% if chamado.contatos %}
-
-        <div class="contacts-grid">
-
-            {% for pedido_contato in chamado.contatos %}
-
-                <div class="contact-card">
-
-                    <div class="contact-avatar">
-
-                        {{ pedido_contato.contato.nome[0]|upper }}
-
-                    </div>
-
-
-                    <div class="contact-info">
-
-                        <strong>
-                            {{ pedido_contato.contato.nome }}
-                        </strong>
-
-                        <span>
-                            {{ pedido_contato.contato.parentesco or "Contato de emergência" }}
-                        </span>
-
-                        <a
-                            href="tel:{{ pedido_contato.contato.telefone }}"
-                        >
-                            📞 {{ pedido_contato.contato.telefone }}
-                        </a>
-
-                    </div>
+                    <h3>
+                        Contatos de emergência
+                    </h3>
 
                 </div>
 
-            {% endfor %}
+                <div class="card-header-icon">
+                    📞
+                </div>
 
-        </div>
-
-    {% else %}
-
-        <div class="empty-state">
-
-            <div>
-                👥
             </div>
 
-            <strong>
-                Nenhum contato de emergência associado
-            </strong>
 
-            <p>
-                Não existem contatos vinculados a este chamado.
-            </p>
+            {% if contatos %}
 
-        </div>
+                <div class="contatos-lista">
 
-    {% endif %}
+                    {% for relacionamento in contatos %}
 
-</section>
+                        <div class="contato-item">
 
-
-<!-- ================================= -->
-<!-- RESUMO OPERACIONAL -->
-<!-- ================================= -->
-
-<section class="chamado-card operational-card">
-
-    <div class="card-header">
-
-        <div class="card-header-icon">
-            🛡️
-        </div>
-
-        <div>
-
-            <h3>
-                Resumo operacional
-            </h3>
-
-            <p>
-                Informações para auxiliar o administrador no acompanhamento.
-            </p>
-
-        </div>
-
-    </div>
+                            <div class="contato-avatar">
+                                {{ relacionamento.contato.nome[0]|upper }}
+                            </div>
 
 
-    <div class="operational-grid">
+                            <div class="contato-info">
 
-        <div class="operational-item">
+                                <strong>
+                                    {{ relacionamento.contato.nome }}
+                                </strong>
 
-            <span>
-                Chamado
-            </span>
+                                <span>
+                                    {{ relacionamento.contato.parentesco }}
+                                </span>
 
-            <strong>
-                #{{ chamado.id_sos }}
-            </strong>
-
-        </div>
+                            </div>
 
 
-        <div class="operational-item">
+                            <div class="contato-telefone">
 
-            <span>
-                Usuário
-            </span>
+                                <span>
+                                    Telefone
+                                </span>
 
-            <strong>
-                #{{ chamado.usuario.id_usuario }}
-            </strong>
+                                <strong>
+                                    {{ relacionamento.contato.telefone }}
+                                </strong>
 
-        </div>
+                            </div>
 
+                        </div>
 
-        <div class="operational-item">
+                    {% endfor %}
 
-            <span>
-                Contatos acionados
-            </span>
+                </div>
 
-            <strong>
-                {{ chamado.contatos|length }}
-            </strong>
+            {% else %}
 
-        </div>
+                <div class="sem-contatos">
 
+                    <div>
+                        ⚠️
+                    </div>
 
-        <div class="operational-item">
+                    <strong>
+                        Nenhum contato encontrado
+                    </strong>
 
-            <span>
-                Situação
-            </span>
+                    <p>
+                        A usuária não possui contatos de emergência
+                        vinculados a este chamado.
+                    </p>
 
-            <strong>
-                {{ chamado.status }}
-            </strong>
+                </div>
 
-        </div>
+            {% endif %}
+
+        </section>
 
     </div>
 
-</section>
+
+    <!-- ================================================== -->
+    <!-- AÇÃO ADMINISTRATIVA -->
+    <!-- ================================================== -->
+
+    <section class="acao-admin-card">
+
+        <div class="acao-admin-info">
+
+            {% if chamado.status == "em_andamento" %}
+
+                <div class="acao-icon">
+                    🚨
+                </div>
+
+                <div>
+
+                    <span class="acao-kicker">
+                        AÇÃO NECESSÁRIA
+                    </span>
+
+                    <h3>
+                        Acionar contatos de emergência
+                    </h3>
+
+                    <p>
+                        Ao confirmar, o sistema registrará que os contatos
+                        de emergência foram acionados e finalizará este chamado.
+                    </p>
+
+                </div>
 
 
-<!-- ================================= -->
-<!-- AÇÕES -->
-<!-- ================================= -->
+            {% elif chamado.status == "finalizado" %}
 
-<div class="chamado-actions">
+                <div class="acao-icon finalizado">
+                    ✓
+                </div>
 
-    <a
-        href="{{ url_for('admin.chamados') }}"
-        class="back-button"
-    >
-        ← Voltar para chamados
-    </a>
+                <div>
+
+                    <span class="acao-kicker">
+                        CHAMADO FINALIZADO
+                    </span>
+
+                    <h3>
+                        Contatos já acionados
+                    </h3>
+
+                    <p>
+                        Os contatos de emergência deste chamado já foram
+                        acionados anteriormente.
+                    </p>
+
+                </div>
+
+
+            {% else %}
+
+                <div class="acao-icon">
+                    ℹ️
+                </div>
+
+                <div>
+
+                    <span class="acao-kicker">
+                        STATUS DO CHAMADO
+                    </span>
+
+                    <h3>
+                        Nenhuma ação disponível
+                    </h3>
+
+                    <p>
+                        O status atual deste chamado não permite
+                        o acionamento dos contatos.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- ================================================== -->
+        <!-- BOTÃO DE ACIONAMENTO -->
+        <!-- ================================================== -->
+
+        {% if chamado.status == "em_andamento" and contatos %}
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'admin.acionar_contatos',
+                    id=chamado.id_sos
+                ) }}"
+                onsubmit="return confirmarAcionamento();"
+            >
+
+                <button
+                    type="submit"
+                    class="btn-acionar"
+                >
+
+                    <span>
+                        📞
+                    </span>
+
+                    Acionar contatos de emergência
+
+                </button>
+
+            </form>
+
+
+        {% elif chamado.status == "finalizado" %}
+
+            <button
+                type="button"
+                class="btn-finalizado"
+                disabled
+            >
+                ✓ Contatos acionados
+            </button>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- ================================================== -->
+    <!-- VOLTAR -->
+    <!-- ================================================== -->
+
+    <div class="voltar-area">
+
+        <a
+            href="{{ url_for('admin.chamados') }}"
+            class="btn-voltar"
+        >
+            ← Voltar para chamados
+        </a>
+
+    </div>
 
 </div>
 
 
+<!-- ================================================== -->
+<!-- CONFIRMAÇÃO -->
+<!-- ================================================== -->
+
+<script>
+
+function confirmarAcionamento() {
+
+    return confirm(
+        "Tem certeza que deseja acionar os contatos de emergência deste chamado?\n\n" +
+        "Após a confirmação, o chamado será marcado como finalizado."
+    );
+
+}
+
+</script>
+
+
 {% endblock %}
-```

@@ -5,7 +5,10 @@ class PedidoSOS(db.Model):
 
     __tablename__ = "PedidoSOS"
 
-    id_sos = db.Column(db.Integer, primary_key=True)
+    id_sos = db.Column(
+        db.Integer,
+        primary_key=True
+    )
 
     id_usuario = db.Column(
         db.Integer,
@@ -19,19 +22,28 @@ class PedidoSOS(db.Model):
         nullable=False
     )
 
-    latitude = db.Column(db.Float, nullable=False)
+    latitude = db.Column(
+        db.Float,
+        nullable=False
+    )
 
-    longitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(
+        db.Float,
+        nullable=False
+    )
 
     status = db.Column(
         db.String(30),
-        default="ativo",
+        default="em_andamento",
         nullable=False
     )
 
     usuario = db.relationship(
         "Usuario",
-        backref=db.backref("pedidos_sos", lazy=True)
+        backref=db.backref(
+            "pedidos_sos",
+            lazy=True
+        )
     )
 
     contatos = db.relationship(

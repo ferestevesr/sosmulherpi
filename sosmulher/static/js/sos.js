@@ -13,6 +13,7 @@ let sistemaAtivo = false;
 let localizacaoObtida = false;
 let latitudeAtual = null;
 let longitudeAtual = null;
+let idSOS = null;
 
 
 /* ==========================================
@@ -41,13 +42,15 @@ btnSOS.addEventListener("click", () => {
     statusTexto.innerHTML =
         "Solicitando sua localização...";
 
-    geral.innerHTML = "🟡 Localizando";
+    geral.innerHTML =
+        "🟡 Localizando";
 
-    loc.innerHTML = "🟡 Detectando localização";
+    loc.innerHTML =
+        "🟡 Detectando localização";
 
 
     /* ==========================================
-       VERIFICA SE O NAVEGADOR POSSUI GEOLOCALIZAÇÃO
+       VERIFICA GEOLOCALIZAÇÃO
     ========================================== */
 
     if (!navigator.geolocation) {
@@ -65,7 +68,7 @@ btnSOS.addEventListener("click", () => {
 
 
     /* ==========================================
-       SOLICITA A LOCALIZAÇÃO
+       OBTÉM LOCALIZAÇÃO
     ========================================== */
 
     navigator.geolocation.getCurrentPosition(
@@ -85,20 +88,20 @@ btnSOS.addEventListener("click", () => {
             console.log("=================================");
 
 
-            /* Atualiza interface */
-
             barra.style.width = "20%";
 
-            loc.innerHTML = "🟢 Localização detectada";
+            loc.innerHTML =
+                "🟢 Localização detectada";
 
             statusTexto.innerHTML =
-                "Localização obtida. Registrando emergência...";
+                "Localização obtida. Enviando pedido de emergência...";
 
-            geral.innerHTML = "🟢 Localização obtida";
+            geral.innerHTML =
+                "🟡 Enviando";
 
 
             /* ==========================================
-               ENVIA O SOS PARA O FLASK
+               REGISTRA O SOS NO BANCO
             ========================================== */
 
             registrarSOS(
@@ -120,29 +123,17 @@ btnSOS.addEventListener("click", () => {
 
             if (erro.code === 1) {
 
-                console.error(
-                    "PERMISSÃO NEGADA: o navegador não permitiu acesso à localização."
-                );
-
                 localizacaoFalhou(
                     "Permissão de localização negada."
                 );
 
             } else if (erro.code === 2) {
 
-                console.error(
-                    "LOCALIZAÇÃO INDISPONÍVEL: não foi possível determinar sua posição."
-                );
-
                 localizacaoFalhou(
                     "Não foi possível determinar sua localização."
                 );
 
             } else if (erro.code === 3) {
-
-                console.error(
-                    "TEMPO ESGOTADO: a localização demorou demais para ser obtida."
-                );
 
                 localizacaoFalhou(
                     "Não foi possível obter sua localização a tempo."
@@ -171,7 +162,7 @@ btnSOS.addEventListener("click", () => {
 
 
 /* ==========================================
-   QUANDO A LOCALIZAÇÃO FALHA
+   LOCALIZAÇÃO FALHOU
 ========================================== */
 
 function localizacaoFalhou(mensagem) {
@@ -183,13 +174,17 @@ function localizacaoFalhou(mensagem) {
 
     barra.style.width = "0%";
 
-    loc.innerHTML = "🔴 Indisponível";
+    loc.innerHTML =
+        "🔴 Indisponível";
 
-    contatos.innerHTML = "Aguardando";
+    contatos.innerHTML =
+        "Aguardando";
 
-    ajuda.innerHTML = "Aguardando";
+    ajuda.innerHTML =
+        "Aguardando";
 
-    geral.innerHTML = "🔴 Erro";
+    geral.innerHTML =
+        "🔴 Erro";
 
     statusTexto.innerHTML =
         mensagem +
@@ -197,13 +192,14 @@ function localizacaoFalhou(mensagem) {
 
     sistemaAtivo = false;
 
-    btnSOS.style.transform = "scale(1)";
+    btnSOS.style.transform =
+        "scale(1)";
 
     btnSOS.style.boxShadow =
         "0 25px 60px rgba(255, 77, 109, 0.35)";
 
-    btnSOS.innerHTML = "SOS";
-
+    btnSOS.innerHTML =
+        "SOS";
 }
 
 
@@ -232,34 +228,39 @@ async function registrarSOS(latitude, longitude) {
     }
 
 
-    console.log("Enviando SOS para o servidor...");
+    console.log(
+        "Enviando SOS para o servidor..."
+    );
+
 
     statusTexto.innerHTML =
         "Registrando pedido de emergência...";
 
-    geral.innerHTML = "🟡 Registrando";
+    geral.innerHTML =
+        "🟡 Registrando";
 
 
     try {
 
-        const resposta = await fetch("/sos/acionar", {
+        const resposta = await fetch(
+            "/sos/acionar",
+            {
+                method: "POST",
 
-            method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-                latitude: latitude,
-                longitude: longitude
-            })
-
-        });
+                body: JSON.stringify({
+                    latitude: latitude,
+                    longitude: longitude
+                })
+            }
+        );
 
 
         /* ==========================================
-           TENTA LER A RESPOSTA
+           LÊ RESPOSTA
         ========================================== */
 
         let dados;
@@ -282,12 +283,11 @@ async function registrarSOS(latitude, longitude) {
             throw new Error(
                 "Resposta inválida do servidor."
             );
-
         }
 
 
         /* ==========================================
-           ERRO RETORNADO PELO FLASK
+           VERIFICA ERRO
         ========================================== */
 
         if (!resposta.ok || !dados.sucesso) {
@@ -301,13 +301,14 @@ async function registrarSOS(latitude, longitude) {
                 dados.erro ||
                 "Não foi possível registrar o SOS."
             );
-
         }
 
 
         /* ==========================================
-           SOS REGISTRADO COM SUCESSO
+           SOS REGISTRADO
         ========================================== */
+
+        idSOS = dados.id_sos;
 
         console.log(
             "SOS registrado com sucesso!"
@@ -315,29 +316,46 @@ async function registrarSOS(latitude, longitude) {
 
         console.log(
             "ID do SOS:",
-            dados.id_sos
+            idSOS
         );
 
         console.log(
-            "Contatos:",
+            "Status:",
+            dados.status
+        );
+
+        console.log(
+            "Contatos vinculados:",
             dados.contatos
         );
 
 
-        barra.style.width = "45%";
+        barra.style.width =
+            "45%";
+
 
         statusTexto.innerHTML =
-            "Pedido de emergência registrado.";
+            "Pedido de emergência enviado. Aguardando acionamento dos contatos.";
 
 
-        /* CONTATOS */
+        /* ==========================================
+           LOCALIZAÇÃO
+        ========================================== */
+
+        loc.innerHTML =
+            "🟢 Localização enviada";
+
+
+        /* ==========================================
+           CONTATOS
+           IMPORTANTE:
+           ainda NÃO foram avisados.
+        ========================================== */
 
         if (dados.contatos > 0) {
 
             contatos.innerHTML =
-                "🟢 " +
-                dados.contatos +
-                " contatos avisados";
+                "🟡 Aguardando acionamento";
 
         } else {
 
@@ -348,42 +366,44 @@ async function registrarSOS(latitude, longitude) {
 
 
         /* ==========================================
-           ETAPA DE AJUDA
+           AJUDA
         ========================================== */
 
-        setTimeout(() => {
-
-            barra.style.width = "70%";
-
-            statusTexto.innerHTML =
-                "Contatos de emergência processados.";
-
-            ajuda.innerHTML =
-                "🟡 Equipe analisando situação";
-
-        }, 1500);
+        ajuda.innerHTML =
+            "🟡 Aguardando";
 
 
         /* ==========================================
-           FINALIZAÇÃO
+           SISTEMA
         ========================================== */
 
-        setTimeout(() => {
+        geral.innerHTML =
+            "🟢 Chamado enviado";
 
-            barra.style.width = "100%";
 
-            statusTexto.innerHTML =
-                "Ajuda acionada com sucesso 🚨";
+        barra.style.width =
+            "60%";
 
-            ajuda.innerHTML =
-                "🟢 Ajuda a caminho";
 
-            geral.innerHTML =
-                "🟢 Emergência ativa";
+        /*
+         * A partir daqui NÃO finalizamos
+         * automaticamente o chamado.
+         *
+         * O status só mudará quando o
+         * administrador acionar os contatos.
+         */
 
-            efeitoFinal();
 
-        }, 3000);
+        console.log(
+            "Chamado aguardando ação do administrador."
+        );
+
+
+        /*
+         * Começa a consultar o status do chamado.
+         */
+
+        iniciarMonitoramentoStatus();
 
 
     } catch (erro) {
@@ -402,14 +422,199 @@ async function registrarSOS(latitude, longitude) {
         ajuda.innerHTML =
             "🔴 Não registrado";
 
+        contatos.innerHTML =
+            "🔴 Não registrado";
+
         sistemaAtivo = false;
 
-        btnSOS.style.transform = "scale(1)";
+        btnSOS.style.transform =
+            "scale(1)";
 
         btnSOS.style.boxShadow =
             "0 25px 60px rgba(255, 77, 109, 0.35)";
 
-        btnSOS.innerHTML = "SOS";
+        btnSOS.innerHTML =
+            "SOS";
+    }
+
+}
+
+
+/* ==========================================
+   MONITORAMENTO DO STATUS
+========================================== */
+
+function iniciarMonitoramentoStatus() {
+
+    if (!idSOS) {
+        return;
+    }
+
+    console.log(
+        "Iniciando monitoramento do SOS:",
+        idSOS
+    );
+
+
+    /*
+     * Consulta o servidor a cada 5 segundos.
+     *
+     * Enquanto estiver em andamento:
+     * - contatos aguardando
+     * - ajuda aguardando
+     *
+     * Quando o admin acionar:
+     * - chamado finalizado
+     * - contatos acionados
+     * - ajuda a caminho
+     */
+
+    const intervalo = setInterval(
+        async () => {
+
+            try {
+
+                const resposta = await fetch(
+                    `/sos/status/${idSOS}`
+                );
+
+
+                if (!resposta.ok) {
+                    return;
+                }
+
+
+                const dados =
+                    await resposta.json();
+
+
+                if (!dados.sucesso) {
+                    return;
+                }
+
+
+                console.log(
+                    "Status atual do SOS:",
+                    dados.status
+                );
+
+
+                atualizarStatusInterface(
+                    dados
+                );
+
+
+                /*
+                 * Quando finalizar, não precisa
+                 * continuar consultando.
+                 */
+
+                if (
+                    dados.status === "finalizado" ||
+                    dados.status === "cancelado"
+                ) {
+
+                    clearInterval(intervalo);
+                }
+
+
+            } catch (erro) {
+
+                console.error(
+                    "Erro ao consultar status do SOS:",
+                    erro
+                );
+
+            }
+
+        },
+        5000
+    );
+}
+
+
+/* ==========================================
+   ATUALIZA INTERFACE CONFORME BANCO
+========================================== */
+
+function atualizarStatusInterface(dados) {
+
+    /* ==========================================
+       EM ANDAMENTO
+    ========================================== */
+
+    if (dados.status === "em_andamento") {
+
+        barra.style.width =
+            "60%";
+
+        statusTexto.innerHTML =
+            "Pedido registrado. Aguardando acionamento dos contatos de emergência.";
+
+        contatos.innerHTML =
+            dados.contatos > 0
+                ? "🟡 Aguardando acionamento"
+                : "🟡 Nenhum contato cadastrado";
+
+        ajuda.innerHTML =
+            "🟡 Aguardando";
+
+        geral.innerHTML =
+            "🟢 Chamado em andamento";
+
+        return;
+    }
+
+
+    /* ==========================================
+       FINALIZADO
+    ========================================== */
+
+    if (dados.status === "finalizado") {
+
+        barra.style.width =
+            "100%";
+
+        statusTexto.innerHTML =
+            "Ajuda acionada e a caminho 🚨";
+
+        contatos.innerHTML =
+            dados.contatos > 0
+                ? "🟢 Contatos acionados"
+                : "🟡 Nenhum contato cadastrado";
+
+        ajuda.innerHTML =
+            "🟢 Ajuda acionada e a caminho";
+
+        geral.innerHTML =
+            "🟢 Emergência acionada";
+
+        efeitoFinal();
+
+        return;
+    }
+
+
+    /* ==========================================
+       CANCELADO
+    ========================================== */
+
+    if (dados.status === "cancelado") {
+
+        barra.style.width =
+            "0%";
+
+        statusTexto.innerHTML =
+            "O pedido de emergência foi cancelado.";
+
+        contatos.innerHTML =
+            "Cancelado";
+
+        ajuda.innerHTML =
+            "Cancelada";
+
+        geral.innerHTML =
+            "Cancelado";
 
     }
 
@@ -420,20 +625,36 @@ async function registrarSOS(latitude, longitude) {
    CANCELAR
 ========================================== */
 
-cancelar.addEventListener("click", () => {
+cancelar.addEventListener(
+    "click",
+    () => {
 
-    console.log("SOS cancelado.");
+        console.log(
+            "SOS cancelado."
+        );
 
-    sistemaAtivo = false;
+        /*
+         * Neste momento apenas limpamos
+         * a interface.
+         *
+         * O cancelamento no banco será
+         * implementado separadamente para
+         * não misturar as duas funções.
+         */
 
-    localizacaoObtida = false;
+        sistemaAtivo = false;
 
-    latitudeAtual = null;
-    longitudeAtual = null;
+        localizacaoObtida = false;
 
-    resetarSistema();
+        latitudeAtual = null;
+        longitudeAtual = null;
 
-});
+        idSOS = null;
+
+        resetarSistema();
+
+    }
+);
 
 
 /* ==========================================
@@ -442,29 +663,40 @@ cancelar.addEventListener("click", () => {
 
 function resetarSistema() {
 
-    barra.style.width = "0%";
+    barra.style.width =
+        "0%";
+
 
     statusTexto.innerHTML =
         "Pressione o botão para iniciar o pedido de ajuda.";
 
-    loc.innerHTML = "Aguardando";
 
-    contatos.innerHTML = "Aguardando";
+    loc.innerHTML =
+        "Aguardando";
 
-    ajuda.innerHTML = "Aguardando";
 
-    geral.innerHTML = "Inativo";
+    contatos.innerHTML =
+        "Aguardando";
+
+
+    ajuda.innerHTML =
+        "Aguardando";
+
+
+    geral.innerHTML =
+        "Inativo";
 
 
     btnSOS.style.transform =
         "scale(1)";
 
+
     btnSOS.style.boxShadow =
         "0 25px 60px rgba(255, 77, 109, 0.35)";
 
+
     btnSOS.innerHTML =
         "SOS";
-
 }
 
 
@@ -477,15 +709,16 @@ function ativarBotao() {
     btnSOS.style.transform =
         "scale(1.05)";
 
+
     btnSOS.style.boxShadow =
         `
         0 0 25px rgba(255,77,109,0.7),
         0 0 60px rgba(255,77,109,0.4)
         `;
 
+
     btnSOS.innerHTML =
         "ATIVO";
-
 }
 
 

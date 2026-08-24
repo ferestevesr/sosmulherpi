@@ -1,8 +1,12 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
+
+from sosmulher import db
 from sosmulher.models.usuario import Usuario
 from sosmulher.models.denuncia import Denuncia
 from sosmulher.models.pedido_sos import PedidoSOS
+from sosmulher.models.pedido_sos_contato import PedidoSOSContato
+from sosmulher.models.contato_emergencia import ContatoEmergencia
 
 
 admin = Blueprint(
@@ -73,11 +77,16 @@ def usuarios():
         )
         return redirect(url_for("home.index"))
 
-    return render_template("admin/usuarios.html")
+    usuarios = Usuario.query.all()
+
+    return render_template(
+        "admin/usuarios.html",
+        usuarios=usuarios
+    )
 
 
 # ==========================
-# CHAMADOS
+# CHAMADOS SOS
 # ==========================
 
 @admin.route("/chamados")
@@ -120,7 +129,7 @@ def chamados():
 
 
 # ==========================
-# VISUALIZAR CHAMADO
+# VISUALIZAR CHAMADO SOS
 # ==========================
 
 @admin.route("/chamados/<int:id>")
@@ -136,9 +145,98 @@ def visualizar_chamado(id):
 
     chamado = PedidoSOS.query.get_or_404(id)
 
+    contatos = PedidoSOSContato.query.filter_by(
+        id_sos=chamado.id_sos
+    ).all()
+
     return render_template(
         "admin/visualizar_chamado.html",
-        chamado=chamado
+        chamado=chamado,
+        contatos=contatos
+    )
+
+
+# ==========================
+# ACIONAR CONTATOS DE EMERGÊNCIA
+# ==========================
+
+@admin.route("/chamados/<int:id>/acionar-contatos", methods=["POST"])
+@login_required
+def acionar_contatos(id):
+
+    if current_user.tipo != "admin":
+        flash(
+            "Você não tem permissão para realizar esta ação.",
+            "danger"
+        )
+        return redirect(url_for("home.index"))
+
+    chamado = PedidoSOS.query.get_or_404(id)
+
+    # Impede que um chamado já finalizado seja acionado novamente
+    if chamado.status == "finalizado":
+        flash(
+            "Os contatos de emergência deste chamado já foram acionados.",
+            "info"
+        )
+        return redirect(
+            url_for(
+                "admin.visualizar_chamado",
+                id=chamado.id_sos
+            )
+        )
+
+    # Só permite o acionamento quando o chamado
+    # estiver aguardando atendimento
+    if chamado.status != "em_andamento":
+        flash(
+            "Este chamado não está disponível para acionamento.",
+            "warning"
+        )
+        return redirect(
+            url_for(
+                "admin.visualizar_chamado",
+                id=chamado.id_sos
+            )
+        )
+
+    # Verifica se existem contatos vinculados ao chamado
+    contatos = PedidoSOSContato.query.filter_by(
+        id_sos=chamado.id_sos
+    ).all()
+
+    if not contatos:
+        flash(
+            "Este chamado não possui contatos de emergência cadastrados.",
+            "warning"
+        )
+        return redirect(
+            url_for(
+                "admin.visualizar_chamado",
+                id=chamado.id_sos
+            )
+        )
+
+    # Aqui registramos que os contatos foram acionados.
+    #
+    # Como o modelo atual de PedidoSOSContato ainda não possui
+    # um campo específico de status/data de acionamento,
+    # o próprio status do chamado representa esse momento.
+    chamado.status = "finalizado"
+
+    db.session.commit()
+
+    flash(
+        "Contatos de emergência acionados com sucesso. "
+        "O chamado foi finalizado.",
+        "success"
+    )
+
+    return redirect(
+        url_for(
+            "admin.visualizar_chamado",
+            id=chamado.id_sos
+        )
     )
 
 
@@ -205,6 +303,7 @@ def visualizar_atendimento(id):
         atendimento=atendimento
     )
 
+
 # ==========================
 # RELATÓRIOS
 # ==========================
@@ -238,7 +337,6 @@ def relatorios():
         status="finalizado"
     ).count()
 
-
     # ==========================
     # DENÚNCIAS
     # ==========================
@@ -257,13 +355,11 @@ def relatorios():
         status="finalizado"
     ).count()
 
-
     # ==========================
     # USUÁRIOS
     # ==========================
 
     total_usuarios = Usuario.query.count()
-
 
     # ==========================
     # TOTAIS GERAIS
@@ -283,7 +379,6 @@ def relatorios():
         total_chamados +
         total_denuncias
     )
-
 
     # ==========================
     # ENVIAR DADOS PARA O HTML
@@ -316,6 +411,7 @@ def relatorios():
 
         ocorrencias_totais=ocorrencias_totais
     )
+
 
 # ==========================
 # CONFIGURAÇÕES

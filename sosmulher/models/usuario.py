@@ -23,6 +23,16 @@ class Usuario(db.Model, UserMixin):
         default="ativa",
         nullable=False
     )
+    aceitou_termos = db.Column(
+    db.Boolean,
+    nullable=False,
+    default=False
+)
+
+    data_aceite_termos = db.Column(
+    db.DateTime,
+    nullable=True
+    )
 
 
     denuncias = db.relationship("Denuncia", backref="usuario", lazy=True, cascade="all, delete-orphan")

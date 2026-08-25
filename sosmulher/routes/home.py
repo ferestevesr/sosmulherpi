@@ -54,6 +54,20 @@ def ajuda():
 def sobre():
     return render_template("sobre.html")
 
+# =========================================================
+# POLÍTICA DE PRIVACIDADE
+# =========================================================
+@home.route("/politica-privacidade")
+def politica_privacidade():
+    return render_template("politica_privacidade.html")
+
+
+# =========================================================
+# TERMOS DE USO
+# =========================================================
+@home.route("/termos-de-uso")
+def termos_uso():
+    return render_template("termos_uso.html")
 
 # =========================================================
 # CRIAR PEDIDO SOS

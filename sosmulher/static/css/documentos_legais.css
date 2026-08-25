@@ -1,0 +1,304 @@
+/* =========================================
+   DOCUMENTOS LEGAIS
+   ========================================= */
+
+   .documento-legal {
+    padding: 45px 20px 70px;
+    background: #f7f7f7;
+}
+
+
+/* =========================================
+   CONTAINER
+   ========================================= */
+
+.documento-container {
+    max-width: 1000px;
+    margin: 0 auto;
+
+    background: #ffffff;
+
+    padding: 50px 60px;
+
+    border-radius: 14px;
+
+    border: 1px solid #d8d8d8;
+
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================================
+   CABEÇALHO
+   ========================================= */
+
+.documento-header {
+    text-align: center;
+
+    padding-bottom: 30px;
+
+    margin-bottom: 35px;
+
+    border-bottom: 2px solid #eeeeee;
+}
+
+
+.documento-header h1 {
+    margin: 0 0 10px;
+
+    font-size: 34px;
+
+    font-weight: 700;
+
+    color: #222;
+}
+
+
+.documento-header p {
+    margin: 0 0 8px;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    color: #c62828;
+}
+
+
+.documento-header span {
+    display: block;
+
+    margin-top: 12px;
+
+    font-size: 13px;
+
+    color: #777;
+}
+
+
+/* =========================================
+   CONTEÚDO
+   ========================================= */
+
+.documento-conteudo {
+    color: #333;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================
+   TÍTULOS
+   ========================================= */
+
+.documento-conteudo h2 {
+    margin-top: 38px;
+
+    margin-bottom: 15px;
+
+    padding-bottom: 8px;
+
+    border-bottom: 1px solid #eeeeee;
+
+    font-size: 21px;
+
+    font-weight: 700;
+
+    color: #222;
+}
+
+
+.documento-conteudo h3 {
+    margin-top: 25px;
+
+    margin-bottom: 10px;
+
+    font-size: 18px;
+
+    color: #333;
+}
+
+
+/* =========================================
+   PARÁGRAFOS
+   ========================================= */
+
+.documento-conteudo p {
+    margin: 0 0 17px;
+}
+
+
+/* =========================================
+   LISTAS
+   ========================================= */
+
+.documento-conteudo ul {
+    margin: 0 0 22px;
+
+    padding-left: 28px;
+}
+
+
+.documento-conteudo li {
+    margin-bottom: 9px;
+
+    padding-left: 4px;
+}
+
+
+/* =========================================
+   DESTAQUES
+   ========================================= */
+
+.documento-conteudo strong {
+    font-weight: 700;
+
+    color: #222;
+}
+
+
+/* =========================================
+   BLOCO FINAL
+   ========================================= */
+
+.documento-final {
+    margin-top: 45px;
+
+    padding: 25px 30px;
+
+    background: #f8f8f8;
+
+    border-left: 4px solid #c62828;
+
+    border-radius: 6px;
+}
+
+
+.documento-final p {
+    margin-bottom: 12px;
+}
+
+
+.documento-final strong {
+    display: block;
+
+    font-size: 15px;
+
+    color: #333;
+}
+
+
+/* =========================================
+   LINKS
+   ========================================= */
+
+.documento-conteudo a {
+    color: #b71c1c;
+
+    font-weight: 600;
+
+    text-decoration: underline;
+}
+
+
+.documento-conteudo a:hover {
+    color: #7f0000;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .documento-legal {
+        padding: 25px 15px 45px;
+    }
+
+
+    .documento-container {
+        padding: 30px 25px;
+
+        border-radius: 10px;
+    }
+
+
+    .documento-header h1 {
+        font-size: 28px;
+    }
+
+
+    .documento-header p {
+        font-size: 16px;
+    }
+
+
+    .documento-conteudo {
+        font-size: 15px;
+
+        line-height: 1.7;
+    }
+
+
+    .documento-conteudo h2 {
+        font-size: 19px;
+
+        margin-top: 30px;
+    }
+
+
+    .documento-final {
+        padding: 20px;
+    }
+
+}
+
+
+/* =========================================
+   CELULARES
+   ========================================= */
+
+@media (max-width: 480px) {
+
+    .documento-legal {
+        padding: 15px 10px 35px;
+    }
+
+
+    .documento-container {
+        padding: 25px 18px;
+
+        border-radius: 8px;
+    }
+
+
+    .documento-header {
+        margin-bottom: 25px;
+
+        padding-bottom: 22px;
+    }
+
+
+    .documento-header h1 {
+        font-size: 24px;
+    }
+
+
+    .documento-conteudo {
+        font-size: 14px;
+    }
+
+
+    .documento-conteudo h2 {
+        font-size: 18px;
+    }
+
+
+    .documento-conteudo ul {
+        padding-left: 22px;
+    }
+
+}

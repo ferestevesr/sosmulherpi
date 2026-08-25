@@ -216,6 +216,45 @@
 }
 
 
+/* =========================================
+   TERMOS E POLÍTICA
+   ========================================= */
+
+   .cadastro-termos {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.cadastro-termos-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.cadastro-termos-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.cadastro-termos-checkbox label {
+    font-size: 14px;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.cadastro-termos-checkbox a {
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.cadastro-termos .cadastro-erro {
+    display: block;
+    margin-top: 8px;
+}
+
 /* ==============================
    BOTÃO
 ================================= */

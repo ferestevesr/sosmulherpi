@@ -21,17 +21,22 @@ Cadastro | SOSMulher
 
     <div class="cadastro-card">
 
-
         <!-- CABEÇALHO -->
 
         <div class="cadastro-header">
 
             <div class="cadastro-icone">
-                <img src="{{ url_for ('static', filename='image/icons/cadeado.png') }}" alt="">
+
+                <img
+                    src="{{ url_for('static', filename='image/icons/cadeado.png') }}"
+                    alt="Segurança"
+                >
+
             </div>
 
             <h1>
-                Criar sua conta no <span>SOSMulher</span>
+                Criar sua conta no
+                <span>SOSMulher</span>
             </h1>
 
             <p>
@@ -47,6 +52,7 @@ Cadastro | SOSMulher
         <form
             method="POST"
             class="cadastro-form"
+            novalidate
         >
 
             {{ form.hidden_tag() }}
@@ -59,7 +65,8 @@ Cadastro | SOSMulher
                 {{ form.nome.label }}
 
                 {{ form.nome(
-                    placeholder="Digite seu nome completo"
+                    placeholder="Digite seu nome completo",
+                    autocomplete="name"
                 ) }}
 
                 {% for erro in form.nome.errors %}
@@ -80,7 +87,8 @@ Cadastro | SOSMulher
                 {{ form.email.label }}
 
                 {{ form.email(
-                    placeholder="Digite seu e-mail"
+                    placeholder="Digite seu e-mail",
+                    autocomplete="email"
                 ) }}
 
                 {% for erro in form.email.errors %}
@@ -98,13 +106,14 @@ Cadastro | SOSMulher
 
             <div class="cadastro-dupla">
 
-
                 <div class="cadastro-campo">
 
                     {{ form.cpf.label }}
 
                     {{ form.cpf(
-                        placeholder="Digite seu CPF"
+                        placeholder="000.000.000-00",
+                        inputmode="numeric",
+                        autocomplete="off"
                     ) }}
 
                     {% for erro in form.cpf.errors %}
@@ -123,7 +132,9 @@ Cadastro | SOSMulher
                     {{ form.telefone.label }}
 
                     {{ form.telefone(
-                        placeholder="Digite seu telefone"
+                        placeholder="(11) 99999-9999",
+                        inputmode="tel",
+                        autocomplete="tel"
                     ) }}
 
                     {% for erro in form.telefone.errors %}
@@ -136,7 +147,6 @@ Cadastro | SOSMulher
 
                 </div>
 
-
             </div>
 
 
@@ -144,13 +154,13 @@ Cadastro | SOSMulher
 
             <div class="cadastro-dupla">
 
-
                 <div class="cadastro-campo">
 
                     {{ form.senha.label }}
 
                     {{ form.senha(
-                        placeholder="Crie uma senha"
+                        placeholder="Crie uma senha",
+                        autocomplete="new-password"
                     ) }}
 
                     {% for erro in form.senha.errors %}
@@ -169,7 +179,8 @@ Cadastro | SOSMulher
                     {{ form.confirmar_senha.label }}
 
                     {{ form.confirmar_senha(
-                        placeholder="Confirme sua senha"
+                        placeholder="Confirme sua senha",
+                        autocomplete="new-password"
                     ) }}
 
                     {% for erro in form.confirmar_senha.errors %}
@@ -182,7 +193,6 @@ Cadastro | SOSMulher
 
                 </div>
 
-
             </div>
 
 
@@ -191,7 +201,6 @@ Cadastro | SOSMulher
             {{ form.botao_cadastro(
                 class="cadastro-botao"
             ) }}
-
 
         </form>
 
@@ -217,7 +226,6 @@ Cadastro | SOSMulher
             e confidencialidade.
 
         </div>
-
 
     </div>
 

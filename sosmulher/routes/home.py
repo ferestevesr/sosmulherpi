@@ -33,6 +33,7 @@ def apoio():
 # =========================================================
 
 @home.route("/sos")
+@login_required
 def sos():
     return render_template("sos.html")
 
@@ -69,40 +70,32 @@ def criar_sos_api():
     longitude = dados.get("longitude")
 
     if latitude is None or longitude is None:
-
         return jsonify({
             "sucesso": False,
             "mensagem": "Localização não informada."
         }), 400
 
     try:
-
         latitude = float(latitude)
         longitude = float(longitude)
 
     except (TypeError, ValueError):
-
         return jsonify({
             "sucesso": False,
             "mensagem": "Localização inválida."
         }), 400
 
-
     if latitude < -90 or latitude > 90:
-
         return jsonify({
             "sucesso": False,
             "mensagem": "Latitude inválida."
         }), 400
 
-
     if longitude < -180 or longitude > 180:
-
         return jsonify({
             "sucesso": False,
             "mensagem": "Longitude inválida."
         }), 400
-
 
     try:
 
@@ -119,7 +112,6 @@ def criar_sos_api():
             "status": pedido.status,
             "contatos": quantidade_contatos
         }), 201
-
 
     except Exception as erro:
 
@@ -144,24 +136,19 @@ def cancelar_sos_api():
     id_sos = dados.get("id_sos")
 
     if id_sos is None:
-
         return jsonify({
             "sucesso": False,
             "mensagem": "Pedido SOS não informado."
         }), 400
 
-
     try:
-
         id_sos = int(id_sos)
 
     except (TypeError, ValueError):
-
         return jsonify({
             "sucesso": False,
             "mensagem": "Pedido SOS inválido."
         }), 400
-
 
     try:
 
@@ -171,12 +158,10 @@ def cancelar_sos_api():
         )
 
         if not pedido:
-
             return jsonify({
                 "sucesso": False,
                 "mensagem": "Pedido SOS não encontrado."
             }), 404
-
 
         return jsonify({
             "sucesso": True,
@@ -184,7 +169,6 @@ def cancelar_sos_api():
             "id_sos": pedido.id_sos,
             "status": pedido.status
         })
-
 
     except Exception as erro:
 

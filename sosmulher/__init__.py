@@ -1,12 +1,23 @@
+import os
+
+from dotenv import load_dotenv
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_migrate import Migrate
-import os
+
+
+load_dotenv()
 
 
 app = Flask(__name__)
+
+
+# =========================================================
+# CONFIGURAÇÕES GERAIS
+# =========================================================
 
 app.config["SECRET_KEY"] = "sua_chave_secreta"
 
@@ -48,10 +59,15 @@ migrate = Migrate(app, db)
 
 bcrypt = Bcrypt(app)
 
-
 login_manager = LoginManager(app)
 
 login_manager.login_view = "auth.login"
+
+login_manager.login_message = (
+    "Faça login para acessar esta página."
+)
+
+login_manager.login_message_category = "info"
 
 
 # =========================================================
@@ -62,10 +78,15 @@ from sosmulher.models import *
 from sosmulher.models.usuario import Usuario
 
 
+# =========================================================
+# CARREGAR USUÁRIO
+# =========================================================
+
 @login_manager.user_loader
 def load_user(id_usuario):
 
-    return Usuario.query.get(
+    return db.session.get(
+        Usuario,
         int(id_usuario)
     )
 

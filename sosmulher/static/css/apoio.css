@@ -8,6 +8,11 @@
     --sombra: 0 10px 30px rgba(0, 0, 0, 0.06);
 }
 
+
+/* =========================================================
+   RESET
+========================================================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -15,87 +20,159 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(180deg, #faf7ff, #f195e2);
+    font-family: "Inter", sans-serif;
+
+    background:
+        linear-gradient(
+            180deg,
+            #faf7ff,
+            #f195e2
+        );
+
     color: var(--texto);
 }
 
 
 /* =========================================================
    HERO
-   ========================================================= */
+========================================================= */
 
 .hero {
+    position: relative;
+
     padding: 80px 20px 40px;
+
     text-align: center;
+
+    overflow: hidden;
 }
 
 .hero-content {
     max-width: 800px;
+
     margin: auto;
+
+    position: relative;
+
+    z-index: 1;
 }
 
 .hero h1 {
     font-size: 52px;
+
     color: #c43db8;
+
     margin-top: 25px;
 }
 
 .hero p {
     margin-top: 20px;
+
     font-size: 18px;
+
     line-height: 1.7;
 }
 
 
 /* =========================================================
+   FUNDO DA PÁGINA DE APOIO
+========================================================= */
+
+.hero::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        url("../image/img/apoiofundo.png")
+        no-repeat center;
+
+    background-size: cover;
+
+    z-index: 0;
+}
+
+
+/* =========================================================
    GRID DOS CARDS
-   ========================================================= */
+========================================================= */
 
 /*
-   Importante:
-   usamos "main.container" em vez de apenas ".container"
-   para não alterar o container do header presente no base.html.
+   main.container evita alterar o .container
+   utilizado pelo header do base.html.
 */
 
 main.container {
+    width: 100%;
     max-width: 1200px;
+
     margin: auto;
+
     padding: 30px 20px;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(260px, 1fr));
+
     gap: 25px;
+
+    /*
+       IMPORTANTE:
+       impede todos os cards da mesma linha
+       de ficarem com a altura do card aberto.
+    */
+    align-items: start;
 }
 
 
 /* =========================================================
    CARDS
-   ========================================================= */
+========================================================= */
 
 .card {
+    width: 100%;
+
+    height: auto;
+
+    align-self: start;
+
     background: var(--branco);
+
     border-radius: 20px;
 
     box-shadow: var(--sombra);
 
     overflow: hidden;
+
     cursor: pointer;
 
-    transition: 0.3s;
-
     border-left: 5px solid transparent;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .card:hover {
     transform: translateY(-5px);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.10);
 }
 
 
-/* Cabeçalho do card */
+/* =========================================================
+   CABEÇALHO DO CARD
+========================================================= */
 
 .card-header {
+    min-height: 90px;
+
     display: flex;
+
     align-items: center;
 
     gap: 14px;
@@ -104,17 +181,22 @@ main.container {
 }
 
 
-/* Ícone */
+/* =========================================================
+   ÍCONE
+========================================================= */
 
 .icon-box {
     width: 42px;
     height: 42px;
+
+    flex-shrink: 0;
 
     background: var(--lilas);
 
     border-radius: 12px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -122,58 +204,91 @@ main.container {
 }
 
 
-/* Título */
+/* =========================================================
+   TÍTULO
+========================================================= */
 
 .card-title {
     font-weight: 600;
+
     color: var(--roxo);
+
+    line-height: 1.25;
 }
 
 
-/* Seta */
+/* =========================================================
+   SETA
+========================================================= */
 
 .arrow {
     margin-left: auto;
 
     opacity: 0.6;
 
-    transition: 0.3s;
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+}
+
+.card:hover .arrow {
+    opacity: 1;
 }
 
 
-/* Conteúdo escondido */
+/* =========================================================
+   CONTEÚDO ESCONDIDO
+========================================================= */
 
 .card-content {
     max-height: 0;
 
     overflow: hidden;
 
-    transition: all 0.4s ease;
+    opacity: 0;
 
     padding: 0 20px;
 
     font-size: 14px;
 
     line-height: 1.8;
+
+    transition:
+        max-height 0.4s ease,
+        opacity 0.3s ease,
+        padding 0.4s ease;
 }
 
 
-/* Card aberto */
+/* =========================================================
+   CARD ABERTO
+========================================================= */
+
+.card.active {
+    box-shadow:
+        0 16px 38px rgba(0, 0, 0, 0.11);
+}
 
 .card.active .card-content {
-    max-height: 250px;
+    max-height: 350px;
 
-    padding-bottom: 20px;
+    opacity: 1;
+
+    padding:
+        0 20px
+        22px;
 }
 
 .card.active .arrow {
     transform: rotate(180deg);
+
+    opacity: 1;
 }
 
 
 /* =========================================================
    CORES DOS TIPOS DE VIOLÊNCIA
-   ========================================================= */
+========================================================= */
 
 .fisica {
     border-left-color: #ff63c3;
@@ -210,7 +325,7 @@ main.container {
 
 /* =========================================================
    SEÇÃO IMPORTANTE
-   ========================================================= */
+========================================================= */
 
 .important-section {
     padding: 70px 20px;
@@ -221,11 +336,12 @@ main.container {
 
     margin: auto;
 
-    background: linear-gradient(
-        135deg,
-        #f4ecff,
-        #ffe6ef
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #f4ecff,
+            #ffe6ef
+        );
 
     padding: 50px;
 
@@ -248,19 +364,22 @@ main.container {
 }
 
 
-/* Ícone da seção importante */
+/* =========================================================
+   ÍCONE DA SEÇÃO IMPORTANTE
+========================================================= */
 
 .important-icon {
     width: 70px;
     height: 70px;
 
-    margin: auto auto 20px;
+    margin: 0 auto 20px;
 
     border-radius: 50%;
 
     background: rgba(255, 255, 255, 0.7);
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -268,7 +387,9 @@ main.container {
 }
 
 
-/* Título */
+/* =========================================================
+   TÍTULO DA SEÇÃO IMPORTANTE
+========================================================= */
 
 .important-card h2 {
     color: var(--roxo);
@@ -279,7 +400,9 @@ main.container {
 }
 
 
-/* Texto */
+/* =========================================================
+   TEXTO DA SEÇÃO IMPORTANTE
+========================================================= */
 
 .important-card p {
     font-size: 17px;
@@ -288,7 +411,9 @@ main.container {
 }
 
 
-/* Grid */
+/* =========================================================
+   GRID INTERNO
+========================================================= */
 
 .important-grid {
     margin-top: 40px;
@@ -299,10 +424,14 @@ main.container {
         repeat(auto-fit, minmax(220px, 1fr));
 
     gap: 20px;
+
+    align-items: start;
 }
 
 
-/* Cards internos */
+/* =========================================================
+   CARDS INTERNOS
+========================================================= */
 
 .important-item {
     background: rgba(255, 255, 255, 0.7);
@@ -332,7 +461,7 @@ main.container {
 
 /* =========================================================
    CONTEÚDO EXTRA
-   ========================================================= */
+========================================================= */
 
 .extra-content {
     padding: 30px 20px 100px;
@@ -349,10 +478,12 @@ main.container {
         repeat(auto-fit, minmax(280px, 1fr));
 
     gap: 25px;
+
+    align-items: start;
 }
 
 .extra-box {
-    background: white;
+    background: #ffffff;
 
     padding: 30px;
 
@@ -385,7 +516,7 @@ main.container {
 
 /* =========================================================
    BOTÃO SAIR RÁPIDO
-   ========================================================= */
+========================================================= */
 
 .sair-btn {
     position: fixed;
@@ -399,13 +530,14 @@ main.container {
 
     border-radius: 40px;
 
-    background: linear-gradient(
-        135deg,
-        #ff4d6d,
-        #c084c1
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #ff4d6d,
+            #c084c1
+        );
 
-    color: white;
+    color: #ffffff;
 
     font-size: 14px;
 
@@ -417,16 +549,23 @@ main.container {
         0 10px 25px rgba(0, 0, 0, 0.2);
 
     z-index: 9999;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .sair-btn:hover {
     transform: scale(1.05);
+
+    box-shadow:
+        0 14px 30px rgba(0, 0, 0, 0.25);
 }
 
 
 /* =========================================================
    FOOTER
-   ========================================================= */
+========================================================= */
 
 footer {
     text-align: center;
@@ -435,9 +574,9 @@ footer {
 
     background: #ffffff;
 
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #dddddd;
 
-    color: #777;
+    color: #777777;
 
     margin-top: 40px;
 }
@@ -445,7 +584,7 @@ footer {
 
 /* =========================================================
    RESPONSIVO
-   ========================================================= */
+========================================================= */
 
 @media (max-width: 768px) {
 
@@ -453,20 +592,51 @@ footer {
         font-size: 38px;
     }
 
+    main.container {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
     .important-card {
         padding: 35px 25px;
     }
+
 }
 
 
-/* =========================================================
-   FUNDO EXCLUSIVO DA PÁGINA DE APOIO
-   ========================================================= */
+@media (max-width: 500px) {
 
-.hero::before {
-    background:
-        url("../image/img/apoiofundo.png")
-        no-repeat center;
+    .hero {
+        padding: 60px 15px 30px;
+    }
 
-    background-size: cover;
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero p {
+        font-size: 15px;
+    }
+
+    main.container {
+        padding: 25px 15px;
+    }
+
+    .card-header {
+        min-height: 80px;
+
+        padding: 17px;
+    }
+
+    .card.active .card-content {
+        padding:
+            0 17px
+            20px;
+    }
+
+    .important-card h2 {
+        font-size: 28px;
+    }
+
 }

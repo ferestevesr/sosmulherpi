@@ -1,26 +1,44 @@
-// Inicializa ícones
-lucide.createIcons();
+// Inicializa os ícones do Lucide
+document.addEventListener("DOMContentLoaded", function () {
 
-// Função de abrir/fechar cards
+    if (window.lucide) {
+        lucide.createIcons();
+    }
+
+});
+
+
+// =========================================================
+// ABRIR / FECHAR CARDS
+// =========================================================
+
 function toggleCard(card) {
 
-    const cards = document.querySelectorAll('.card');
+    const cards = document.querySelectorAll(".card");
 
-    cards.forEach(currentCard => {
+    cards.forEach(function (currentCard) {
 
         if (currentCard !== card) {
-            currentCard.classList.remove('active');
+            currentCard.classList.remove("active");
         }
 
     });
 
-    card.classList.toggle('active');
+    card.classList.toggle("active");
+
 }
 
-// Botão sair rápido
+
+// =========================================================
+// SAIR RÁPIDO
+// =========================================================
+
 function sairRapido() {
 
     document.body.innerHTML = "";
 
-    window.location.replace("https://www.google.com");
+    window.location.replace(
+        "https://www.google.com"
+    );
+
 }

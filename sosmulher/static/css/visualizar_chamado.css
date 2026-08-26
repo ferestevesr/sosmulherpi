@@ -1,103 +1,115 @@
+/* =========================================================
+   VISUALIZAR CHAMADO - ADMIN
+========================================================= */
 
-/* =========================================
-   VISUALIZAR CHAMADO SOS
-   ========================================= */
-
-.chamado-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 25px;
-    padding: 28px 30px;
-    margin-bottom: 24px;
-
-    background: #ffffff;
-    border: 1px solid #eee5f3;
-    border-radius: 18px;
-
-    box-shadow: 0 8px 25px rgba(88, 44, 108, 0.07);
+.chamado-page {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 10px 10px 50px;
 }
 
 
-.chamado-header-info {
+/* =========================================================
+   HERO
+========================================================= */
+
+.chamado-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+
+    padding: 28px 32px;
+    margin-bottom: 24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.98),
+            rgba(255, 240, 247, 0.95)
+        );
+
+    border: 1px solid #f6d6e4;
+    border-radius: 22px;
+
+    box-shadow: 0 12px 35px rgba(111, 44, 77, 0.08);
+}
+
+.chamado-hero-info {
     display: flex;
     align-items: center;
     gap: 18px;
 }
 
-
 .chamado-icon {
-    width: 58px;
-    height: 58px;
+    width: 64px;
+    height: 64px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 16px;
+    flex-shrink: 0;
 
-    background: linear-gradient(
-        135deg,
-        #f8d7e5,
-        #ead7ff
-    );
+    font-size: 30px;
 
-    font-size: 27px;
+    background: linear-gradient(135deg, #ff4778, #ff6a92);
+    border-radius: 18px;
+
+    box-shadow: 0 8px 24px rgba(255, 71, 120, 0.25);
 }
 
-
-.chamado-label {
+.chamado-label,
+.card-kicker,
+.acao-kicker {
     display: block;
 
-    margin-bottom: 4px;
-
-    color: #9a6cad;
+    margin-bottom: 5px;
 
     font-size: 11px;
     font-weight: 800;
-    letter-spacing: 1.3px;
+    letter-spacing: 1.2px;
+
+    color: #e83e72;
 }
 
-
-.chamado-header h2 {
-    margin: 0;
-
-    color: #34203e;
+.chamado-hero h2 {
+    margin: 0 0 5px;
 
     font-size: 25px;
-    font-weight: 750;
+    font-weight: 800;
+
+    color: #2c2330;
+}
+
+.chamado-hero p {
+    margin: 0;
+
+    color: #756b74;
+    font-size: 14px;
 }
 
 
-.chamado-header p {
-    margin: 5px 0 0;
-
-    color: #817589;
-
-    font-size: 13px;
-}
-
-
-/* =========================================
+/* =========================================================
    STATUS
-   ========================================= */
+========================================================= */
 
-.status-badge {
+.chamado-status {
     display: inline-flex;
     align-items: center;
     gap: 8px;
 
-    padding: 9px 15px;
+    padding: 10px 16px;
 
     border-radius: 999px;
 
     font-size: 13px;
     font-weight: 700;
 
-    background: #f1edf3;
-    color: #67596d;
+    background: #f3f3f3;
+    color: #666;
 }
-
 
 .status-dot {
     width: 8px;
@@ -108,188 +120,321 @@
     background: currentColor;
 }
 
+.chamado-status.ativo {
+    background: #e8fff2;
+    color: #168754;
+}
 
-.status-badge.ativo {
-    color: #16834b;
-    background: #e8f8ef;
+.chamado-status.andamento {
+    background: #fff6dc;
+    color: #b68100;
+}
+
+.chamado-status.finalizado {
+    background: #e8f3ff;
+    color: #2878c8;
+}
+
+.chamado-status.cancelado {
+    background: #ffecef;
+    color: #d93658;
 }
 
 
-.status-badge.andamento {
-    color: #9a6b00;
-    background: #fff5d8;
-}
+/* =========================================================
+   ALERTAS
+========================================================= */
 
-
-.status-badge.finalizado {
-    color: #4e6390;
-    background: #edf2ff;
-}
-
-
-.status-badge.cancelado {
-    color: #b33e4d;
-    background: #ffedf0;
-}
-
-
-/* =========================================
-   ALERTA
-   ========================================= */
-
-.emergency-alert {
+.chamado-alerta {
     display: flex;
-    align-items: flex-start;
-    gap: 15px;
+    align-items: center;
+    gap: 16px;
 
-    padding: 18px 21px;
+    padding: 18px 22px;
     margin-bottom: 24px;
 
-    border: 1px solid #f0d9df;
-    border-left: 4px solid #d95c75;
-
-    border-radius: 14px;
-
-    background: #fff8fa;
+    border-radius: 16px;
 }
 
-
-.alert-icon {
-    font-size: 22px;
+.andamento-alerta {
+    background: #fff9e8;
+    border: 1px solid #f4dea0;
 }
 
+.finalizado-alerta {
+    background: #eaf8ef;
+    border: 1px solid #bde5ca;
+}
 
-.emergency-alert strong {
+.alerta-icon {
+    font-size: 26px;
+}
+
+.chamado-alerta strong {
     display: block;
+    margin-bottom: 3px;
 
-    margin-bottom: 4px;
-
-    color: #713044;
-
-    font-size: 14px;
+    color: #392f36;
 }
 
-
-.emergency-alert p {
+.chamado-alerta p {
     margin: 0;
 
-    color: #856b75;
-
+    color: #71676e;
     font-size: 13px;
-    line-height: 1.6;
 }
 
 
-/* =========================================
+/* =========================================================
    GRID
-   ========================================= */
+========================================================= */
 
 .chamado-grid {
     display: grid;
-
     grid-template-columns: repeat(2, minmax(0, 1fr));
 
     gap: 22px;
 
-    margin-bottom: 22px;
+    margin-bottom: 24px;
 }
 
 
-/* =========================================
+/* =========================================================
    CARDS
-   ========================================= */
+========================================================= */
 
 .chamado-card {
-    padding: 26px;
-
-    margin-bottom: 22px;
-
     background: #ffffff;
 
-    border: 1px solid #eee5f3;
+    border: 1px solid #eee2e8;
+    border-radius: 20px;
 
-    border-radius: 18px;
+    padding: 24px;
 
-    box-shadow: 0 7px 24px rgba(88, 44, 108, 0.055);
+    box-shadow: 0 10px 28px rgba(55, 32, 44, 0.06);
 }
-
-
-.chamado-grid .chamado-card {
-    margin-bottom: 0;
-}
-
 
 .card-header {
     display: flex;
     align-items: center;
-    gap: 13px;
+    justify-content: space-between;
 
-    padding-bottom: 19px;
-    margin-bottom: 20px;
+    gap: 20px;
 
-    border-bottom: 1px solid #f1ebf4;
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+
+    border-bottom: 1px solid #f1e9ed;
 }
 
+.card-header h3 {
+    margin: 0;
+
+    color: #332a31;
+    font-size: 18px;
+}
 
 .card-header-icon {
     width: 42px;
     height: 42px;
 
-    flex-shrink: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
 
+    background: #fff0f6;
+
     border-radius: 12px;
 
-    background: #f7effb;
-
-    font-size: 19px;
+    font-size: 20px;
 }
 
 
-.card-header h3 {
-    margin: 0;
+/* =========================================================
+   DADOS
+========================================================= */
 
-    color: #392541;
+.dados-lista {
+    display: flex;
+    flex-direction: column;
+}
 
-    font-size: 17px;
-    font-weight: 750;
+.dado-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid #f4eef1;
+}
+
+.dado-item:last-child {
+    border-bottom: none;
+}
+
+.dado-label {
+    color: #8a7d84;
+
+    font-size: 13px;
+}
+
+.dado-item strong {
+    color: #332b30;
+
+    font-size: 14px;
+    text-align: right;
+
+    overflow-wrap: anywhere;
 }
 
 
-.card-header p {
-    margin: 3px 0 0;
+/* =========================================================
+   MINI STATUS
+========================================================= */
 
-    color: #897b8e;
+.mini-status {
+    display: inline-flex;
 
+    padding: 6px 10px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.mini-status.ativo {
+    color: #138252;
+    background: #e8f9ef;
+}
+
+.mini-status.andamento {
+    color: #9b7100;
+    background: #fff4ce;
+}
+
+.mini-status.finalizado {
+    color: #176ab1;
+    background: #e5f2ff;
+}
+
+.mini-status.cancelado,
+.mini-status.bloqueado {
+    color: #c52c4d;
+    background: #ffe8ed;
+}
+
+.mini-status.desativado {
+    color: #6f6f6f;
+    background: #ededed;
+}
+
+
+/* =========================================================
+   LOCALIZAÇÃO
+========================================================= */
+
+.localizacao-card {
+    min-height: 250px;
+}
+
+.localizacao-info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+.coordenadas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+}
+
+.coordenada {
+    padding: 16px;
+
+    background: #fbf8fa;
+
+    border: 1px solid #f1e6eb;
+    border-radius: 13px;
+}
+
+.coordenada span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #968890;
     font-size: 12px;
 }
 
+.coordenada strong {
+    color: #332a30;
 
-/* =========================================
-   PERFIL DO USUÁRIO
-   ========================================= */
+    font-size: 14px;
+}
 
-.user-profile {
-    display: flex;
+.mapa-link {
+    display: inline-flex;
+    justify-content: center;
     align-items: center;
-    gap: 14px;
 
-    padding: 15px;
+    padding: 12px 18px;
 
-    margin-bottom: 18px;
+    border-radius: 12px;
 
-    border-radius: 13px;
+    background: #fff0f6;
+    color: #db3b70;
 
-    background: #faf7fc;
+    font-size: 13px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+.mapa-link:hover {
+    background: #ffe2ed;
+
+    transform: translateY(-1px);
 }
 
 
-.user-avatar {
-    width: 47px;
-    height: 47px;
+/* =========================================================
+   CONTATOS
+========================================================= */
+
+.contatos-lista {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.contato-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 14px;
+
+    background: #fbf8fa;
+
+    border: 1px solid #f0e5ea;
+    border-radius: 14px;
+}
+
+.contato-avatar {
+    width: 42px;
+    height: 42px;
 
     display: flex;
     align-items: center;
@@ -297,183 +442,413 @@
 
     border-radius: 50%;
 
-    background: linear-gradient(
-        135deg,
-        #a855f7,
-        #d946ef
-    );
-
+    background: linear-gradient(135deg, #ff5e8d, #e84fa4);
     color: white;
 
-    font-size: 18px;
-    font-weight: 750;
+    font-weight: 800;
 }
 
+.contato-info {
+    display: flex;
+    flex-direction: column;
 
-.user-profile strong {
-    display: block;
-
-    color: #392541;
-
-    font-size: 14px;
+    gap: 3px;
 }
 
+.contato-info strong {
+    color: #30272d;
+}
 
-.user-profile span {
-    display: block;
-
-    margin-top: 3px;
-
-    color: #8a7c8e;
+.contato-info span {
+    color: #8c7d85;
 
     font-size: 12px;
 }
 
-
-/* =========================================
-   INFORMAÇÕES
-   ========================================= */
-
-.info-list {
+.contato-telefone {
     display: flex;
     flex-direction: column;
+
+    text-align: right;
+}
+
+.contato-telefone span {
+    color: #9a8d94;
+
+    font-size: 11px;
+}
+
+.contato-telefone strong {
+    margin-top: 3px;
+
+    color: #41363d;
+
+    font-size: 13px;
 }
 
 
-.info-item {
+/* =========================================================
+   SEM CONTATOS
+========================================================= */
+
+.sem-contatos {
+    padding: 30px 15px;
+
+    text-align: center;
+
+    background: #faf8f9;
+    border-radius: 14px;
+}
+
+.sem-contatos div {
+    margin-bottom: 8px;
+
+    font-size: 26px;
+}
+
+.sem-contatos p {
+    margin: 5px 0 0;
+
+    color: #84777e;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   AÇÃO ADMIN
+========================================================= */
+
+.acao-admin-card {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
 
-    padding: 12px 0;
-
-    border-bottom: 1px solid #f3eef5;
-}
-
-
-.info-item:last-child {
-    border-bottom: none;
-}
-
-
-.info-label {
-    color: #887a8c;
-
-    font-size: 12px;
-}
-
-
-.info-item strong {
-    max-width: 60%;
-
-    color: #433448;
-
-    font-size: 13px;
-    text-align: right;
-
-    word-break: break-word;
-}
-
-
-.account-status.ativa {
-    color: #16834b;
-}
-
-
-.account-status.bloqueada {
-    color: #b46c00;
-}
-
-
-.account-status.desativada {
-    color: #b33e4d;
-}
-
-
-/* =========================================
-   LOCALIZAÇÃO
-   ========================================= */
-
-.location-content {
-    display: grid;
-
-    grid-template-columns: 0.8fr 1.2fr;
-
-    gap: 22px;
-}
-
-
-.coordinates {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-
-.coordinate-box {
-    padding: 18px;
-
-    border-radius: 13px;
-
-    background: #faf7fc;
-
-    border: 1px solid #eee6f2;
-}
-
-
-.coordinate-box span {
-    display: block;
-
-    margin-bottom: 7px;
-
-    color: #897b8e;
-
-    font-size: 11px;
-    font-weight: 650;
-}
-
-
-.coordinate-box strong {
-    color: #432b4d;
-
-    font-size: 15px;
-    letter-spacing: 0.2px;
-}
-
-
-.map-container {
-    min-height: 220px;
-
-    overflow: hidden;
-
-    border-radius: 15px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #f7f1fa,
-            #eee7f4
-        );
-}
-
-
-.map-placeholder {
-    width: 100%;
-    min-height: 220px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    gap: 25px;
 
     padding: 25px;
 
-    text-align: center;
+    background: linear-gradient(135deg, #fff, #fff5f9);
+
+    border: 1px solid #efdce5;
+    border-radius: 20px;
+
+    box-shadow: 0 10px 28px rgba(61, 30, 46, 0.06);
+}
+
+.acao-admin-info {
+    display: flex;
+    align-items: center;
+
+    gap: 17px;
+}
+
+.acao-icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    background: #fff0f4;
+
+    border-radius: 15px;
+
+    font-size: 24px;
+}
+
+.acao-icon.finalizado {
+    background: #eaf8f0;
+}
+
+.acao-admin-card h3 {
+    margin: 0 0 4px;
+
+    color: #31272d;
+}
+
+.acao-admin-card p {
+    max-width: 700px;
+
+    margin: 0;
+
+    color: #7d7077;
+
+    font-size: 13px;
 }
 
 
-.map-icon {
+/* =========================================================
+   BOTÕES
+========================================================= */
+
+.btn-acionar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-width: 230px;
+
+    padding: 14px 20px;
+
+    border: none;
+    border-radius: 13px;
+
+    background: linear-gradient(135deg, #ff4778, #e93874);
+
+    color: white;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 20px rgba(225, 54, 111, 0.22);
+
+    transition: 0.2s ease;
+}
+
+.btn-acionar:hover {
+    transform: translateY(-2px);
+}
+
+.btn-finalizado {
+    padding: 13px 18px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #eaf8ef;
+    color: #268655;
+
+    font-weight: 700;
+}
+
+.voltar-area {
+    margin-top: 22px;
+}
+
+.btn-voltar {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 11px 17px;
+
+    border: 1px solid #f1ccd9;
+    border-radius: 11px;
+
+    color: #df3d72;
+    background: white;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+.btn-voltar:hover {
+    background: #fff2f7;
+
+    transform: translateX(-2px);
+}
+
+
+
+/* =========================================================
+   OPÇÕES DE ENCAMINHAMENTO
+========================================================= */
+
+.encaminhamento-opcoes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(170px, 1fr));
+
+    gap: 12px;
+
+    width: 100%;
+    max-width: 680px;
+}
+
+.encaminhamento-opcoes form {
+    width: 100%;
+    margin: 0;
+}
+
+
+/* =========================================================
+   BOTÕES DE ENCAMINHAMENTO
+========================================================= */
+
+.btn-emergencia,
+.btn-mulher,
+.btn-samu {
+    width: 100%;
+    min-height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 12px 16px;
+
+    border: none;
+    border-radius: 13px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+
+/* =========================================================
+   190
+========================================================= */
+
+.btn-emergencia {
+    background: linear-gradient(
+        135deg,
+        #ff4f70,
+        #e93e5f
+    );
+
+    color: #ffffff;
+
+    box-shadow:
+        0 8px 20px
+        rgba(233, 62, 95, 0.20);
+}
+
+.btn-emergencia:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(233, 62, 95, 0.28);
+}
+
+
+/* =========================================================
+   180
+========================================================= */
+
+.btn-mulher {
+    background: linear-gradient(
+        135deg,
+        #9b5de5,
+        #7f45cc
+    );
+
+    color: #ffffff;
+
+    box-shadow:
+        0 8px 20px
+        rgba(127, 69, 204, 0.20);
+}
+
+.btn-mulher:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(127, 69, 204, 0.28);
+}
+
+
+/* =========================================================
+   192
+========================================================= */
+
+.btn-samu {
+    background: linear-gradient(
+        135deg,
+        #4c9be8,
+        #307fc9
+    );
+
+    color: #ffffff;
+
+    box-shadow:
+        0 8px 20px
+        rgba(48, 127, 201, 0.20);
+}
+
+.btn-samu:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(48, 127, 201, 0.28);
+}
+
+
+/* =========================================================
+   CLIQUE
+========================================================= */
+
+.btn-emergencia:active,
+.btn-mulher:active,
+.btn-samu:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   AÇÃO ADMIN COM ENCAMINHAMENTO
+========================================================= */
+
+.acao-admin-card {
+    align-items: center;
+}
+
+.acao-admin-info {
+    flex: 1;
+    min-width: 0;
+}
+
+
+
+/* =========================================================
+   ÁREA DE AÇÃO ADMINISTRATIVA
+========================================================= */
+
+.acao-admin-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+
+    padding: 28px 30px;
+
+    background: linear-gradient(135deg, #fff, #fff5f9);
+    border: 1px solid #efdce5;
+    border-radius: 22px;
+
+    box-shadow: 0 10px 28px rgba(61, 30, 46, 0.06);
+}
+
+.acao-admin-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+
+    flex: 1;
+    min-width: 0;
+}
+
+.acao-icon {
     width: 50px;
     height: 50px;
 
@@ -481,298 +856,206 @@
     align-items: center;
     justify-content: center;
 
-    margin-bottom: 10px;
-
-    border-radius: 50%;
-
-    background: #ffffff;
-
-    box-shadow: 0 5px 15px rgba(70, 35, 85, 0.08);
-
-    font-size: 22px;
-}
-
-
-.map-placeholder strong {
-    color: #443249;
-
-    font-size: 14px;
-}
-
-
-.map-placeholder > span {
-    margin: 6px 0 15px;
-
-    color: #897b8e;
-
-    font-size: 12px;
-}
-
-
-.map-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 10px 16px;
-
-    border-radius: 9px;
-
-    background: #7c3aed;
-
-    color: #ffffff;
-
-    font-size: 12px;
-    font-weight: 700;
-
-    text-decoration: none;
-
-    transition: 0.2s ease;
-}
-
-
-.map-button:hover {
-    transform: translateY(-2px);
-
-    background: #6d28d9;
-
-    box-shadow: 0 6px 15px rgba(124, 58, 237, 0.2);
-}
-
-
-/* =========================================
-   CONTATOS
-   ========================================= */
-
-.contacts-grid {
-    display: grid;
-
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    gap: 14px;
-}
-
-
-.contact-card {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-
-    padding: 15px;
-
-    border: 1px solid #eee6f2;
-
-    border-radius: 13px;
-
-    background: #fcfafd;
-
-    transition: 0.2s ease;
-}
-
-
-.contact-card:hover {
-    transform: translateY(-2px);
-
-    border-color: #dcc5e7;
-
-    box-shadow: 0 7px 18px rgba(88, 44, 108, 0.07);
-}
-
-
-.contact-avatar {
-    width: 43px;
-    height: 43px;
-
     flex-shrink: 0;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: 14px;
+    background: #fff0f4;
 
-    border-radius: 50%;
-
-    background: #f0e4f7;
-
-    color: #75468b;
-
-    font-size: 16px;
-    font-weight: 750;
+    font-size: 24px;
 }
 
-
-.contact-info {
-    min-width: 0;
+.acao-icon.finalizado {
+    background: #eaf8ef;
 }
 
-
-.contact-info strong {
+.acao-kicker {
     display: block;
-
-    color: #433348;
-
-    font-size: 13px;
-}
-
-
-.contact-info span {
-    display: block;
-
-    margin: 3px 0;
-
-    color: #8a7c8e;
+    margin-bottom: 4px;
 
     font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    color: #ef476f;
+}
+
+.acao-admin-info h3 {
+    margin: 0 0 5px;
+    color: #2f2730;
+    font-size: 17px;
+}
+
+.acao-admin-info p {
+    margin: 0;
+    color: #756872;
+    font-size: 13px;
+    line-height: 1.5;
+    max-width: 720px;
 }
 
 
-.contact-info a {
-    color: #7c3aed;
+/* =========================================================
+   BLOCO DE ENCAMINHAMENTO REGISTRADO
+========================================================= */
 
-    font-size: 12px;
-    font-weight: 650;
+.encaminhamento-realizado {
+    margin-top: 14px;
+    padding: 14px 16px;
 
-    text-decoration: none;
-}
-
-
-.contact-info a:hover {
-    text-decoration: underline;
-}
-
-
-/* =========================================
-   ESTADO VAZIO
-   ========================================= */
-
-.empty-state {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    gap: 4px;
 
-    padding: 35px 20px;
-
-    text-align: center;
-
-    border-radius: 13px;
-
-    background: #faf7fc;
+    background: #fff7fb;
+    border: 1px solid #f3dbe6;
+    border-radius: 14px;
 }
 
-
-.empty-state > div {
-    margin-bottom: 10px;
-
-    font-size: 30px;
+.encaminhamento-realizado span {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    color: #ef476f;
 }
 
-
-.empty-state strong {
-    color: #4a3850;
-
-    font-size: 14px;
+.encaminhamento-realizado strong {
+    color: #2f2730;
+    font-size: 15px;
 }
 
-
-.empty-state p {
-    margin: 5px 0 0;
-
-    color: #8a7c8e;
-
+.encaminhamento-realizado small {
+    color: #7d7078;
     font-size: 12px;
 }
 
 
-/* =========================================
-   RESUMO OPERACIONAL
-   ========================================= */
+/* =========================================================
+   BOTÃO FINALIZAR
+========================================================= */
 
-.operational-grid {
-    display: grid;
-
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-
-    gap: 13px;
-}
-
-
-.operational-item {
-    padding: 17px;
-
-    border-radius: 12px;
-
-    background: #faf7fc;
-
-    border: 1px solid #eee7f2;
-}
-
-
-.operational-item span {
-    display: block;
-
-    margin-bottom: 7px;
-
-    color: #8b7d90;
-
-    font-size: 11px;
-}
-
-
-.operational-item strong {
-    color: #49354f;
-
-    font-size: 14px;
-}
-
-
-/* =========================================
-   AÇÕES
-   ========================================= */
-
-.chamado-actions {
-    display: flex;
-    justify-content: flex-start;
-
-    margin: 5px 0 30px;
-}
-
-
-.back-button {
+.btn-finalizar {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
 
-    padding: 11px 17px;
+    gap: 8px;
 
-    border: 1px solid #e3d8e8;
-    border-radius: 10px;
+    min-width: 220px;
+    min-height: 52px;
 
-    background: #ffffff;
+    padding: 14px 20px;
 
-    color: #60446b;
+    border: none;
+    border-radius: 14px;
 
-    font-size: 13px;
+    background: linear-gradient(135deg, #7b5cff, #6246ea);
+    color: #ffffff;
+
+    font-size: 14px;
     font-weight: 700;
 
-    text-decoration: none;
+    cursor: pointer;
 
-    transition: 0.2s ease;
+    box-shadow: 0 8px 20px rgba(98, 70, 234, 0.22);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
 }
 
-
-.back-button:hover {
+.btn-finalizar:hover {
     transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(98, 70, 234, 0.28);
+}
 
-    border-color: #cbb1d6;
-
-    background: #faf7fc;
-
-    box-shadow: 0 5px 14px rgba(88, 44, 108, 0.07);
+.btn-finalizar:active {
+    transform: translateY(0);
 }
 
 
-/* =========================================
-   RESPONSIVIDADE
-   ========================================= */
+/* =========================================================
+   BOTÃO FINALIZADO
+========================================================= */
+
+.btn-finalizado {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-width: 220px;
+    min-height: 52px;
+
+    padding: 14px 20px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: #eaf8ef;
+    color: #218a55;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 900px) {
+    .acao-admin-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-finalizar,
+    .btn-finalizado {
+        width: 100%;
+    }
+}
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .encaminhamento-opcoes {
+        grid-template-columns: 1fr;
+        max-width: 320px;
+    }
+
+}
+
+
+@media (max-width: 750px) {
+
+    .acao-admin-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .encaminhamento-opcoes {
+        width: 100%;
+        max-width: none;
+
+        grid-template-columns: 1fr;
+    }
+
+    .btn-emergencia,
+    .btn-mulher,
+    .btn-samu {
+        width: 100%;
+    }
+
+}
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
 
 @media (max-width: 1000px) {
 
@@ -780,51 +1063,56 @@
         grid-template-columns: 1fr;
     }
 
-
-    .location-content {
-        grid-template-columns: 1fr;
+    .acao-admin-card {
+        flex-direction: column;
+        align-items: stretch;
     }
 
-
-    .operational-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .btn-acionar {
+        width: 100%;
     }
 
 }
 
 
-@media (max-width: 700px) {
+@media (max-width: 650px) {
 
-    .chamado-header {
+    .chamado-page {
+        padding: 0 4px 30px;
+    }
+
+    .chamado-hero {
         flex-direction: column;
         align-items: flex-start;
-    }
 
-
-    .contacts-grid {
-        grid-template-columns: 1fr;
-    }
-
-
-    .operational-grid {
-        grid-template-columns: 1fr;
-    }
-
-
-    .chamado-card {
         padding: 20px;
     }
 
+    .chamado-card {
+        padding: 18px;
+    }
 
-    .info-item {
+    .coordenadas {
+        grid-template-columns: 1fr;
+    }
+
+    .dado-item {
         align-items: flex-start;
         flex-direction: column;
+
         gap: 5px;
     }
 
+    .dado-item strong {
+        text-align: left;
+    }
 
-    .info-item strong {
-        max-width: 100%;
+    .contato-item {
+        grid-template-columns: auto 1fr;
+    }
+
+    .contato-telefone {
+        grid-column: 2;
 
         text-align: left;
     }

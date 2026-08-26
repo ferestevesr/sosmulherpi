@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import ( Blueprint, render_template, redirect, url_for, flash, request )
+from datetime import datetime
 from flask_login import login_required, current_user
 
 from sosmulher import db
@@ -6,7 +7,7 @@ from sosmulher.models.usuario import Usuario
 from sosmulher.models.denuncia import Denuncia
 from sosmulher.models.pedido_sos import PedidoSOS
 from sosmulher.models.pedido_sos_contato import PedidoSOSContato
-from sosmulher.models.contato_emergencia import ContatoEmergencia
+
 
 
 admin = Blueprint(
@@ -155,12 +156,14 @@ def visualizar_chamado(id):
         contatos=contatos
     )
 
-
 # ==========================
 # ACIONAR CONTATOS DE EMERGÊNCIA
 # ==========================
 
-@admin.route("/chamados/<int:id>/acionar-contatos", methods=["POST"])
+@admin.route(
+    "/chamados/<int:id>/acionar-contatos",
+    methods=["POST"]
+)
 @login_required
 def acionar_contatos(id):
 
@@ -173,12 +176,14 @@ def acionar_contatos(id):
 
     chamado = PedidoSOS.query.get_or_404(id)
 
-    # Impede que um chamado já finalizado seja acionado novamente
+    # Chamado finalizado não pode ser acionado novamente
     if chamado.status == "finalizado":
+
         flash(
-            "Os contatos de emergência deste chamado já foram acionados.",
+            "Este chamado já foi finalizado.",
             "info"
         )
+
         return redirect(
             url_for(
                 "admin.visualizar_chamado",
@@ -186,13 +191,29 @@ def acionar_contatos(id):
             )
         )
 
-    # Só permite o acionamento quando o chamado
-    # estiver aguardando atendimento
-    if chamado.status != "em_andamento":
+    # Chamado em andamento já teve os contatos acionados
+    if chamado.status == "em_andamento":
+
+        flash(
+            "Os contatos deste chamado já foram acionados.",
+            "info"
+        )
+
+        return redirect(
+            url_for(
+                "admin.visualizar_chamado",
+                id=chamado.id_sos
+            )
+        )
+
+    # Apenas chamado ATIVO pode iniciar atendimento
+    if chamado.status != "ativo":
+
         flash(
             "Este chamado não está disponível para acionamento.",
             "warning"
         )
+
         return redirect(
             url_for(
                 "admin.visualizar_chamado",
@@ -200,16 +221,18 @@ def acionar_contatos(id):
             )
         )
 
-    # Verifica se existem contatos vinculados ao chamado
+    # Verifica contatos vinculados
     contatos = PedidoSOSContato.query.filter_by(
         id_sos=chamado.id_sos
     ).all()
 
     if not contatos:
+
         flash(
             "Este chamado não possui contatos de emergência cadastrados.",
             "warning"
         )
+
         return redirect(
             url_for(
                 "admin.visualizar_chamado",
@@ -217,18 +240,14 @@ def acionar_contatos(id):
             )
         )
 
-    # Aqui registramos que os contatos foram acionados.
-    #
-    # Como o modelo atual de PedidoSOSContato ainda não possui
-    # um campo específico de status/data de acionamento,
-    # o próprio status do chamado representa esse momento.
-    chamado.status = "finalizado"
+    # Contatos acionados -> atendimento começa
+    chamado.status = "em_andamento"
 
     db.session.commit()
 
     flash(
-        "Contatos de emergência acionados com sucesso. "
-        "O chamado foi finalizado.",
+        "Contatos de emergência acionados. "
+        "O chamado agora está em andamento.",
         "success"
     )
 
@@ -238,8 +257,183 @@ def acionar_contatos(id):
             id=chamado.id_sos
         )
     )
+# ==========================
+# ENCAMINHAR CHAMADO
+# ==========================
 
+@admin.route(
+    "/chamados/<int:id>/encaminhar",
+    methods=["POST"]
+)
+@login_required
+def encaminhar_chamado(id):
 
+    if current_user.tipo != "admin":
+        flash(
+            "Você não tem permissão para realizar esta ação.",
+            "danger"
+        )
+        return redirect(url_for("home.index"))
+
+    chamado = PedidoSOS.query.get_or_404(id)
+
+    # Só chamados ativos podem ser encaminhados
+    if chamado.status != "ativo":
+
+        flash(
+            "Este chamado não está disponível para encaminhamento.",
+            "warning"
+        )
+
+        return redirect(
+            url_for(
+                "admin.visualizar_chamado",
+                id=chamado.id_sos
+            )
+        )
+
+    # Verifica se existem contatos pessoais
+    contatos = PedidoSOSContato.query.filter_by(
+        id_sos=chamado.id_sos
+    ).all()
+
+    # Se existem contatos, usa o fluxo normal
+    if contatos:
+
+        flash(
+            "Este chamado possui contatos de emergência. "
+            "Utilize primeiro o acionamento dos contatos cadastrados.",
+            "warning"
+        )
+
+        return redirect(
+            url_for(
+                "admin.visualizar_chamado",
+                id=chamado.id_sos
+            )
+        )
+
+    tipo = request.form.get(
+        "tipo_encaminhamento"
+    )
+
+    encaminhamentos_validos = {
+        "190": "Emergência policial",
+        "180": "Central de Atendimento à Mulher",
+        "192": "SAMU"
+    }
+
+    if tipo not in encaminhamentos_validos:
+
+        flash(
+            "Tipo de encaminhamento inválido.",
+            "danger"
+        )
+
+        return redirect(
+            url_for(
+                "admin.visualizar_chamado",
+                id=chamado.id_sos
+            )
+        )
+
+    # Registra o encaminhamento
+    chamado.tipo_encaminhamento = tipo
+
+    chamado.data_encaminhamento = datetime.now()
+
+    chamado.observacao_encaminhamento = (
+        encaminhamentos_validos[tipo]
+    )
+
+    # Atendimento passa para em andamento
+    chamado.status = "em_andamento"
+
+    db.session.commit()
+
+    flash(
+        f"Encaminhamento para "
+        f"{encaminhamentos_validos[tipo]} "
+        f"registrado com sucesso. "
+        f"O chamado agora está em andamento.",
+        "success"
+    )
+
+    return redirect(
+        url_for(
+            "admin.visualizar_chamado",
+            id=chamado.id_sos
+        )
+    )
+# ==========================
+# FINALIZAR CHAMADO SOS
+# ==========================
+
+@admin.route(
+    "/chamados/<int:id>/finalizar",
+    methods=["POST"]
+)
+@login_required
+def finalizar_chamado(id):
+
+    if current_user.tipo != "admin":
+
+        flash(
+            "Você não tem permissão para realizar esta ação.",
+            "danger"
+        )
+
+        return redirect(
+            url_for("home.index")
+        )
+
+    chamado = PedidoSOS.query.get_or_404(id)
+
+    # Já finalizado
+    if chamado.status == "finalizado":
+
+        flash(
+            "Este chamado já foi finalizado.",
+            "info"
+        )
+
+        return redirect(
+            url_for(
+                "admin.visualizar_chamado",
+                id=chamado.id_sos
+            )
+        )
+
+    # Só pode finalizar depois de iniciar atendimento
+    if chamado.status != "em_andamento":
+
+        flash(
+            "Este chamado precisa estar em andamento antes de ser finalizado.",
+            "warning"
+        )
+
+        return redirect(
+            url_for(
+                "admin.visualizar_chamado",
+                id=chamado.id_sos
+            )
+        )
+
+    chamado.status = "finalizado"
+
+    db.session.commit()
+
+    flash(
+        "Chamado finalizado com sucesso.",
+        "success"
+    )
+
+    return redirect(
+        url_for(
+            "admin.visualizar_chamado",
+            id=chamado.id_sos
+        )
+    )
 # ==========================
 # ATENDIMENTO
 # ==========================
@@ -303,7 +497,153 @@ def visualizar_atendimento(id):
         atendimento=atendimento
     )
 
+# ==========================
+# INICIAR ATENDIMENTO
+# ==========================
 
+@admin.route(
+    "/atendimento/<int:id>/iniciar",
+    methods=["POST"]
+)
+@login_required
+def iniciar_atendimento(id):
+
+    if current_user.tipo != "admin":
+        flash(
+            "Você não tem permissão para realizar esta ação.",
+            "danger"
+        )
+        return redirect(url_for("home.index"))
+
+    denuncia = Denuncia.query.get_or_404(id)
+
+    # Já finalizada
+    if denuncia.status == "finalizado":
+
+        flash(
+            "Esta denúncia já foi finalizada.",
+            "info"
+        )
+
+        return redirect(
+            url_for(
+                "admin.visualizar_atendimento",
+                id=denuncia.id_denuncia
+            )
+        )
+
+    # Já está em atendimento
+    if denuncia.status == "em_andamento":
+
+        flash(
+            "Esta denúncia já está em atendimento.",
+            "info"
+        )
+
+        return redirect(
+            url_for(
+                "admin.visualizar_atendimento",
+                id=denuncia.id_denuncia
+            )
+        )
+
+    # Apenas pendente pode iniciar atendimento
+    if denuncia.status != "pendente":
+
+        flash(
+            "Esta denúncia não está disponível para atendimento.",
+            "warning"
+        )
+
+        return redirect(
+            url_for(
+                "admin.visualizar_atendimento",
+                id=denuncia.id_denuncia
+            )
+        )
+
+    denuncia.status = "em_andamento"
+
+    db.session.commit()
+
+    flash(
+        "Atendimento iniciado com sucesso.",
+        "success"
+    )
+
+    return redirect(
+        url_for(
+            "admin.visualizar_atendimento",
+            id=denuncia.id_denuncia
+        )
+    )
+
+
+# ==========================
+# FINALIZAR ATENDIMENTO
+# ==========================
+
+@admin.route(
+    "/atendimento/<int:id>/finalizar",
+    methods=["POST"]
+)
+@login_required
+def finalizar_atendimento(id):
+
+    if current_user.tipo != "admin":
+        flash(
+            "Você não tem permissão para realizar esta ação.",
+            "danger"
+        )
+        return redirect(url_for("home.index"))
+
+    denuncia = Denuncia.query.get_or_404(id)
+
+    # Já finalizada
+    if denuncia.status == "finalizado":
+
+        flash(
+            "Esta denúncia já foi finalizada.",
+            "info"
+        )
+
+        return redirect(
+            url_for(
+                "admin.visualizar_atendimento",
+                id=denuncia.id_denuncia
+            )
+        )
+
+    # Precisa estar em andamento
+    if denuncia.status != "em_andamento":
+
+        flash(
+            "O atendimento precisa ser iniciado antes de ser finalizado.",
+            "warning"
+        )
+
+        return redirect(
+            url_for(
+                "admin.visualizar_atendimento",
+                id=denuncia.id_denuncia
+            )
+        )
+
+    denuncia.status = "finalizado"
+
+    db.session.commit()
+
+    flash(
+        "Atendimento finalizado com sucesso.",
+        "success"
+    )
+
+    return redirect(
+        url_for(
+            "admin.visualizar_atendimento",
+            id=denuncia.id_denuncia
+        )
+    )
 # ==========================
 # RELATÓRIOS
 # ==========================

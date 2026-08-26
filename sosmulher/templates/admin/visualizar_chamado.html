@@ -6,6 +6,16 @@ Visualizar Chamado #{{ chamado.id_sos }} | SOSMulher
 {% endblock %}
 
 
+{% block estilos %}
+    {{ super() }}
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/visualizar_chamado.css') }}"
+    >
+{% endblock %}
+
+
 {% block admin_titulo %}
 Chamado SOS #{{ chamado.id_sos }}
 {% endblock %}
@@ -20,9 +30,10 @@ Visualização detalhada do pedido de emergência.
 
 <div class="chamado-page">
 
-    <!-- ================================================== -->
-    <!-- CABEÇALHO -->
-    <!-- ================================================== -->
+
+    <!-- ==================================================
+         CABEÇALHO
+    ================================================== -->
 
     <section class="chamado-hero">
 
@@ -56,7 +67,14 @@ Visualização detalhada do pedido de emergência.
 
         <div class="chamado-status-area">
 
-            {% if chamado.status == "em_andamento" %}
+            {% if chamado.status == "ativo" %}
+
+                <span class="chamado-status ativo">
+                    <span class="status-dot"></span>
+                    Ativo
+                </span>
+
+            {% elif chamado.status == "em_andamento" %}
 
                 <span class="chamado-status andamento">
                     <span class="status-dot"></span>
@@ -68,13 +86,6 @@ Visualização detalhada do pedido de emergência.
                 <span class="chamado-status finalizado">
                     <span class="status-dot"></span>
                     Finalizado
-                </span>
-
-            {% elif chamado.status == "ativo" %}
-
-                <span class="chamado-status ativo">
-                    <span class="status-dot"></span>
-                    Ativo
                 </span>
 
             {% elif chamado.status == "cancelado" %}
@@ -98,69 +109,120 @@ Visualização detalhada do pedido de emergência.
     </section>
 
 
-    <!-- ================================================== -->
-    <!-- ALERTA DE FLUXO -->
-    <!-- ================================================== -->
 
-    {% if chamado.status == "em_andamento" %}
+    <!-- ==================================================
+         ALERTA DE FLUXO
+    ================================================== -->
 
-    <section class="chamado-alerta andamento-alerta">
+    {% if chamado.status == "ativo" and contatos %}
 
-        <div class="alerta-icon">
-            ⚠️
-        </div>
+        <section class="chamado-alerta andamento-alerta">
 
-        <div>
+            <div class="alerta-icon">
+                🚨
+            </div>
 
-            <strong>
-                Chamado aguardando acionamento
-            </strong>
+            <div>
 
-            <p>
-                Este chamado está em andamento e aguarda o acionamento
-                dos contatos de emergência cadastrados pela usuária.
-            </p>
+                <strong>
+                    Chamado aguardando atendimento
+                </strong>
 
-        </div>
+                <p>
+                    Este chamado está ativo e possui contatos de
+                    emergência disponíveis para acionamento.
+                </p>
 
-    </section>
+            </div>
+
+        </section>
+
+
+    {% elif chamado.status == "ativo" and not contatos %}
+
+        <section class="chamado-alerta andamento-alerta">
+
+            <div class="alerta-icon">
+                ⚠️
+            </div>
+
+            <div>
+
+                <strong>
+                    Nenhum contato pessoal disponível
+                </strong>
+
+                <p>
+                    A usuária não possui contatos de emergência vinculados.
+                    Utilize o canal público adequado e registre o
+                    encaminhamento realizado.
+                </p>
+
+            </div>
+
+        </section>
+
+
+    {% elif chamado.status == "em_andamento" %}
+
+        <section class="chamado-alerta andamento-alerta">
+
+            <div class="alerta-icon">
+                ⚠️
+            </div>
+
+            <div>
+
+                <strong>
+                    Atendimento em andamento
+                </strong>
+
+                <p>
+                    Este chamado já recebeu uma ação administrativa.
+                    Após concluir o atendimento, finalize o chamado.
+                </p>
+
+            </div>
+
+        </section>
 
 
     {% elif chamado.status == "finalizado" %}
 
-    <section class="chamado-alerta finalizado-alerta">
+        <section class="chamado-alerta finalizado-alerta">
 
-        <div class="alerta-icon">
-            ✓
-        </div>
+            <div class="alerta-icon">
+                ✓
+            </div>
 
-        <div>
+            <div>
 
-            <strong>
-                Ajuda acionada
-            </strong>
+                <strong>
+                    Chamado finalizado
+                </strong>
 
-            <p>
-                Os contatos de emergência foram acionados para este chamado.
-            </p>
+                <p>
+                    O atendimento deste chamado foi concluído.
+                </p>
 
-        </div>
+            </div>
 
-    </section>
+        </section>
 
     {% endif %}
 
 
-    <!-- ================================================== -->
-    <!-- GRID PRINCIPAL -->
-    <!-- ================================================== -->
+
+    <!-- ==================================================
+         GRID PRINCIPAL
+    ================================================== -->
 
     <div class="chamado-grid">
 
 
-        <!-- ================================================== -->
-        <!-- DADOS DA USUÁRIA -->
-        <!-- ================================================== -->
+        <!-- ==================================================
+             DADOS DA USUÁRIA
+        ================================================== -->
 
         <section class="chamado-card">
 
@@ -289,9 +351,10 @@ Visualização detalhada do pedido de emergência.
         </section>
 
 
-        <!-- ================================================== -->
-        <!-- INFORMAÇÕES DO CHAMADO -->
-        <!-- ================================================== -->
+
+        <!-- ==================================================
+             INFORMAÇÕES DO CHAMADO
+        ================================================== -->
 
         <section class="chamado-card">
 
@@ -365,7 +428,13 @@ Visualização detalhada do pedido de emergência.
 
                     <strong>
 
-                        {% if chamado.status == "em_andamento" %}
+                        {% if chamado.status == "ativo" %}
+
+                            <span class="mini-status ativo">
+                                Ativo
+                            </span>
+
+                        {% elif chamado.status == "em_andamento" %}
 
                             <span class="mini-status andamento">
                                 Em andamento
@@ -385,7 +454,7 @@ Visualização detalhada do pedido de emergência.
 
                         {% else %}
 
-                            <span class="mini-status ativo">
+                            <span class="mini-status">
                                 {{ chamado.status }}
                             </span>
 
@@ -395,14 +464,64 @@ Visualização detalhada do pedido de emergência.
 
                 </div>
 
+
+                {% if chamado.tipo_encaminhamento %}
+
+                    <div class="dado-item">
+
+                        <span class="dado-label">
+                            Encaminhamento
+                        </span>
+
+                        <strong>
+
+                            {% if chamado.tipo_encaminhamento == "190" %}
+                                🚨 Emergência policial — 190
+
+                            {% elif chamado.tipo_encaminhamento == "180" %}
+                                💜 Atendimento à Mulher — 180
+
+                            {% elif chamado.tipo_encaminhamento == "192" %}
+                                🏥 Emergência médica — 192
+
+                            {% else %}
+                                {{ chamado.tipo_encaminhamento }}
+                            {% endif %}
+
+                        </strong>
+
+                    </div>
+
+                {% endif %}
+
+
+                {% if chamado.data_encaminhamento %}
+
+                    <div class="dado-item">
+
+                        <span class="dado-label">
+                            Data do encaminhamento
+                        </span>
+
+                        <strong>
+                            {{ chamado.data_encaminhamento.strftime(
+                                '%d/%m/%Y às %H:%M'
+                            ) }}
+                        </strong>
+
+                    </div>
+
+                {% endif %}
+
             </div>
 
         </section>
 
 
-        <!-- ================================================== -->
-        <!-- LOCALIZAÇÃO -->
-        <!-- ================================================== -->
+
+        <!-- ==================================================
+             LOCALIZAÇÃO
+        ================================================== -->
 
         <section class="chamado-card localizacao-card">
 
@@ -473,9 +592,10 @@ Visualização detalhada do pedido de emergência.
         </section>
 
 
-        <!-- ================================================== -->
-        <!-- CONTATOS DE EMERGÊNCIA -->
-        <!-- ================================================== -->
+
+        <!-- ==================================================
+             CONTATOS DE EMERGÊNCIA
+        ================================================== -->
 
         <section class="chamado-card contatos-card">
 
@@ -544,6 +664,7 @@ Visualização detalhada do pedido de emergência.
 
                 </div>
 
+
             {% else %}
 
                 <div class="sem-contatos">
@@ -570,15 +691,46 @@ Visualização detalhada do pedido de emergência.
     </div>
 
 
-    <!-- ================================================== -->
-    <!-- AÇÃO ADMINISTRATIVA -->
-    <!-- ================================================== -->
+
+    <!-- ==================================================
+         AÇÃO ADMINISTRATIVA
+    ================================================== -->
 
     <section class="acao-admin-card">
 
         <div class="acao-admin-info">
 
-            {% if chamado.status == "em_andamento" %}
+
+            <!-- ATIVO SEM CONTATOS -->
+
+            {% if chamado.status == "ativo" and not contatos %}
+
+                <div class="acao-icon">
+                    🚨
+                </div>
+
+                <div>
+
+                    <span class="acao-kicker">
+                        ENCAMINHAMENTO NECESSÁRIO
+                    </span>
+
+                    <h3>
+                        Escolha um canal de atendimento
+                    </h3>
+
+                    <p>
+                        A usuária não possui contatos pessoais vinculados.
+                        Realize o contato pelo canal público adequado
+                        e depois registre abaixo o encaminhamento realizado.
+                    </p>
+
+                </div>
+
+
+            <!-- ATIVO COM CONTATOS -->
+
+            {% elif chamado.status == "ativo" %}
 
                 <div class="acao-icon">
                     🚨
@@ -595,12 +747,87 @@ Visualização detalhada do pedido de emergência.
                     </h3>
 
                     <p>
-                        Ao confirmar, o sistema registrará que os contatos
-                        de emergência foram acionados e finalizará este chamado.
+                        Este chamado está ativo e aguarda atendimento.
+                        Após acionar os contatos cadastrados, confirme
+                        a ação para iniciar o atendimento.
                     </p>
 
                 </div>
 
+
+            <!-- EM ANDAMENTO -->
+
+            {% elif chamado.status == "em_andamento" %}
+
+                <div class="acao-icon">
+                    ⚠️
+                </div>
+
+                <div>
+
+                    <span class="acao-kicker">
+                        ATENDIMENTO EM ANDAMENTO
+                    </span>
+
+                    <h3>
+                        Finalizar atendimento
+                    </h3>
+
+                    <p>
+                        Uma ação de atendimento já foi registrada.
+                        Quando o atendimento estiver concluído,
+                        finalize este chamado.
+                    </p>
+
+
+                    {% if chamado.tipo_encaminhamento %}
+
+                        <div class="encaminhamento-realizado">
+
+                            <span>
+                                ENCAMINHAMENTO REGISTRADO
+                            </span>
+
+                            {% if chamado.tipo_encaminhamento == "190" %}
+
+                                <strong>
+                                    🚨 Emergência policial — 190
+                                </strong>
+
+                            {% elif chamado.tipo_encaminhamento == "180" %}
+
+                                <strong>
+                                    💜 Atendimento à Mulher — 180
+                                </strong>
+
+                            {% elif chamado.tipo_encaminhamento == "192" %}
+
+                                <strong>
+                                    🏥 Emergência médica — 192
+                                </strong>
+
+                            {% endif %}
+
+
+                            {% if chamado.data_encaminhamento %}
+
+                                <small>
+                                    Registrado em
+                                    {{ chamado.data_encaminhamento.strftime(
+                                        '%d/%m/%Y às %H:%M'
+                                    ) }}
+                                </small>
+
+                            {% endif %}
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+            <!-- FINALIZADO -->
 
             {% elif chamado.status == "finalizado" %}
 
@@ -615,18 +842,20 @@ Visualização detalhada do pedido de emergência.
                     </span>
 
                     <h3>
-                        Contatos já acionados
+                        Atendimento concluído
                     </h3>
 
                     <p>
-                        Os contatos de emergência deste chamado já foram
-                        acionados anteriormente.
+                        Este chamado foi finalizado e não possui
+                        mais ações administrativas pendentes.
                     </p>
 
                 </div>
 
 
-            {% else %}
+            <!-- CANCELADO -->
+
+            {% elif chamado.status == "cancelado" %}
 
                 <div class="acao-icon">
                     ℹ️
@@ -635,7 +864,7 @@ Visualização detalhada do pedido de emergência.
                 <div>
 
                     <span class="acao-kicker">
-                        STATUS DO CHAMADO
+                        CHAMADO CANCELADO
                     </span>
 
                     <h3>
@@ -643,8 +872,8 @@ Visualização detalhada do pedido de emergência.
                     </h3>
 
                     <p>
-                        O status atual deste chamado não permite
-                        o acionamento dos contatos.
+                        Este chamado foi cancelado e não pode
+                        mais receber ações administrativas.
                     </p>
 
                 </div>
@@ -654,11 +883,15 @@ Visualização detalhada do pedido de emergência.
         </div>
 
 
-        <!-- ================================================== -->
-        <!-- BOTÃO DE ACIONAMENTO -->
-        <!-- ================================================== -->
 
-        {% if chamado.status == "em_andamento" and contatos %}
+        <!-- ==================================================
+             BOTÕES / AÇÕES
+        ================================================== -->
+
+
+        <!-- ATIVO COM CONTATOS -->
+
+        {% if chamado.status == "ativo" and contatos %}
 
             <form
                 method="POST"
@@ -673,17 +906,139 @@ Visualização detalhada do pedido de emergência.
                     type="submit"
                     class="btn-acionar"
                 >
-
-                    <span>
-                        📞
-                    </span>
-
+                    <span>📞</span>
                     Acionar contatos de emergência
-
                 </button>
 
             </form>
 
+
+
+        <!-- ATIVO SEM CONTATOS -->
+
+        {% elif chamado.status == "ativo" and not contatos %}
+
+            <div class="encaminhamento-opcoes">
+
+
+                <!-- 190 -->
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'admin.encaminhar_chamado',
+                        id=chamado.id_sos
+                    ) }}"
+                    onsubmit="return confirmarEncaminhamento(
+                        'Emergência policial — 190'
+                    );"
+                >
+
+                    <input
+                        type="hidden"
+                        name="tipo_encaminhamento"
+                        value="190"
+                    >
+
+                    <button
+                        type="submit"
+                        class="btn-emergencia"
+                    >
+                        🚨 Emergência — 190
+                    </button>
+
+                </form>
+
+
+
+                <!-- 180 -->
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'admin.encaminhar_chamado',
+                        id=chamado.id_sos
+                    ) }}"
+                    onsubmit="return confirmarEncaminhamento(
+                        'Central de Atendimento à Mulher — 180'
+                    );"
+                >
+
+                    <input
+                        type="hidden"
+                        name="tipo_encaminhamento"
+                        value="180"
+                    >
+
+                    <button
+                        type="submit"
+                        class="btn-mulher"
+                    >
+                        💜 Atendimento à Mulher — 180
+                    </button>
+
+                </form>
+
+
+
+                <!-- 192 -->
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'admin.encaminhar_chamado',
+                        id=chamado.id_sos
+                    ) }}"
+                    onsubmit="return confirmarEncaminhamento(
+                        'Emergência médica — SAMU 192'
+                    );"
+                >
+
+                    <input
+                        type="hidden"
+                        name="tipo_encaminhamento"
+                        value="192"
+                    >
+
+                    <button
+                        type="submit"
+                        class="btn-samu"
+                    >
+                        🏥 Emergência médica — 192
+                    </button>
+
+                </form>
+
+            </div>
+
+
+
+        <!-- EM ANDAMENTO -->
+
+        {% elif chamado.status == "em_andamento" %}
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'admin.finalizar_chamado',
+                    id=chamado.id_sos
+                ) }}"
+                onsubmit="return confirmarFinalizacao();"
+            >
+
+                <button
+                    type="submit"
+                    class="btn-finalizar"
+                >
+                    <span>✓</span>
+                    Finalizar chamado
+                </button>
+
+            </form>
+
+
+
+        <!-- FINALIZADO -->
 
         {% elif chamado.status == "finalizado" %}
 
@@ -692,7 +1047,7 @@ Visualização detalhada do pedido de emergência.
                 class="btn-finalizado"
                 disabled
             >
-                ✓ Contatos acionados
+                ✓ Chamado finalizado
             </button>
 
         {% endif %}
@@ -700,9 +1055,10 @@ Visualização detalhada do pedido de emergência.
     </section>
 
 
-    <!-- ================================================== -->
-    <!-- VOLTAR -->
-    <!-- ================================================== -->
+
+    <!-- ==================================================
+         VOLTAR
+    ================================================== -->
 
     <div class="voltar-area">
 
@@ -718,17 +1074,40 @@ Visualização detalhada do pedido de emergência.
 </div>
 
 
-<!-- ================================================== -->
-<!-- CONFIRMAÇÃO -->
-<!-- ================================================== -->
+
+<!-- ==================================================
+     CONFIRMAÇÕES
+================================================== -->
 
 <script>
 
 function confirmarAcionamento() {
 
     return confirm(
-        "Tem certeza que deseja acionar os contatos de emergência deste chamado?\n\n" +
-        "Após a confirmação, o chamado será marcado como finalizado."
+        "Confirma que os contatos de emergência foram acionados?\n\n" +
+        "O chamado será marcado como EM ANDAMENTO."
+    );
+
+}
+
+
+function confirmarEncaminhamento(servico) {
+
+    return confirm(
+        "Registrar encaminhamento para:\n\n" +
+        servico +
+        "\n\nConfirme somente após realizar o contato pelo canal correspondente.\n\n" +
+        "O chamado será marcado como EM ANDAMENTO."
+    );
+
+}
+
+
+function confirmarFinalizacao() {
+
+    return confirm(
+        "Tem certeza que deseja finalizar este chamado?\n\n" +
+        "O atendimento será encerrado e o chamado será marcado como FINALIZADO."
     );
 
 }

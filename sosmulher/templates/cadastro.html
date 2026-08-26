@@ -6,9 +6,10 @@ Cadastro | SOSMulher
 
 
 {% block estilos %}
-
-<link rel="stylesheet" href="{{ url_for('static', filename='css/cadastro.css') }}">
-
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/cadastro.css') }}"
+>
 {% endblock %}
 
 
@@ -19,16 +20,13 @@ Cadastro | SOSMulher
     <div class="cadastro-card">
 
         <!-- CABEÇALHO -->
-
         <div class="cadastro-header">
 
             <div class="cadastro-icone">
-
                 <img
                     src="{{ url_for('static', filename='image/icons/cadeado.png') }}"
                     alt="Segurança"
                 >
-
             </div>
 
             <h1>
@@ -45,74 +43,54 @@ Cadastro | SOSMulher
 
 
         <!-- FORMULÁRIO -->
-
-<<<<<<< HEAD
-        <form method="POST" class="cadastro-form">
-=======
         <form
             method="POST"
             class="cadastro-form"
             novalidate
         >
->>>>>>> 27ff07f8fded14eb7b307a1e34455e9de4d05998
 
             {{ form.hidden_tag() }}
 
 
             <!-- NOME -->
-
             <div class="cadastro-campo">
 
                 {{ form.nome.label }}
 
                 {{ form.nome(
-<<<<<<< HEAD
-                placeholder="Digite seu nome completo"
-=======
                     placeholder="Digite seu nome completo",
                     autocomplete="name"
->>>>>>> 27ff07f8fded14eb7b307a1e34455e9de4d05998
                 ) }}
 
                 {% for erro in form.nome.errors %}
-
-                <span class="cadastro-erro">
-                    {{ erro }}
-                </span>
-
+                    <span class="cadastro-erro">
+                        {{ erro }}
+                    </span>
                 {% endfor %}
 
             </div>
 
 
             <!-- E-MAIL -->
-
             <div class="cadastro-campo">
 
                 {{ form.email.label }}
 
                 {{ form.email(
-<<<<<<< HEAD
-                placeholder="Digite seu e-mail"
-=======
                     placeholder="Digite seu e-mail",
                     autocomplete="email"
->>>>>>> 27ff07f8fded14eb7b307a1e34455e9de4d05998
                 ) }}
 
                 {% for erro in form.email.errors %}
-
-                <span class="cadastro-erro">
-                    {{ erro }}
-                </span>
-
+                    <span class="cadastro-erro">
+                        {{ erro }}
+                    </span>
                 {% endfor %}
 
             </div>
 
 
             <!-- CPF + TELEFONE -->
-
             <div class="cadastro-dupla">
 
                 <div class="cadastro-campo">
@@ -120,21 +98,15 @@ Cadastro | SOSMulher
                     {{ form.cpf.label }}
 
                     {{ form.cpf(
-<<<<<<< HEAD
-                    placeholder="Digite seu CPF"
-=======
                         placeholder="000.000.000-00",
                         inputmode="numeric",
                         autocomplete="off"
->>>>>>> 27ff07f8fded14eb7b307a1e34455e9de4d05998
                     ) }}
 
                     {% for erro in form.cpf.errors %}
-
-                    <span class="cadastro-erro">
-                        {{ erro }}
-                    </span>
-
+                        <span class="cadastro-erro">
+                            {{ erro }}
+                        </span>
                     {% endfor %}
 
                 </div>
@@ -145,21 +117,15 @@ Cadastro | SOSMulher
                     {{ form.telefone.label }}
 
                     {{ form.telefone(
-<<<<<<< HEAD
-                    placeholder="Digite seu telefone"
-=======
                         placeholder="(11) 99999-9999",
                         inputmode="tel",
                         autocomplete="tel"
->>>>>>> 27ff07f8fded14eb7b307a1e34455e9de4d05998
                     ) }}
 
                     {% for erro in form.telefone.errors %}
-
-                    <span class="cadastro-erro">
-                        {{ erro }}
-                    </span>
-
+                        <span class="cadastro-erro">
+                            {{ erro }}
+                        </span>
                     {% endfor %}
 
                 </div>
@@ -168,7 +134,6 @@ Cadastro | SOSMulher
 
 
             <!-- SENHA + CONFIRMAÇÃO -->
-
             <div class="cadastro-dupla">
 
                 <div class="cadastro-campo">
@@ -176,20 +141,14 @@ Cadastro | SOSMulher
                     {{ form.senha.label }}
 
                     {{ form.senha(
-<<<<<<< HEAD
-                    placeholder="Crie uma senha"
-=======
                         placeholder="Crie uma senha",
                         autocomplete="new-password"
->>>>>>> 27ff07f8fded14eb7b307a1e34455e9de4d05998
                     ) }}
 
                     {% for erro in form.senha.errors %}
-
-                    <span class="cadastro-erro">
-                        {{ erro }}
-                    </span>
-
+                        <span class="cadastro-erro">
+                            {{ erro }}
+                        </span>
                     {% endfor %}
 
                 </div>
@@ -199,19 +158,15 @@ Cadastro | SOSMulher
 
                     {{ form.confirmar_senha.label }}
 
-                    {{ form.confirmar_senha(                 
-
+                    {{ form.confirmar_senha(
                         placeholder="Confirme sua senha",
                         autocomplete="new-password"
-
                     ) }}
 
                     {% for erro in form.confirmar_senha.errors %}
-
-                    <span class="cadastro-erro">
-                        {{ erro }}
-                    </span>
-
+                        <span class="cadastro-erro">
+                            {{ erro }}
+                        </span>
                     {% endfor %}
 
                 </div>
@@ -223,24 +178,30 @@ Cadastro | SOSMulher
             <div class="cadastro-termos">
 
                 <div class="cadastro-termos-checkbox">
+
                     {{ form.aceite_termos() }}
 
                     <label for="{{ form.aceite_termos.id }}">
                         Li e aceito os
+
                         <a href="{{ url_for('home.termos_uso') }}">
                             Termos de Uso
                         </a>
+
                         e a
+
                         <a href="{{ url_for('home.politica_privacidade') }}">
                             Política de Privacidade
                         </a>.
+
                     </label>
+
                 </div>
 
                 {% for erro in form.aceite_termos.errors %}
-                <span class="cadastro-erro">
-                    {{ erro }}
-                </span>
+                    <span class="cadastro-erro">
+                        {{ erro }}
+                    </span>
                 {% endfor %}
 
             </div>
@@ -248,14 +209,13 @@ Cadastro | SOSMulher
 
             <!-- BOTÃO -->
             {{ form.botao_cadastro(
-            class="cadastro-botao"
+                class="cadastro-botao"
             ) }}
 
         </form>
 
 
         <!-- LOGIN -->
-
         <div class="cadastro-login">
 
             Já possui uma conta?
@@ -268,12 +228,9 @@ Cadastro | SOSMulher
 
 
         <!-- SEGURANÇA -->
-
         <div class="cadastro-seguranca">
-
             Seus dados são tratados com segurança
             e confidencialidade.
-
         </div>
 
     </div>

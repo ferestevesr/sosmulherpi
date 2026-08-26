@@ -32,11 +32,38 @@ class PedidoSOS(db.Model):
         nullable=False
     )
 
+    # ==========================
+    # STATUS DO CHAMADO
+    # ==========================
+
     status = db.Column(
         db.String(30),
-        default="em_andamento",
+        default="ativo",
         nullable=False
     )
+
+    # ==========================
+    # ENCAMINHAMENTO
+    # ==========================
+
+    tipo_encaminhamento = db.Column(
+        db.String(30),
+        nullable=True
+    )
+
+    data_encaminhamento = db.Column(
+        db.DateTime,
+        nullable=True
+    )
+
+    observacao_encaminhamento = db.Column(
+        db.String(255),
+        nullable=True
+    )
+
+    # ==========================
+    # RELACIONAMENTOS
+    # ==========================
 
     usuario = db.relationship(
         "Usuario",

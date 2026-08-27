@@ -75,14 +75,12 @@ Visualização detalhada e acompanhamento da denúncia.
                     Pendente
                 </span>
 
-
             {% elif atendimento.status == "em_andamento" %}
 
                 <span class="atendimento-status andamento">
                     <span class="status-dot"></span>
                     Em andamento
                 </span>
-
 
             {% elif atendimento.status == "finalizado" %}
 
@@ -91,14 +89,12 @@ Visualização detalhada e acompanhamento da denúncia.
                     Finalizado
                 </span>
 
-
             {% elif atendimento.status == "cancelado" %}
 
                 <span class="atendimento-status cancelado">
                     <span class="status-dot"></span>
                     Cancelado
                 </span>
-
 
             {% else %}
 
@@ -111,7 +107,6 @@ Visualização detalhada e acompanhamento da denúncia.
         </div>
 
     </section>
-
 
 
     <!-- ==================================================
@@ -142,7 +137,6 @@ Visualização detalhada e acompanhamento da denúncia.
 
         </section>
 
-
     {% elif atendimento.status == "em_andamento" %}
 
         <section class="atendimento-alerta andamento-alerta">
@@ -159,14 +153,13 @@ Visualização detalhada e acompanhamento da denúncia.
 
                 <p>
                     Esta denúncia está sendo acompanhada.
-                    Após concluir a análise e as ações necessárias,
-                    finalize o atendimento.
+                    Você pode enviar atualizações para a usuária
+                    durante o atendimento.
                 </p>
 
             </div>
 
         </section>
-
 
     {% elif atendimento.status == "finalizado" %}
 
@@ -192,7 +185,6 @@ Visualização detalhada e acompanhamento da denúncia.
         </section>
 
     {% endif %}
-
 
 
     <!-- ==================================================
@@ -285,7 +277,6 @@ Visualização detalhada e acompanhamento da denúncia.
             </div>
 
         </section>
-
 
 
         <!-- ==================================================
@@ -386,20 +377,17 @@ Visualização detalhada e acompanhamento da denúncia.
                                 Pendente
                             </span>
 
-
                         {% elif atendimento.status == "em_andamento" %}
 
                             <span class="mini-status andamento">
                                 Em andamento
                             </span>
 
-
                         {% elif atendimento.status == "finalizado" %}
 
                             <span class="mini-status finalizado">
                                 Finalizado
                             </span>
-
 
                         {% elif atendimento.status == "cancelado" %}
 
@@ -416,7 +404,6 @@ Visualização detalhada e acompanhamento da denúncia.
             </div>
 
         </section>
-
 
 
         <!-- ==================================================
@@ -454,13 +441,11 @@ Visualização detalhada e acompanhamento da denúncia.
                         🟢 Risco baixo
                     </span>
 
-
                 {% elif atendimento.nivel_risco == "medio" %}
 
                     <span class="risco-badge medio">
                         🟡 Risco médio
                     </span>
-
 
                 {% elif atendimento.nivel_risco == "alto" %}
 
@@ -468,13 +453,11 @@ Visualização detalhada e acompanhamento da denúncia.
                         🟠 Risco alto
                     </span>
 
-
                 {% elif atendimento.nivel_risco == "emergencia" %}
 
                     <span class="risco-badge emergencia">
                         🔴 Emergência
                     </span>
-
 
                 {% else %}
 
@@ -492,18 +475,15 @@ Visualização detalhada e acompanhamento da denúncia.
                         Situação registrada com menor nível de prioridade,
                         mas que ainda necessita análise e acompanhamento.
 
-
                     {% elif atendimento.nivel_risco == "medio" %}
 
                         Situação que requer atenção e acompanhamento
                         durante o atendimento.
 
-
                     {% elif atendimento.nivel_risco == "alto" %}
 
                         Situação de alta prioridade que requer
                         atenção cuidadosa da equipe.
-
 
                     {% elif atendimento.nivel_risco == "emergencia" %}
 
@@ -517,7 +497,6 @@ Visualização detalhada e acompanhamento da denúncia.
             </div>
 
         </section>
-
 
 
         <!-- ==================================================
@@ -557,7 +536,6 @@ Visualização detalhada e acompanhamento da denúncia.
                     {{ atendimento.titulo }}
                 </strong>
 
-
                 <span>
                     Categoria
                 </span>
@@ -573,9 +551,7 @@ Visualização detalhada e acompanhamento da denúncia.
 
         </section>
 
-
     </div>
-
 
 
     <!-- ==================================================
@@ -606,13 +582,10 @@ Visualização detalhada e acompanhamento da denúncia.
 
 
         <div class="descricao-conteudo">
-
             {{ atendimento.descricao }}
-
         </div>
 
     </section>
-
 
 
     <!-- ==================================================
@@ -709,7 +682,6 @@ Visualização detalhada e acompanhamento da denúncia.
 
         </section>
 
-
     {% else %}
 
         <section class="atendimento-card evidencias-card">
@@ -756,17 +728,177 @@ Visualização detalhada e acompanhamento da denúncia.
     {% endif %}
 
 
-
     <!-- ==================================================
-         AÇÃO ADMINISTRATIVA
+         HISTÓRICO DE ATUALIZAÇÕES
     ================================================== -->
 
-    <section class="acao-atendimento-card">
+    <section class="atendimento-card historico-atualizacoes-card">
 
-        <div class="acao-atendimento-info">
+        <div class="card-header">
+
+            <div>
+
+                <span class="card-kicker">
+                    ACOMPANHAMENTO
+                </span>
+
+                <h3>
+                    Histórico de atualizações
+                </h3>
+
+            </div>
+
+            <div class="card-header-icon">
+                💬
+            </div>
+
+        </div>
 
 
-            {% if atendimento.status == "pendente" %}
+        {% if atualizacoes %}
+
+            <div class="historico-atualizacoes">
+
+                {% for atualizacao in atualizacoes %}
+
+                    <div class="historico-item">
+
+                        <div class="historico-linha">
+
+                            <div class="historico-marcador">
+                                ●
+                            </div>
+
+
+                            <div class="historico-conteudo">
+
+                                <div class="historico-topo">
+
+                                    <div>
+
+                                        <strong>
+                                            Equipe SOSMulher
+                                        </strong>
+
+                                        {% if atualizacao.admin %}
+
+                                            <span class="historico-admin">
+                                                {{ atualizacao.admin.nome }}
+                                            </span>
+
+                                        {% endif %}
+
+                                    </div>
+
+
+                                    <span class="historico-data">
+                                        {{ atualizacao.data.strftime(
+                                            '%d/%m/%Y às %H:%M'
+                                        ) }}
+                                    </span>
+
+                                </div>
+
+
+                                <p class="historico-mensagem">
+                                    {{ atualizacao.mensagem }}
+                                </p>
+
+
+                                {% if (
+                                    atualizacao.status_anterior
+                                    !=
+                                    atualizacao.status_novo
+                                ) %}
+
+                                    <div class="historico-status">
+
+                                        <span>
+                                            {{
+                                                atualizacao.status_anterior
+                                                |replace('_', ' ')
+                                                |title
+                                            }}
+                                        </span>
+
+                                        <span class="historico-seta">
+                                            →
+                                        </span>
+
+                                        <strong>
+                                            {{
+                                                atualizacao.status_novo
+                                                |replace('_', ' ')
+                                                |title
+                                            }}
+                                        </strong>
+
+                                    </div>
+
+                                {% endif %}
+
+
+                                <div class="historico-leitura">
+
+                                    {% if atualizacao.lida %}
+
+                                        <span class="notificacao-lida">
+                                            ✓ Visualizada pela usuária
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="notificacao-nao-lida">
+                                            ● Ainda não visualizada
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="sem-atualizacoes">
+
+                <span>
+                    💬
+                </span>
+
+                <strong>
+                    Nenhuma atualização registrada
+                </strong>
+
+                <p>
+                    As mensagens e alterações deste atendimento
+                    aparecerão aqui.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- ==================================================
+         INICIAR ATENDIMENTO
+    ================================================== -->
+
+    {% if atendimento.status == "pendente" %}
+
+        <section class="acao-atendimento-card">
+
+            <div class="acao-atendimento-info">
 
                 <div class="acao-icon">
                     ▶
@@ -784,23 +916,153 @@ Visualização detalhada e acompanhamento da denúncia.
 
                     <p>
                         Ao iniciar, a denúncia será marcada como
-                        em andamento e passará a constar como
-                        atendimento ativo.
+                        em andamento e a usuária receberá uma
+                        notificação.
                     </p>
 
                 </div>
 
+            </div>
 
-            {% elif atendimento.status == "em_andamento" %}
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'admin.iniciar_atendimento',
+                    id=atendimento.id_denuncia
+                ) }}"
+                class="form-acao-atendimento"
+                onsubmit="return confirmarInicio();"
+            >
+
+                <div class="campo-mensagem">
+
+                    <label for="mensagem-inicio">
+                        Mensagem para a usuária
+                    </label>
+
+                    <textarea
+                        id="mensagem-inicio"
+                        name="mensagem"
+                        rows="4"
+                        placeholder="Ex: Recebemos sua denúncia e iniciamos a análise do caso."
+                    ></textarea>
+
+                    <small>
+                        Se deixar vazio, o sistema enviará
+                        uma mensagem automática.
+                    </small>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn-iniciar-atendimento"
+                >
+                    ▶ Iniciar atendimento
+                </button>
+
+            </form>
+
+        </section>
+
+    {% endif %}
+
+
+    <!-- ==================================================
+         ENVIAR ATUALIZAÇÃO
+    ================================================== -->
+
+    {% if atendimento.status == "em_andamento" %}
+
+        <section class="acao-atendimento-card atualizacao-card">
+
+            <div class="acao-atendimento-info">
 
                 <div class="acao-icon andamento">
-                    ⚠️
+                    💬
                 </div>
 
                 <div>
 
                     <span class="acao-kicker">
-                        ATENDIMENTO EM ANDAMENTO
+                        COMUNICAÇÃO
+                    </span>
+
+                    <h3>
+                        Enviar atualização
+                    </h3>
+
+                    <p>
+                        Envie uma nova informação para a usuária
+                        sem alterar o status da denúncia.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'admin.adicionar_atualizacao',
+                    id=atendimento.id_denuncia
+                ) }}"
+                class="form-acao-atendimento"
+            >
+
+                <div class="campo-mensagem">
+
+                    <label for="mensagem-atualizacao">
+                        Atualização do atendimento
+                    </label>
+
+                    <textarea
+                        id="mensagem-atualizacao"
+                        name="mensagem"
+                        rows="4"
+                        required
+                        placeholder="Ex: Estamos analisando as evidências enviadas."
+                    ></textarea>
+
+                    <small>
+                        Essa mensagem será enviada como
+                        uma nova notificação para a usuária.
+                    </small>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn-enviar-atualizacao"
+                >
+                    💬 Enviar atualização
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- ==================================================
+             FINALIZAR ATENDIMENTO
+        ================================================== -->
+
+        <section class="acao-atendimento-card finalizar-card">
+
+            <div class="acao-atendimento-info">
+
+                <div class="acao-icon andamento">
+                    ✓
+                </div>
+
+                <div>
+
+                    <span class="acao-kicker">
+                        CONCLUSÃO
                     </span>
 
                     <h3>
@@ -814,8 +1076,63 @@ Visualização detalhada e acompanhamento da denúncia.
 
                 </div>
 
+            </div>
 
-            {% elif atendimento.status == "finalizado" %}
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'admin.finalizar_atendimento',
+                    id=atendimento.id_denuncia
+                ) }}"
+                class="form-acao-atendimento"
+                onsubmit="return confirmarFinalizacao();"
+            >
+
+                <div class="campo-mensagem">
+
+                    <label for="mensagem-finalizacao">
+                        Mensagem de finalização
+                    </label>
+
+                    <textarea
+                        id="mensagem-finalizacao"
+                        name="mensagem"
+                        rows="4"
+                        placeholder="Ex: O atendimento foi concluído e as orientações necessárias foram encaminhadas."
+                    ></textarea>
+
+                    <small>
+                        Se deixar vazio, o sistema enviará
+                        uma mensagem automática de finalização.
+                    </small>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn-finalizar-atendimento"
+                >
+                    ✓ Finalizar atendimento
+                </button>
+
+            </form>
+
+        </section>
+
+    {% endif %}
+
+
+    <!-- ==================================================
+         ATENDIMENTO FINALIZADO
+    ================================================== -->
+
+    {% if atendimento.status == "finalizado" %}
+
+        <section class="acao-atendimento-card">
+
+            <div class="acao-atendimento-info">
 
                 <div class="acao-icon finalizado">
                     ✓
@@ -838,57 +1155,8 @@ Visualização detalhada e acompanhamento da denúncia.
 
                 </div>
 
-            {% endif %}
+            </div>
 
-        </div>
-
-
-
-        <!-- BOTÕES -->
-
-        {% if atendimento.status == "pendente" %}
-
-            <form
-                method="POST"
-                action="{{ url_for(
-                    'admin.iniciar_atendimento',
-                    id=atendimento.id_denuncia
-                ) }}"
-                onsubmit="return confirmarInicio();"
-            >
-
-                <button
-                    type="submit"
-                    class="btn-iniciar-atendimento"
-                >
-                    ▶ Iniciar atendimento
-                </button>
-
-            </form>
-
-
-        {% elif atendimento.status == "em_andamento" %}
-
-            <form
-                method="POST"
-                action="{{ url_for(
-                    'admin.finalizar_atendimento',
-                    id=atendimento.id_denuncia
-                ) }}"
-                onsubmit="return confirmarFinalizacao();"
-            >
-
-                <button
-                    type="submit"
-                    class="btn-finalizar-atendimento"
-                >
-                    ✓ Finalizar atendimento
-                </button>
-
-            </form>
-
-
-        {% elif atendimento.status == "finalizado" %}
 
             <button
                 type="button"
@@ -898,10 +1166,9 @@ Visualização detalhada e acompanhamento da denúncia.
                 ✓ Atendimento concluído
             </button>
 
-        {% endif %}
+        </section>
 
-    </section>
-
+    {% endif %}
 
 
     <!-- ==================================================
@@ -922,14 +1189,14 @@ Visualização detalhada e acompanhamento da denúncia.
 </div>
 
 
-
 <script>
 
 function confirmarInicio() {
 
     return confirm(
         "Deseja iniciar o atendimento desta denúncia?\n\n" +
-        "O status será alterado para EM ANDAMENTO."
+        "O status será alterado para EM ANDAMENTO e " +
+        "a usuária receberá uma notificação."
     );
 
 }
@@ -939,7 +1206,8 @@ function confirmarFinalizacao() {
 
     return confirm(
         "Tem certeza que deseja finalizar este atendimento?\n\n" +
-        "A denúncia será marcada como FINALIZADA."
+        "A denúncia será marcada como FINALIZADA e " +
+        "a usuária receberá uma notificação."
     );
 
 }

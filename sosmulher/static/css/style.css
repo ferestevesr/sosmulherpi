@@ -993,7 +993,96 @@ footer {
   color: #222222;
 }
 
+/* =========================================================
+   NOTIFICAÇÕES - HEADER
+========================================================= */
 
+.notificacao-nav {
+  position: relative;
+
+  width: 42px;
+  height: 42px;
+
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 !important;
+
+  border-radius: 50%;
+
+  background: #fff1f6;
+
+  text-decoration: none;
+
+  transition:
+      background 0.2s ease,
+      transform 0.2s ease;
+}
+
+
+.notificacao-nav:hover {
+  background: #ffe2ed;
+
+  transform: translateY(-2px);
+}
+
+
+.notificacao-sino {
+  display: block;
+
+  font-size: 19px;
+  line-height: 1;
+}
+
+
+.notificacao-contador {
+  position: absolute;
+
+  top: -5px;
+  right: -6px;
+
+  min-width: 20px;
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 5px;
+
+  background: #e63962;
+  color: #ffffff;
+
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  line-height: 1;
+
+  box-shadow:
+      0 3px 8px
+      rgba(230, 57, 98, 0.28);
+}
+
+
+/* CELULAR */
+
+@media (max-width: 650px) {
+
+  .notificacao-nav {
+      width: 38px;
+      height: 38px;
+  }
+
+
+  .notificacao-sino {
+      font-size: 17px;
+  }
+
+}
 /* =========================================================
  ANIMAÇÃO TOAST
 ========================================================= */

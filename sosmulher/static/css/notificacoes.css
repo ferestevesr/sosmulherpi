@@ -1,0 +1,342 @@
+/* =========================================
+   PÁGINA
+========================================= */
+
+.notificacoes-page {
+    min-height: calc(100vh - 90px);
+    padding: 40px 20px 80px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff8fc 0%,
+            #fff5fb 50%,
+            #ffffff 100%
+        );
+}
+
+.notificacoes-container {
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   CABEÇALHO
+========================================= */
+
+.notificacoes-header {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.notificacoes-tag {
+    display: inline-block;
+
+    padding: 7px 14px;
+
+    background: #fde7f2;
+    color: #e63d8f;
+
+    border-radius: 999px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+.notificacoes-header h1 {
+    font-size: 38px;
+    color: #242424;
+
+    margin-bottom: 10px;
+}
+
+.notificacoes-header p {
+    color: #777;
+
+    font-size: 16px;
+    line-height: 1.6;
+
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   LISTA
+========================================= */
+
+.lista-notificacoes {
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.notificacao-card {
+    position: relative;
+
+    background: #ffffff;
+
+    border: 1px solid #f3d7e5;
+    border-radius: 18px;
+
+    padding: 24px 26px;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.06);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.notificacao-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 38px rgba(230, 73, 155, 0.12);
+}
+
+
+/* =========================================
+   TOPO DO CARD
+========================================= */
+
+.notificacao-card-topo {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+.notificacao-icone {
+    width: 52px;
+    height: 52px;
+
+    min-width: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe2f0,
+            #f8d9ff
+        );
+
+    border-radius: 50%;
+
+    font-size: 24px;
+}
+
+.notificacao-card-topo h2 {
+    margin: 0 0 4px;
+
+    font-size: 20px;
+    color: #2d2d2d;
+}
+
+.notificacao-data {
+    font-size: 13px;
+    color: #999;
+}
+
+
+/* =========================================
+   MENSAGEM
+========================================= */
+
+.notificacao-mensagem {
+    padding: 16px 18px;
+
+    margin-bottom: 16px;
+
+    background: #fff7fb;
+
+    border-left: 4px solid #ec4899;
+    border-radius: 10px;
+
+    color: #555;
+
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.notificacao-status {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 18px;
+
+    font-size: 14px;
+}
+
+.notificacao-status span {
+    color: #777;
+}
+
+.notificacao-status strong {
+    padding: 5px 10px;
+
+    background: #fde6f2;
+    color: #d63384;
+
+    border-radius: 999px;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   BOTÃO
+========================================= */
+
+.btn-denuncias {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 11px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff4f88,
+            #e649d1
+        );
+
+    color: #ffffff;
+
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 8px 22px rgba(230, 73, 155, 0.23);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.btn-denuncias:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 26px rgba(230, 73, 155, 0.32);
+}
+
+
+/* =========================================
+   ESTADO VAZIO
+========================================= */
+
+.notificacao-vazia {
+    background: #ffffff;
+
+    border: 1px solid #f3d7e5;
+    border-radius: 20px;
+
+    padding: 55px 30px;
+
+    text-align: center;
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.06);
+}
+
+.icone-notificacao {
+    width: 75px;
+    height: 75px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe2f0,
+            #f6d7ff
+        );
+
+    border-radius: 50%;
+
+    font-size: 32px;
+}
+
+.notificacao-vazia h2 {
+    margin-bottom: 10px;
+
+    font-size: 23px;
+    color: #2e2e2e;
+}
+
+.notificacao-vazia p {
+    max-width: 500px;
+
+    margin: 0 auto 25px;
+
+    color: #777;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   RESPONSIVO
+========================================= */
+
+@media (max-width: 700px) {
+
+    .notificacoes-page {
+        padding: 25px 15px 60px;
+    }
+
+    .notificacoes-header {
+        margin-bottom: 30px;
+    }
+
+    .notificacoes-header h1 {
+        font-size: 30px;
+    }
+
+    .notificacao-card {
+        padding: 20px;
+    }
+
+    .notificacao-card-topo {
+        align-items: flex-start;
+    }
+
+    .notificacao-card-topo h2 {
+        font-size: 18px;
+    }
+
+    .notificacao-mensagem {
+        font-size: 14px;
+    }
+}

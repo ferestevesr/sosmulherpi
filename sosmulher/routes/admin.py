@@ -1,13 +1,22 @@
-from flask import ( Blueprint, render_template, redirect, url_for, flash, request )
+from flask import (
+    Blueprint,
+    render_template,
+    redirect,
+    url_for,
+    flash,
+    request
+)
+
 from datetime import datetime
 from flask_login import login_required, current_user
 
 from sosmulher import db
+
 from sosmulher.models.usuario import Usuario
 from sosmulher.models.denuncia import Denuncia
 from sosmulher.models.pedido_sos import PedidoSOS
 from sosmulher.models.pedido_sos_contato import PedidoSOSContato
-
+from sosmulher.models.atualizacao_denuncia import AtualizacaoDenuncia
 
 
 admin = Blueprint(
@@ -17,20 +26,36 @@ admin = Blueprint(
 )
 
 
-# ==========================
+# =========================================================
+# VERIFICAR ADMIN
+# =========================================================
+
+def usuario_e_admin():
+
+    return (
+        current_user.is_authenticated
+        and current_user.tipo == "admin"
+    )
+
+
+# =========================================================
 # DASHBOARD
-# ==========================
+# =========================================================
 
 @admin.route("/")
 @login_required
 def dashboard():
 
-    if current_user.tipo != "admin":
+    if not usuario_e_admin():
+
         flash(
             "Você não tem permissão para acessar esta página.",
             "danger"
         )
-        return redirect(url_for("home.index"))
+
+        return redirect(
+            url_for("home.index")
+        )
 
     total_usuarios = Usuario.query.count()
 
@@ -63,20 +88,24 @@ def dashboard():
     )
 
 
-# ==========================
+# =========================================================
 # USUÁRIOS
-# ==========================
+# =========================================================
 
 @admin.route("/usuarios")
 @login_required
 def usuarios():
 
-    if current_user.tipo != "admin":
+    if not usuario_e_admin():
+
         flash(
             "Você não tem permissão para acessar esta página.",
             "danger"
         )
-        return redirect(url_for("home.index"))
+
+        return redirect(
+            url_for("home.index")
+        )
 
     usuarios = Usuario.query.all()
 
@@ -86,20 +115,24 @@ def usuarios():
     )
 
 
-# ==========================
+# =========================================================
 # CHAMADOS SOS
-# ==========================
+# =========================================================
 
 @admin.route("/chamados")
 @login_required
 def chamados():
 
-    if current_user.tipo != "admin":
+    if not usuario_e_admin():
+
         flash(
             "Você não tem permissão para acessar esta página.",
             "danger"
         )
-        return redirect(url_for("home.index"))
+
+        return redirect(
+            url_for("home.index")
+        )
 
     chamados = PedidoSOS.query.order_by(
         PedidoSOS.data_hora.desc()
@@ -129,20 +162,24 @@ def chamados():
     )
 
 
-# ==========================
+# =========================================================
 # VISUALIZAR CHAMADO SOS
-# ==========================
+# =========================================================
 
 @admin.route("/chamados/<int:id>")
 @login_required
 def visualizar_chamado(id):
 
-    if current_user.tipo != "admin":
+    if not usuario_e_admin():
+
         flash(
             "Você não tem permissão para acessar esta página.",
             "danger"
         )
-        return redirect(url_for("home.index"))
+
+        return redirect(
+            url_for("home.index")
+        )
 
     chamado = PedidoSOS.query.get_or_404(id)
 
@@ -156,9 +193,10 @@ def visualizar_chamado(id):
         contatos=contatos
     )
 
-# ==========================
+
+# =========================================================
 # ACIONAR CONTATOS DE EMERGÊNCIA
-# ==========================
+# =========================================================
 
 @admin.route(
     "/chamados/<int:id>/acionar-contatos",
@@ -167,16 +205,19 @@ def visualizar_chamado(id):
 @login_required
 def acionar_contatos(id):
 
-    if current_user.tipo != "admin":
+    if not usuario_e_admin():
+
         flash(
             "Você não tem permissão para realizar esta ação.",
             "danger"
         )
-        return redirect(url_for("home.index"))
+
+        return redirect(
+            url_for("home.index")
+        )
 
     chamado = PedidoSOS.query.get_or_404(id)
 
-    # Chamado finalizado não pode ser acionado novamente
     if chamado.status == "finalizado":
 
         flash(
@@ -191,7 +232,6 @@ def acionar_contatos(id):
             )
         )
 
-    # Chamado em andamento já teve os contatos acionados
     if chamado.status == "em_andamento":
 
         flash(
@@ -206,7 +246,6 @@ def acionar_contatos(id):
             )
         )
 
-    # Apenas chamado ATIVO pode iniciar atendimento
     if chamado.status != "ativo":
 
         flash(
@@ -221,7 +260,6 @@ def acionar_contatos(id):
             )
         )
 
-    # Verifica contatos vinculados
     contatos = PedidoSOSContato.query.filter_by(
         id_sos=chamado.id_sos
     ).all()
@@ -240,7 +278,6 @@ def acionar_contatos(id):
             )
         )
 
-    # Contatos acionados -> atendimento começa
     chamado.status = "em_andamento"
 
     db.session.commit()
@@ -257,9 +294,11 @@ def acionar_contatos(id):
             id=chamado.id_sos
         )
     )
-# ==========================
+
+
+# =========================================================
 # ENCAMINHAR CHAMADO
-# ==========================
+# =========================================================
 
 @admin.route(
     "/chamados/<int:id>/encaminhar",
@@ -268,16 +307,19 @@ def acionar_contatos(id):
 @login_required
 def encaminhar_chamado(id):
 
-    if current_user.tipo != "admin":
+    if not usuario_e_admin():
+
         flash(
             "Você não tem permissão para realizar esta ação.",
             "danger"
         )
-        return redirect(url_for("home.index"))
+
+        return redirect(
+            url_for("home.index")
+        )
 
     chamado = PedidoSOS.query.get_or_404(id)
 
-    # Só chamados ativos podem ser encaminhados
     if chamado.status != "ativo":
 
         flash(
@@ -292,12 +334,10 @@ def encaminhar_chamado(id):
             )
         )
 
-    # Verifica se existem contatos pessoais
     contatos = PedidoSOSContato.query.filter_by(
         id_sos=chamado.id_sos
     ).all()
 
-    # Se existem contatos, usa o fluxo normal
     if contatos:
 
         flash(
@@ -337,7 +377,6 @@ def encaminhar_chamado(id):
             )
         )
 
-    # Registra o encaminhamento
     chamado.tipo_encaminhamento = tipo
 
     chamado.data_encaminhamento = datetime.now()
@@ -346,7 +385,6 @@ def encaminhar_chamado(id):
         encaminhamentos_validos[tipo]
     )
 
-    # Atendimento passa para em andamento
     chamado.status = "em_andamento"
 
     db.session.commit()
@@ -365,9 +403,11 @@ def encaminhar_chamado(id):
             id=chamado.id_sos
         )
     )
-# ==========================
+
+
+# =========================================================
 # FINALIZAR CHAMADO SOS
-# ==========================
+# =========================================================
 
 @admin.route(
     "/chamados/<int:id>/finalizar",
@@ -376,7 +416,7 @@ def encaminhar_chamado(id):
 @login_required
 def finalizar_chamado(id):
 
-    if current_user.tipo != "admin":
+    if not usuario_e_admin():
 
         flash(
             "Você não tem permissão para realizar esta ação.",
@@ -389,7 +429,6 @@ def finalizar_chamado(id):
 
     chamado = PedidoSOS.query.get_or_404(id)
 
-    # Já finalizado
     if chamado.status == "finalizado":
 
         flash(
@@ -404,7 +443,6 @@ def finalizar_chamado(id):
             )
         )
 
-    # Só pode finalizar depois de iniciar atendimento
     if chamado.status != "em_andamento":
 
         flash(
@@ -434,22 +472,30 @@ def finalizar_chamado(id):
             id=chamado.id_sos
         )
     )
-# ==========================
-# ATENDIMENTO
-# ==========================
+
+
+# =========================================================
+# ATENDIMENTOS / DENÚNCIAS
+# =========================================================
 
 @admin.route("/atendimento")
 @login_required
 def atendimento():
 
-    if current_user.tipo != "admin":
+    if not usuario_e_admin():
+
         flash(
             "Você não tem permissão para acessar esta página.",
             "danger"
         )
-        return redirect(url_for("home.index"))
 
-    atendimentos = Denuncia.query.all()
+        return redirect(
+            url_for("home.index")
+        )
+
+    atendimentos = Denuncia.query.order_by(
+        Denuncia.data.desc()
+    ).all()
 
     atendimentos_pendentes = Denuncia.query.filter_by(
         status="pendente"
@@ -475,31 +521,43 @@ def atendimento():
     )
 
 
-# ==========================
+# =========================================================
 # VISUALIZAR ATENDIMENTO
-# ==========================
+# =========================================================
 
 @admin.route("/atendimento/<int:id>")
 @login_required
 def visualizar_atendimento(id):
 
-    if current_user.tipo != "admin":
+    if not usuario_e_admin():
+
         flash(
             "Você não tem permissão para acessar esta página.",
             "danger"
         )
-        return redirect(url_for("home.index"))
+
+        return redirect(
+            url_for("home.index")
+        )
 
     atendimento = Denuncia.query.get_or_404(id)
 
+    atualizacoes = AtualizacaoDenuncia.query.filter_by(
+        id_denuncia=atendimento.id_denuncia
+    ).order_by(
+        AtualizacaoDenuncia.data.desc()
+    ).all()
+
     return render_template(
         "admin/visualizar_atendimento.html",
-        atendimento=atendimento
+        atendimento=atendimento,
+        atualizacoes=atualizacoes
     )
 
-# ==========================
+
+# =========================================================
 # INICIAR ATENDIMENTO
-# ==========================
+# =========================================================
 
 @admin.route(
     "/atendimento/<int:id>/iniciar",
@@ -508,16 +566,19 @@ def visualizar_atendimento(id):
 @login_required
 def iniciar_atendimento(id):
 
-    if current_user.tipo != "admin":
+    if not usuario_e_admin():
+
         flash(
             "Você não tem permissão para realizar esta ação.",
             "danger"
         )
-        return redirect(url_for("home.index"))
+
+        return redirect(
+            url_for("home.index")
+        )
 
     denuncia = Denuncia.query.get_or_404(id)
 
-    # Já finalizada
     if denuncia.status == "finalizado":
 
         flash(
@@ -532,7 +593,6 @@ def iniciar_atendimento(id):
             )
         )
 
-    # Já está em atendimento
     if denuncia.status == "em_andamento":
 
         flash(
@@ -547,7 +607,6 @@ def iniciar_atendimento(id):
             )
         )
 
-    # Apenas pendente pode iniciar atendimento
     if denuncia.status != "pendente":
 
         flash(
@@ -562,7 +621,38 @@ def iniciar_atendimento(id):
             )
         )
 
+    # Guarda status anterior
+    status_anterior = denuncia.status
+
+    # Mensagem digitada pelo admin
+    mensagem = request.form.get(
+        "mensagem",
+        ""
+    ).strip()
+
+    # Novo status
     denuncia.status = "em_andamento"
+
+    # Se o admin não escrever nada,
+    # cria mensagem automaticamente
+    if not mensagem:
+
+        mensagem = (
+            f"Atendimento iniciado. "
+            f"Protocolo #{denuncia.id_denuncia:06d}."
+        )
+
+    # Cria atualização / notificação
+    atualizacao = AtualizacaoDenuncia(
+        id_denuncia=denuncia.id_denuncia,
+        id_admin=current_user.id_usuario,
+        mensagem=mensagem,
+        status_anterior=status_anterior,
+        status_novo="em_andamento",
+        lida=False
+    )
+
+    db.session.add(atualizacao)
 
     db.session.commit()
 
@@ -579,9 +669,95 @@ def iniciar_atendimento(id):
     )
 
 
-# ==========================
+# =========================================================
+# ADICIONAR ATUALIZAÇÃO AO ATENDIMENTO
+# =========================================================
+
+@admin.route(
+    "/atendimento/<int:id>/atualizacao",
+    methods=["POST"]
+)
+@login_required
+def adicionar_atualizacao(id):
+
+    if not usuario_e_admin():
+
+        flash(
+            "Você não tem permissão para realizar esta ação.",
+            "danger"
+        )
+
+        return redirect(
+            url_for("home.index")
+        )
+
+    denuncia = Denuncia.query.get_or_404(id)
+
+    # Não deixa adicionar atualização
+    # em denúncia finalizada
+    if denuncia.status == "finalizado":
+
+        flash(
+            "Não é possível adicionar atualizações "
+            "em uma denúncia finalizada.",
+            "warning"
+        )
+
+        return redirect(
+            url_for(
+                "admin.visualizar_atendimento",
+                id=denuncia.id_denuncia
+            )
+        )
+
+    mensagem = request.form.get(
+        "mensagem",
+        ""
+    ).strip()
+
+    if not mensagem:
+
+        flash(
+            "Digite uma mensagem para o usuário.",
+            "warning"
+        )
+
+        return redirect(
+            url_for(
+                "admin.visualizar_atendimento",
+                id=denuncia.id_denuncia
+            )
+        )
+
+    atualizacao = AtualizacaoDenuncia(
+        id_denuncia=denuncia.id_denuncia,
+        id_admin=current_user.id_usuario,
+        mensagem=mensagem,
+        status_anterior=denuncia.status,
+        status_novo=denuncia.status,
+        lida=False
+    )
+
+    db.session.add(atualizacao)
+
+    db.session.commit()
+
+    flash(
+        "Atualização enviada para o usuário.",
+        "success"
+    )
+
+    return redirect(
+        url_for(
+            "admin.visualizar_atendimento",
+            id=denuncia.id_denuncia
+        )
+    )
+
+
+# =========================================================
 # FINALIZAR ATENDIMENTO
-# ==========================
+# =========================================================
 
 @admin.route(
     "/atendimento/<int:id>/finalizar",
@@ -590,16 +766,19 @@ def iniciar_atendimento(id):
 @login_required
 def finalizar_atendimento(id):
 
-    if current_user.tipo != "admin":
+    if not usuario_e_admin():
+
         flash(
             "Você não tem permissão para realizar esta ação.",
             "danger"
         )
-        return redirect(url_for("home.index"))
+
+        return redirect(
+            url_for("home.index")
+        )
 
     denuncia = Denuncia.query.get_or_404(id)
 
-    # Já finalizada
     if denuncia.status == "finalizado":
 
         flash(
@@ -614,11 +793,11 @@ def finalizar_atendimento(id):
             )
         )
 
-    # Precisa estar em andamento
     if denuncia.status != "em_andamento":
 
         flash(
-            "O atendimento precisa ser iniciado antes de ser finalizado.",
+            "O atendimento precisa ser iniciado "
+            "antes de ser finalizado.",
             "warning"
         )
 
@@ -629,7 +808,36 @@ def finalizar_atendimento(id):
             )
         )
 
+    # Guarda status antigo
+    status_anterior = denuncia.status
+
+    # Mensagem opcional do admin
+    mensagem = request.form.get(
+        "mensagem",
+        ""
+    ).strip()
+
+    # Finaliza denúncia
     denuncia.status = "finalizado"
+
+    # Mensagem padrão
+    if not mensagem:
+
+        mensagem = (
+            "O atendimento desta denúncia foi finalizado."
+        )
+
+    # Cria atualização/notificação
+    atualizacao = AtualizacaoDenuncia(
+        id_denuncia=denuncia.id_denuncia,
+        id_admin=current_user.id_usuario,
+        mensagem=mensagem,
+        status_anterior=status_anterior,
+        status_novo="finalizado",
+        lida=False
+    )
+
+    db.session.add(atualizacao)
 
     db.session.commit()
 
@@ -644,20 +852,26 @@ def finalizar_atendimento(id):
             id=denuncia.id_denuncia
         )
     )
-# ==========================
+
+
+# =========================================================
 # RELATÓRIOS
-# ==========================
+# =========================================================
 
 @admin.route("/relatorios")
 @login_required
 def relatorios():
 
-    if current_user.tipo != "admin":
+    if not usuario_e_admin():
+
         flash(
             "Você não tem permissão para acessar esta página.",
             "danger"
         )
-        return redirect(url_for("home.index"))
+
+        return redirect(
+            url_for("home.index")
+        )
 
     # ==========================
     # CHAMADOS SOS
@@ -702,27 +916,23 @@ def relatorios():
     total_usuarios = Usuario.query.count()
 
     # ==========================
-    # TOTAIS GERAIS
+    # TOTAIS
     # ==========================
 
     total_andamento = (
-        chamados_andamento +
-        denuncias_andamento
+        chamados_andamento
+        + denuncias_andamento
     )
 
     total_finalizados = (
-        chamados_finalizados +
-        denuncias_finalizadas
+        chamados_finalizados
+        + denuncias_finalizadas
     )
 
     ocorrencias_totais = (
-        total_chamados +
-        total_denuncias
+        total_chamados
+        + total_denuncias
     )
-
-    # ==========================
-    # ENVIAR DADOS PARA O HTML
-    # ==========================
 
     return render_template(
         "admin/relatorios.html",
@@ -753,19 +963,25 @@ def relatorios():
     )
 
 
-# ==========================
+# =========================================================
 # CONFIGURAÇÕES
-# ==========================
+# =========================================================
 
 @admin.route("/configuracoes")
 @login_required
 def configuracoes():
 
-    if current_user.tipo != "admin":
+    if not usuario_e_admin():
+
         flash(
             "Você não tem permissão para acessar esta página.",
             "danger"
         )
-        return redirect(url_for("home.index"))
 
-    return render_template("admin/configuracoes.html")
+        return redirect(
+            url_for("home.index")
+        )
+
+    return render_template(
+        "admin/configuracoes.html"
+    )

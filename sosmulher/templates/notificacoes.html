@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+SOSMulher | Notificações
+{% endblock %}
+
+{% block estilos %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/notificacoes.css') }}"
+>
+{% endblock %}
+
+{% block body %}
+
+<main class="notificacoes-page">
+
+    <div class="notificacoes-container">
+
+        <div class="notificacoes-header">
+
+            <span class="notificacoes-tag">
+                Central de atualizações
+            </span>
+
+            <h1>Notificações</h1>
+
+            <p>
+                Acompanhe aqui atualizações importantes
+                relacionadas às suas denúncias.
+            </p>
+
+        </div>
+
+
+        {% if atualizacoes %}
+
+            <div class="lista-notificacoes">
+
+                {% for atualizacao in atualizacoes %}
+
+                    <div class="notificacao-card">
+
+                        <div class="notificacao-card-topo">
+
+                            <span class="notificacao-icone">
+                                🔔
+                            </span>
+
+                            <div>
+
+                                <h2>
+                                    Atualização da denúncia
+                                </h2>
+
+                                <span class="notificacao-data">
+                                    {{ atualizacao.data.strftime('%d/%m/%Y às %H:%M') }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="notificacao-mensagem">
+
+                            {{ atualizacao.mensagem }}
+
+                        </div>
+
+
+                        {% if atualizacao.status_novo %}
+
+                            <div class="notificacao-status">
+
+                                <span>
+                                    Status:
+                                </span>
+
+                                <strong>
+                                    {{ atualizacao.status_novo }}
+                                </strong>
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <a
+                            href="{{ url_for('denuncia.denuncias') }}"
+                            class="btn-denuncias"
+                        >
+                            Ver denúncia
+                        </a>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+        {% else %}
+
+            <div class="notificacao-vazia">
+
+                <div class="icone-notificacao">
+                    🔔
+                </div>
+
+                <h2>
+                    Nenhuma notificação por enquanto
+                </h2>
+
+                <p>
+                    Quando houver alguma atualização sobre suas denúncias,
+                    ela aparecerá aqui.
+                </p>
+
+                <a
+                    href="{{ url_for('denuncia.denuncias') }}"
+                    class="btn-denuncias"
+                >
+                    Ver minhas denúncias
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</main>
+
+{% endblock %}

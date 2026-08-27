@@ -13,7 +13,8 @@ from flask_login import (
 )
 
 from sosmulher.forms import DenunciaForm
-
+from sosmulher.models.denuncia import Denuncia
+from sosmulher.models.atualizacao_denuncia import AtualizacaoDenuncia
 from sosmulher.services.denuncia_service import (
     criar_denuncia,
     listar_denuncias_usuario
@@ -49,7 +50,6 @@ def denunciar():
             )
 
             if form.arquivo.data:
-
                 salvar_arquivo(
                     form.arquivo.data,
                     denuncia_criada.id_denuncia
@@ -81,4 +81,36 @@ def denuncias():
     return render_template(
         "denuncias.html",
         denuncias=denuncias
+    )
+
+
+# ==============================
+# NOTIFICAÇÕES
+# ==============================
+@denuncia.route("/notificacoes")
+@login_required
+def notificacoes():
+
+    atualizacoes = (
+        AtualizacaoDenuncia.query
+        .join(
+            Denuncia,
+            AtualizacaoDenuncia.id_denuncia
+            ==
+            Denuncia.id_denuncia
+        )
+        .filter(
+            Denuncia.id_usuario
+            ==
+            current_user.id_usuario
+        )
+        .order_by(
+            AtualizacaoDenuncia.data.desc()
+        )
+        .all()
+    )
+
+    return render_template(
+        "notificacoes.html",
+        atualizacoes=atualizacoes
     )

@@ -12,37 +12,54 @@
     >
 
     <title>
+
         {% block titulo %}
             SOSMulher
         {% endblock %}
+
     </title>
 
+
     <!-- CSS GLOBAL -->
+
     <link
         rel="stylesheet"
-        href="{{ url_for('static', filename='css/style.css') }}"
+        href="{{ url_for(
+            'static',
+            filename='css/style.css'
+        ) }}"
     >
 
+
     <!-- CSS ESPECÍFICO DA PÁGINA -->
+
     {% block estilos %}
     {% endblock %}
 
 </head>
 
+
 <body>
 
-    <!-- =========================
+
+    <!-- ==================================================
          HEADER GLOBAL
-    ========================== -->
+    ================================================== -->
+
     <header class="header">
 
         <div class="container header-content">
 
+
             <!-- LOGO -->
+
             <div class="logo-container">
 
                 <img
-                    src="{{ url_for('static', filename='image/img/logo.png') }}"
+                    src="{{ url_for(
+                        'static',
+                        filename='image/img/logo.png'
+                    ) }}"
                     alt="Logo SOSMulher"
                     class="logo-img"
                 >
@@ -55,25 +72,70 @@
 
 
             <!-- MENU -->
+
             <nav class="nav">
+
 
                 <a href="{{ url_for('home.index') }}">
                     Início
                 </a>
 
+
                 <a href="{{ url_for('home.apoio') }}">
                     Apoio
                 </a>
+
 
                 <a href="{{ url_for('denuncia.denunciar') }}">
                     Denúncia
                 </a>
 
+
                 {% if current_user.is_authenticated %}
 
                     <a href="{{ url_for('perfil.perfil_page') }}">
                         Perfil
-                     </a>
+                    </a>
+
+
+                    <!-- ======================================
+                         NOTIFICAÇÕES
+                    ======================================= -->
+
+                    {% if current_user.tipo != "admin" %}
+
+                        <a
+                            href="{{ url_for(
+                                'denuncia.notificacoes'
+                            ) }}"
+                            class="notificacao-nav"
+                            title="Notificações"
+                            aria-label="Notificações"
+                        >
+
+                            <span class="notificacao-sino">
+                                🔔
+                            </span>
+
+
+                            {% if notificacoes_nao_lidas > 0 %}
+
+                                <span class="notificacao-contador">
+
+                                    {% if notificacoes_nao_lidas > 99 %}
+                                        99+
+                                    {% else %}
+                                        {{ notificacoes_nao_lidas }}
+                                    {% endif %}
+
+                                </span>
+
+                            {% endif %}
+
+                        </a>
+
+                    {% endif %}
+
 
                 {% else %}
 
@@ -85,6 +147,7 @@
 
 
                 <!-- BOTÃO SOS -->
+
                 <a
                     href="{{ url_for('home.sos') }}"
                     class="btn-sos-nav"
@@ -96,6 +159,7 @@
                 {% if current_user.is_authenticated %}
 
                     <!-- SAIR -->
+
                     <a
                         href="{{ url_for('auth.logout') }}"
                         class="btn-sair"
@@ -105,6 +169,7 @@
 
                 {% endif %}
 
+
             </nav>
 
         </div>
@@ -112,10 +177,14 @@
     </header>
 
 
-    <!-- =========================
-         NOTIFICAÇÕES / FLASH
-    ========================== -->
-    {% with mensagens = get_flashed_messages(with_categories=True) %}
+
+    <!-- ==================================================
+         FLASH
+    ================================================== -->
+
+    {% with mensagens = get_flashed_messages(
+        with_categories=True
+    ) %}
 
         {% if mensagens %}
 
@@ -148,10 +217,11 @@
     {% endwith %}
 
 
-    <!-- =========================
+
+    <!-- ==================================================
          BOTÃO VOLTAR
-         NÃO APARECE NA INDEX
-    ========================== -->
+    ================================================== -->
+
     {% if request.endpoint != 'home.index' %}
 
         <div class="voltar-container">
@@ -169,45 +239,57 @@
     {% endif %}
 
 
-    <!-- =========================
-         CONTEÚDO DAS PÁGINAS
-    ========================== -->
+
+    <!-- ==================================================
+         CONTEÚDO
+    ================================================== -->
+
     {% block body %}
     {% endblock %}
 
 
-    <!-- =========================
+
+    <!-- ==================================================
          SCRIPTS
-    ========================== -->
+    ================================================== -->
+
     <script>
 
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
 
-            const toasts = document.querySelectorAll(".toast");
+                const toasts = document.querySelectorAll(
+                    ".toast"
+                );
 
-            toasts.forEach(function (toast) {
-
-                setTimeout(function () {
-
-                    toast.classList.add("toast-saindo");
+                toasts.forEach(function (toast) {
 
                     setTimeout(function () {
 
-                        toast.remove();
+                        toast.classList.add(
+                            "toast-saindo"
+                        );
 
-                    }, 500);
+                        setTimeout(function () {
 
-                }, 3500);
+                            toast.remove();
 
-            });
+                        }, 500);
 
-        });
+                    }, 3500);
+
+                });
+
+            }
+        );
 
     </script>
 
 
     {% block scripts %}
     {% endblock %}
+
 
 </body>
 

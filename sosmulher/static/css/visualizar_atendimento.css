@@ -660,17 +660,272 @@
 
 
 /* =========================================================
-   AÇÃO ADMINISTRATIVA
+   HISTÓRICO DE ATUALIZAÇÕES
+========================================================= */
+
+.historico-atualizacoes-card {
+    margin-bottom: 24px;
+}
+
+
+.historico-atualizacoes {
+    display: flex;
+    flex-direction: column;
+
+    gap: 0;
+}
+
+
+.historico-item {
+    position: relative;
+}
+
+
+.historico-linha {
+    display: grid;
+
+    grid-template-columns: 26px 1fr;
+
+    gap: 14px;
+}
+
+
+.historico-marcador {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+
+    padding-top: 18px;
+
+    color: #e83e72;
+
+    font-size: 13px;
+}
+
+
+.historico-marcador::after {
+    content: "";
+
+    position: absolute;
+
+    top: 32px;
+    bottom: -1px;
+    left: 50%;
+
+    width: 2px;
+
+    background: #f2dce5;
+
+    transform: translateX(-50%);
+}
+
+
+.historico-item:last-child
+.historico-marcador::after {
+    display: none;
+}
+
+
+.historico-conteudo {
+    padding: 16px 18px;
+    margin-bottom: 14px;
+
+    background: #fcfafb;
+
+    border: 1px solid #f0e5ea;
+    border-radius: 15px;
+}
+
+
+.historico-topo {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 12px;
+}
+
+
+.historico-topo > div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.historico-topo strong {
+    color: #352c32;
+
+    font-size: 14px;
+}
+
+
+.historico-admin {
+    color: #93858d;
+
+    font-size: 11px;
+}
+
+
+.historico-data {
+    color: #9b8e95;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+}
+
+
+.historico-mensagem {
+    margin: 0;
+
+    color: #574b52;
+
+    font-size: 14px;
+    line-height: 1.65;
+
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   ALTERAÇÃO DE STATUS NO HISTÓRICO
+========================================================= */
+
+.historico-status {
+    width: fit-content;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 7px 10px;
+    margin-top: 13px;
+
+    background: #fff3f7;
+
+    border: 1px solid #f4dce6;
+    border-radius: 9px;
+
+    color: #806f78;
+
+    font-size: 11px;
+}
+
+
+.historico-status strong {
+    color: #df3d72;
+}
+
+
+.historico-seta {
+    color: #c9a3b1;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   STATUS DE LEITURA
+========================================================= */
+
+.historico-leitura {
+    margin-top: 12px;
+}
+
+
+.notificacao-lida,
+.notificacao-nao-lida {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 5px 9px;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+.notificacao-lida {
+    background: #e9f8ef;
+    color: #278558;
+}
+
+
+.notificacao-nao-lida {
+    background: #fff4d9;
+    color: #987000;
+}
+
+
+/* =========================================================
+   SEM ATUALIZAÇÕES
+========================================================= */
+
+.sem-atualizacoes {
+    padding: 35px 20px;
+
+    text-align: center;
+
+    background: #faf8f9;
+
+    border: 1px dashed #eadde3;
+    border-radius: 15px;
+}
+
+
+.sem-atualizacoes > span {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 30px;
+}
+
+
+.sem-atualizacoes strong {
+    display: block;
+
+    color: #3d3238;
+
+    font-size: 14px;
+}
+
+
+.sem-atualizacoes p {
+    margin: 6px 0 0;
+
+    color: #887a82;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   AÇÕES ADMINISTRATIVAS
 ========================================================= */
 
 .acao-atendimento-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
 
-    gap: 25px;
+    grid-template-columns:
+        minmax(280px, 0.8fr)
+        minmax(350px, 1.2fr);
+
+    align-items: center;
+
+    gap: 35px;
 
     padding: 26px 28px;
+    margin-bottom: 24px;
 
     background: linear-gradient(
         135deg,
@@ -687,13 +942,34 @@
 }
 
 
+.atualizacao-card {
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #fffaf1
+    );
+
+    border-color: #f0dfbd;
+}
+
+
+.finalizar-card {
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #f8f6ff
+    );
+
+    border-color: #e1daf9;
+}
+
+
 .acao-atendimento-info {
     display: flex;
     align-items: center;
 
     gap: 17px;
 
-    flex: 1;
     min-width: 0;
 }
 
@@ -766,12 +1042,97 @@
 
 
 /* =========================================================
+   FORMULÁRIOS DAS AÇÕES
+========================================================= */
+
+.form-acao-atendimento {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+
+.campo-mensagem {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+.campo-mensagem label {
+    color: #51434b;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+.campo-mensagem textarea {
+    width: 100%;
+    min-height: 105px;
+
+    padding: 13px 15px;
+
+    resize: vertical;
+
+    outline: none;
+
+    background: #ffffff;
+    color: #443940;
+
+    border: 1px solid #e9dbe2;
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.55;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.campo-mensagem textarea::placeholder {
+    color: #aaa0a5;
+}
+
+
+.campo-mensagem textarea:hover {
+    border-color: #e3bdcc;
+}
+
+
+.campo-mensagem textarea:focus {
+    background: #fffdfd;
+
+    border-color: #e65382;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(232, 62, 114, 0.09);
+}
+
+
+.campo-mensagem small {
+    color: #988b92;
+
+    font-size: 10px;
+    line-height: 1.45;
+}
+
+
+/* =========================================================
    BOTÃO INICIAR
 ========================================================= */
 
 .btn-iniciar-atendimento {
-    min-width: 220px;
-    min-height: 52px;
+    min-height: 50px;
 
     display: inline-flex;
     align-items: center;
@@ -779,10 +1140,10 @@
 
     gap: 8px;
 
-    padding: 14px 20px;
+    padding: 13px 20px;
 
     border: none;
-    border-radius: 13px;
+    border-radius: 12px;
 
     background: linear-gradient(
         135deg,
@@ -792,8 +1153,8 @@
 
     color: #ffffff;
 
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 13px;
+    font-weight: 800;
 
     cursor: pointer;
 
@@ -803,7 +1164,8 @@
 
     transition:
         transform 0.2s ease,
-        box-shadow 0.2s ease;
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
 }
 
 
@@ -822,12 +1184,11 @@
 
 
 /* =========================================================
-   BOTÃO FINALIZAR
+   BOTÃO ENVIAR ATUALIZAÇÃO
 ========================================================= */
 
-.btn-finalizar-atendimento {
-    min-width: 220px;
-    min-height: 52px;
+.btn-enviar-atualizacao {
+    min-height: 50px;
 
     display: inline-flex;
     align-items: center;
@@ -835,10 +1196,65 @@
 
     gap: 8px;
 
-    padding: 14px 20px;
+    padding: 13px 20px;
 
     border: none;
-    border-radius: 13px;
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        #e7a12b,
+        #d68b16
+    );
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px
+        rgba(214, 139, 22, 0.2);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.btn-enviar-atualizacao:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(214, 139, 22, 0.27);
+}
+
+
+.btn-enviar-atualizacao:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   BOTÃO FINALIZAR
+========================================================= */
+
+.btn-finalizar-atendimento {
+    min-height: 50px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 13px 20px;
+
+    border: none;
+    border-radius: 12px;
 
     background: linear-gradient(
         135deg,
@@ -848,8 +1264,8 @@
 
     color: #ffffff;
 
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 13px;
+    font-weight: 800;
 
     cursor: pointer;
 
@@ -961,12 +1377,19 @@
 
 
     .acao-atendimento-card {
-        flex-direction: column;
-        align-items: stretch;
+        grid-template-columns: 1fr;
+
+        gap: 24px;
+    }
+
+
+    .form-acao-atendimento {
+        max-width: none;
     }
 
 
     .btn-iniciar-atendimento,
+    .btn-enviar-atualizacao,
     .btn-finalizar-atendimento,
     .btn-atendimento-finalizado {
         width: 100%;
@@ -1014,6 +1437,25 @@
     }
 
 
+    .atendimento-status-area {
+        width: 100%;
+    }
+
+
+    .atendimento-status {
+        justify-content: center;
+
+        width: 100%;
+    }
+
+
+    .atendimento-alerta {
+        align-items: flex-start;
+
+        padding: 16px;
+    }
+
+
     .atendimento-card {
         padding: 18px;
     }
@@ -1054,6 +1496,35 @@
     }
 
 
+    .historico-linha {
+        grid-template-columns: 18px 1fr;
+
+        gap: 8px;
+    }
+
+
+    .historico-conteudo {
+        padding: 14px;
+    }
+
+
+    .historico-topo {
+        flex-direction: column;
+
+        gap: 6px;
+    }
+
+
+    .historico-data {
+        white-space: normal;
+    }
+
+
+    .historico-status {
+        flex-wrap: wrap;
+    }
+
+
     .acao-atendimento-card {
         padding: 20px;
     }
@@ -1061,6 +1532,19 @@
 
     .acao-atendimento-info {
         align-items: flex-start;
+    }
+
+
+    .acao-atendimento-info .acao-icon {
+        width: 45px;
+        height: 45px;
+
+        font-size: 19px;
+    }
+
+
+    .campo-mensagem textarea {
+        min-height: 120px;
     }
 
 }

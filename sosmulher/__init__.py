@@ -3,9 +3,16 @@ import os
 from dotenv import load_dotenv
 
 from flask import Flask
+
 from flask_sqlalchemy import SQLAlchemy
+
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager
+
+from flask_login import (
+    LoginManager,
+    current_user
+)
+
 from flask_migrate import Migrate
 
 
@@ -55,7 +62,10 @@ app.config["MAIL_DEFAULT_SENDER"] = os.getenv(
 
 db = SQLAlchemy(app)
 
-migrate = Migrate(app, db)
+migrate = Migrate(
+    app,
+    db
+)
 
 bcrypt = Bcrypt(app)
 
@@ -75,7 +85,14 @@ login_manager.login_message_category = "info"
 # =========================================================
 
 from sosmulher.models import *
+
 from sosmulher.models.usuario import Usuario
+
+from sosmulher.models.denuncia import Denuncia
+
+from sosmulher.models.atualizacao_denuncia import (
+    AtualizacaoDenuncia
+)
 
 
 # =========================================================
@@ -92,14 +109,71 @@ def load_user(id_usuario):
 
 
 # =========================================================
+# NOTIFICAÇÕES GLOBAIS
+# =========================================================
+
+@app.context_processor
+def notificacoes_globais():
+
+    # Usuário não está logado
+    if not current_user.is_authenticated:
+
+        return {
+            "notificacoes_nao_lidas": 0
+        }
+
+
+    # Admin não precisa receber essas notificações
+    if current_user.tipo == "admin":
+
+        return {
+            "notificacoes_nao_lidas": 0
+        }
+
+
+    # Conta apenas notificações das denúncias
+    # pertencentes ao usuário logado
+    total = (
+        AtualizacaoDenuncia.query
+
+        .join(
+            Denuncia,
+            AtualizacaoDenuncia.id_denuncia
+            ==
+            Denuncia.id_denuncia
+        )
+
+        .filter(
+            Denuncia.id_usuario
+            ==
+            current_user.id_usuario,
+
+            AtualizacaoDenuncia.lida.is_(False)
+        )
+
+        .count()
+    )
+
+
+    return {
+        "notificacoes_nao_lidas": total
+    }
+
+
+# =========================================================
 # BLUEPRINTS
 # =========================================================
 
 from sosmulher.routes.home import home
+
 from sosmulher.routes.auth import auth
+
 from sosmulher.routes.contato import contato
+
 from sosmulher.routes.denuncia import denuncia
+
 from sosmulher.routes.perfil import perfil
+
 from sosmulher.routes.admin import admin
 
 

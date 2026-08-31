@@ -8,7 +8,11 @@ from flask import (
 )
 
 from datetime import datetime
-from flask_login import login_required, current_user
+
+from flask_login import (
+    login_required,
+    current_user
+)
 
 from sosmulher import db
 
@@ -16,7 +20,14 @@ from sosmulher.models.usuario import Usuario
 from sosmulher.models.denuncia import Denuncia
 from sosmulher.models.pedido_sos import PedidoSOS
 from sosmulher.models.pedido_sos_contato import PedidoSOSContato
-from sosmulher.models.atualizacao_denuncia import AtualizacaoDenuncia
+
+from sosmulher.models.atualizacao_denuncia import (
+    AtualizacaoDenuncia
+)
+
+from sosmulher.models.atualizacao_sos import (
+    AtualizacaoSOS
+)
 
 
 admin = Blueprint(
@@ -235,7 +246,7 @@ def acionar_contatos(id):
     if chamado.status == "em_andamento":
 
         flash(
-            "Os contatos deste chamado já foram acionados.",
+            "Este chamado já está em andamento.",
             "info"
         )
 
@@ -264,10 +275,15 @@ def acionar_contatos(id):
         id_sos=chamado.id_sos
     ).all()
 
+    # =====================================================
+    # SEM CONTATOS
+    # =====================================================
+
     if not contatos:
 
         flash(
-            "Este chamado não possui contatos de emergência cadastrados.",
+            "Este chamado não possui contatos de emergência. "
+            "Utilize o encaminhamento para 180, 190 ou 192.",
             "warning"
         )
 
@@ -278,7 +294,29 @@ def acionar_contatos(id):
             )
         )
 
+    # =====================================================
+    # COM CONTATOS
+    # =====================================================
+
+    status_anterior = chamado.status
+
     chamado.status = "em_andamento"
+
+    atualizacao = AtualizacaoSOS(
+        id_sos=chamado.id_sos,
+        id_admin=current_user.id_usuario,
+        mensagem=(
+            "Seu pedido SOS está sendo atendido. "
+            "Os contatos de emergência cadastrados "
+            "foram acionados. "
+            f"Protocolo SOS #{chamado.id_sos:06d}."
+        ),
+        status_anterior=status_anterior,
+        status_novo="em_andamento",
+        lida=False
+    )
+
+    db.session.add(atualizacao)
 
     db.session.commit()
 
@@ -320,6 +358,38 @@ def encaminhar_chamado(id):
 
     chamado = PedidoSOS.query.get_or_404(id)
 
+    # =====================================================
+    # VERIFICA STATUS
+    # =====================================================
+
+    if chamado.status == "finalizado":
+
+        flash(
+            "Este chamado já foi finalizado.",
+            "info"
+        )
+
+        return redirect(
+            url_for(
+                "admin.visualizar_chamado",
+                id=chamado.id_sos
+            )
+        )
+
+    if chamado.status == "em_andamento":
+
+        flash(
+            "Este chamado já está em andamento.",
+            "info"
+        )
+
+        return redirect(
+            url_for(
+                "admin.visualizar_chamado",
+                id=chamado.id_sos
+            )
+        )
+
     if chamado.status != "ativo":
 
         flash(
@@ -333,6 +403,10 @@ def encaminhar_chamado(id):
                 id=chamado.id_sos
             )
         )
+
+    # =====================================================
+    # VERIFICA CONTATOS
+    # =====================================================
 
     contatos = PedidoSOSContato.query.filter_by(
         id_sos=chamado.id_sos
@@ -352,6 +426,10 @@ def encaminhar_chamado(id):
                 id=chamado.id_sos
             )
         )
+
+    # =====================================================
+    # TIPO DE ENCAMINHAMENTO
+    # =====================================================
 
     tipo = request.form.get(
         "tipo_encaminhamento"
@@ -377,6 +455,12 @@ def encaminhar_chamado(id):
             )
         )
 
+    # =====================================================
+    # ALTERAR CHAMADO
+    # =====================================================
+
+    status_anterior = chamado.status
+
     chamado.tipo_encaminhamento = tipo
 
     chamado.data_encaminhamento = datetime.now()
@@ -386,6 +470,26 @@ def encaminhar_chamado(id):
     )
 
     chamado.status = "em_andamento"
+
+    # =====================================================
+    # NOTIFICAÇÃO DO USUÁRIO
+    # =====================================================
+
+    atualizacao = AtualizacaoSOS(
+        id_sos=chamado.id_sos,
+        id_admin=current_user.id_usuario,
+        mensagem=(
+            f"Seu pedido SOS foi encaminhado para "
+            f"{encaminhamentos_validos[tipo]} "
+            f"({tipo}). "
+            f"Protocolo SOS #{chamado.id_sos:06d}."
+        ),
+        status_anterior=status_anterior,
+        status_novo="em_andamento",
+        lida=False
+    )
+
+    db.session.add(atualizacao)
 
     db.session.commit()
 
@@ -446,7 +550,8 @@ def finalizar_chamado(id):
     if chamado.status != "em_andamento":
 
         flash(
-            "Este chamado precisa estar em andamento antes de ser finalizado.",
+            "Este chamado precisa estar em andamento "
+            "antes de ser finalizado.",
             "warning"
         )
 
@@ -457,7 +562,32 @@ def finalizar_chamado(id):
             )
         )
 
+    # =====================================================
+    # FINALIZA
+    # =====================================================
+
+    status_anterior = chamado.status
+
     chamado.status = "finalizado"
+
+    # =====================================================
+    # NOTIFICAÇÃO
+    # =====================================================
+
+    atualizacao = AtualizacaoSOS(
+        id_sos=chamado.id_sos,
+        id_admin=current_user.id_usuario,
+        mensagem=(
+            "O atendimento do seu pedido SOS "
+            "foi finalizado. "
+            f"Protocolo SOS #{chamado.id_sos:06d}."
+        ),
+        status_anterior=status_anterior,
+        status_novo="finalizado",
+        lida=False
+    )
+
+    db.session.add(atualizacao)
 
     db.session.commit()
 
@@ -542,11 +672,16 @@ def visualizar_atendimento(id):
 
     atendimento = Denuncia.query.get_or_404(id)
 
-    atualizacoes = AtualizacaoDenuncia.query.filter_by(
-        id_denuncia=atendimento.id_denuncia
-    ).order_by(
-        AtualizacaoDenuncia.data.desc()
-    ).all()
+    atualizacoes = (
+        AtualizacaoDenuncia.query
+        .filter_by(
+            id_denuncia=atendimento.id_denuncia
+        )
+        .order_by(
+            AtualizacaoDenuncia.data.desc()
+        )
+        .all()
+    )
 
     return render_template(
         "admin/visualizar_atendimento.html",
@@ -621,20 +756,23 @@ def iniciar_atendimento(id):
             )
         )
 
-    # Guarda status anterior
+    # =====================================================
+    # ALTERAR STATUS
+    # =====================================================
+
     status_anterior = denuncia.status
 
-    # Mensagem digitada pelo admin
     mensagem = request.form.get(
         "mensagem",
         ""
     ).strip()
 
-    # Novo status
     denuncia.status = "em_andamento"
 
-    # Se o admin não escrever nada,
-    # cria mensagem automaticamente
+    # =====================================================
+    # MENSAGEM PADRÃO
+    # =====================================================
+
     if not mensagem:
 
         mensagem = (
@@ -642,7 +780,10 @@ def iniciar_atendimento(id):
             f"Protocolo #{denuncia.id_denuncia:06d}."
         )
 
-    # Cria atualização / notificação
+    # =====================================================
+    # NOTIFICAÇÃO
+    # =====================================================
+
     atualizacao = AtualizacaoDenuncia(
         id_denuncia=denuncia.id_denuncia,
         id_admin=current_user.id_usuario,
@@ -693,8 +834,6 @@ def adicionar_atualizacao(id):
 
     denuncia = Denuncia.query.get_or_404(id)
 
-    # Não deixa adicionar atualização
-    # em denúncia finalizada
     if denuncia.status == "finalizado":
 
         flash(
@@ -808,26 +947,33 @@ def finalizar_atendimento(id):
             )
         )
 
-    # Guarda status antigo
+    # =====================================================
+    # ALTERAR STATUS
+    # =====================================================
+
     status_anterior = denuncia.status
 
-    # Mensagem opcional do admin
     mensagem = request.form.get(
         "mensagem",
         ""
     ).strip()
 
-    # Finaliza denúncia
     denuncia.status = "finalizado"
 
-    # Mensagem padrão
+    # =====================================================
+    # MENSAGEM PADRÃO
+    # =====================================================
+
     if not mensagem:
 
         mensagem = (
             "O atendimento desta denúncia foi finalizado."
         )
 
-    # Cria atualização/notificação
+    # =====================================================
+    # NOTIFICAÇÃO
+    # =====================================================
+
     atualizacao = AtualizacaoDenuncia(
         id_denuncia=denuncia.id_denuncia,
         id_admin=current_user.id_usuario,
@@ -873,9 +1019,9 @@ def relatorios():
             url_for("home.index")
         )
 
-    # ==========================
+    # =====================================================
     # CHAMADOS SOS
-    # ==========================
+    # =====================================================
 
     total_chamados = PedidoSOS.query.count()
 
@@ -891,9 +1037,9 @@ def relatorios():
         status="finalizado"
     ).count()
 
-    # ==========================
+    # =====================================================
     # DENÚNCIAS
-    # ==========================
+    # =====================================================
 
     total_denuncias = Denuncia.query.count()
 
@@ -909,15 +1055,15 @@ def relatorios():
         status="finalizado"
     ).count()
 
-    # ==========================
+    # =====================================================
     # USUÁRIOS
-    # ==========================
+    # =====================================================
 
     total_usuarios = Usuario.query.count()
 
-    # ==========================
+    # =====================================================
     # TOTAIS
-    # ==========================
+    # =====================================================
 
     total_andamento = (
         chamados_andamento

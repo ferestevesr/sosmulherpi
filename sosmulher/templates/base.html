@@ -101,41 +101,34 @@
                     <!-- ======================================
                          NOTIFICAÇÕES
                     ======================================= -->
-
                     {% if current_user.tipo != "admin" %}
 
-                        <a
-                            href="{{ url_for(
-                                'denuncia.notificacoes'
-                            ) }}"
-                            class="notificacao-nav"
-                            title="Notificações"
-                            aria-label="Notificações"
-                        >
-
-                            <span class="notificacao-sino">
-                                🔔
+                    {% set qtd_notificacoes = notificacoes_nao_lidas|default(0) %}
+                
+                    <a
+                        href="{{ url_for('denuncia.notificacoes') }}"
+                        class="notificacao-nav"
+                        title="Notificações"
+                        aria-label="Notificações"
+                    >
+                        <span class="notificacao-sino">
+                            🔔
+                        </span>
+                
+                        {% if qtd_notificacoes > 0 %}
+                            <span class="notificacao-contador">
+                
+                                {% if qtd_notificacoes > 99 %}
+                                    99+
+                                {% else %}
+                                    {{ qtd_notificacoes }}
+                                {% endif %}
+                
                             </span>
-
-
-                            {% if notificacoes_nao_lidas > 0 %}
-
-                                <span class="notificacao-contador">
-
-                                    {% if notificacoes_nao_lidas > 99 %}
-                                        99+
-                                    {% else %}
-                                        {{ notificacoes_nao_lidas }}
-                                    {% endif %}
-
-                                </span>
-
-                            {% endif %}
-
-                        </a>
-
-                    {% endif %}
-
+                        {% endif %}
+                    </a>
+                
+                {% endif %}
 
                 {% else %}
 

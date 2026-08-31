@@ -1,23 +1,23 @@
 import os
-
+from datetime import timezone
+from zoneinfo import ZoneInfo
 from dotenv import load_dotenv
-
 from flask import Flask
-
 from flask_sqlalchemy import SQLAlchemy
-
 from flask_bcrypt import Bcrypt
-
 from flask_login import (
     LoginManager,
     current_user
 )
-
 from flask_migrate import Migrate
 
 
 load_dotenv()
 
+
+# =========================================================
+# APP
+# =========================================================
 
 app = Flask(__name__)
 
@@ -82,9 +82,10 @@ login_manager.login_message_category = "info"
 
 # =========================================================
 # MODELS
+#
+# IMPORTANTE:
+# Só importar os models DEPOIS que o db foi criado.
 # =========================================================
-
-from sosmulher.models import *
 
 from sosmulher.models.usuario import Usuario
 
@@ -115,49 +116,62 @@ def load_user(id_usuario):
 @app.context_processor
 def notificacoes_globais():
 
-    # Usuário não está logado
-    if not current_user.is_authenticated:
+    notificacoes_nao_lidas = 0
 
-        return {
-            "notificacoes_nao_lidas": 0
-        }
+    if (
+        current_user.is_authenticated
+        and current_user.tipo != "admin"
+    ):
 
-
-    # Admin não precisa receber essas notificações
-    if current_user.tipo == "admin":
-
-        return {
-            "notificacoes_nao_lidas": 0
-        }
-
-
-    # Conta apenas notificações das denúncias
-    # pertencentes ao usuário logado
-    total = (
-        AtualizacaoDenuncia.query
-
-        .join(
-            Denuncia,
-            AtualizacaoDenuncia.id_denuncia
-            ==
-            Denuncia.id_denuncia
+        notificacoes_nao_lidas = (
+            AtualizacaoDenuncia.query
+            .join(
+                Denuncia,
+                AtualizacaoDenuncia.id_denuncia
+                == Denuncia.id_denuncia
+            )
+            .filter(
+                Denuncia.id_usuario
+                == current_user.id_usuario,
+                AtualizacaoDenuncia.lida.is_(False)
+            )
+            .count()
         )
-
-        .filter(
-            Denuncia.id_usuario
-            ==
-            current_user.id_usuario,
-
-            AtualizacaoDenuncia.lida.is_(False)
-        )
-
-        .count()
-    )
-
 
     return {
-        "notificacoes_nao_lidas": total
+        "notificacoes_nao_lidas":
+        notificacoes_nao_lidas
     }
+
+# =========================================================
+# HORÁRIO DE BRASÍLIA
+# =========================================================
+
+@app.template_filter("horario_brasilia")
+def horario_brasilia(data):
+
+    if data is None:
+        return ""
+
+    # Datas do banco estão sem informação de fuso.
+    # Consideramos que foram armazenadas em UTC.
+    if data.tzinfo is None:
+        data = data.replace(
+            tzinfo=timezone.utc
+        )
+
+    brasilia = ZoneInfo(
+        "America/Sao_Paulo"
+    )
+
+    data_brasilia = data.astimezone(
+        brasilia
+    )
+
+    return data_brasilia.strftime(
+        "%d/%m/%Y às %H:%M"
+    )
+
 
 
 # =========================================================

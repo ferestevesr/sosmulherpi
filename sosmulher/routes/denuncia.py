@@ -1,3 +1,4 @@
+
 from flask import (
     Blueprint,
     render_template,
@@ -12,9 +13,16 @@ from flask_login import (
     current_user
 )
 
+from sosmulher import db
+
 from sosmulher.forms import DenunciaForm
+
 from sosmulher.models.denuncia import Denuncia
-from sosmulher.models.atualizacao_denuncia import AtualizacaoDenuncia
+
+from sosmulher.models.atualizacao_denuncia import (
+    AtualizacaoDenuncia
+)
+
 from sosmulher.services.denuncia_service import (
     criar_denuncia,
     listar_denuncias_usuario
@@ -23,7 +31,6 @@ from sosmulher.services.denuncia_service import (
 from sosmulher.services.upload_service import (
     salvar_arquivo
 )
-
 
 denuncia = Blueprint(
     "denuncia",
@@ -83,10 +90,10 @@ def denuncias():
         denuncias=denuncias
     )
 
+# =========================================================
+# NOTIFICAÇÕES DO USUÁRIO
+# =========================================================
 
-# ==============================
-# NOTIFICAÇÕES
-# ==============================
 @denuncia.route("/notificacoes")
 @login_required
 def notificacoes():
@@ -96,19 +103,24 @@ def notificacoes():
         .join(
             Denuncia,
             AtualizacaoDenuncia.id_denuncia
-            ==
-            Denuncia.id_denuncia
+            == Denuncia.id_denuncia
         )
         .filter(
             Denuncia.id_usuario
-            ==
-            current_user.id_usuario
+            == current_user.id_usuario
         )
         .order_by(
             AtualizacaoDenuncia.data.desc()
         )
         .all()
     )
+
+    for atualizacao in atualizacoes:
+
+        if not atualizacao.lida:
+            atualizacao.lida = True
+
+    db.session.commit()
 
     return render_template(
         "notificacoes.html",

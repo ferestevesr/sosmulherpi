@@ -23,7 +23,7 @@ from sosmulher.forms import (
 )
 
 from sosmulher.models import Usuario
-
+from sosmulher import db
 from sosmulher.models.recuperacao_conta import (
     RecuperacaoConta
 )
@@ -49,6 +49,77 @@ auth = Blueprint(
     __name__
 )
 
+# =========================================================
+# CONFIGURAÇÃO DO PRIMEIRO ADMINISTRADOR
+# =========================================================
+
+@auth.route(
+    "/configurar-admin",
+    methods=["GET", "POST"]
+)
+def configurar_admin():
+
+    # Se já existir um administrador,
+    # essa página não pode mais ser utilizada.
+    admin_existe = Usuario.query.filter_by(
+        tipo="admin"
+    ).first()
+
+    if admin_existe:
+        flash(
+            "O administrador inicial já foi configurado.",
+            "info"
+        )
+
+        return redirect(
+            url_for("auth.login")
+        )
+
+    form = CadastroForm()
+
+    if form.validate_on_submit():
+
+        # Usa exatamente o mesmo processo
+        # do cadastro normal.
+        cadastrar_usuario(form)
+
+        # Busca o usuário recém-criado.
+        usuario = Usuario.query.filter_by(
+            email=form.email.data
+        ).first()
+
+        if usuario is None:
+            flash(
+                "Não foi possível criar o administrador.",
+                "danger"
+            )
+
+            return render_template(
+                "cadastro.html",
+                form=form,
+                configurando_admin=True
+            )
+
+        # Promove para administrador.
+        usuario.tipo = "admin"
+        usuario.status_conta = "ativa"
+
+        db.session.commit()
+
+        flash(
+            "Administrador configurado com sucesso! Faça login.",
+            "success"
+        )
+
+        return redirect(
+            url_for("auth.login")
+        )
+
+    return render_template(
+        "cadastro.html",
+        form=form,
+        configurando_admin=True
+    )
 
 # =========================================================
 # CADASTRO
@@ -86,7 +157,6 @@ def cadastro():
 # =========================================================
 # LOGIN
 # =========================================================
-
 @auth.route(
     "/login",
     methods=["GET", "POST"]
@@ -95,13 +165,16 @@ def login():
 
     if current_user.is_authenticated:
 
+        if current_user.tipo == "admin":
+            return redirect(
+                url_for("admin.dashboard")
+            )
+
         return redirect(
             url_for("home.index")
         )
 
-
     form = LoginForm()
-
 
     if form.validate_on_submit():
 
@@ -109,11 +182,13 @@ def login():
             email=form.email.data
         ).first()
 
-
         if (
             usuario
             and usuario.status_conta == "ativa"
-            and autenticar_usuario(usuario, form.senha.data)
+            and autenticar_usuario(
+                usuario,
+                form.senha.data
+            )
         ):
 
             login_user(usuario)
@@ -123,23 +198,24 @@ def login():
                 "success"
             )
 
+            if usuario.tipo == "admin":
+                return redirect(
+                    url_for("admin.dashboard")
+                )
+
             return redirect(
                 url_for("home.index")
             )
-
 
         flash(
             "E-mail ou senha inválidos.",
             "danger"
         )
 
-
     return render_template(
         "login.html",
         form=form
     )
-
-
 # =========================================================
 # RECUPERAÇÃO - INFORMAR E-MAIL
 # =========================================================

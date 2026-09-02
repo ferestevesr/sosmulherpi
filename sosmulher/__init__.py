@@ -39,11 +39,33 @@ app.config["SESSION_COOKIE_SECURE"] = (
 # Limite único para anexos de denúncias; evita consumo excessivo de disco.
 app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024
 
-app.config["SQLALCHEMY_DATABASE_URI"] = (
-    "sqlite:///database.db"
-)
+# =========================================================
+# BANCO DE DADOS
+# =========================================================
+
+database_url = os.getenv("DATABASE_URL")
+
+# Render/PostgreSQL em produção
+if database_url:
+    # Compatibilidade caso a URL venha como postgres://
+    if database_url.startswith("postgres://"):
+        database_url = database_url.replace(
+            "postgres://",
+            "postgresql://",
+            1
+        )
+
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+
+# SQLite continua funcionando localmente
+else:
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+    "pool_pre_ping": True
+}
 
 
 # =========================================================
@@ -231,6 +253,33 @@ app.register_blueprint(perfil)
 app.register_blueprint(admin)
 
 
+
+
+# =========================================================
+# PRIMEIRO ACESSO - CRIAR ADMINISTRADOR
+# =========================================================
+
+@app.before_request
+def verificar_primeiro_admin():
+
+    # Não interfere com arquivos CSS, JS, imagens etc.
+    if request.endpoint == "static":
+        return
+
+    # A própria página de configuração precisa funcionar.
+    if request.endpoint == "auth.configurar_admin":
+        return
+
+    # Verifica se já existe administrador.
+    admin_existe = Usuario.query.filter_by(
+        tipo="admin"
+    ).first()
+
+    if not admin_existe:
+        return redirect(
+            url_for("auth.configurar_admin")
+        )
+    
 @app.before_request
 def encerrar_sessao_de_conta_indisponivel():
     """Impede que uma sessão antiga mantenha uma conta bloqueada ativa."""

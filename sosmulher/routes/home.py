@@ -1,10 +1,21 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import (
+    Blueprint,
+    render_template,
+    request,
+    jsonify,
+    redirect,
+    url_for
+)
+
 from flask_login import current_user, login_required
+
+from sosmulher import db
 
 from sosmulher.services.sos_service import (
     criar_pedido_sos,
     cancelar_pedido_sos
 )
+
 from sosmulher.models.pedido_sos import PedidoSOS
 from sosmulher.models.denuncia import Denuncia
 from sosmulher.models.atualizacao_denuncia import AtualizacaoDenuncia

@@ -2,10 +2,11 @@ from .usuario import Usuario
 from .denuncia import Denuncia
 from .localizacao import Localizacao
 from .atendimento import Atendimento
-from .contato_emergencia import ContatoEmergencia   
+from .contato_emergencia import ContatoEmergencia
 from .arquivo import Arquivo
 from .recuperacao_conta import RecuperacaoConta
 from .historico import Historico
 from .pedido_sos import PedidoSOS
 from .pedido_sos_contato import PedidoSOSContato
+from .atualizacao_denuncia import AtualizacaoDenuncia
 from .atualizacao_sos import AtualizacaoSOS

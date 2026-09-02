@@ -20,7 +20,8 @@ class Arquivo(db.Model):
         db.Enum(
             "imagem",
             "video",
-            "documento"
+            "documento",
+            name="arquivo_tipo_enum"
         ),
         nullable=False
     )

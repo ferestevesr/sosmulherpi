@@ -1,8 +1,8 @@
-"""Criar tabelas iniciais
+"""Estrutura inicial PostgreSQL
 
-Revision ID: cf3ba3daaf8f
+Revision ID: 5c72955c569f
 Revises: 
-Create Date: 2026-08-24 15:12:30.102395
+Create Date: 2026-09-02 15:00:29.449982
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'cf3ba3daaf8f'
+revision = '5c72955c569f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -25,8 +25,10 @@ def upgrade():
     sa.Column('senha', sa.String(length=255), nullable=False),
     sa.Column('cpf', sa.String(length=14), nullable=True),
     sa.Column('telefone', sa.String(length=20), nullable=True),
-    sa.Column('tipo', sa.Enum('user', 'admin'), nullable=False),
-    sa.Column('status_conta', sa.Enum('ativa', 'bloqueada', 'desativada'), nullable=False),
+    sa.Column('tipo', sa.Enum('user', 'admin', name='usuario_tipo_enum'), nullable=False),
+    sa.Column('status_conta', sa.Enum('ativa', 'bloqueada', 'desativada', name='usuario_status_conta_enum'), nullable=False),
+    sa.Column('aceitou_termos', sa.Boolean(), nullable=False),
+    sa.Column('data_aceite_termos', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id_usuario'),
     sa.UniqueConstraint('email')
     )
@@ -44,11 +46,11 @@ def upgrade():
     sa.Column('id_usuario', sa.Integer(), nullable=False),
     sa.Column('titulo', sa.String(length=100), nullable=False),
     sa.Column('descricao', sa.Text(), nullable=False),
-    sa.Column('tipo', sa.Enum('violencia_fisica', 'violencia_psicologica', 'violencia_sexual', 'assedio', 'ameaca', 'outro'), nullable=False),
+    sa.Column('tipo', sa.Enum('violencia_fisica', 'violencia_psicologica', 'violencia_sexual', 'assedio', 'ameaca', 'outro', name='denuncia_tipo_enum'), nullable=False),
     sa.Column('data', sa.DateTime(), nullable=True),
-    sa.Column('status', sa.Enum('pendente', 'em_andamento', 'finalizado', 'cancelado'), nullable=True),
+    sa.Column('status', sa.Enum('pendente', 'em_andamento', 'finalizado', 'cancelado', name='denuncia_status_enum'), nullable=True),
     sa.Column('anonimo', sa.Boolean(), nullable=True),
-    sa.Column('nivel_risco', sa.Enum('baixo', 'medio', 'alto', 'emergencia'), nullable=False),
+    sa.Column('nivel_risco', sa.Enum('baixo', 'medio', 'alto', 'emergencia', name='denuncia_nivel_risco_enum'), nullable=False),
     sa.ForeignKeyConstraint(['id_usuario'], ['Usuario.id_usuario'], ),
     sa.PrimaryKeyConstraint('id_denuncia')
     )
@@ -59,6 +61,9 @@ def upgrade():
     sa.Column('latitude', sa.Float(), nullable=False),
     sa.Column('longitude', sa.Float(), nullable=False),
     sa.Column('status', sa.String(length=30), nullable=False),
+    sa.Column('tipo_encaminhamento', sa.String(length=30), nullable=True),
+    sa.Column('data_encaminhamento', sa.DateTime(), nullable=True),
+    sa.Column('observacao_encaminhamento', sa.String(length=255), nullable=True),
     sa.ForeignKeyConstraint(['id_usuario'], ['Usuario.id_usuario'], ),
     sa.PrimaryKeyConstraint('id_sos')
     )
@@ -74,7 +79,7 @@ def upgrade():
     op.create_table('Arquivo',
     sa.Column('id_arquivo', sa.Integer(), nullable=False),
     sa.Column('id_denuncia', sa.Integer(), nullable=False),
-    sa.Column('tipo', sa.Enum('imagem', 'video', 'documento'), nullable=False),
+    sa.Column('tipo', sa.Enum('imagem', 'video', 'documento', name='arquivo_tipo_enum'), nullable=False),
     sa.Column('nome_arquivo', sa.String(length=255), nullable=False),
     sa.Column('data_envio', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['id_denuncia'], ['Denuncia.id_denuncia'], ),
@@ -90,6 +95,33 @@ def upgrade():
     sa.ForeignKeyConstraint(['id_admin'], ['Usuario.id_usuario'], ),
     sa.ForeignKeyConstraint(['id_denuncia'], ['Denuncia.id_denuncia'], ),
     sa.PrimaryKeyConstraint('id_atendimento')
+    )
+    op.create_table('AtualizacaoDenuncia',
+    sa.Column('id_atualizacao', sa.Integer(), nullable=False),
+    sa.Column('id_denuncia', sa.Integer(), nullable=False),
+    sa.Column('id_admin', sa.Integer(), nullable=False),
+    sa.Column('mensagem', sa.Text(), nullable=False),
+    sa.Column('tipo', sa.String(length=30), nullable=True),
+    sa.Column('status_anterior', sa.String(length=30), nullable=True),
+    sa.Column('status_novo', sa.String(length=30), nullable=True),
+    sa.Column('data', sa.DateTime(), nullable=True),
+    sa.Column('lida', sa.Boolean(), nullable=True),
+    sa.ForeignKeyConstraint(['id_admin'], ['Usuario.id_usuario'], ),
+    sa.ForeignKeyConstraint(['id_denuncia'], ['Denuncia.id_denuncia'], ),
+    sa.PrimaryKeyConstraint('id_atualizacao')
+    )
+    op.create_table('AtualizacaoSOS',
+    sa.Column('id_atualizacao', sa.Integer(), nullable=False),
+    sa.Column('id_sos', sa.Integer(), nullable=False),
+    sa.Column('id_admin', sa.Integer(), nullable=True),
+    sa.Column('mensagem', sa.Text(), nullable=False),
+    sa.Column('status_anterior', sa.String(length=30), nullable=True),
+    sa.Column('status_novo', sa.String(length=30), nullable=True),
+    sa.Column('data', sa.DateTime(), nullable=True),
+    sa.Column('lida', sa.Boolean(), nullable=True),
+    sa.ForeignKeyConstraint(['id_admin'], ['Usuario.id_usuario'], ),
+    sa.ForeignKeyConstraint(['id_sos'], ['PedidoSOS.id_sos'], ),
+    sa.PrimaryKeyConstraint('id_atualizacao')
     )
     op.create_table('Historico',
     sa.Column('id_historico', sa.Integer(), nullable=False),
@@ -132,6 +164,8 @@ def downgrade():
     op.drop_table('PedidoSOSContato')
     op.drop_table('Localizacao')
     op.drop_table('Historico')
+    op.drop_table('AtualizacaoSOS')
+    op.drop_table('AtualizacaoDenuncia')
     op.drop_table('Atendimento')
     op.drop_table('Arquivo')
     op.drop_table('RecuperacaoConta')

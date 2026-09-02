@@ -33,7 +33,8 @@ class Denuncia(db.Model):
             "violencia_sexual",
             "assedio",
             "ameaca",
-            "outro"
+            "outro",
+            name="denuncia_tipo_enum"
         ),
         nullable=False
     )
@@ -48,7 +49,8 @@ class Denuncia(db.Model):
             "pendente",
             "em_andamento",
             "finalizado",
-            "cancelado"
+            "cancelado",
+            name="denuncia_status_enum"
         ),
         default="pendente"
     )
@@ -63,7 +65,8 @@ class Denuncia(db.Model):
             "baixo",
             "medio",
             "alto",
-            "emergencia"
+            "emergencia",
+            name="denuncia_nivel_risco_enum"
         ),
         nullable=False
     )

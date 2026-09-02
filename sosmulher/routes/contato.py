@@ -96,7 +96,7 @@ def editar_contato(id):
     )
 
 
-@contato.route("/excluir-contato/<int:id>")
+@contato.route("/excluir-contato/<int:id>", methods=["POST"])
 @login_required
 def excluir(id):
 

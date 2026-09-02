@@ -56,8 +56,9 @@ class NovaSenhaForm(FlaskForm):
         validators=[
             DataRequired(),
             Length(
-                min=6,
-                message="A senha deve possuir pelo menos 6 caracteres."
+                min=8,
+                max=128,
+                message="A senha deve possuir entre 8 e 128 caracteres."
             )
         ]
     )

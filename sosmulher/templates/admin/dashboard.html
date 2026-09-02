@@ -286,4 +286,23 @@ Bem-vindo, {{ current_user.nome }}
 </section>
 
 
+<section class="admin-section dashboard-chart-section">
+    <div class="section-header">
+        <div>
+            <h2>Ocorrências nos últimos 7 dias</h2>
+            <div class="section-title"><p>Denúncias e alertas SOS registrados por dia.</p></div>
+        </div>
+    </div>
+    <div class="grafico-semanal" role="img" aria-label="Gráfico de ocorrências dos últimos sete dias">
+        {% for dia in grafico_dias %}
+            <div class="grafico-coluna">
+                <strong>{{ dia.quantidade }}</strong>
+                <div class="grafico-barra-area"><div class="grafico-barra" style="height: {{ (dia.quantidade / maximo_grafico * 100)|round(0) }}%"></div></div>
+                <span>{{ dia.rotulo }}</span>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+
 {% endblock %}

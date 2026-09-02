@@ -2,12 +2,13 @@ import os
 from datetime import timezone
 from zoneinfo import ZoneInfo
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, flash, jsonify, redirect, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import (
     LoginManager,
-    current_user
+    current_user,
+    logout_user
 )
 from flask_migrate import Migrate
 
@@ -26,7 +27,17 @@ app = Flask(__name__)
 # CONFIGURAÇÕES GERAIS
 # =========================================================
 
-app.config["SECRET_KEY"] = "sua_chave_secreta"
+# Em produção, defina SECRET_KEY no ambiente. O valor de reserva evita que
+# sessões possam ser forjadas quando a aplicação é executada localmente.
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY") or os.urandom(32)
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["SESSION_COOKIE_SECURE"] = (
+    os.getenv("SESSION_COOKIE_SECURE", "false").lower() == "true"
+)
+
+# Limite único para anexos de denúncias; evita consumo excessivo de disco.
+app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024
 
 app.config["SQLALCHEMY_DATABASE_URI"] = (
     "sqlite:///database.db"
@@ -94,6 +105,8 @@ from sosmulher.models.denuncia import Denuncia
 from sosmulher.models.atualizacao_denuncia import (
     AtualizacaoDenuncia
 )
+from sosmulher.models.pedido_sos import PedidoSOS
+from sosmulher.models.atualizacao_sos import AtualizacaoSOS
 
 
 # =========================================================
@@ -134,6 +147,16 @@ def notificacoes_globais():
                 Denuncia.id_usuario
                 == current_user.id_usuario,
                 AtualizacaoDenuncia.lida.is_(False)
+            )
+            .count()
+        )
+
+        notificacoes_nao_lidas += (
+            AtualizacaoSOS.query
+            .join(PedidoSOS, AtualizacaoSOS.id_sos == PedidoSOS.id_sos)
+            .filter(
+                PedidoSOS.id_usuario == current_user.id_usuario,
+                AtualizacaoSOS.lida.is_(False)
             )
             .count()
         )
@@ -206,3 +229,32 @@ app.register_blueprint(denuncia)
 app.register_blueprint(perfil)
 
 app.register_blueprint(admin)
+
+
+@app.before_request
+def encerrar_sessao_de_conta_indisponivel():
+    """Impede que uma sessão antiga mantenha uma conta bloqueada ativa."""
+    if (
+        current_user.is_authenticated
+        and current_user.status_conta != "ativa"
+        and request.endpoint != "static"
+    ):
+        logout_user()
+        flash(
+            "Esta conta não está disponível para acesso. Procure a administração.",
+            "warning"
+        )
+        return redirect(url_for("auth.login"))
+
+
+@app.errorhandler(413)
+def arquivo_muito_grande(erro):
+    """Retorna uma mensagem útil quando um anexo ultrapassa o limite."""
+    if request.path.startswith("/api/"):
+        return jsonify({
+            "sucesso": False,
+            "mensagem": "O anexo deve ter no máximo 10 MB."
+        }), 413
+
+    flash("O anexo deve ter no máximo 10 MB.", "danger")
+    return redirect(url_for("denuncia.denunciar"))

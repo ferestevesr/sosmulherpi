@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block titulo %}Minha área | SOSMulher{% endblock %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/minha_area.css') }}">
+{% endblock %}
+
+{% block body %}
+<main class="area-page">
+    <section class="area-hero">
+        <div>
+            <span class="area-kicker">ESPAÇO SEGURO</span>
+            <h1>Olá, {{ current_user.nome.split(' ')[0] }}</h1>
+            <p>Por aqui você acompanha suas solicitações e atualizações importantes.</p>
+        </div>
+        <a class="area-sos" href="{{ url_for('home.sos') }}"><img src="{{ url_for('static', filename='image/icons/emergencia.png') }}" alt="">Solicitar atendimento</a>
+    </section>
+
+    <section class="area-resumo" aria-label="Resumo dos seus chamados">
+        <article><span>Em atendimento</span><strong>{{ em_andamento }}</strong><small>solicitações em acompanhamento</small></article>
+        <article><span>Finalizados</span><strong>{{ finalizados }}</strong><small>solicitações concluídas</small></article>
+        <article><span>Atualizações</span><strong>{{ notificacoes_nao_lidas }}</strong><small>novas notificações</small></article>
+    </section>
+
+    <section class="area-section">
+        <div class="area-section-header">
+            <div><h2>Seus chamados</h2><p>Acompanhe o andamento das suas solicitações mais recentes.</p></div>
+            <a href="{{ url_for('denuncia.denuncias') }}">Ver minhas denúncias</a>
+        </div>
+
+        {% if itens_recentes %}
+            <div class="chamados-usuario">
+            {% for item in itens_recentes %}
+                <article class="chamado-usuario">
+                    <div class="chamado-identificacao"><span>{{ item.tipo }}</span><h3>#{{ '%04d'|format(item.id) }} · {{ item.titulo }}</h3></div>
+                    <span class="status-usuario {{ item.status }}">{{ item.status|replace('_', ' ')|title }}</span>
+                    <time>{{ item.data.strftime('%d/%m/%Y às %H:%M') }}</time>
+                    <a href="{{ item.url }}">Ver detalhes</a>
+                </article>
+            {% endfor %}
+            </div>
+        {% else %}
+            <div class="area-vazia"><img src="{{ url_for('static', filename='image/icons/information.png') }}" alt=""><h3>Nenhum chamado encontrado</h3><p>Quando você realizar uma solicitação, ela aparecerá aqui.</p><a href="{{ url_for('denuncia.denunciar') }}">Registrar denúncia</a></div>
+        {% endif %}
+    </section>
+
+    <section class="area-section area-notificacoes">
+        <div><h2>Notificações</h2><p>Veja mensagens e mudanças de status enviadas pela equipe.</p></div>
+        <a href="{{ url_for('denuncia.notificacoes') }}"><img src="{{ url_for('static', filename='image/icons/alerta.png') }}" alt="">Ver notificações{% if notificacoes_nao_lidas %} ({{ notificacoes_nao_lidas }}){% endif %}</a>
+    </section>
+</main>
+{% endblock %}

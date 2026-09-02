@@ -89,9 +89,9 @@ class CadastroForm(FlaskForm):
                 message="Crie uma senha."
             ),
             Length(
-                min=6,
-                max=255,
-                message="A senha deve possuir pelo menos 6 caracteres."
+                min=8,
+                max=128,
+                message="A senha deve possuir entre 8 e 128 caracteres."
             )
         ]
     )

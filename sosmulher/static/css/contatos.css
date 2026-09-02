@@ -397,6 +397,9 @@ body {
 .btn-excluir-contato {
     display: inline-block;
 
+    font-family: inherit;
+    cursor: pointer;
+
     padding: 9px 14px;
 
     border-radius: 10px;

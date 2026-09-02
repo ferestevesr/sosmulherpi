@@ -9,7 +9,7 @@ from wtforms import (
     SubmitField
 )
 
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, InputRequired
 
 
 class DenunciaForm(FlaskForm):
@@ -88,6 +88,11 @@ class DenunciaForm(FlaskForm):
 
     anonimo = BooleanField(
         "Denúncia Anônima"
+    )
+
+    confirmacao = BooleanField(
+        "Confirmo que as informações fornecidas são verdadeiras.",
+        validators=[InputRequired("Confirme as informações antes de enviar.")]
     )
 
     arquivo = FileField(

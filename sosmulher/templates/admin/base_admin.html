@@ -11,6 +11,13 @@ Painel Administrativo | SOSMulher
     href="{{ url_for('static', filename='css/admin.css') }}"
 >
 
+<style>
+@media (max-width: 700px) {
+    .admin-menu-toggle { display:flex; align-items:center; justify-content:center; }
+    .admin-menu-toggle img { width:23px; height:23px; object-fit:contain; filter:brightness(0) invert(1); }
+}
+</style>
+
 {% block admin_estilos %}
 {% endblock %}
 
@@ -19,6 +26,8 @@ Painel Administrativo | SOSMulher
 {% block body %}
 
 <div class="admin-layout">
+
+    <button class="admin-menu-toggle" type="button" aria-label="Abrir menu administrativo" aria-expanded="false"><img src="{{ url_for('static', filename='image/icons/painel-de-controle.png') }}" alt=""></button>
 
     <!-- ================================= -->
     <!-- MENU LATERAL -->
@@ -205,6 +214,10 @@ Painel Administrativo | SOSMulher
 
         </header>
 
+        <nav class="admin-breadcrumb" aria-label="Localização atual">
+            Administração / {{ request.endpoint.split('.')[-1]|replace('_', ' ')|title }}
+        </nav>
+
 
         <!-- ================================= -->
         <!-- CONTEÚDO ESPECÍFICO DA PÁGINA -->
@@ -218,5 +231,18 @@ Painel Administrativo | SOSMulher
     </main>
 
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const botao = document.querySelector(".admin-menu-toggle");
+    const sidebar = document.querySelector(".admin-sidebar");
+    if (botao && sidebar) {
+        botao.addEventListener("click", function () {
+            const aberto = sidebar.classList.toggle("aberta");
+            botao.setAttribute("aria-expanded", aberto);
+        });
+    }
+});
+</script>
 
 {% endblock %}

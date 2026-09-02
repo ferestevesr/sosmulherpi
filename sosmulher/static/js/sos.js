@@ -19,6 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
         cancelarUrl:
             sosConfigElemento
                 ? sosConfigElemento.dataset.cancelarUrl
+                : "",
+
+        statusUrl:
+            sosConfigElemento
+                ? sosConfigElemento.dataset.statusUrl
                 : ""
     };
 
@@ -363,6 +368,8 @@ document.addEventListener("DOMContentLoaded", function () {
             btnSOS.querySelector("span").textContent =
                 "ALERTA ATIVO";
 
+            acompanharStatus();
+
 
         } catch (erro) {
 
@@ -406,6 +413,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
+    }
+
+    async function acompanharStatus() {
+        if (!pedidoSosId || !SOS_CONFIG.statusUrl) {
+            return;
+        }
+
+        try {
+            const resposta = await fetch(
+                SOS_CONFIG.statusUrl.replace(/0$/, pedidoSosId)
+            );
+            const dados = await resposta.json();
+
+            if (resposta.ok && dados.sucesso) {
+                const texto = dados.status.replace("_", " ");
+                statusBadge.textContent = texto;
+                ajuda.textContent = texto;
+
+                if (dados.status === "finalizado" || dados.status === "cancelado") {
+                    pararLocalizacao();
+                } else {
+                    window.setTimeout(acompanharStatus, 30000);
+                }
+            }
+        } catch (erro) {
+            console.error("Não foi possível atualizar o status do SOS:", erro);
+        }
     }
 
 

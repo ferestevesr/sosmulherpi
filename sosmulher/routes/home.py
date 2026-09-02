@@ -5,6 +5,10 @@ from sosmulher.services.sos_service import (
     criar_pedido_sos,
     cancelar_pedido_sos
 )
+from sosmulher.models.pedido_sos import PedidoSOS
+from sosmulher.models.denuncia import Denuncia
+from sosmulher.models.atualizacao_denuncia import AtualizacaoDenuncia
+from sosmulher.models.atualizacao_sos import AtualizacaoSOS
 
 
 home = Blueprint("home", __name__)
@@ -17,6 +21,81 @@ home = Blueprint("home", __name__)
 @home.route("/")
 def index():
     return render_template("index.html")
+
+
+@home.route("/minha-area")
+@login_required
+def minha_area():
+    """Painel resumido da usuária com os atendimentos mais recentes."""
+    if current_user.tipo == "admin":
+        return redirect(url_for("admin.dashboard"))
+
+    denuncias = (
+        Denuncia.query
+        .filter_by(id_usuario=current_user.id_usuario)
+        .order_by(Denuncia.data.desc())
+        .all()
+    )
+    pedidos_sos = (
+        PedidoSOS.query
+        .filter_by(id_usuario=current_user.id_usuario)
+        .order_by(PedidoSOS.data_hora.desc())
+        .all()
+    )
+
+    itens_recentes = [
+        {
+            "id": denuncia.id_denuncia,
+            "titulo": denuncia.titulo,
+            "tipo": "Denúncia",
+            "status": denuncia.status,
+            "data": denuncia.data,
+            "url": url_for(
+                "denuncia.detalhes_denuncia",
+                id_denuncia=denuncia.id_denuncia
+            )
+        }
+        for denuncia in denuncias
+    ] + [
+        {
+            "id": pedido.id_sos,
+            "titulo": "Alerta SOS",
+            "tipo": "SOS",
+            "status": pedido.status,
+            "data": pedido.data_hora,
+            "url": url_for("perfil.perfil_page")
+        }
+        for pedido in pedidos_sos
+    ]
+    itens_recentes.sort(key=lambda item: item["data"], reverse=True)
+
+    em_andamento = sum(
+        item.status == "em_andamento" for item in denuncias
+    ) + sum(item.status == "em_andamento" for item in pedidos_sos)
+    finalizados = sum(
+        item.status == "finalizado" for item in denuncias
+    ) + sum(item.status == "finalizado" for item in pedidos_sos)
+
+    notificacoes_nao_lidas = (
+        AtualizacaoDenuncia.query
+        .join(Denuncia)
+        .filter(Denuncia.id_usuario == current_user.id_usuario)
+        .filter(AtualizacaoDenuncia.lida.is_(False))
+        .count()
+        + AtualizacaoSOS.query
+        .join(PedidoSOS)
+        .filter(PedidoSOS.id_usuario == current_user.id_usuario)
+        .filter(AtualizacaoSOS.lida.is_(False))
+        .count()
+    )
+
+    return render_template(
+        "minha_area.html",
+        itens_recentes=itens_recentes[:5],
+        em_andamento=em_andamento,
+        finalizados=finalizados,
+        notificacoes_nao_lidas=notificacoes_nao_lidas
+    )
 
 
 # =========================================================
@@ -111,6 +190,19 @@ def criar_sos_api():
             "mensagem": "Longitude inválida."
         }), 400
 
+    alerta_aberto = PedidoSOS.query.filter(
+        PedidoSOS.id_usuario == current_user.id_usuario,
+        PedidoSOS.status.in_(["ativo", "em_andamento"])
+    ).order_by(PedidoSOS.data_hora.desc()).first()
+
+    if alerta_aberto:
+        return jsonify({
+            "sucesso": False,
+            "mensagem": "Já existe um alerta SOS em acompanhamento.",
+            "id_sos": alerta_aberto.id_sos,
+            "status": alerta_aberto.status
+        }), 409
+
     try:
 
         pedido, quantidade_contatos = criar_pedido_sos(
@@ -130,6 +222,8 @@ def criar_sos_api():
     except Exception as erro:
 
         print("Erro ao criar pedido SOS:", erro)
+
+        db.session.rollback()
 
         return jsonify({
             "sucesso": False,
@@ -171,11 +265,17 @@ def cancelar_sos_api():
             current_user.id_usuario
         )
 
-        if not pedido:
+        if pedido is None:
             return jsonify({
                 "sucesso": False,
                 "mensagem": "Pedido SOS não encontrado."
             }), 404
+
+        if pedido is False:
+            return jsonify({
+                "sucesso": False,
+                "mensagem": "Este alerta já está em atendimento ou foi finalizado e não pode ser cancelado."
+            }), 409
 
         return jsonify({
             "sucesso": True,
@@ -188,7 +288,30 @@ def cancelar_sos_api():
 
         print("Erro ao cancelar pedido SOS:", erro)
 
+        db.session.rollback()
+
         return jsonify({
             "sucesso": False,
             "mensagem": "Não foi possível cancelar o alerta."
         }), 500
+
+
+@home.route("/api/sos/<int:id_sos>")
+@login_required
+def status_sos_api(id_sos):
+    """Permite à usuária acompanhar exclusivamente o próprio alerta."""
+    pedido = PedidoSOS.query.filter_by(
+        id_sos=id_sos,
+        id_usuario=current_user.id_usuario
+    ).first()
+
+    if pedido is None:
+        return jsonify({"sucesso": False, "mensagem": "Alerta não encontrado."}), 404
+
+    return jsonify({
+        "sucesso": True,
+        "id_sos": pedido.id_sos,
+        "status": pedido.status,
+        "atualizado_em": pedido.atualizacoes[-1].data.isoformat()
+        if pedido.atualizacoes else None
+    })

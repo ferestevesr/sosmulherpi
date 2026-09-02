@@ -1,0 +1,106 @@
+/* Camada visual comum: mantém todas as telas com a mesma identidade SOSMulher. */
+:root {
+  --sos-primary: #b52b78;
+  --sos-primary-dark: #8a1f5a;
+  --sos-accent: #7c4dce;
+  --sos-danger: #c5283d;
+  --sos-surface: #ffffff;
+  --sos-page: #faf7fa;
+  --sos-line: #eadde6;
+  --sos-text: #2d2029;
+  --sos-muted: #74616d;
+  --sos-shadow: 0 12px 30px rgba(82, 37, 66, .08);
+}
+
+body { background: var(--sos-page); color: var(--sos-text); }
+button, input, select, textarea { font-family: inherit; }
+button, .btn-detalhes-denuncia, .btn-denuncias, .perfil-botao, .btn-ver-mapa, .section-link, .chamado-button {
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+button:not(:disabled):hover, .btn-detalhes-denuncia:hover, .btn-denuncias:hover, .perfil-botao:hover, .btn-ver-mapa:hover, .section-link:hover, .chamado-button:hover {
+  transform: translateY(-2px);
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--sos-primary) !important;
+  box-shadow: 0 0 0 3px rgba(181, 43, 120, .13) !important;
+}
+
+/* Páginas da usuária */
+.perfil-page, .notificacoes-page, .contatos-page, .denuncia-page, .login-page, .cadastro-page, .area-page, .detalhe-page {
+  background: radial-gradient(circle at top right, rgba(181, 43, 120, .08), transparent 28%), var(--sos-page);
+}
+.perfil-card, .historico-sos, .notificacao-card, .notificacao-vazia, .contatos-container, .denuncia-card, .detalhe-card, .area-section, .area-resumo article {
+  border-color: var(--sos-line) !important;
+  box-shadow: var(--sos-shadow);
+}
+.perfil-header, .notificacoes-header, .denuncia-intro, .area-hero { position: relative; }
+.perfil-header h1, .notificacoes-header h1, .area-hero h1, .detalhe-hero h1 { color: var(--sos-text); }
+.perfil-card h2, .historico-sos h2, .notificacao-card h2, .detalhe-card h2, .area-section h2 { color: var(--sos-primary-dark); }
+.perfil-botao, .btn-denuncias, .btn-detalhes-denuncia, .btn-ver-mapa, .area-notificacoes > a {
+  border: 1px solid #dfc5d4;
+  border-radius: 10px;
+}
+.perfil-botao:hover, .btn-denuncias:hover, .btn-detalhes-denuncia:hover, .btn-ver-mapa:hover, .area-notificacoes > a:hover {
+  box-shadow: 0 8px 18px rgba(181, 43, 120, .13);
+}
+.notificacao-card { border-left: 4px solid var(--sos-primary); }
+.notificacao-icone, .icone-notificacao { color: transparent; font-size: 0; }
+.notificacao-icone::before, .icone-notificacao::before {
+  content: ""; display: inline-block; width: 30px; height: 30px;
+  background: url('../image/icons/alerta.png') center / contain no-repeat;
+}
+.notificacao-status strong { text-transform: capitalize; }
+.notificacao-vazia .icone-notificacao::before { width: 46px; height: 46px; }
+.notificacao-sino { display: inline-flex; align-items: center; }
+.notificacao-sino img { width: 20px; height: 20px; object-fit: contain; }
+.icone-titulo-contato { width: 30px; height: 30px; object-fit: contain; vertical-align: middle; }
+
+/* Formulários e mensagens de sistema */
+.formulario, .login-card, .cadastro-card, .contato-form, .perfil-card, .admin-section {
+  border-color: var(--sos-line) !important;
+}
+.toast { border-radius: 13px; box-shadow: 0 12px 30px rgba(60, 25, 46, .16); }
+.toast.success { border-left: 4px solid #2d9b59; }
+.toast.danger { border-left: 4px solid var(--sos-danger); }
+.toast.warning { border-left: 4px solid #d48612; }
+
+/* Painel administrativo */
+.admin-main { background: var(--sos-page); }
+.admin-sidebar { border-right-color: var(--sos-line); box-shadow: 4px 0 18px rgba(63, 30, 52, .035); }
+.admin-header { padding-bottom: 20px; border-bottom: 1px solid var(--sos-line); }
+.admin-card, .summary-card, .admin-section { border-color: var(--sos-line) !important; box-shadow: var(--sos-shadow); }
+.admin-card:hover, .summary-card:hover, .report-row:hover, .chamado-row:hover { box-shadow: 0 10px 22px rgba(82, 37, 66, .09); }
+.admin-filter-form input, .admin-filter-form select { border: 1px solid var(--sos-line); border-radius: 9px; background: #fff; }
+.admin-filter-form button, .btn-exportar, .btn-imprimir { border-radius: 9px; }
+.users-table-container, .chamados-list { border-radius: 12px; }
+
+/* Os detalhes administrativos usam os mesmos ícones locais, sem emojis. */
+.atendimento-icon, .alerta-icon, .card-header-icon, .acao-icon {
+  color: transparent !important;
+  font-size: 0 !important;
+  background: #fff0fa url('../image/icons/information.png') center / 23px no-repeat;
+}
+.atendimento-icon, .acao-icon { background-image: url('../image/icons/servico-de-atendimento-ao-consumidor.png'); }
+.alerta-icon { background-image: url('../image/icons/alerta.png'); }
+.risco-card .card-header-icon { background-image: url('../image/icons/warning.png'); }
+
+@media (max-width: 700px) {
+  .header-content { align-items: flex-start; }
+  .nav { justify-content: flex-start; width: 100%; }
+  .nav a { min-height: 34px; display: inline-flex; align-items: center; }
+  .perfil-container, .notificacoes-container, .contatos-container { border-radius: 16px; }
+  .users-table thead { display: none; }
+  .users-table, .users-table tbody, .users-table tr, .users-table td { display: block; width: 100%; }
+  .users-table tr { padding: 14px; margin-bottom: 12px; border: 1px solid var(--sos-line); border-radius: 14px; background: #fff; }
+  .users-table td { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 8px 0; border: 0; }
+  .users-table td::before { color: var(--sos-muted); font-size: 12px; font-weight: 700; }
+  .users-table td:nth-child(2)::before { content: "E-mail"; }
+  .users-table td:nth-child(3)::before { content: "Tipo"; }
+  .users-table td:nth-child(4)::before { content: "Status"; }
+  .users-table td:nth-child(5)::before { content: "ID"; }
+  .users-table td:nth-child(6)::before { content: "Chamados"; }
+  .report-row, .chamado-row { border: 1px solid var(--sos-line); border-radius: 13px; padding: 15px; margin-bottom: 10px; background: #fff; }
+  .admin-filter-form { align-items: stretch; }
+  .admin-filter-form input, .admin-filter-form select, .admin-filter-form button { width: 100%; }
+}

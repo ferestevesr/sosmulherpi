@@ -159,19 +159,16 @@ Contatos de Emergência
                                 </a>
 
 
-                                <a
-                                    href="{{ url_for(
-                                        'contato.excluir',
-                                        id=contato.id_contato
-                                    ) }}"
-                                    class="btn-excluir-contato"
+                                <form
+                                    method="POST"
+                                    action="{{ url_for('contato.excluir', id=contato.id_contato) }}"
+                                    onsubmit="return confirm('Deseja excluir este contato de emergência?');"
                                 >
-
-                                    <i class="fa-solid fa-trash"></i>
-
-                                    Excluir
-
-                                </a>
+                                    <button type="submit" class="btn-excluir-contato">
+                                        <i class="fa-solid fa-trash"></i>
+                                        Excluir
+                                    </button>
+                                </form>
 
 
                             </div>

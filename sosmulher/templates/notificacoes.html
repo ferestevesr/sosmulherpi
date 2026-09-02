@@ -130,6 +130,22 @@ SOSMulher | Notificações
 
     </div>
 
+    {% if atualizacoes_sos %}
+        <section class="notificacoes-lista" aria-label="Atualizações de SOS">
+            <h2>Atualizações de SOS</h2>
+            {% for atualizacao in atualizacoes_sos %}
+                <div class="notificacao-card">
+                    <div class="notificacao-titulo">
+                        <h3>Alerta SOS #{{ "%06d"|format(atualizacao.id_sos) }}</h3>
+                        <span class="notificacao-data">{{ atualizacao.data.strftime('%d/%m/%Y às %H:%M') }}</span>
+                    </div>
+                    <div class="notificacao-mensagem">{{ atualizacao.mensagem }}</div>
+                    <a href="{{ url_for('perfil.perfil_page') }}" class="btn-denuncias">Ver histórico de SOS</a>
+                </div>
+            {% endfor %}
+        </section>
+    {% endif %}
+
 </main>
 
 {% endblock %}

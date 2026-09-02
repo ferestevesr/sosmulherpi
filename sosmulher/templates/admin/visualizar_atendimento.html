@@ -627,8 +627,8 @@ Visualização detalhada e acompanhamento da denúncia.
 
                             <img
                                 src="{{ url_for(
-                                    'static',
-                                    filename='uploads/' ~ arquivo.nome_arquivo
+                                    'denuncia.arquivo',
+                                    id_arquivo=arquivo.id_arquivo
                                 ) }}"
                                 alt="Evidência enviada"
                             >
@@ -639,8 +639,8 @@ Visualização detalhada e acompanhamento da denúncia.
 
                                 <source
                                     src="{{ url_for(
-                                        'static',
-                                        filename='uploads/' ~ arquivo.nome_arquivo
+                                        'denuncia.arquivo',
+                                        id_arquivo=arquivo.id_arquivo
                                     ) }}"
                                 >
 
@@ -663,8 +663,8 @@ Visualização detalhada e acompanhamento da denúncia.
 
                             <a
                                 href="{{ url_for(
-                                    'static',
-                                    filename='uploads/' ~ arquivo.nome_arquivo
+                                    'denuncia.arquivo',
+                                    id_arquivo=arquivo.id_arquivo
                                 ) }}"
                                 target="_blank"
                                 rel="noopener noreferrer"

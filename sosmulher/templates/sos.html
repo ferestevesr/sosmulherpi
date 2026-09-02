@@ -634,6 +634,7 @@ SOS | SOSMulher
     data-autenticado="{{ '1' if current_user.is_authenticated else '0' }}"
     data-criar-url="{{ url_for('home.criar_sos_api') }}"
     data-cancelar-url="{{ url_for('home.cancelar_sos_api') }}"
+    data-status-url="{{ url_for('home.status_sos_api', id_sos=0) }}"
     hidden
 ></div>
 

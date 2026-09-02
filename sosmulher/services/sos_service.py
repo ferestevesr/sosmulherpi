@@ -61,6 +61,9 @@ def cancelar_pedido_sos(id_sos, id_usuario):
     if pedido is None:
         return None
 
+    if pedido.status != "ativo":
+        return False
+
 
     pedido.status = "cancelado"
 

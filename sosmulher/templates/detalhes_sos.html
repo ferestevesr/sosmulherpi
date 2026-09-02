@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block titulo %}Alerta SOS #{{ pedido.id_sos }} | SOSMulher{% endblock %}
+{% block estilos %}<link rel="stylesheet" href="{{ url_for('static', filename='css/detalhes_denuncia.css') }}"><style>.detalhe-voltar:before{content:"‹";margin-right:7px}</style>{% endblock %}
+{% block body %}
+<main class="detalhe-page">
+<nav class="detalhe-breadcrumb">Minha área / Alertas SOS / #{{ '%04d'|format(pedido.id_sos) }}</nav>
+<section class="detalhe-hero"><div><span>ALERTA SOS #{{ '%04d'|format(pedido.id_sos) }}</span><h1>Solicitação de atendimento</h1><p>Registrada em {{ pedido.data_hora.strftime('%d/%m/%Y às %H:%M') }}</p></div><strong class="detalhe-status {{ pedido.status }}">{{ pedido.status|replace('_', ' ')|title }}</strong></section>
+<div class="detalhe-grid"><section class="detalhe-card"><h2>Informações do alerta</h2><dl><div><dt>Contatos vinculados</dt><dd>{{ pedido.contatos|length }}</dd></div><div><dt>Encaminhamento</dt><dd>{{ pedido.observacao_encaminhamento or 'Ainda não informado' }}</dd></div></dl><h3>Localização registrada</h3><p class="detalhe-descricao">Latitude: {{ '%.5f'|format(pedido.latitude) }}<br>Longitude: {{ '%.5f'|format(pedido.longitude) }}</p><a class="btn-detalhes-denuncia" target="_blank" rel="noopener" href="https://www.google.com/maps?q={{ pedido.latitude }},{{ pedido.longitude }}">Ver no mapa</a></section><section class="detalhe-card"><h2>Acompanhamento</h2><ol class="timeline"><li class="concluido"><span></span><div><strong>Alerta registrado</strong><small>{{ pedido.data_hora.strftime('%d/%m/%Y às %H:%M') }}</small></div></li>{% for atualizacao in atualizacoes %}<li class="{% if atualizacao.status_novo == 'finalizado' %}concluido{% else %}atual{% endif %}"><span></span><div><strong>{{ atualizacao.mensagem }}</strong><small>{{ atualizacao.data.strftime('%d/%m/%Y às %H:%M') }}</small></div></li>{% else %}<li class="atual"><span></span><div><strong>Aguardando atendimento</strong><small>A equipe será notificada sobre este alerta.</small></div></li>{% endfor %}</ol></section></div>
+<a class="detalhe-voltar" href="{{ url_for('perfil.perfil_page') }}">Voltar ao histórico de SOS</a>
+</main>
+{% endblock %}

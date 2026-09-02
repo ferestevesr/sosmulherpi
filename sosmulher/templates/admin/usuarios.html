@@ -133,6 +133,14 @@ Gerencie os usuários cadastrados no SOSMulher.
     </div>
 
 
+    <form method="GET" class="admin-filter-form" role="search">
+        <label for="busca-usuario">Buscar usuário</label>
+        <input id="busca-usuario" name="busca" value="{{ busca|default('') }}" placeholder="Nome, e-mail ou ID">
+        <button type="submit">Buscar</button>
+        {% if busca %}<a href="{{ url_for('admin.usuarios') }}">Limpar</a>{% endif %}
+    </form>
+
+
     {% if usuarios %}
 
 
@@ -163,6 +171,10 @@ Gerencie os usuários cadastrados no SOSMulher.
 
                         <th>
                             ID
+                        </th>
+
+                        <th>
+                            Chamados
                         </th>
 
                     </tr>
@@ -207,7 +219,6 @@ Gerencie os usuários cadastrados no SOSMulher.
                                 </div>
 
                             </td>
-
 
                             <!-- EMAIL -->
 
@@ -300,6 +311,10 @@ Gerencie os usuários cadastrados no SOSMulher.
 
                                 </span>
 
+                            </td>
+
+                            <td>
+                                {{ usuario.denuncias|length }}
                             </td>
 
 

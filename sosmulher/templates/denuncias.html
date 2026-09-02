@@ -87,6 +87,13 @@ Minhas Denúncias
             </p>
 
 
+            <a
+                href="{{ url_for('denuncia.detalhes_denuncia', id_denuncia=denuncia.id_denuncia) }}"
+                class="btn-detalhes-denuncia"
+            >
+                Acompanhar chamado
+            </a>
+
             {% if denuncia.arquivos %}
 
                 <h3>
@@ -109,8 +116,8 @@ Minhas Denúncias
 
                             <img
                                 src="{{ url_for(
-                                    'static',
-                                    filename='uploads/' + arquivo.nome_arquivo
+                                    'denuncia.arquivo',
+                                    id_arquivo=arquivo.id_arquivo
                                 ) }}"
                                 alt="Evidência da denúncia"
                             >
@@ -132,8 +139,8 @@ Minhas Denúncias
 
                                 <source
                                     src="{{ url_for(
-                                        'static',
-                                        filename='uploads/' + arquivo.nome_arquivo
+                                        'denuncia.arquivo',
+                                        id_arquivo=arquivo.id_arquivo
                                     ) }}"
                                     type="video/mp4"
                                 >
@@ -157,8 +164,8 @@ Minhas Denúncias
 
                             <a
                                 href="{{ url_for(
-                                    'static',
-                                    filename='uploads/' + arquivo.nome_arquivo
+                                    'denuncia.arquivo',
+                                    id_arquivo=arquivo.id_arquivo
                                 ) }}"
                                 target="_blank"
                             >

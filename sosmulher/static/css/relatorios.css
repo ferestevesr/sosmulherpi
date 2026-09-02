@@ -7,7 +7,7 @@
    SEÇÕES DE RELATÓRIO
    ========================================= */
 
-   .admin-section {
+.admin-section {
     margin-bottom: 30px;
 }
 
@@ -181,3 +181,7 @@
     }
 
 }
+
+.relatorio-filtros { margin-bottom: 24px; }
+.btn-exportar, .btn-imprimir { padding: .6rem .85rem; border: 1px solid #d9bad0; border-radius: 8px; color: #8b285f; background: #fff; font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; }
+@media print { .admin-sidebar, .admin-header, .relatorio-filtros, .voltar-container { display: none !important; } .admin-main { margin: 0; padding: 0; } .admin-section, .admin-card { break-inside: avoid; box-shadow: none; } }

@@ -457,3 +457,22 @@
       border-radius: 18px;
   }
 }
+
+.etapa-formulario {
+  margin: 4px 0 -8px;
+  color: #8b285f;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.confirmacao-denuncia {
+  padding: 14px;
+  border: 1px solid #f0dce9;
+  border-radius: 12px;
+  background: #fffafd;
+}
+
+.erro-formulario {
+  color: #bd2338;
+  font-weight: 600;
+}

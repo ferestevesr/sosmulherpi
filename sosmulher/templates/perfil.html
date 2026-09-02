@@ -98,7 +98,7 @@ Meu Perfil | SOSMulher
 
                         {% if current_user.cpf %}
 
-                            {{ current_user.cpf }}
+                            ***.***.***-{{ current_user.cpf[-2:] }}
 
                         {% else %}
 
@@ -416,6 +416,10 @@ Meu Perfil | SOSMulher
 
 
                             </div>
+
+                            <a href="{{ url_for('perfil.detalhes_sos', id_sos=pedido.id_sos) }}" class="btn-ver-mapa">
+                                Acompanhar alerta
+                            </a>
 
 
                             <!-- =================================

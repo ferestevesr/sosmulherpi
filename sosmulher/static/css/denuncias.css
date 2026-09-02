@@ -441,3 +441,15 @@ body {
     }
 
 }
+
+.btn-detalhes-denuncia {
+    display: inline-block;
+    margin: 4px 0 8px;
+    padding: 10px 14px;
+    border: 1px solid #d9bad0;
+    border-radius: 10px;
+    color: #8b285f;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+}

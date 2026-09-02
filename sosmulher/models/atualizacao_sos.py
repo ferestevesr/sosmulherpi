@@ -48,3 +48,5 @@ class AtualizacaoSOS(db.Model):
         db.Boolean,
         default=False
     )
+
+    admin = db.relationship("Usuario")

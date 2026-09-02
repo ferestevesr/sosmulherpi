@@ -60,6 +60,8 @@ Denúncia | SOSMulher
 
             {{ form.hidden_tag() }}
 
+            <p class="etapa-formulario">1 — Informações da ocorrência</p>
+
             <div class="input-group">
 
                 <label for="nome">Nome</label>
@@ -108,6 +110,8 @@ Denúncia | SOSMulher
 
             </div>
 
+            <p class="etapa-formulario">2 — Detalhes e anexos</p>
+
             <div class="input-group">
 
                 {{ form.descricao.label }}
@@ -129,9 +133,17 @@ Denúncia | SOSMulher
                     Fotos, vídeos ou documentos.
                 </p>
 
-                {{ form.arquivo() }}
+                {{ form.arquivo(accept=".jpg,.jpeg,.png,.mp4,.pdf,.doc,.docx") }}
 
             </div>
+
+            <div class="checkbox-group confirmacao-denuncia">
+                {{ form.confirmacao(id="confirmacao") }}
+                {{ form.confirmacao.label(for="confirmacao") }}
+            </div>
+            {% for erro in form.confirmacao.errors %}
+                <small class="erro-formulario">{{ erro }}</small>
+            {% endfor %}
 
           
 

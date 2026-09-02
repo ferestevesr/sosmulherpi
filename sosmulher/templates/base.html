@@ -36,6 +36,11 @@
     {% block estilos %}
     {% endblock %}
 
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/design_system.css') }}"
+    >
+
 </head>
 
 
@@ -93,6 +98,14 @@
 
                 {% if current_user.is_authenticated %}
 
+                    {% if current_user.tipo != "admin" %}
+
+                    <a href="{{ url_for('home.minha_area') }}">
+                        Minha área
+                    </a>
+
+                    {% endif %}
+
                     <a href="{{ url_for('perfil.perfil_page') }}">
                         Perfil
                     </a>
@@ -112,7 +125,10 @@
                         aria-label="Notificações"
                     >
                         <span class="notificacao-sino">
-                            🔔
+                            <img
+                                src="{{ url_for('static', filename='image/icons/alerta.png') }}"
+                                alt=""
+                            >
                         </span>
                 
                         {% if qtd_notificacoes > 0 %}
@@ -277,6 +293,17 @@
             }
         );
 
+    </script>
+
+    <script>
+        document.addEventListener("submit", function (event) {
+            const formulario = event.target;
+            const botao = formulario.querySelector('button[type="submit"], input[type="submit"]');
+            if (!botao || !formulario.checkValidity()) return;
+            if (botao.tagName === "INPUT") botao.value = "Enviando...";
+            else botao.textContent = "Enviando...";
+            botao.disabled = true;
+        });
     </script>
 
 

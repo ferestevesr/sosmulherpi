@@ -168,6 +168,19 @@
         <!-- LISTA -->
         <!-- ================================= -->
 
+        <form method="GET" class="admin-filter-form">
+            <label for="busca">Protocolo</label>
+            <input id="busca" name="busca" value="{{ busca }}" inputmode="numeric">
+            <label for="status">Status</label>
+            <select id="status" name="status">
+                <option value="">Todos</option>
+                {% for valor, nome in [("ativo", "Ativo"), ("em_andamento", "Em andamento"), ("finalizado", "Finalizado"), ("cancelado", "Cancelado")] %}
+                    <option value="{{ valor }}" {% if filtro_status == valor %}selected{% endif %}>{{ nome }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Filtrar</button>
+        </form>
+
         <div class="chamados-list">
 
             {% if chamados %}
@@ -210,7 +223,7 @@
                         </span>
         
                         <span class="risco-badge">
-                            {{ chamado.nivel_risco }}
+                            {{ chamado.nivel_risco|default("Não informado", true) }}
                         </span>
         
                     </div>
@@ -304,6 +317,18 @@
             {% endif %}
         
         </div>
+
+        {% if chamados_paginados.pages > 1 %}
+            <nav class="admin-pagination" aria-label="Paginação de chamados">
+                {% if chamados_paginados.has_prev %}
+                    <a href="{{ url_for('admin.chamados', pagina=chamados_paginados.prev_num, status=filtro_status, busca=busca) }}">Anterior</a>
+                {% endif %}
+                <span>Página {{ chamados_paginados.page }} de {{ chamados_paginados.pages }}</span>
+                {% if chamados_paginados.has_next %}
+                    <a href="{{ url_for('admin.chamados', pagina=chamados_paginados.next_num, status=filtro_status, busca=busca) }}">Próxima</a>
+                {% endif %}
+            </nav>
+        {% endif %}
 
     </section>
 

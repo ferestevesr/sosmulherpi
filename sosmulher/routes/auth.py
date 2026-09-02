@@ -110,9 +110,10 @@ def login():
         ).first()
 
 
-        if usuario and autenticar_usuario(
-            usuario,
-            form.senha.data
+        if (
+            usuario
+            and usuario.status_conta == "ativa"
+            and autenticar_usuario(usuario, form.senha.data)
         ):
 
             login_user(usuario)
@@ -153,6 +154,9 @@ def recuperar_conta():
 
 
     if form.validate_on_submit():
+
+        # Uma nova solicitação sempre começa sem tentativas anteriores.
+        session.pop("recuperacao_tentativas", None)
 
         usuario = Usuario.query.filter_by(
             email=form.email.data
@@ -296,6 +300,15 @@ def verificar_codigo():
 
     if form.validate_on_submit():
 
+        tentativas = session.get("recuperacao_tentativas", 0)
+
+        if tentativas >= 5:
+            session.pop("recuperacao_id", None)
+            session.pop("codigo_validado", None)
+            session.pop("recuperacao_tentativas", None)
+            flash("Muitas tentativas. Solicite um novo código.", "warning")
+            return redirect(url_for("auth.recuperar_conta"))
+
         if validar_codigo_recuperacao(
             recuperacao,
             form.codigo.data
@@ -304,6 +317,7 @@ def verificar_codigo():
             session[
                 "codigo_validado"
             ] = True
+            session.pop("recuperacao_tentativas", None)
 
 
             return redirect(
@@ -312,6 +326,8 @@ def verificar_codigo():
                 )
             )
 
+
+        session["recuperacao_tentativas"] = tentativas + 1
 
         flash(
             "Código inválido ou expirado.",
@@ -375,6 +391,10 @@ def nova_senha():
             "codigo_validado",
             None
         )
+        session.pop(
+            "recuperacao_tentativas",
+            None
+        )
 
         return redirect(
             url_for(
@@ -416,6 +436,11 @@ def nova_senha():
 
         session.pop(
             "codigo_validado",
+            None
+        )
+
+        session.pop(
+            "recuperacao_tentativas",
             None
         )
 

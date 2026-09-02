@@ -80,5 +80,12 @@ class PedidoSOS(db.Model):
         cascade="all, delete-orphan"
     )
 
+    atualizacoes = db.relationship(
+        "AtualizacaoSOS",
+        backref="pedido_sos",
+        lazy=True,
+        cascade="all, delete-orphan"
+    )
+
     def __repr__(self):
         return f"<PedidoSOS {self.id_sos} - {self.status}>"
